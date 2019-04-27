@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: baby main
+# key: baby
+# contributor: K Gopal Krishna
+# --
+package main
+
+import "fmt"
+
+main$0
