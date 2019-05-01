@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-custom-id
+# key: pr
+# --
+:PROPERTIES:
+:CUSTOM_ID: $0
+:END:
