@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: org-nix-tangle
-# key: nis
-# --
-nix :tangle machines/${1:$$(yas-choose-value '("laptops/lenovo-x1c6" "laptops/dell-i7577" "servers/hetzner-ex62" "servers/hetzner-sx62" "servers/kimsufi-ks4c"))}/configuration.nix
