@@ -2,10 +2,6 @@
 #+AUTHOR: K Gopal Krishna
 #+OPTIONS: toc:2
 
-* Bootstrap Package Management
-:PROPERTIES:
-:CUSTOM_ID: bootstrap
-:END:
 #+BEGIN_QUOTE
 Let us change our traditional attitude to the construction
 of programs. Instead of imagining that our main task is to
@@ -15,6 +11,11 @@ do.
 
 --- /Donald Knuth/
 #+END_QUOTE
+
+* Bootstrap Package Management
+:PROPERTIES:
+:CUSTOM_ID: bootstrap
+:END:
 ** Repositories
 :PROPERTIES:
 :CUSTOM_ID: repositories
