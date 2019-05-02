@@ -1,20 +1,7 @@
 #+TITLE: DotEmacs
 #+AUTHOR: K Gopal Krishna
+#+OPTIONS: toc:2
 
-* Table of Content :TOC:
-- [[#bootstrap][Bootstrap]]
-  - [[#repositories][Repositores]]
-  - [[#use-package][Use Package]]
-- [[#better-defaults][Better Defaults]]
-  - [[#remove-elements][Remove Intrusive Elements]]
-  - [[#default-values][Default Values]]
-  - [[#default-modes][Default Modes]]
-  - [[Speed up Emacs]]
-- [[#evil][Going Evil]]
-- [[#keybindings][Keybindings]]
-- [[#utility][Utility]]
-- [[#language-support][Language Support]]
-- [[User Interface]]
 * Bootstrap Package Management
 :PROPERTIES:
 :CUSTOM_ID: bootstrap
@@ -162,6 +149,8 @@ issues.
    uniquify-buffer-name-style 'forward          ; Set buffer name style for files that have same base folder
    window-combination-resize t                  ; Resize windows proportionally
    x-stretch-cursor t)                          ; Stretch cursor to the glypth width
+
+  (add-to-list 'exec-path "/home/yozu/.local/bin")
 #+END_SRC
 *** Set default modes
 :PROPERTIES:
@@ -179,16 +168,30 @@ issues.
   (show-paren-mode)                             ; Show matching parentheses
 #+END_SRC
 ** TODO Mode-line tweaks:
+:PROPERTIES:
+:CUSTOM_ID: mode-line-tweaks
+:END:
+#+BEGIN_SRC emacs-lisp
+  ;; Don’t compact font caches during GC.
+  (setq inhibit-compacting-font-caches t)
+#+END_SRC
 ** Speed up Emacs
 *** Garbage-collect
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'focus-out-hook #'garbage-collect)
+  (setq gc-cons-threshold 2000000)
 #+END_SRC
 *** Custom.el
 #+BEGIN_SRC emacs-lisp
   (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
   (when (file-exists-p custom-file)
     (load custom-file))
+#+END_SRC
+*** Profiler
+:PROPERTIES:
+:CUSTOM_ID: profiler
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package esup)
 #+END_SRC
 * Going Evil
 :PROPERTIES:
@@ -262,308 +265,4 @@ issues.
     "w-"  '(split-window-below :which-key "split bottom")
     "wx"  '(delete-window :which-key "delete window")
   ))
-#+END_SRC
-* Utility
- #+BEGIN_SRC emacs-lisp
-   ;; Helm
-   (use-package helm
-     :init
-       ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-       ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-       ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-       ;;  (global-set-key (kbd "M-x") 'helm-M-x)
-       ;; (global-set-key (kbd "C-h f") 'helm-find-files)
-       ;; (global-set-key (kbd "C-h b") 'helm-buffers-list)
-       ;; (global-set-key (kbd "C-h o") 'helm-occur)
-       ;; (global-set-key (kbd "C-h a") 'helm-apropos)
-       ;; (global-set-key (kbd "C-h m") 'helm-man-woman)
-       ;; (global-set-key (kbd "C-h e") 'helm-info-emacs)
-       ;; (global-set-key (kbd "C-h t") 'helm-world-time)
-       ;; (global-unset-key (kbd "C-x c"))
-     :config
-       ; rebind tab to run persistent action
-       (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-       ; make TAB work in terminal
-       (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-       ; list actions using C-z
-       (define-key helm-map (kbd "C-z")  'helm-select-action)
-       ; open helm buffer inside current window, don't occupy the entire other window
-       (setq helm-split-window-in-side-p t)
-       ; move to end or beginning of source when reaching top or bottom of source.
-       (setq helm-move-to-line-cycle-in-source t)
-       ; resume last helm session
-       (global-set-key (kbd "C-M-z") #'helm-resume)
-       ;; These numbers are percentages
-       (setq helm-autoresize-min-height 10
-         helm-autoresize-max-height 30)
-       ;; Fuzzy matching
-       (setq helm-recentf-fuzzy-match t
-         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
-         helm-M-x-fuzzy-match t
-         helm-buffers-fuzzy-matching t
-         helm-semantic-fuzzy-match t
-         helm-apropos-fuzzy-match t
-         helm-imenu-fuzzy-match t
-         helm-lisp-fuzzy-completion t
-         helm-completion-in-region-fuzzy-match t)
-       (helm-mode 1))
-
-   ;; Which Key
-   (use-package which-key
-     :init
-     (setq which-key-separator " ")
-     (setq which-key-prefix-prefix "+")
-     :config
-     (which-key-mode 1))
-   (use-package treemacs
-     :config
-     (progn
-       (setq treemacs-collapse-dirs                 (if (executable-find "python") 3 0)
-             treemacs-deferred-git-apply-delay      0.5
-             treemacs-display-in-side-window        t
-             treemacs-file-event-delay              5000
-             treemacs-file-follow-delay             0.2
-             treemacs-follow-after-init             t
-             treemacs-git-command-pipe              ""
-             treemacs-goto-tag-strategy             'refetch-index
-             treemacs-indentation                   2
-             treemacs-indentation-string            " "
-             treemacs-is-never-other-window         nil
-             treemacs-max-git-entries               5000
-             treemacs-no-png-images                 nil
-             treemacs-no-delete-other-windows       t
-             treemacs-project-follow-cleanup        nil
-             treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-             treemacs-recenter-distance             0.1
-             treemacs-recenter-after-file-follow    nil
-             treemacs-recenter-after-tag-follow     nil
-             treemacs-recenter-after-project-jump   'always
-             treemacs-recenter-after-project-expand 'on-distance
-             treemacs-show-cursor                   nil
-             treemacs-show-hidden-files             t
-             treemacs-silent-filewatch              nil
-             treemacs-silent-refresh                nil
-             treemacs-sorting                       'alphabetic-desc
-             treemacs-space-between-root-nodes      t
-             treemacs-tag-follow-cleanup            t
-             treemacs-tag-follow-delay              1.5
-             treemacs-width                         25)
-
-       ;; The default width and height of the icons is 22 pixels. If you are
-       ;; using a Hi-DPI display, uncomment this to double the icon size.
-       (treemacs-resize-icons 44)
-
-       (treemacs-follow-mode t)
-       (treemacs-filewatch-mode t)
-       (treemacs-fringe-indicator-mode t)
-       (pcase (cons (not (null (executable-find "git")))
-                    (not (null (executable-find "python3"))))
-         (`(t . t)
-          (treemacs-git-mode 'deferred))
-         (`(t . _)
-          (treemacs-git-mode 'simple))))
-     :bind
-     (:map global-map
-           ("M-0"       . treemacs-select-window)
-           ("C-x t 1"   . treemacs-delete-other-windows)
-           ("C-x t t"   . treemacs)
-           ("C-x t B"   . treemacs-bookmark)
-           ("C-x t C-t" . treemacs-find-file)
-           ("C-x t M-t" . treemacs-find-tag)))
-
-   (use-package treemacs-evil
-     :after treemacs
-     )
-
-
-   (use-package dashboard
-     :config
-     (dashboard-setup-startup-hook))
-   ;; Use Dashboard as initial buffer
-   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-
-   ;; git
-   (use-package magit
-     :config
-     (setq vc-handled-backends nil))
-
-   ;; org-mode
-   (use-package org
-     :config
-     (org-babel-do-load-languages
-       'org-babel-load-languages
-         '((shell . t)
-           (emacs-lisp . t)))
-     (org-indent-mode)
-     (org-bullets-mode))
-
-   (use-package evil-org
-     :config
-     (evil-org-mode))
-
-   (use-package ob-go)
-   (use-package org-bullets)
-   (use-package org-re-reveal-ref
-     :ensure t
-     :config
-     (setq org-re-reveal-root "file:///home/yozu/test/reveal.js"))
-
-   ;; Backups
-   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-
-   ;; Edit files with sudo
-   (use-package sudo-edit)
-
-   ;; 256 color support
-   (use-package xterm-color)
-   (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa/eterm-256color-20190123.401"))
-   (use-package eterm-256color
-     :config
-     (add-hook 'term-mode-hook #'eterm-256color-mode))
- #+END_SRC
-* Company Yasnippet
-#+BEGIN_SRC emacs-lisp
-  ;; http://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
-  ;; Add yasnippet support for all company backends
-  ;; https://github.com/syl20bnr/spacemacs/pull/179
-  (defvar company-mode/enable-yas t
-    "Enable yasnippet for all backends.")
-
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-#+END_SRC
-* Language Support
- #+BEGIN_SRC emacs-lisp
-   (use-package flycheck
-     :init
-     (add-hook 'prog-mode-hook 'flycheck-mode)
-     :config
-     ;; Show error buffer automatically when there are errors
-     (add-hook 'flycheck-after-syntax-check-hook
-             (lambda  ()
-               (if flycheck-current-errors
-                   (flycheck-list-errors)
-                 (when (get-buffer "*Flycheck errors*")
-                   (switch-to-buffer "*Flycheck errors*")
-                   (kill-buffer (current-buffer))))))
-                  ; (delete-window)
-     ;; Define the error buffer
-     (add-to-list 'display-buffer-alist
-                `(,(rx bos "*Flycheck errors*" eos)
-                 (display-buffer-reuse-window
-                  display-buffer-in-side-window)
-                 (side            . bottom)
-                 (reusable-frames . visible)
-                 (window-height   . 0.20))))
-
-   ;; Display current error in a tooltip
-   ;; (use-package flycheck-pos-tip
-   ;; :after flycheck
-   ;; :config
-   ;;   (flycheck-pos-tip-mode))
-
-   ;; Auto-complete framework
-   (use-package company
-     :init
-     (add-hook 'prog-mode-hook 'company-mode)
-     :config
-     (add-to-list 'company-backends 'company-mode/backend-with-yas))
-
-   (use-package company-quickhelp
-     :after company
-     :config
-     (company-quickhelp-mode))
-
-   ;; Language server protocol
-   (use-package lsp-mode
-     :init
-     (add-hook 'prog-mode-hook 'lsp-mode))
-
-   (use-package lsp-ui
-     :init
-     (add-hook 'prog-mode-hook 'lsp-ui-mode))
-
-   (use-package company-lsp
-     :after company
-     :init
-     (push 'company-lsp company-backends)
-     :config
-     (setq company-lsp-cache-candidates 'auto)
-     (setq company-lsp-async t)
-     (setq company-lsp-enable-snippet t)
-     (setq company-lsp-enable-recompletion t))
-
-   ;; Template System
-   (use-package yasnippet
-     :init
-     (setq yas-snippet-dirs
-           '("~/.emacs.d/snippets"
-             "~/.emacs.d/elpa/yasnippet-snippets-20190316.1019"))
-     :config
-     (yas-reload-all)
-     (add-hook 'prog-mode-hook #'yas-minor-mode))
-
-   ;; Collection of snippets
-   (use-package yasnippet-snippets)
-
-   ;; C++
-   (use-package cquery
-     :config
-     (setq cquery-executable "/home/yozu/.nix-profile/bin/cquery")
-     (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
-     (setq cquery-sem-highlight-method 'font-lock)
-     (cquery-use-default-rainbow-sem-highlight)
-     (setq lsp-ui-doc-include-signature nil)  ; don't include type signature in the child frame
-     (setq lsp-ui-sideline-show-symbol nil)  ; don't show symbol on the right of info
-     (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
-     ;; (setq lsp-prefer-flymake nil)
-     ;; (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
-     )
-
-   ;; Haskell
-   (use-package lsp-haskell
-     :init
-     (add-hook 'haskell-mode-hook #'lsp)
-     :config
-     ;; (setq lsp-haskell-process-path-hie "hie-wrapper")
-     (lsp-haskell-set-hlint-on)
-     (lsp-haskell-set-liquid-on))
-     ;; (lsp-haskell-set-completion-snippets-on))
-
-   ;; Nix
-   (use-package nix-mode)
-   (use-package nix-buffer)
-   (use-package nixos-options)
-   (use-package helm-nixos-options)
-   (use-package company-nixos-options
-     :config
-     (add-to-list 'company-backends 'company-nixos-options))
-
-   ;; YAML
-   (use-package yaml-mode)
-
-   (provide 'code-check)
-   ;;; code-check.el ends here
- #+END_SRC
-* User Interface
-#+BEGIN_SRC emacs-lisp
-  ;; Theme
-  ;; (use-package doom-themes
-  ;;  :config
-  ;;  (load-theme 'doom-molokai t))
-
-  (use-package kaolin-themes
-    :config
-    (load-theme 'kaolin-galaxy t)
-    (kaolin-treemacs-theme))
-
-  ;; Powerline
-  (use-package telephone-line
-    :config
-    (telephone-line-mode t))
-
-  (use-package all-the-icons)
 #+END_SRC
