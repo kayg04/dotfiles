@@ -118,7 +118,7 @@ issues.
   (tool-bar-mode 0)      ; Disable toolbar
   (tooltip-mode 0)       ; Disable tooltips
 #+END_SRC
-** Some tweaks:
+** Some Defaults
 *** Set default values
 :PROPERTIES:
 :CUSTOM_ID: default-values
@@ -151,24 +151,29 @@ issues.
    window-combination-resize t                  ; Resize windows proportionally
    x-stretch-cursor t)                          ; Stretch cursor to the glypth width
 
-  (add-to-list 'exec-path "/home/yozu/.local/bin")
+  (add-to-list 'exec-path "/home/yozu/.local/bin") ; Append to $PATH
 #+END_SRC
 *** Set default modes
 :PROPERTIES:
 :CUSTOM_ID: default-modes
 :END:
+- Logical lines are separated by '\n' in the actual text.
+- Visual lines are separated by line break of the current
+  display layout.
 #+BEGIN_SRC emacs-lisp
   (auto-fill-mode t)                            ; Wrap lines after fill-column value
   (cd "~/")                                     ; Move to the user's home directory
   (delete-selection-mode t)                     ; Replace region when inserting text
   (fset 'yes-or-no-p 'y-or-n-p)                 ; Replace yes / no with y / n
-  (global-display-line-numbers-mode)            ; Enable line numbers globally
+  (global-display-line-numbers-mode t)          ; Enable line numbers globally
   (global-subword-mode t)                       ; Iterate through CamelCase ('GtkWindow', 'MyQueen', etc) words
+  (global-visual-line-mode t)                   ; Word wrap at visual lines instead of logical lines
   (mouse-avoidance-mode 'banish)                ; Avoid collision of mouse with point
   (set-default-coding-systems 'utf-8)           ; Defaults to utf-8 encoding
-  (show-paren-mode)                             ; Show matching parentheses
+  (show-paren-mode t)                           ; Show matching parentheses
+  (yas-global-mode t)                           ; Enable snippets globally
 #+END_SRC
-** TODO Mode-line tweaks:
+** Mode-line tweaks:
 :PROPERTIES:
 :CUSTOM_ID: mode-line-tweaks
 :END:
@@ -181,7 +186,10 @@ issues.
 #+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 2000000)
 #+END_SRC
-*** Custom.el
+*** Custom Changes
+- Changes made dynamically and saved with
+  =customize-save-customized= should be saved to
+  =~/.emacs.d/.custom.el= instead of =init.el=.
 #+BEGIN_SRC emacs-lisp
   (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
   (when (file-exists-p custom-file)
@@ -191,6 +199,8 @@ issues.
 :PROPERTIES:
 :CUSTOM_ID: profiler
 :END:
+- Benchmark the amount of time taken by each component of
+  Emacs to start.
 #+BEGIN_SRC emacs-lisp
   (use-package esup)
 #+END_SRC
@@ -198,27 +208,48 @@ issues.
 :PROPERTIES:
 :CUSTOM_ID: evil
 :END:
- #+BEGIN_SRC emacs-lisp
-   (use-package evil
-     :init
-     (setq evil-want-integration t)
-     (setq evil-want-keybinding nil)
-     :config
-     (evil-mode 1))
+- Emulate VIM behaviour inside Emacs
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :init
+    (setq evil-shift-width 4)    ; Number of columns to shift with > and <
+    (setq evil-want-keybinding nil)
+    :config
+    (evil-mode t))
+#+END_SRC
 
-   (use-package evil-escape
-     :after evil
-     :init
-     (setq-default evil-escape-key-sequence "jk")
-     :config
-     (evil-escape-mode 1))
+- Add an ESC key sequence that's in the home row
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-escape
+    :after evil
+    :init
+    (setq-default evil-escape-key-sequence "jk")          ; Enter Normal mode when jk is pressed
+    (setq-default evil-escape-unordered-key-sequence t)   ; in any order
+    :config
+    (evil-escape-mode t))
+#+END_SRC
 
-   (use-package evil-collection
-     :after evil
-     :custom (evil-collection-setup-minibuffer t)
-     :config
-     (evil-collection-init))
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :custom (evil-collection-setup-minibuffer t)
+    :config
+    (evil-collection-init))
+#+END_SRC
+
+- Evil keybindings for Org Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-org
+    :ensure t
+    :after org
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda ()
+                (evil-org-set-key-theme)))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+END_SRC
 * Keybindings
 :PROPERTIES:
 :CUSTOM_ID: keybindings
@@ -266,4 +297,71 @@ issues.
     "w-"  '(split-window-below :which-key "split bottom")
     "wx"  '(delete-window :which-key "delete window")
   ))
+#+END_SRC
+
+* General Utility
+** Undo
+- Treat every action as a branching tree of changes instead
+  of linear.
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :init
+    (setq-default undo-tree-visualizer-diff t)                        ; Show the difference between each node
+    (setq-default undo-tree-visualizer-timestamps t)                  ; Show relative timestamps
+    (setq-default undo-tree-auto-save-history "~/.emacs.d/undo-tree") ; Save history to a file
+    :config
+    (global-undo-tree-mode t))
+#+END_SRC
+
+* Code
+** Autocompletion framework
+Microsoft's Language Server Protocol is really good when it
+comes to emulating IDE features.
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :commands lsp)
+
+  (use-package lsp-ui
+    :commands lsp-ui-mode)
+
+  (use-package company-lsp
+    :commands company-lsp
+    :init
+    (setq-default company-lsp-cache-candidates 'auto)    ; Cache completions only if they are complete
+    (setq-default company-lsp-async t)                   ; Fetch results asynchronously
+    (setq-default company-lsp-enable-snippet t)          ; Expand snippet upon completion
+    (setq-default company-lsp-enable-recompletion t))    ; Enable recompletion
+#+END_SRC
+
+** Linting and Checking
+
+* Org Universe
+** Babel
+- Load languages to be used in embedded source code blocks
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((emacs-lisp . t)
+                                 (shell . t)
+                                 (python . t)))
+#+END_SRC
+* Snippets
+Load =yasnippet= and set directory where snippets are
+stored.
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :config
+      (yas-load-directory "~/.emacs.d/snippets"))
+#+END_SRC
+** Org Mode
+It is tedious to type =:results output= everytime I want
+python to show results in the interpreter rather than return
+statements.
+#+BEGIN_SRC emacs-lisp :tangle ./snippets/org-mode/org-python-src-header
+  # -*- mode: snippet -*-
+  # name: org-python-src-header
+  # key: <py
+  # --
+  #+BEGIN_SRC python :results output
+    $0
+  #+END_SR$1
 #+END_SRC
