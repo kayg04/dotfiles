@@ -318,8 +318,14 @@ issues.
 * General Utility
 * Hooks
 ** Programming
+- Automatically enable indent guides in programming modes
 #+BEGIN_SRC emacs-lisp
-
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+#+END_SRC
+** Org Mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'org-bullets-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode)
 #+END_SRC
 * Code
 ** Autocompletion framework
@@ -342,6 +348,7 @@ comes to emulating IDE features.
 #+END_SRC
 
 ** Linting and Checking
+
 ** Indentation
 - Show indentation lines
 - Responsive indentation is set to /stack/ which means a set
@@ -366,6 +373,7 @@ comes to emulating IDE features.
                                  (go . t)))
 #+END_SRC
 * Snippets
+** Engine
 Load =yasnippet= and set directory where snippets are
 stored.
 #+BEGIN_SRC emacs-lisp
@@ -373,7 +381,13 @@ stored.
     :config
       (yas-load-directory "~/.emacs.d/snippets"))
 #+END_SRC
-** Org Mode
+** Snippet Source
+*** Yasnippet
+- Add a lot of snippets from GitHub
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet-snippets)
+#+END_SRC
+*** Org Mode
 It is tedious to type =:results output= everytime I want
 python to show results of the print statements rather than
 return statements.
