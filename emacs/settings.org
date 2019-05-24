@@ -206,54 +206,64 @@ issues.
 #+BEGIN_SRC emacs-lisp
   (use-package esup)
 #+END_SRC
-* Going Evil
-:PROPERTIES:
-:CUSTOM_ID: evil
-:END:
-- Emulate VIM behaviour inside Emacs
+* Code
+** Autocompletion framework
+Microsoft's Language Server Protocol is really good when it
+comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
-  (use-package evil
+  (use-package lsp-mode
+    :commands lsp)
+
+  (use-package lsp-ui
+    :commands lsp-ui-mode)
+
+  (use-package company-lsp
+    :commands company-lsp
     :init
-    (setq evil-shift-width 4)    ; Number of columns to shift with > and <
-    (setq evil-want-keybinding nil)
-    :config
-    (evil-mode t))
+    (setq-default company-lsp-cache-candidates 'auto)    ; Cache completions only if they are complete
+    (setq-default company-lsp-async t)                   ; Fetch results asynchronously
+    (setq-default company-lsp-enable-snippet t)          ; Expand snippet upon completion
+    (setq-default company-lsp-enable-recompletion t))    ; Enable recompletion
 #+END_SRC
 
-- Add an ESC key sequence that's in the home row
+** Indentation
+- Show indentation lines
+- Responsive indentation is set to /stack/ which means a set
+  of three colours will be used to represent guides.
+- /character/ method means that the first column of each
+  level of indentation is drawn using a column of
+  characters.
 #+BEGIN_SRC emacs-lisp
-  (use-package evil-escape
-    :after evil
-    :init
-    (setq-default evil-escape-key-sequence "jk")          ; Enter Normal mode when jk is pressed
-    (setq-default evil-escape-unordered-key-sequence t)   ; in any order
+  (use-package highlight-indent-guides
     :config
-    (evil-escape-mode t))
+    (setq highlight-indent-guides-method 'character)
+    (setq highlight-indent-guides-responsive 'stack))
+#+END_SRC
+** Linting and Checking
+*FlyCheck* is the modern replacement as a syntax checker for Emacs.
+By default, /FlyCheck/ checks a buffer whenever
+- it is enabled
+- the buffer is saved
+- a new line is inserted
+- a short time has passed since last change
+
+By default, /FlyCheck/ will pop up errors just like any
+other buffer. The following settings enforce rules on how to
+display errors.
+- Display buffer on the _bottom_
+- Window height should be 25% of the total screen space
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :config
+    (add-to-list 'display-buffer-alist
+               `(,(rx bos "*Flycheck errors*" eos)
+                (display-buffer-reuse-window
+                 display-buffer-in-side-window)
+                (side            . bottom)
+                (reusable-frames . visible)
+                (window-height   . 0.25))))
 #+END_SRC
 
-- A collection of evil keybindings for many minor and major
-  modes.
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-collection
-    :after evil
-    :custom (evil-collection-setup-minibuffer t)
-    :config
-    (evil-collection-init))
-#+END_SRC
-
-- Evil keybindings for Org Mode
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-org
-    :ensure t
-    :after org
-    :config
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    (add-hook 'evil-org-mode-hook
-              (lambda ()
-                (evil-org-set-key-theme)))
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
-#+END_SRC
 * Custom Keybindings
 :PROPERTIES:
 :CUSTOM_ID: keybindings
@@ -321,8 +331,60 @@ issues.
     "wx"  '(delete-window :which-key "delete window")
   ))
 #+END_SRC
-* General Utility
+* Going Evil
+:PROPERTIES:
+:CUSTOM_ID: evil
+:END:
+- Emulate VIM behaviour inside Emacs
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :init
+    (setq evil-shift-width 4)    ; Number of columns to shift with > and <
+    (setq evil-want-keybinding nil)
+    :config
+    (evil-mode t))
+#+END_SRC
+
+- Add an ESC key sequence that's in the home row
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-escape
+    :after evil
+    :init
+    (setq-default evil-escape-key-sequence "jk")          ; Enter Normal mode when jk is pressed
+    (setq-default evil-escape-unordered-key-sequence t)   ; in any order
+    :config
+    (evil-escape-mode t))
+#+END_SRC
+
+- A collection of evil keybindings for many minor and major
+  modes.
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :custom (evil-collection-setup-minibuffer t)
+    :config
+    (evil-collection-init))
+#+END_SRC
+
+- Evil keybindings for Org Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-org
+    :ensure t
+    :after org
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda ()
+                (evil-org-set-key-theme)))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+END_SRC
 * Hooks
+** Org Mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'org-bullets-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode)
+#+END_SRC
 ** Programming
 - Automatically enable the following in programming modes:
   - Indent Guides
@@ -330,69 +392,6 @@ issues.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   (add-hook 'prog-mode-hook 'flycheck-mode)
-#+END_SRC
-** Org Mode
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook 'org-bullets-mode)
-  (add-hook 'org-mode-hook 'org-indent-mode)
-#+END_SRC
-* Code
-** Autocompletion framework
-Microsoft's Language Server Protocol is really good when it
-comes to emulating IDE features.
-#+BEGIN_SRC emacs-lisp
-  (use-package lsp-mode
-    :commands lsp)
-
-  (use-package lsp-ui
-    :commands lsp-ui-mode)
-
-  (use-package company-lsp
-    :commands company-lsp
-    :init
-    (setq-default company-lsp-cache-candidates 'auto)    ; Cache completions only if they are complete
-    (setq-default company-lsp-async t)                   ; Fetch results asynchronously
-    (setq-default company-lsp-enable-snippet t)          ; Expand snippet upon completion
-    (setq-default company-lsp-enable-recompletion t))    ; Enable recompletion
-#+END_SRC
-
-** Linting and Checking
-*FlyCheck* is the modern replacement as a syntax checker for Emacs.
-By default, /FlyCheck/ checks a buffer whenever
-- it is enabled
-- the buffer is saved
-- a new line is inserted
-- a short time has passed since last change
-
-By default, /FlyCheck/ will pop up errors just like any
-other buffer. The following settings enforce rules on how to
-display errors.
-- Display buffer on the _bottom_
-- Window height should be 25% of the total screen space
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :config
-    (add-to-list 'display-buffer-alist
-               `(,(rx bos "*Flycheck errors*" eos)
-                (display-buffer-reuse-window
-                 display-buffer-in-side-window)
-                (side            . bottom)
-                (reusable-frames . visible)
-                (window-height   . 0.25))))
-#+END_SRC
-
-** Indentation
-- Show indentation lines
-- Responsive indentation is set to /stack/ which means a set
-  of three colours will be used to represent guides.
-- /character/ method means that the first column of each
-  level of indentation is drawn using a column of
-  characters.
-#+BEGIN_SRC emacs-lisp
-  (use-package highlight-indent-guides
-    :config
-    (setq highlight-indent-guides-method 'character)
-    (setq highlight-indent-guides-responsive 'stack))
 #+END_SRC
 * Org Universe
 ** Babel
@@ -433,6 +432,12 @@ return statements.
   #+END_SR$1
 #+END_SRC
 * User Interface
+** Icons
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons
+    :config
+    (setq inhibit-compacting-font-caches t))
+#+END_SRC
 ** Modeline
 - Use Doom Modeline for additional eye candy
 #+BEGIN_SRC emacs-lisp
@@ -541,12 +546,6 @@ return statements.
       ;; (setq doom-modeline-irc-stylize 'identity)
       )
 #+END_SRC
-** Icons
-#+BEGIN_SRC emacs-lisp
-  (use-package all-the-icons
-    :config
-    (setq inhibit-compacting-font-caches t))
-#+END_SRC
 ** Themes
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
@@ -576,12 +575,53 @@ return statements.
 #+BEGIN_SRC emacs-lisp
   (load-theme 'doom-one t)
 #+END_SRC
-** Remember keybindings
-- Show instructions in the minibuffer for keybindings
+* Utility
+** Dashboard
+- Display Dashboard on opening Emacs
 #+BEGIN_SRC emacs-lisp
-    (use-package which-key
-      :config
-      (setq which-key-popup-type 'minibuffer)
-      (setq which-key-side-window-max-height 0.25)
-      (which-key-setup-minibuffer))
+  (use-package dashboard
+    :config
+    (dashboard-setup-startup-hook)
+    ;; Open Dashboard on `emacsclient -c`
+    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+    ;; Set the title
+    (setq dashboard-banner-logo-title "Welcome to the Lisp Machine!")
+    ;; Set the banner
+    (setq dashboard-startup-banner 3)
+    ;; Value can be
+    ;; 'official which displays the official emacs logo
+    ;; 'logo which displays an alternative emacs logo
+    ;; 1, 2 or 3 which displays one of the text banners
+    ;; "path/to/your/image.png" which displays whatever image you would prefer
+
+    ;; Content is not centered by default. To center, set
+    (setq dashboard-center-content t)
+
+    ;; To disable shortcut "jump" indicators for each section, set
+    (setq dashboard-show-shortcuts nil))
+#+END_SRC
+** Page line breaks
+- Turn ugly form feeds into pretty horizontal lines
+#+BEGIN_SRC emacs-lisp
+  (use-package page-break-lines
+    :config
+    (global-page-break-lines-mode))
+#+END_SRC
+** Remember keybindings
+- Show instructions in the bottom for keybindings
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-setup-side-window-bottom)
+    (which-key-mode))
+#+END_SRC
+** Tabs
+- Add tabs to Emacs
+#+BEGIN_SRC emacs-lisp
+  (use-package awesome-tab
+    :load-path "/home/yozu/.emacs.d/elpa/awesome-tab"
+    :config
+    (setq awesome-tab-style "wave")
+    (awesome-tab-build-helm-source)
+    (awesome-tab-mode t))
 #+END_SRC
