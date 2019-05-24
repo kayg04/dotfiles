@@ -183,6 +183,8 @@ issues.
 #+END_SRC
 ** Speed up Emacs
 *** Garbage-collect
+- Garbage collection will happen automatically once this
+  many /bytes/ have been allocated.
 #+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 2000000)
 #+END_SRC
@@ -229,6 +231,8 @@ issues.
     (evil-escape-mode t))
 #+END_SRC
 
+- A collection of evil keybindings for many minor and major
+  modes.
 #+BEGIN_SRC emacs-lisp
   (use-package evil-collection
     :after evil
@@ -250,23 +254,32 @@ issues.
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys))
 #+END_SRC
-* Keybindings
+* Custom Keybindings
 :PROPERTIES:
 :CUSTOM_ID: keybindings
 :END:
+- Use SPACE as the leader when not in insert mode.
+- When in insert mode, use META + SPACE as the leader.
 #+BEGIN_SRC emacs-lisp
-  ;; Custom Keybindings
   (use-package general
     :config (general-define-key
     :states '(normal visual insert emacs)
     :prefix "SPC"
     :non-normal-prefix "M-SPC"
-    ;; "/"   '(counsel-rg :which-key "ripgrep") ; You'll need counsel package for this
+
+    ;; LEADER + any of the following keys results in calling
+    ;; the function specified. The general combination is
+    ;; binding a mnemonic keyword, preserving vim's sane
+    ;; choice of keybindings.
+
+    ;; Switch to previous buffer
     "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+
     ;; Evil Mode
     "ei"  '(evil-edit /home/yozu/Productivity/GitLab/nix-home/emacs/settings.org :which-key "edit emacs init")
     "ew"  '(evil-save :which-key "save current buffer")
     "eq"  '(evil-save-and-close :which-key "save and close current buffer")
+
     ;; Helm-specific
     "SPC" '(helm-M-x :which-key "M-x")
     "hf"  '(helm-find-files :which-key "find files")
@@ -275,19 +288,23 @@ issues.
     "ha"  '(helm-apropos :which-key "info about everything")
     "ho"  '(helm-info-emacs :which-key "info about emacs")
     "hw"  '(helm-world-time :which-key "world time")
-    ;; Nix
     "hn"  '(helm-nixos-options :which-key "display NixOS options")
+
     ;; Org
     "ow"  '(widen :which-key "expand focus to the whole buffer")
     "on"  '(org-narrow-to-subtree :which-key "narrow focus to current subtree")
+
     ;; Shells
     "st"  '(ansi-term :which-key "open ansi terminal")
     "se"  '(eshell :which-key "open emacs shell")
     "ss"  '(shell :which-key "open default shell")
+
     ;; Sudo
     "su"  '(sudo-edit :which-key "open file with sudo")
+
     ;; Treemacs
     "tt"  '(treemacs :which-key "open / close treemacs")
+
     ;; Window
     "wl"  '(windmove-right :which-key "move right")
     "wh"  '(windmove-left :which-key "move left")
@@ -298,21 +315,7 @@ issues.
     "wx"  '(delete-window :which-key "delete window")
   ))
 #+END_SRC
-
 * General Utility
-** Undo
-- Treat every action as a branching tree of changes instead
-  of linear.
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :init
-    (setq-default undo-tree-visualizer-diff t)                        ; Show the difference between each node
-    (setq-default undo-tree-visualizer-timestamps t)                  ; Show relative timestamps
-    (setq-default undo-tree-auto-save-history "~/.emacs.d/undo-tree") ; Save history to a file
-    :config
-    (global-undo-tree-mode t))
-#+END_SRC
-
 * Code
 ** Autocompletion framework
 Microsoft's Language Server Protocol is really good when it
@@ -334,7 +337,6 @@ comes to emulating IDE features.
 #+END_SRC
 
 ** Linting and Checking
-
 * Org Universe
 ** Babel
 - Load languages to be used in embedded source code blocks
@@ -342,7 +344,8 @@ comes to emulating IDE features.
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((emacs-lisp . t)
                                  (shell . t)
-                                 (python . t)))
+                                 (python . t)
+                                 (go . t)))
 #+END_SRC
 * Snippets
 Load =yasnippet= and set directory where snippets are
@@ -354,8 +357,8 @@ stored.
 #+END_SRC
 ** Org Mode
 It is tedious to type =:results output= everytime I want
-python to show results in the interpreter rather than return
-statements.
+python to show results of the print statements rather than
+return statements.
 #+BEGIN_SRC emacs-lisp :tangle ./snippets/org-mode/org-python-src-header
   # -*- mode: snippet -*-
   # name: org-python-src-header
