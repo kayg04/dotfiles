@@ -280,6 +280,12 @@ issues.
     "ew"  '(evil-save :which-key "save current buffer")
     "eq"  '(evil-save-and-close :which-key "save and close current buffer")
 
+    ;; FlyCheck
+    "fe"  '(flycheck-explain-error-at-point :which-key "explain error at point")
+    "fl"  '(flycheck-list-errors :which-key "list all errors")
+    "fn"  '(flycheck-next-error :which-key "show next error")
+    "fp"  '(flycheck-previous-error :which-key "show previous error")
+
     ;; Helm-specific
     "SPC" '(helm-M-x :which-key "M-x")
     "hf"  '(helm-find-files :which-key "find files")
@@ -572,4 +578,12 @@ return statements.
 - Set theme
 #+BEGIN_SRC emacs-lisp
   (load-theme 'doom-one t)
+#+END_SRC
+** Remember keybindings
+- Show instructions in the minibuffer for keybindings
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config
+    (setq which-key-popup-type 'minibuffer)
+    (setq which-key-side-window-max-height 0.25))
 #+END_SRC
