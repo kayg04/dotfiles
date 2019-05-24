@@ -281,8 +281,11 @@ display errors.
     ;; binding a mnemonic keyword, preserving vim's sane
     ;; choice of keybindings.
 
-    ;; Switch to previous buffer
+    ;; Buffers
     "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+    "bq"  '(kill-buffer :which-key "kill buffer")
+    "bw"  '(save-buffer :which-key "save buffer")
+    "bs"  '(switch-to-buffer :which-key "switch buffer")
 
     ;; Evil Mode
     "ei"  '(evil-edit /home/yozu/Productivity/GitLab/nix-home/emacs/settings.org :which-key "edit emacs init")
