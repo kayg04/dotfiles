@@ -318,9 +318,12 @@ issues.
 * General Utility
 * Hooks
 ** Programming
-- Automatically enable indent guides in programming modes
+- Automatically enable the following in programming modes:
+  - Indent Guides
+  - FlyCheck
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  (add-hook 'prog-mode-hook 'flycheck-mode)
 #+END_SRC
 ** Org Mode
 #+BEGIN_SRC emacs-lisp
@@ -348,6 +351,29 @@ comes to emulating IDE features.
 #+END_SRC
 
 ** Linting and Checking
+*FlyCheck* is the modern replacement as a syntax checker for Emacs.
+By default, /FlyCheck/ checks a buffer whenever
+- it is enabled
+- the buffer is saved
+- a new line is inserted
+- a short time has passed since last change
+
+By default, /FlyCheck/ will pop up errors just like any
+other buffer. The following settings enforce rules on how to
+display errors.
+- Display buffer on the _bottom_
+- Window height should be 25% of the total screen space
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :config
+    (add-to-list 'display-buffer-alist
+               `(,(rx bos "*Flycheck errors*" eos)
+                (display-buffer-reuse-window
+                 display-buffer-in-side-window)
+                (side            . bottom)
+                (reusable-frames . visible)
+                (window-height   . 0.25))))
+#+END_SRC
 
 ** Indentation
 - Show indentation lines
