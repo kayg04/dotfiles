@@ -26,8 +26,8 @@ explaining to human beings what we want a computer to do.
   (require 'package)
   (setq package-enable-at-startup nil)
   (setq package-archives
-    '(("org"   . "http://orgmode.org/elpa/")
-      ("gnu"   . "http://elpa.gnu.org/packages/")
+    '(("org"   . "https://orgmode.org/elpa/")
+      ("gnu"   . "https://elpa.gnu.org/packages/")
       ("melpa" . "https://melpa.org/packages/")))
   (package-initialize)
 #+END_SRC
@@ -438,6 +438,19 @@ return statements.
   #+END_SR$1
 #+END_SRC
 * User Interface
+** Gutter
+#+BEGIN_SRC emacs-lisp
+  (use-package fringe-helper)
+  (use-package git-gutter-fringe
+    :config
+      (global-git-gutter-mode)
+      (set-face-foreground 'git-gutter-fr:modified "yellow")
+      (set-face-foreground 'git-gutter-fr:added    "dark violet")
+      (set-face-foreground 'git-gutter-fr:deleted  "red")
+      (setq-default left-fringe-width  10)
+      (setq-default right-fringe-width 10)
+      (setq git-gutter-fr:side 'left-fringe))
+#+END_SRC
 ** Icons
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons
@@ -605,6 +618,16 @@ return statements.
 
     ;; To disable shortcut "jump" indicators for each section, set
     (setq dashboard-show-shortcuts nil))
+#+END_SRC
+** Eshell
+*** Autosuggestions
+- Fish like autocompletion for Eshell
+#+BEGIN_SRC emacs-lisp
+  (use-package esh-autosuggest
+    :hook (eshell-mode . esh-autosuggest-mode))
+    ;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
+    ;; line below instead:
+    ; :hook (eshell-mode-hook . esh-autosuggest-mode)
 #+END_SRC
 ** File Manager
 - Add a file manager in the side pane
