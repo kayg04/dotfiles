@@ -205,6 +205,15 @@ issues.
 #+BEGIN_SRC emacs-lisp
   (use-package esup)
 #+END_SRC
+** TRAMP
+#+BEGIN_SRC emacs-lisp
+  (setq remote-file-name-inhibit-cache nil)
+  (setq vc-ignore-dir-regexp
+        (format "%s\\|%s"
+                      vc-ignore-dir-regexp
+                      tramp-file-name-regexp))
+  (setq tramp-verbose 1)
+#+END_SRC
 * Code
 ** Autocompletion
 *** Framework
@@ -282,6 +291,7 @@ display errors.
 :PROPERTIES:
 :CUSTOM_ID: keybindings
 :END:
+** Evil
 - Use SPACE as the leader when not in insert mode.
 - When in insert mode, use META + SPACE as the leader.
 #+BEGIN_SRC emacs-lisp
@@ -354,6 +364,10 @@ display errors.
     "wr"  '(eyebrowse-rename-window-config :which-key "rename workspace")
   ))
 #+END_SRC
+** Native
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-r") 'eyebrowse-rename-window-config)
+#+END_SRC
 * Going Evil
 :PROPERTIES:
 :CUSTOM_ID: evil
@@ -416,6 +430,7 @@ display errors.
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   (add-hook 'prog-mode-hook 'flycheck-mode)
   (add-hook 'prog-mode-hook #'smartparens-mode)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+END_SRC
 * Org Universe
 ** Babel
@@ -463,20 +478,25 @@ return statements.
 #+BEGIN_SRC emacs-lisp
   (use-package fringe-helper)
   (use-package git-gutter-fringe
-    :config
+      :config
       (global-git-gutter-mode)
       (set-face-foreground 'git-gutter-fr:modified "yellow")
       (set-face-foreground 'git-gutter-fr:added    "green")
       (set-face-foreground 'git-gutter-fr:deleted  "red")
       (setq-default left-fringe-width  10)
       (setq-default right-fringe-width 10)
-      (setq git-gutter-fr:side 'right-fringe))
+      (setq git-gutter-fr:side 'left-fringe))
 #+END_SRC
 ** Icons
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons
     :config
     (setq inhibit-compacting-font-caches t))
+#+END_SRC
+** Highlight
+*** Delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters)
 #+END_SRC
 ** Modeline
 - Use Doom Modeline for additional eye candy
@@ -587,6 +607,7 @@ return statements.
       )
 #+END_SRC
 ** Themes
+*** Doom
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :config
@@ -613,7 +634,14 @@ return statements.
 
 - Set theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'doom-one t)
+  (load-theme 'doom-peacock t)
+#+END_SRC
+*** Kaolin
+#+BEGIN_SRC emacs-lisp
+  (use-package kaolin-themes
+    :defer t)
+  ;;  :config
+  ;;  (kaolin-treemacs-theme))
 #+END_SRC
 * Utility
 ** Dashboard
