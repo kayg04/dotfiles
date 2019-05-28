@@ -78,6 +78,15 @@ So why not live freely instead?
    vc-make-backup-files t
    auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list" t)))
 #+END_SRC
+** Custom Changes
+- Changes made dynamically and saved with
+  =customize-save-customized= should be saved to
+  =~/.emacs.d/.custom.el= instead of =init.el=.
+#+BEGIN_SRC emacs-lisp
+  (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file)
+    (load custom-file))
+#+END_SRC
 ** History
 :PROPERTIES:
 :CUSTOM_ID: history
@@ -105,7 +114,7 @@ issues.
      regexp-search-ring))
   (savehist-mode 1)
 #+END_SRC
-** Remove intrusive elements:
+** Remove intrusive elements
 :PROPERTIES:
 :CUSTOM_ID: remove-elements
 :END:
@@ -124,31 +133,31 @@ issues.
 :END:
 #+BEGIN_SRC emacs-lisp
   (setq-default
-   ad-redefinition-action 'accept               ; Silence warnings for redefinition
-   auto-window-vscroll nil                      ; Lighten vertical scroll
-   confirm-kill-emacs 'yes-or-no-p              ; Confirm before exiting Emacs
-   cursor-in-non-selected-windows t             ; Hide the curor in inactive windows
-   delete-by-moving-to-trash t                  ; Delete files to trash
-   display-line-numbers-type 'relative          ; Display relative line numbers
-   display-time-default-load-average nil        ; Don't display load average
-   display-time-format "%H:%M"                  ; Time format
-   fill-column 60                               ; Set width for automatic line breaks
-   help-window-select t                         ; Focus new help windows when opened
-   indent-tabs-mode nil                         ; Stop using tabs to indent
-   inhibit-startup-screen t                     ; Disable startup screen
-   initial-scratch-message ""                   ; Initial scratch buffer should be empty
-   left-margin-width 1                          ; Add left margin
-   right-margin-width 1                         ; Add right margin
-   scroll-conservatively most-positive-fixnum   ; Always scroll by one line
-   scroll-margin 10                             ; Add a margin when scrolling vertically
-   select-enable-clipboard t                    ; Merge system's and Emacs' clipboard
-   sentence-end-double-space nil                ; End a sentence after a dot and a space
-   show-trailing-whitespace t                   ; Show trailing whitespace
-   show-paren-mode t                            ; Highlight matching parentheses
-   tab-width 4                                  ; Set width for tabs
-   uniquify-buffer-name-style 'forward          ; Set buffer name style for files that have same base folder
-   window-combination-resize t                  ; Resize windows proportionally
-   x-stretch-cursor t)                          ; Stretch cursor to the glypth width
+    ad-redefinition-action 'accept                ; Silence warnings for redefinition
+    auto-window-vscroll nil                      ; Lighten vertical scroll
+    confirm-kill-emacs 'yes-or-no-p              ; Confirm before exiting Emacs
+    cursor-in-non-selected-windows t             ; Hide the curor in inactive windows
+    delete-by-moving-to-trash t                  ; Delete files to trash
+    display-line-numbers-type 'relative          ; Display relative line numbers
+    display-time-default-load-average nil        ; Don't display load average
+    display-time-format "%H:%M"                  ; Time format
+    fill-column 60                               ; Set width for automatic line breaks
+    help-window-select t                         ; Focus new help windows when opened
+    indent-tabs-mode nil                         ; Stop using tabs to indent
+    inhibit-startup-screen t                     ; Disable startup screen
+    initial-scratch-message ""                   ; Initial scratch buffer should be empty
+    left-margin-width 1                          ; Add left margin
+    right-margin-width 1                         ; Add right margin
+    scroll-conservatively most-positive-fixnum   ; Always scroll by one line
+    scroll-margin 10                             ; Add a margin when scrolling vertically
+    select-enable-clipboard t                    ; Merge system's and Emacs' clipboard
+    sentence-end-double-space nil                ; End a sentence after a dot and a space
+    show-trailing-whitespace t                   ; Show trailing whitespace
+    show-paren-mode t                            ; Highlight matching parentheses
+    tab-width 4                                  ; Set width for tabs
+    uniquify-buffer-name-style 'forward          ; Set buffer name style for files that have same base folder
+    window-combination-resize t                  ; Resize windows proportionally
+    x-stretch-cursor t)                          ; Stretch cursor to the glypth width
 
   (add-to-list 'exec-path "/home/yozu/.local/bin") ; Append to $PATH
 #+END_SRC
@@ -172,29 +181,12 @@ issues.
   (show-paren-mode t)                           ; Show matching parentheses
   (yas-global-mode t)                           ; Enable snippets globally
 #+END_SRC
-** Mode-line tweaks:
-:PROPERTIES:
-:CUSTOM_ID: mode-line-tweaks
-:END:
-#+BEGIN_SRC emacs-lisp
-  ;; Don’t compact font caches during GC.
-  (setq inhibit-compacting-font-caches t)
-#+END_SRC
 ** Speed up Emacs
 *** Garbage-collect
 - Garbage collection will happen automatically once this
   many /bytes/ have been allocated.
 #+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 2000000)
-#+END_SRC
-*** Custom Changes
-- Changes made dynamically and saved with
-  =customize-save-customized= should be saved to
-  =~/.emacs.d/.custom.el= instead of =init.el=.
-#+BEGIN_SRC emacs-lisp
-  (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
-  (when (file-exists-p custom-file)
-    (load custom-file))
 #+END_SRC
 *** Profiler
 :PROPERTIES:
@@ -206,6 +198,7 @@ issues.
   (use-package esup)
 #+END_SRC
 ** TRAMP
+- Speed up TRAMP by not version controlling remote files
 #+BEGIN_SRC emacs-lisp
   (setq remote-file-name-inhibit-cache nil)
   (setq vc-ignore-dir-regexp
@@ -418,17 +411,24 @@ display errors.
 #+END_SRC
 * Hooks
 ** Org Mode
+- Automatically enable the following in programming modes:
+  - Bullets
+  - Indentation
+  - Flyspell
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook 'org-bullets-mode)
-  (add-hook 'org-mode-hook 'org-indent-mode)
+  (add-hook 'org-mode-hook #'org-bullets-mode)
+  (add-hook 'org-mode-hook #'org-indent-mode)
+  (add-hook 'org-mode-hook #'flyspell-mode)
 #+END_SRC
 ** Programming
 - Automatically enable the following in programming modes:
   - Indent Guides
   - FlyCheck
+  - Smart Parentheses
+  - Rainbow Parentheses
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  (add-hook 'prog-mode-hook 'flycheck-mode)
+  (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+  (add-hook 'prog-mode-hook #'flycheck-mode)
   (add-hook 'prog-mode-hook #'smartparens-mode)
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+END_SRC
@@ -469,9 +469,9 @@ return statements.
   # name: org-python-src-header
   # key: <py
   # --
-  #+BEGIN_SRC python :results output
+  ,#+BEGIN_SRC python :results output
     $0
-  \#+END_SRC
+  ,#+END_SRC
 #+END_SRC
 * User Interface
 ** Gutter
@@ -558,7 +558,7 @@ return statements.
       (setq doom-modeline-buffer-encoding t)
 
       ;; Whether display indentation information.
-      (setq doom-modeline-indent-info nil)
+      (setq doom-modeline-indent-info t)
 
       ;; If non-nil, only display one number for checker information if applicable.
       (setq doom-modeline-checker-simple-format t)
@@ -567,7 +567,7 @@ return statements.
       (setq doom-modeline-vcs-max-length 12)
 
       ;; Whether display perspective name or not. Non-nil to display in mode-line.
-      (setq doom-modeline-persp-name t)
+      (setq doom-modeline-persp-name nil)
 
       ;; Whether display `lsp' state or not. Non-nil to display in mode-line.
       (setq doom-modeline-lsp t)
@@ -666,7 +666,7 @@ return statements.
     (setq dashboard-center-content t)
 
     ;; To disable shortcut "jump" indicators for each section, set
-    (setq dashboard-show-shortcuts nil))
+    (setq dashboard-show-shortcuts t))
 #+END_SRC
 ** Eshell
 *** Autosuggestions
