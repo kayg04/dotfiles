@@ -8,7 +8,7 @@ of programs. Instead of imagining that our main task is to
 instruct a computer what to do, let us concentrate rather on
 explaining to human beings what we want a computer to do.
 
---- /Donald Knuth/
+-- /Donald Knuth/
 #+END_QUOTE
 
 * Bootstrap Package Management
@@ -206,7 +206,15 @@ issues.
   (use-package esup)
 #+END_SRC
 * Code
-** Autocompletion framework
+** Autocompletion
+*** Framework
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :hook
+    (after-init . global-company-mode))
+#+END_SRC
+**** Backends
+*** Engine
 Microsoft's Language Server Protocol is really good when it
 comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
@@ -263,6 +271,13 @@ display errors.
                 (window-height   . 0.25))))
 #+END_SRC
 
+** Parentheses
+- Try to be smart about opening and closes blocks
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :config
+    (require 'smartparens-config))
+#+END_SRC
 * Custom Keybindings
 :PROPERTIES:
 :CUSTOM_ID: keybindings
@@ -335,6 +350,8 @@ display errors.
     "wn"  '(awesome-tab-forward-tab :which-key "open next tab")
     "wp"  '(awesome-tab-backward-tab :which-key "open previous tab")
     "ws"  '(awesome-tab-switch-group :which-key "switch groups of tabs")
+    ;; Workspaces
+    "wr"  '(eyebrowse-rename-window-config :which-key "rename workspace")
   ))
 #+END_SRC
 * Going Evil
@@ -398,6 +415,7 @@ display errors.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   (add-hook 'prog-mode-hook 'flycheck-mode)
+  (add-hook 'prog-mode-hook #'smartparens-mode)
 #+END_SRC
 * Org Universe
 ** Babel
@@ -416,7 +434,10 @@ stored.
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :config
-      (yas-load-directory "~/.emacs.d/snippets"))
+    (setq yas-snippet-dirs
+          '("~/.emacs.d/snippets"))                ;; personal snippets
+    (push yasnippet-snippets-dir yas-snippet-dirs)
+    (yas-global-mode))
 #+END_SRC
 ** Snippet Source
 *** Yasnippet
@@ -435,7 +456,7 @@ return statements.
   # --
   #+BEGIN_SRC python :results output
     $0
-  #+END_SR$1
+  \#+END_SRC
 #+END_SRC
 * User Interface
 ** Gutter
@@ -445,11 +466,11 @@ return statements.
     :config
       (global-git-gutter-mode)
       (set-face-foreground 'git-gutter-fr:modified "yellow")
-      (set-face-foreground 'git-gutter-fr:added    "dark violet")
+      (set-face-foreground 'git-gutter-fr:added    "green")
       (set-face-foreground 'git-gutter-fr:deleted  "red")
       (setq-default left-fringe-width  10)
       (setq-default right-fringe-width 10)
-      (setq git-gutter-fr:side 'left-fringe))
+      (setq git-gutter-fr:side 'right-fringe))
 #+END_SRC
 ** Icons
 #+BEGIN_SRC emacs-lisp
@@ -733,7 +754,19 @@ return statements.
   (use-package awesome-tab
     :load-path "/home/yozu/.emacs.d/elpa/awesome-tab"
     :config
-    (setq awesome-tab-style "wave")
+    (setq awesome-tab-style "slant")
     (awesome-tab-build-helm-source)
     (awesome-tab-mode t))
+#+END_SRC
+** Workspaces
+- Add workspaces to Emacs
+- New workspace should be empty
+- Setup alternative, more intuitive keys
+#+BEGIN_SRC emacs-lisp
+  (use-package eyebrowse
+    :hook
+    (after-init . eyebrowse-mode)
+    :config
+    (setq eyebrowse-new-workspace t)
+    (eyebrowse-setup-opinionated-keys))
 #+END_SRC
