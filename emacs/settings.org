@@ -420,6 +420,13 @@ display errors.
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys))
 #+END_SRC
+*** Magit
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-magit
+    :config
+    (setq evil-magit-use-y-for-yank t)    ;; Disable visual mode in magit buffers
+    (setq evil-magit-state 'normal))       ;; Start Magit buffers in this mode
+#+END_SRC
 * Hooks
 ** Org Mode
 - Automatically enable the following in programming modes:
