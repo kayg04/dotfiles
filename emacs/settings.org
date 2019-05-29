@@ -212,6 +212,7 @@ issues.
 *** Framework
 #+BEGIN_SRC emacs-lisp
   (use-package company
+    :defer t
     :hook
     (after-init . global-company-mode))
 #+END_SRC
@@ -221,12 +222,16 @@ Microsoft's Language Server Protocol is really good when it
 comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
+    :defer t
     :commands lsp)
 
   (use-package lsp-ui
+    :defer t
     :commands lsp-ui-mode)
 
   (use-package company-lsp
+    :defer t
+    :after company-mode
     :commands company-lsp
     :init
     (setq-default company-lsp-cache-candidates 'auto)    ; Cache completions only if they are complete
@@ -263,6 +268,7 @@ display errors.
 - Window height should be 25% of the total screen space
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
+    :defer t
     :config
     (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -656,8 +662,7 @@ return statements.
 #+END_SRC
 *** Kaolin
 #+BEGIN_SRC emacs-lisp
-  (use-package kaolin-themes
-    :defer t)
+  (use-package kaolin-themes)
   ;;  :config
   ;;  (kaolin-treemacs-theme))
 #+END_SRC
@@ -781,7 +786,8 @@ return statements.
 #+END_SRC
 ** Git Porcelain
 #+BEGIN_SRC emacs-lisp
-  (use-package magit)
+  (use-package magit
+    :defer t)
 #+END_SRC
 ** Page line breaks
 - Turn ugly form feeds into pretty horizontal lines
