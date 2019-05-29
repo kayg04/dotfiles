@@ -308,7 +308,7 @@ display errors.
     ;; Evil Mode
     "ei"  '(evil-edit /home/yozu/Productivity/GitLab/nix-home/emacs/settings.org :which-key "edit emacs init")
     "ew"  '(evil-save :which-key "save current buffer")
-    "ew"  '(evil-save-and-close :which-key "save current buffer and close window")
+    "eW"  '(evil-save-and-close :which-key "save current buffer and close window")
     "eq"  '(evil-quit :which-key "close current window")
     "eQ"  '(evil-save-and-quit :which-key "save all buffers and exit Emacs")
 
