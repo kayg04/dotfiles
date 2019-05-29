@@ -308,7 +308,9 @@ display errors.
     ;; Evil Mode
     "ei"  '(evil-edit /home/yozu/Productivity/GitLab/nix-home/emacs/settings.org :which-key "edit emacs init")
     "ew"  '(evil-save :which-key "save current buffer")
-    "eq"  '(evil-save-and-close :which-key "save and close current buffer")
+    "ew"  '(evil-save-and-close :which-key "save current buffer and close window")
+    "eq"  '(evil-quit :which-key "close current window")
+    "eQ"  '(evil-save-and-quit :which-key "save all buffers and exit Emacs")
 
     ;; FlyCheck
     "fe"  '(flycheck-explain-error-at-point :which-key "explain error at point")
@@ -368,6 +370,8 @@ display errors.
 :PROPERTIES:
 :CUSTOM_ID: evil
 :END:
+** Essentials
+*** The De/vi/l itself
 - Emulate VIM behaviour inside Emacs
 #+BEGIN_SRC emacs-lisp
   (use-package evil
@@ -378,6 +382,7 @@ display errors.
     (evil-mode t))
 #+END_SRC
 
+*** Escape
 - Add an ESC key sequence that's in the home row
 #+BEGIN_SRC emacs-lisp
   (use-package evil-escape
@@ -389,6 +394,7 @@ display errors.
     (evil-escape-mode t))
 #+END_SRC
 
+*** Collection
 - A collection of evil keybindings for many minor and major
   modes.
 #+BEGIN_SRC emacs-lisp
@@ -399,6 +405,8 @@ display errors.
     (evil-collection-init))
 #+END_SRC
 
+** Extras
+*** Org-Mode
 - Evil keybindings for Org Mode
 #+BEGIN_SRC emacs-lisp
   (use-package evil-org
