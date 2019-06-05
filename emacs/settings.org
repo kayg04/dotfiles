@@ -253,6 +253,12 @@ comes to emulating IDE features.
     (setq highlight-indent-guides-method 'character)
     (setq highlight-indent-guides-responsive 'stack))
 #+END_SRC
+** Language Support
+*** Golang
+**** Major Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode)
+#+END_SRC
 ** Linting and Checking
 *FlyCheck* is the modern replacement as a syntax checker for Emacs.
 By default, /FlyCheck/ checks a buffer whenever
