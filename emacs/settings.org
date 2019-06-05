@@ -259,6 +259,10 @@ comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
   (use-package go-mode)
 #+END_SRC
+*** TOML
+#+BEGIN_SRC emacs-lisp
+  (use-package toml-mode)
+#+END_SRC
 ** Linting and Checking
 *FlyCheck* is the modern replacement as a syntax checker for Emacs.
 By default, /FlyCheck/ checks a buffer whenever
