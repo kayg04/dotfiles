@@ -296,6 +296,10 @@ display errors.
     :config
     (require 'smartparens-config))
 #+END_SRC
+*** Caddy
+#+BEGIN_SRC emacs-lisp
+  (use-package caddyfile-mode)
+#+END_SRC
 * Custom Keybindings
 :PROPERTIES:
 :CUSTOM_ID: keybindings
