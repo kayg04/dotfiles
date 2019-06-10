@@ -179,7 +179,6 @@ issues.
   (mouse-avoidance-mode 'banish)                ; Avoid collision of mouse with point
   (set-default-coding-systems 'utf-8)           ; Defaults to utf-8 encoding
   (show-paren-mode t)                           ; Show matching parentheses
-  (yas-global-mode t)                           ; Enable snippets globally
 #+END_SRC
 ** Speed up Emacs
 *** Garbage-collect
@@ -681,6 +680,13 @@ return statements.
   ;;  (kaolin-treemacs-theme))
 #+END_SRC
 * Utility
+** Anything.el
+*** Core
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :config
+    (helm-mode t))
+#+END_SRC
 ** Dashboard
 - Display Dashboard on opening Emacs
 #+BEGIN_SRC emacs-lisp
@@ -821,12 +827,12 @@ return statements.
 ** Tabs
 - Add tabs to Emacs
 #+BEGIN_SRC emacs-lisp
-  (use-package awesome-tab
-    :load-path "/home/yozu/.emacs.d/elpa/awesome-tab"
-    :config
-    (setq awesome-tab-style "slant")
-    (awesome-tab-build-helm-source)
-    (awesome-tab-mode t))
+  ;; (use-package awesome-tab
+  ;;   :load-path "/home/yozu/.emacs.d/elpa/awesome-tab"
+  ;;   :config
+  ;;   (setq awesome-tab-style "slant")
+  ;;   (awesome-tab-build-helm-source)
+  ;;   (awesome-tab-mode t))
 #+END_SRC
 ** Workspaces
 - Add workspaces to Emacs
