@@ -1,6 +1,5 @@
 #+TITLE: DotEmacs
 #+AUTHOR: K Gopal Krishna
-#+OPTIONS: toc:2
 
 #+BEGIN_QUOTE
 Let us change our traditional attitude to the construction
