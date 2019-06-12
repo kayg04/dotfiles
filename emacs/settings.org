@@ -248,6 +248,7 @@ comes to emulating IDE features.
   characters.
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-indent-guides
+    :hook (prog-mode . highlight-indent-guides-mode)
     :config
     (setq highlight-indent-guides-method 'character)
     (setq highlight-indent-guides-responsive 'stack))
@@ -286,6 +287,7 @@ display errors.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :defer t
+    :hook (prog-mode . flycheck-mode)
     :config
     (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -300,6 +302,7 @@ display errors.
 - Try to be smart about opening and closes blocks
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
+    :hook (prog-mode . smartparens-mode)
     :config
     (require 'smartparens-config))
 #+END_SRC
@@ -454,29 +457,6 @@ display errors.
     (setq evil-magit-use-y-for-yank t)    ;; Disable visual mode in magit buffers
     (setq evil-magit-state 'normal))       ;; Start Magit buffers in this mode
 #+END_SRC
-* Hooks
-** Org Mode
-- Automatically enable the following in programming modes:
-  - Bullets
-  - Indentation
-  - Flyspell
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook #'org-bullets-mode)
-  (add-hook 'org-mode-hook #'org-indent-mode)
-  (add-hook 'org-mode-hook #'flyspell-mode)
-#+END_SRC
-** Programming
-- Automatically enable the following in programming modes:
-  - Indent Guides
-  - FlyCheck
-  - Smart Parentheses
-  - Rainbow Parentheses
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
-  (add-hook 'prog-mode-hook #'flycheck-mode)
-  (add-hook 'prog-mode-hook #'smartparens-mode)
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-#+END_SRC
 * Org Universe
 ** Babel
 - Load languages to be used in embedded source code blocks
@@ -486,6 +466,14 @@ display errors.
                                  (shell . t)
                                  (python . t)
                                  (go . t)))
+#+END_SRC
+** Hooks
+- Automatically enable the following in programming modes:
+  - Indentation
+  - Flyspell
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook #'org-indent-mode)
+  (add-hook 'org-mode-hook #'flyspell-mode)
 #+END_SRC
 * Snippets
 ** Engine
@@ -541,7 +529,8 @@ return statements.
 ** Highlight
 *** Delimiters
 #+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters)
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
 ** Modeline
 - Use Doom Modeline for additional eye candy
