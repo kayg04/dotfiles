@@ -258,6 +258,10 @@ comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
   (use-package go-mode)
 #+END_SRC
+**** Org Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package ob-go)
+#+END_SRC
 *** TOML
 #+BEGIN_SRC emacs-lisp
   (use-package toml-mode)
