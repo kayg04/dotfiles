@@ -262,6 +262,20 @@ comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
   (use-package ob-go)
 #+END_SRC
+*** Nix
+**** Major Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package nix-mode)
+#+END_SRC
+**** Essentials
+#+BEGIN_SRC emacs-lisp
+  (use-package nixos-options)
+  (use-package helm-nixos-options)
+  (use-package company-nixos-options
+    :config
+    (add-to-list 'company-backends 'company-nixos-options))
+  (use-package nix-sandbox)
+#+END_SRC
 *** TOML
 #+BEGIN_SRC emacs-lisp
   (use-package toml-mode)
