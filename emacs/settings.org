@@ -653,6 +653,15 @@ return statements.
       ;; (setq doom-modeline-irc-stylize 'identity)
       )
 #+END_SRC
+** Prettify
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook (lambda ()
+     "Beautify Org Checkbox Symbol"
+     (push '("[ ]" . "☐") prettify-symbols-alist)
+     (push '("[X]" . "☑" ) prettify-symbols-alist)
+     (push '("[-]" . "❍" ) prettify-symbols-alist)
+     (prettify-symbols-mode)))
+#+END_SRC
 ** Themes
 *** Doom
 #+BEGIN_SRC emacs-lisp
