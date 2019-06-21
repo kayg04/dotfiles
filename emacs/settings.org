@@ -253,6 +253,10 @@ comes to emulating IDE features.
     (setq highlight-indent-guides-responsive 'stack))
 #+END_SRC
 ** Language Support
+*** Caddy
+#+BEGIN_SRC emacs-lisp
+  (use-package caddyfile-mode)
+#+END_SRC
 *** Golang
 **** Major Mode
 #+BEGIN_SRC emacs-lisp
@@ -261,6 +265,11 @@ comes to emulating IDE features.
 **** Org Mode
 #+BEGIN_SRC emacs-lisp
   (use-package ob-go)
+#+END_SRC
+*** Nginx
+#+BEGIN_SRC emacs-lisp
+  (use-package nginx-mode)
+  (use-package company-nginx)
 #+END_SRC
 *** Nix
 **** Major Mode
@@ -318,10 +327,6 @@ display errors.
     :hook (prog-mode . smartparens-mode)
     :config
     (require 'smartparens-config))
-#+END_SRC
-*** Caddy
-#+BEGIN_SRC emacs-lisp
-  (use-package caddyfile-mode)
 #+END_SRC
 * Custom Keybindings
 :PROPERTIES:
