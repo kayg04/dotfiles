@@ -23,11 +23,11 @@ user_pref("browser.sessionstore.interval", 300000);
 /// Search ///
 
 // Search via address bar
-user_pref("keyword.enabled", false);
+user_pref("keyword.enabled", true);
 
 // Enable suggestion of searches; safe since I use SearX
-user_pref("browser.search.suggest.enabled", false);
-user_pref("browser.urlbar.suggest.searches", false);
+user_pref("browser.search.suggest.enabled", true);
+user_pref("browser.urlbar.suggest.searches", true);
 
 /// Search ///
 
@@ -35,6 +35,6 @@ user_pref("browser.urlbar.suggest.searches", false);
 /// Misc ///
 
 // Disable letterboxing
-user_pref("privacy.resistFingerprinting.letterboxing", true);
+user_pref("privacy.resistFingerprinting.letterboxing", false);
 
 /// Misc ///
