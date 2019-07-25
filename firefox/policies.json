@@ -1,0 +1,68 @@
+{
+  "__COMMENT__ More Information": "https://github.com/mozilla/policy-templates/blob/master/README.md",
+
+  "policies": {
+    "CaptivePortal": true,
+    "Cookies": {
+      "Default": true,
+      "AcceptThirdParty": "never",
+      "ExpireAtSessionEnd": true
+    },
+    "DisableAppUpdate": true,
+    "DisableDeveloperTools": false,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxAccounts": false,
+    "DisableFirefoxScreenshots": true,
+    "DisableFirefoxStudies": false,
+    "DisableMasterPasswordCreation": true,
+    "DisablePocket": true,
+    "DisableProfileImport": false,
+    "DisableSetDesktopBackground": false,
+    "DisableSystemAddonUpdate": true,
+    "DisableTelemetry": true,
+    "DNSOverHTTPS": {
+      "Enabled": true,
+      "ProviderURL": "https://dns.quad9.net/dns-query",
+      "Locked": false
+    },
+    "Extensions": {
+      "Install": [ 
+                   "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi", 
+                   "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi",
+                   "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
+      	         ],
+      "Uninstall": [ 
+                     "amazondotcom@search.mozilla.org",
+                     "bing@search.mozilla.org",
+                     "ebay@search.mozilla.org",
+                     "google@search.mozilla.org",
+                     "twitter@search.mozilla.org"
+      		   ],
+      "Locked":  [""]
+    },
+    "ExtensionUpdate": true,
+    "HardwareAcceleration": true,
+    "NetworkPrediction": false,
+    "NoDefaultBookmarks": true,
+    "OfferToSaveLogins": false,
+    "SanitizeOnShutdown": {
+    	"Cache": true,
+    	"Cookies": true,
+    	"Downloads": false,
+    	"FormData": false,
+    	"History": false,
+    	"Sessions": true,
+    	"SiteSettings": true,
+    	"OfflineApps": true
+    },
+    "SearchBar": "unified",
+    "SSLVersionMin": "tls1.2"
+  }
+}
