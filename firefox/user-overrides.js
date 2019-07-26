@@ -37,4 +37,7 @@ user_pref("browser.urlbar.suggest.searches", true);
 // Disable letterboxing
 user_pref("privacy.resistFingerprinting.letterboxing", false);
 
+// Enable WebAssembly
+user_pref("javascript.options.wasm", true);
+
 /// Misc ///
