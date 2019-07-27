@@ -1,20 +1,137 @@
 
 # Table of Contents
 
-1.  [Firefox](#org1901878)
-    1.  [Profiles](#org65b59fe)
-    2.  [Policies](#orgd650762)
-    3.  [UserJS](#org24560f1)
-2.  [Emacs](#org4bcc45f)
+1.  [Compton](#org0773941)
+2.  [Emacs](#org772bc8b)
+3.  [Firefox](#orgeb063c9)
+    1.  [Profiles](#org0d7c883)
+    2.  [Policies](#org9a39c72)
+    3.  [UserJS](#orgc61d517)
 
 
 
-<a id="org1901878"></a>
+<a id="org0773941"></a>
+
+# Compton
+
+    # Shadow
+    shadow = true;
+    no-dnd-shadow = true;
+    no-dock-shadow = true;
+    clear-shadow = true;
+    shadow-radius = 7;
+    shadow-offset-x = -7;
+    shadow-offset-y = -7;
+    # shadow-opacity = 0.7;
+    # shadow-red = 0.0;
+    # shadow-green = 0.0;
+    # shadow-blue = 0.0;
+    shadow-exclude = [
+        "name = 'Notification'",
+        "class_g = 'Conky'",
+        "class_g ?= 'Notify-osd'",
+        "class_g = 'Cairo-clock'",
+        "_GTK_FRAME_EXTENTS@:c"
+    ];
+    # shadow-exclude = "n:e:Notification";
+    # shadow-exclude-reg = "x10+0+0";
+    # xinerama-shadow-crop = true;
+    
+    # Opacity
+    menu-opacity = 0.8;
+    inactive-opacity = 0.8;
+    # active-opacity = 0.8;
+    frame-opacity = 0.7;
+    inactive-opacity-override = false;
+    alpha-step = 0.06;
+    # inactive-dim = 0.2;
+    # inactive-dim-fixed = true;
+    blur-background = true;
+    blur-background-frame = true;
+    blur-method = "kawase";
+    blur-strength = 7;
+    blur-kern = "3x3box";
+    # blur-kern = "5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
+    # blur-background-fixed = true;
+    blur-background-exclude = [
+        "window_type = 'dock'",
+        "window_type = 'desktop'",
+        "_GTK_FRAME_EXTENTS@:c"
+    ];
+    # opacity-rule = [ "80:class_g = 'URxvt'" ];
+    
+    # Fading
+    fading = true;
+    # fade-delta = 30;
+    fade-in-step = 0.03;
+    fade-out-step = 0.03;
+    # no-fading-openclose = true;
+    # no-fading-destroyed-argb = true;
+    fade-exclude = [ ];
+    
+    # Other
+    backend = "glx";
+    mark-wmwin-focused = true;
+    mark-ovredir-focused = true;
+    # use-ewmh-active-win = true;
+    detect-rounded-corners = true;
+    detect-client-opacity = true;
+    refresh-rate = 0;
+    vsync = "opengl";
+    dbe = false;
+    paint-on-overlay = true;
+    # sw-opti = true;
+    # unredir-if-possible = true;
+    # unredir-if-possible-delay = 5000;
+    # unredir-if-possible-exclude = [ ];
+    focus-exclude = [ "class_g = 'Cairo-clock'" ];
+    detect-transient = true;
+    detect-client-leader = true;
+    invert-color-include = [ ];
+    # resize-damage = 1;
+    
+    # GLX backend
+    glx-no-stencil = true;
+    glx-copy-from-front = false;
+    # glx-use-copysubbuffermesa = true;
+    # glx-no-rebind-pixmap = true;
+    glx-swap-method = "undefined";
+    # glx-use-gpushader4 = true;
+    # xrender-sync = true;
+    # xrender-sync-fence = true;
+    
+    # Window type settings
+    wintypes:
+    {
+      tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; };
+    };
+    
+    # Transitions
+    transition-length = 100;
+
+
+<a id="org772bc8b"></a>
+
+# Emacs
+
+Since Emacs' settings are already managed through an org
+file, there is no need to go meta. This is the init.el file
+which emacs first reads and uses it tangle its full
+configuration elsewhere.
+
+    (require 'org)
+    (setq-default user-emacs-directory "~/.config/emacs/")
+    (org-babel-load-file
+     (expand-file-name "settings.org"
+                       user-emacs-directory))
+
+
+<a id="orgeb063c9"></a>
 
 # Firefox
 
 
-<a id="org65b59fe"></a>
+<a id="org0d7c883"></a>
 
 ## Profiles
 
@@ -62,7 +179,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgd650762"></a>
+<a id="org9a39c72"></a>
 
 ## Policies
 
@@ -138,7 +255,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org24560f1"></a>
+<a id="orgc61d517"></a>
 
 ## UserJS
 
@@ -190,20 +307,4 @@ privacy-centered configuration.
     user_pref("javascript.options.wasm", true);
     
     /// Misc ///
-
-
-<a id="org4bcc45f"></a>
-
-# Emacs
-
-Since Emacs' settings are already managed through an org
-file, there is no need to go meta. This is the init.el file
-which emacs first reads and uses it tangle its full
-configuration elsewhere.
-
-    (require 'org)
-    (setq-default user-emacs-directory "~/.config/emacs/")
-    (org-babel-load-file
-     (expand-file-name "settings.org"
-                       user-emacs-directory))
 
