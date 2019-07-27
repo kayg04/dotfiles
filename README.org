@@ -36,7 +36,7 @@
   # inactive-dim = 0.2;
   # inactive-dim-fixed = true;
   blur-background = true;
-  blur-background-frame = true;
+  # blur-background-frame = true;
   blur-method = "kawase";
   blur-strength = 7;
   blur-kern = "3x3box";
@@ -52,8 +52,8 @@
   # Fading
   fading = true;
   # fade-delta = 30;
-  fade-in-step = 0.03;
-  fade-out-step = 0.03;
+  fade-in-step = 0.05;
+  fade-out-step = 0.05;
   # no-fading-openclose = true;
   # no-fading-destroyed-argb = true;
   fade-exclude = [ ];
@@ -62,15 +62,15 @@
   backend = "glx";
   mark-wmwin-focused = true;
   mark-ovredir-focused = true;
-  # use-ewmh-active-win = true;
+  use-ewmh-active-win = true;
   detect-rounded-corners = true;
   detect-client-opacity = true;
-  refresh-rate = 0;
-  vsync = "opengl";
+  refresh-rate = 60;
+  vsync = "opengl-swc";
   dbe = false;
   paint-on-overlay = true;
-  # sw-opti = true;
-  # unredir-if-possible = true;
+  sw-opti = true;
+  unredir-if-possible = true;
   # unredir-if-possible-delay = 5000;
   # unredir-if-possible-exclude = [ ];
   focus-exclude = [ "class_g = 'Cairo-clock'" ];
@@ -80,8 +80,8 @@
   # resize-damage = 1;
 
   # GLX backend
-  glx-no-stencil = true;
-  glx-copy-from-front = false;
+  # glx-no-stencil = true;
+  # glx-copy-from-front = false;
   # glx-use-copysubbuffermesa = true;
   # glx-no-rebind-pixmap = true;
   glx-swap-method = "undefined";
@@ -96,7 +96,7 @@
   };
 
   # Transitions
-  transition-length = 100;
+  transition-length = 150;
 #+END_SRC
 * Emacs
 Since Emacs' settings are already managed through an org
