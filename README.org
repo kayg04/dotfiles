@@ -18,7 +18,7 @@ randomly.
 
 I tried running Electron Apps with it but sadly, things like
 pasting images from clipboard and downloading files from
-Skype (yes, my workplace uses *Skype* in 2019 \*groan\*) do
+Skype (yes, my workplace uses *Skype* in 2019, *groan*) do
 not work. Hence I now rely on Ungoogled Chromium to do my
 dirty work.
 
