@@ -351,6 +351,7 @@ display errors.
 
     ;; Buffers
     "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+    "bl"  '(list-buffers :which-key "list buffers")
     "bq"  '(kill-buffer :which-key "kill buffer")
     "bw"  '(save-buffer :which-key "save buffer")
     "bs"  '(switch-to-buffer :which-key "switch buffer")
