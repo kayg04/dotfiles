@@ -1,41 +1,41 @@
 
 # Table of Contents
 
-1.  [Firefox](#org894d7b7)
-    1.  [Profiles](#org45aed04)
-    2.  [Policies](#org23f9242)
-    3.  [UserJS](#org5964c7b)
-2.  [Emacs](#orgc589a2d)
+1.  [Firefox](#orgc7c2726)
+    1.  [Profiles](#org74af8a4)
+    2.  [Policies](#org2e3b92b)
+    3.  [UserJS](#orgc62a2a8)
+2.  [Emacs](#orgd3d34a7)
 
 
 
-<a id="org894d7b7"></a>
+<a id="orgc7c2726"></a>
 
 # Firefox
 
 
-<a id="org45aed04"></a>
+<a id="org74af8a4"></a>
 
 ## Profiles
 
 -   `StartWithLastProfile` ensures a profile choice isn't
     asked at startup.
 
-I have two profiles with Firefox; one for browsing and one
-for *research*. Since a lot of my research gets lost and I'm
+Sometimes Firefox amazes me by how customizable it is. I
+have two profiles with Firefox; one for browsing and one for
+*research*. Since a lot of my research gets lost and I'm
 unable to refer to previous findings, it helps to have a
 separate profile. Both profiles are stored in a standardized
 XDG configuration directory (`~/.config/firefox`) rather
 than the default (`~/.mozilla/firefox/`). I would also
-rather name my own profiles rather than firefox naming them
-randomly. Sometimes Firefox amazes me by how customizable it
-is.
+rather name my own profiles than let firefox name them
+randomly.
 
-I tried running Electron based applications with it but
-sadly, things like pasting images from clipboard and
-downloading files from Skype (yes, my workplace uses **Skype**
-in 2019 \\\*groan\\\*) do not work. Hence I now rely on
-Ungoogled Chromium to do my dirty work.
+I tried running Electron Apps with it but sadly, things like
+pasting images from clipboard and downloading files from
+Skype (yes, my workplace uses **Skype** in 2019 ,\*groan,\*) do
+not work. Hence I now rely on Ungoogled Chromium to do my
+dirty work.
 
 Although things work fine with UC, I'm unsure if Chromium
 profiles actually provide a *temporary-container* sort of
@@ -62,7 +62,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org23f9242"></a>
+<a id="org2e3b92b"></a>
 
 ## Policies
 
@@ -138,7 +138,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org5964c7b"></a>
+<a id="orgc62a2a8"></a>
 
 ## UserJS
 
@@ -192,7 +192,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgc589a2d"></a>
+<a id="orgd3d34a7"></a>
 
 # Emacs
 

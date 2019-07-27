@@ -6,21 +6,21 @@
 - =StartWithLastProfile= ensures a profile choice isn't
   asked at startup.
 
-I have two profiles with Firefox; one for browsing and one
-for /research/. Since a lot of my research gets lost and I'm
+Sometimes Firefox amazes me by how customizable it is. I
+have two profiles with Firefox; one for browsing and one for
+/research/. Since a lot of my research gets lost and I'm
 unable to refer to previous findings, it helps to have a
 separate profile. Both profiles are stored in a standardized
 XDG configuration directory (=~/.config/firefox=) rather
 than the default (=~/.mozilla/firefox/=). I would also
-rather name my own profiles rather than firefox naming them
-randomly. Sometimes Firefox amazes me by how customizable it
-is.
+rather name my own profiles than let firefox name them
+randomly.
 
-I tried running Electron based applications with it but
-sadly, things like pasting images from clipboard and
-downloading files from Skype (yes, my workplace uses *Skype*
-in 2019 \*groan\*) do not work. Hence I now rely on
-Ungoogled Chromium to do my dirty work.
+I tried running Electron Apps with it but sadly, things like
+pasting images from clipboard and downloading files from
+Skype (yes, my workplace uses *Skype* in 2019 ,*groan,*) do
+not work. Hence I now rely on Ungoogled Chromium to do my
+dirty work.
 
 Although things work fine with UC, I'm unsure if Chromium
 profiles actually provide a /temporary-container/ sort of
