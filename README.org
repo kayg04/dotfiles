@@ -2,4 +2,5 @@
 #+AUTHOR: K Gopal Krishna
 
 Dotfiles included:
-- Emacs
+  - Emacs
+  - Firefox
