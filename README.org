@@ -1,5 +1,6 @@
 #+TITLE: README
 #+AUTHOR: K Gopal Krishna
+#+OPTIONS: toc:nil
 
 Dotfiles included:
   - Emacs
