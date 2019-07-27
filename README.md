@@ -1,7 +1,20 @@
 
+# Table of Contents
+
+1.  [Firefox](#org894d7b7)
+    1.  [Profiles](#org45aed04)
+    2.  [Policies](#org23f9242)
+    3.  [UserJS](#org5964c7b)
+2.  [Emacs](#orgc589a2d)
+
+
+
+<a id="org894d7b7"></a>
 
 # Firefox
 
+
+<a id="org45aed04"></a>
 
 ## Profiles
 
@@ -48,6 +61,8 @@ Firefox offers as I reinstall often.
     Path=../../.config/firefox/firefox.research
     Default=0
 
+
+<a id="org23f9242"></a>
 
 ## Policies
 
@@ -123,6 +138,8 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
+<a id="org5964c7b"></a>
+
 ## UserJS
 
 I use GHacks' UserJS which I think is an excellent beginner
@@ -174,6 +191,8 @@ privacy-centered configuration.
     
     /// Misc ///
 
+
+<a id="orgc589a2d"></a>
 
 # Emacs
 
