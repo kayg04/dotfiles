@@ -1,20 +1,20 @@
 
 # Table of Contents
 
-1.  [Firefox](#orgc7c2726)
-    1.  [Profiles](#org74af8a4)
-    2.  [Policies](#org2e3b92b)
-    3.  [UserJS](#orgc62a2a8)
-2.  [Emacs](#orgd3d34a7)
+1.  [Firefox](#org568e91d)
+    1.  [Profiles](#orgb9a26a8)
+    2.  [Policies](#org6ee4538)
+    3.  [UserJS](#org5471f48)
+2.  [Emacs](#org9ed7581)
 
 
 
-<a id="orgc7c2726"></a>
+<a id="org568e91d"></a>
 
 # Firefox
 
 
-<a id="org74af8a4"></a>
+<a id="orgb9a26a8"></a>
 
 ## Profiles
 
@@ -33,7 +33,7 @@ randomly.
 
 I tried running Electron Apps with it but sadly, things like
 pasting images from clipboard and downloading files from
-Skype (yes, my workplace uses **Skype** in 2019 ,\*groan,\*) do
+Skype (yes, my workplace uses **Skype** in 2019 \\\*groan\\\*) do
 not work. Hence I now rely on Ungoogled Chromium to do my
 dirty work.
 
@@ -62,7 +62,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org2e3b92b"></a>
+<a id="org6ee4538"></a>
 
 ## Policies
 
@@ -138,7 +138,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgc62a2a8"></a>
+<a id="org5471f48"></a>
 
 ## UserJS
 
@@ -192,7 +192,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgd3d34a7"></a>
+<a id="org9ed7581"></a>
 
 # Emacs
 
