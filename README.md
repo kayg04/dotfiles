@@ -1,25 +1,25 @@
 
 # Table of Contents
 
-1.  [Awesome](#org00ff3be)
-    1.  [rc.lua](#orge34da18)
-    2.  [Themes](#org02cfc32)
-        1.  [Default](#orgd9c10ee)
-2.  [Compton](#org28105f8)
-3.  [Emacs](#org90f1cfe)
-4.  [Firefox](#org993f791)
-    1.  [Profiles](#org69b65f6)
-    2.  [Policies](#orgc3e0713)
-    3.  [UserJS](#orgd3d30e6)
+1.  [Awesome](#org6c08a5d)
+    1.  [rc.lua](#org2acd4ad)
+    2.  [Themes](#org1e61489)
+        1.  [Default](#org553a8ca)
+2.  [Compton](#org7bbb361)
+3.  [Emacs](#orgbe16f7b)
+4.  [Firefox](#orga886a0d)
+    1.  [Profiles](#org4a7ec55)
+    2.  [Policies](#orgb0f6aca)
+    3.  [UserJS](#org465c36c)
 
 
 
-<a id="org00ff3be"></a>
+<a id="org6c08a5d"></a>
 
 # Awesome
 
 
-<a id="orge34da18"></a>
+<a id="org2acd4ad"></a>
 
 ## rc.lua
 
@@ -70,7 +70,7 @@
     
     -- {{{ Variable definitions
     -- Themes define colours, icons, font and wallpapers.
-    beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+    beautiful.init("/home/kayg/.config/awesome/themes/default/theme.lua")
     
     -- This is used later as the default terminal and editor to run.
     terminal = "xterm"
@@ -586,15 +586,18 @@
     
     client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
     client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+    client.connect_signal("manage", function (c, startup) c.shape = function (cr, w, h) gears.shape.rounded_rect(cr,w,h,60)
+                                                                    end
+    end)
     -- }}}
 
 
-<a id="org02cfc32"></a>
+<a id="org1e61489"></a>
 
 ## Themes
 
 
-<a id="orgd9c10ee"></a>
+<a id="org553a8ca"></a>
 
 ### Default
 
@@ -731,7 +734,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org28105f8"></a>
+<a id="org7bbb361"></a>
 
 # Compton
 
@@ -740,10 +743,10 @@
     no-dnd-shadow = true;
     no-dock-shadow = true;
     clear-shadow = true;
-    shadow-radius = 7;
-    shadow-offset-x = -7;
-    shadow-offset-y = -7;
-    # shadow-opacity = 0.7;
+    shadow-radius = 10;
+    shadow-offset-x = -1;
+    shadow-offset-y = -1;
+    shadow-opacity = 0.4;
     # shadow-red = 0.0;
     # shadow-green = 0.0;
     # shadow-blue = 0.0;
@@ -752,7 +755,8 @@
         "class_g = 'Conky'",
         "class_g ?= 'Notify-osd'",
         "class_g = 'Cairo-clock'",
-        "_GTK_FRAME_EXTENTS@:c"
+        "_GTK_FRAME_EXTENTS@:c",
+        "bounding_shaped"
     ];
     # shadow-exclude = "n:e:Notification";
     # shadow-exclude-reg = "x10+0+0";
@@ -768,10 +772,10 @@
     # inactive-dim = 0.2;
     # inactive-dim-fixed = true;
     blur-background = true;
-    # blur-background-frame = true;
+    blur-background-frame = true;
     blur-method = "kawase";
     blur-strength = 7;
-    blur-kern = "3x3box";
+    blur-kern = "7x7box";
     # blur-kern = "5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
     # blur-background-fixed = true;
     blur-background-exclude = [
@@ -800,7 +804,7 @@
     refresh-rate = 60;
     vsync = "opengl-swc";
     dbe = false;
-    paint-on-overlay = false;
+    paint-on-overlay = true;
     sw-opti = true;
     unredir-if-possible = true;
     # unredir-if-possible-delay = 5000;
@@ -831,7 +835,7 @@
     transition-length = 150;
 
 
-<a id="org90f1cfe"></a>
+<a id="orgbe16f7b"></a>
 
 # Emacs
 
@@ -847,12 +851,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org993f791"></a>
+<a id="orga886a0d"></a>
 
 # Firefox
 
 
-<a id="org69b65f6"></a>
+<a id="org4a7ec55"></a>
 
 ## Profiles
 
@@ -900,7 +904,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgc3e0713"></a>
+<a id="orgb0f6aca"></a>
 
 ## Policies
 
@@ -976,7 +980,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgd3d30e6"></a>
+<a id="org465c36c"></a>
 
 ## UserJS
 
