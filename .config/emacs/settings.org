@@ -276,6 +276,10 @@ comes to emulating IDE features.
 #+BEGIN_SRC emacs-lisp
   (use-package json-mode)
 #+END_SRC
+*** Lua
+#+BEGIN_SRC emacs-lisp
+  (use-package lua-mode)
+#+END_SRC
 *** Nginx
 #+BEGIN_SRC emacs-lisp
   (use-package nginx-mode)
