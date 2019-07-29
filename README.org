@@ -871,7 +871,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
       "Cookies": {
         "Default": true,
         "AcceptThirdParty": "never",
-        "ExpireAtSessionEnd": true
+        "ExpireAtSessionEnd": false
       },
       "DisableAppUpdate": true,
       "DisableDeveloperTools": false,
@@ -939,7 +939,7 @@ I use GHacks' UserJS which I think is an excellent beginner
 point towards making your own customizations as it allows
 you to focus on tweaking for usablity from an already
 privacy-centered configuration.
-#+BEGIN_SRC js :tangle .mozilla/firefox/policies.json
+#+BEGIN_SRC js :tangle .mozilla/firefox/user-overrides.js
   /// GPU Acceleration ///
 
   // Force enable hardware acceleration

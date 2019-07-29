@@ -1,25 +1,25 @@
 
 # Table of Contents
 
-1.  [Awesome](#org6c08a5d)
-    1.  [rc.lua](#org2acd4ad)
-    2.  [Themes](#org1e61489)
-        1.  [Default](#org553a8ca)
-2.  [Compton](#org7bbb361)
-3.  [Emacs](#orgbe16f7b)
-4.  [Firefox](#orga886a0d)
-    1.  [Profiles](#org4a7ec55)
-    2.  [Policies](#orgb0f6aca)
-    3.  [UserJS](#org465c36c)
+1.  [Awesome](#org7b21d1b)
+    1.  [rc.lua](#org2e66d90)
+    2.  [Themes](#orgd0eb77c)
+        1.  [Default](#org2a59e98)
+2.  [Compton](#orgf7f91b4)
+3.  [Emacs](#org981c330)
+4.  [Firefox](#org47bddf0)
+    1.  [Profiles](#org83b0b49)
+    2.  [Policies](#org47535a9)
+    3.  [UserJS](#org8b2c64d)
 
 
 
-<a id="org6c08a5d"></a>
+<a id="org7b21d1b"></a>
 
 # Awesome
 
 
-<a id="org2acd4ad"></a>
+<a id="org2e66d90"></a>
 
 ## rc.lua
 
@@ -592,12 +592,12 @@
     -- }}}
 
 
-<a id="org1e61489"></a>
+<a id="orgd0eb77c"></a>
 
 ## Themes
 
 
-<a id="org553a8ca"></a>
+<a id="org2a59e98"></a>
 
 ### Default
 
@@ -734,7 +734,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org7bbb361"></a>
+<a id="orgf7f91b4"></a>
 
 # Compton
 
@@ -835,7 +835,7 @@
     transition-length = 150;
 
 
-<a id="orgbe16f7b"></a>
+<a id="org981c330"></a>
 
 # Emacs
 
@@ -851,12 +851,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orga886a0d"></a>
+<a id="org47bddf0"></a>
 
 # Firefox
 
 
-<a id="org4a7ec55"></a>
+<a id="org83b0b49"></a>
 
 ## Profiles
 
@@ -904,7 +904,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgb0f6aca"></a>
+<a id="org47535a9"></a>
 
 ## Policies
 
@@ -916,7 +916,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
         "Cookies": {
           "Default": true,
           "AcceptThirdParty": "never",
-          "ExpireAtSessionEnd": true
+          "ExpireAtSessionEnd": false
         },
         "DisableAppUpdate": true,
         "DisableDeveloperTools": false,
@@ -980,7 +980,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org465c36c"></a>
+<a id="org8b2c64d"></a>
 
 ## UserJS
 
