@@ -6,7 +6,7 @@
       "AcceptThirdParty": "never",
       "ExpireAtSessionEnd": false
     },
-    "DisableAppUpdate": true,
+    "DisableAppUpdate": false,
     "DisableDeveloperTools": false,
     "DisableFeedbackCommands": true,
     "DisableFirefoxAccounts": false,
@@ -17,7 +17,7 @@
     "DisableProfileImport": false,
     "DisableSetDesktopBackground": false,
     "DisableSystemAddonUpdate": true,
-    "DisableTelemetry": true,
+    "DisableTelemetry": false,
     "DNSOverHTTPS": {
       "Enabled": true,
       "ProviderURL": "https://dns.quad9.net/dns-query",
@@ -54,7 +54,7 @@
     "OfferToSaveLogins": false,
     "SanitizeOnShutdown": {
         "Cache": true,
-        "Cookies": true,
+        "Cookies": false,
         "Downloads": false,
         "FormData": false,
         "History": false,
