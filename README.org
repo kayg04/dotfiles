@@ -1075,6 +1075,12 @@ builds upon the GHacksUserJS.
       echo "Copying profiles.ini..."
       mkdir -p "${HOME}/.mozilla/firefox"
       cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
+
+      echo "Copying policies.json..."
+      if ! cp ../../policies.json /opt/firefox-nightly/distribution/; then
+          echo "Please fix permissions on the firefox-nightly directory by executing:
+                       sudo chown -R $USER:$USER /opt/firefox-nightly/"
+      fi
   }
 
   cleanUp() {

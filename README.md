@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgfb59381)
-    1.  [rc.lua](#org7646e6b)
-    2.  [Themes](#orge4b2857)
-        1.  [Default](#orgdfdc624)
-2.  [Compton](#org824a6fe)
-3.  [Emacs](#org940fbac)
-4.  [Firefox](#org9c1a1a5)
-    1.  [Profiles](#org27091b7)
-    2.  [Policies](#orge141c6e)
-    3.  [UserJS](#org8fa19e2)
-        1.  [General](#org7f28d66)
-        2.  [Themes](#org3d918aa)
-    4.  [Bootstrap](#org3885413)
+1.  [Awesome](#orgd6fbe8b)
+    1.  [rc.lua](#orgb58f920)
+    2.  [Themes](#org15cd6f0)
+        1.  [Default](#org7d11247)
+2.  [Compton](#org6c3448a)
+3.  [Emacs](#org5e9bf72)
+4.  [Firefox](#org9e9fee3)
+    1.  [Profiles](#org2470b33)
+    2.  [Policies](#orgf62a0b7)
+    3.  [UserJS](#orgb9275e0)
+        1.  [General](#org1c17331)
+        2.  [Themes](#orgef85050)
+    4.  [Bootstrap](#org8658753)
 
 
 
-<a id="orgfb59381"></a>
+<a id="orgd6fbe8b"></a>
 
 # Awesome
 
 
-<a id="org7646e6b"></a>
+<a id="orgb58f920"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="orge4b2857"></a>
+<a id="org15cd6f0"></a>
 
 ## Themes
 
 
-<a id="orgdfdc624"></a>
+<a id="org7d11247"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org824a6fe"></a>
+<a id="org6c3448a"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org940fbac"></a>
+<a id="org5e9bf72"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org9c1a1a5"></a>
+<a id="org9e9fee3"></a>
 
 # Firefox
 
 
-<a id="org27091b7"></a>
+<a id="org2470b33"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orge141c6e"></a>
+<a id="orgf62a0b7"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org8fa19e2"></a>
+<a id="orgb9275e0"></a>
 
 ## UserJS
 
 
-<a id="org7f28d66"></a>
+<a id="org1c17331"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org3d918aa"></a>
+<a id="orgef85050"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="org3885413"></a>
+<a id="org8658753"></a>
 
 ## Bootstrap
 
@@ -1140,6 +1140,12 @@ builds upon the GHacksUserJS.
         echo "Copying profiles.ini..."
         mkdir -p "${HOME}/.mozilla/firefox"
         cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
+    
+        echo "Copying policies.json..."
+        if ! cp ../../policies.json /opt/firefox-nightly/distribution/; then
+            echo "Please fix permissions on the firefox-nightly directory by executing:
+                         sudo chown -R $USER:$USER /opt/firefox-nightly/"
+        fi
     }
     
     cleanUp() {
