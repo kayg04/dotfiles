@@ -1000,6 +1000,22 @@ privacy-centered configuration.
   // MaterialFox //
 #+END_SRC
 ** Bootstrap
+This script sets up my firefox profiles and custom userJS that
+builds upon the GHacksUserJS.
+
+Functions:
+- createWorkDir: checks if the work directory already
+  exists, removes it if it does exist (which it will, in
+  case non-zero termination of the script), to start afresh.
+- fetchGHacksJS: fetches the source from upstream and
+  navigates into the folder
+- mkTweaks: makes the custom user.js tweaks according to the
+  option passed. Currently, supported themes are MaterialFox
+  and GNOME.
+- applyToProfiles: reads =profiles.ini= and creates the
+  specified profiles, thereafter copying the modified
+  user.js files into those profiles.
+- cleanUp: removes the created work directory.
 #+BEGIN_SRC sh :tangle .mozilla/firefox/bootstrap.sh
   #!/usr/bin/env bash
 
