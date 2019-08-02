@@ -873,7 +873,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
         "AcceptThirdParty": "never",
         "ExpireAtSessionEnd": false
       },
-      "DisableAppUpdate": true,
+      "DisableAppUpdate": false,
       "DisableDeveloperTools": false,
       "DisableFeedbackCommands": true,
       "DisableFirefoxAccounts": false,
@@ -884,7 +884,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
       "DisableProfileImport": false,
       "DisableSetDesktopBackground": false,
       "DisableSystemAddonUpdate": true,
-      "DisableTelemetry": true,
+      "DisableTelemetry": false,
       "DNSOverHTTPS": {
         "Enabled": true,
         "ProviderURL": "https://dns.quad9.net/dns-query",
@@ -898,6 +898,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
                      "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi",
                      "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi",
                      "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi",
+                     "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi",
                      "https://addons.mozilla.org/firefox/downloads/latest/peertubeify/latest.xpi",
                      "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi",
                      "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi",
@@ -921,7 +922,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
       "OfferToSaveLogins": false,
       "SanitizeOnShutdown": {
           "Cache": true,
-          "Cookies": true,
+          "Cookies": false,
           "Downloads": false,
           "FormData": false,
           "History": false,
@@ -935,6 +936,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
   }
 #+END_SRC
 ** UserJS
+*** General
 I use GHacks' UserJS which I think is an excellent beginner
 point towards making your own customizations as it allows
 you to focus on tweaking for usablity from an already
@@ -983,4 +985,86 @@ privacy-centered configuration.
   user_pref("javascript.options.wasm", true);
 
   /// Misc ///
+#+END_SRC
+*** Themes
+**** MaterialFox
+#+BEGIN_SRC js :tangle .mozilla/firefox/materialfox.js
+  // MaterialFox //
+
+  user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+  user_pref("svg.context-properties.content.enabled", true);
+  user_pref("browser.tabs.tabClipWidth", 83);
+  user_pref("materialFox.reduceTabOverflow", true);
+  user_pref("security.insecure_connection_text.enabled", true);
+
+  // MaterialFox //
+#+END_SRC
+** Bootstrap
+#+BEGIN_SRC sh :tangle .mozilla/firefox/bootstrap.sh
+  #!/usr/bin/env bash
+
+  set -euo pipefail
+
+  createWorkDir() {
+      if [[ -d ./workdir ]]; then
+          rm -rf ./workdir
+          mkdir -p ./workdir
+          cd ./workdir
+      fi
+  }
+
+  fetchGHacksJS() {
+      git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs
+      cd ./ghjs
+  }
+
+  mkTweaks() {
+      cp ../../*.js ./
+
+      case "${1}" in
+          -m | --materialFox)
+              cat ./materialfox.js >> ./user-overrides.js
+              break
+              ;;
+          -g | --gnome)
+              cat ./gnome.js >> ./user-overrides.js
+              break
+              ;;
+          -h | --help)
+              echo -ne "\\nFirefox UserJS helper:
+                                   -g, --gnome: apply GNOME userchrome theme
+                                   -h, --help: display this message
+                                   -m, --materialFox: apply MaterialFox userchrome theme\\n"
+              break
+              ;;
+          ,*)
+              echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
+      esac
+
+      ./updater.sh -u
+  }
+
+  applyToProfiles() {
+      profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+
+      for profile in "${profileList}"; do
+          mkdir -p "${HOME}/.config/firefox/${profile}"
+          cp ./user.js "${HOME}/.config/firefox/${profile}"
+      done
+  }
+
+  cleanUp() {
+      cd ../../
+      rm -rf ./workdir
+  }
+
+  main() {
+      createWorkDir
+      fetchGHacksJS
+      mkTweaks "${1}"
+      applyToProfiles
+      cleanUp
+  }
+
+  main "${1}"
 #+END_SRC
