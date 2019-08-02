@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgda2c723)
-    1.  [rc.lua](#org941c349)
-    2.  [Themes](#org00b6dd0)
-        1.  [Default](#org6c391df)
-2.  [Compton](#org6a3a4cc)
-3.  [Emacs](#org883bb3b)
-4.  [Firefox](#orgf2c9932)
-    1.  [Profiles](#orgf206f64)
-    2.  [Policies](#orgf2a31e8)
-    3.  [UserJS](#orgbf46a92)
-        1.  [General](#orgc3f7b0e)
-        2.  [Themes](#orgef7ffe5)
-    4.  [Bootstrap](#orgf59a79f)
+1.  [Awesome](#org3dc5582)
+    1.  [rc.lua](#org723b77a)
+    2.  [Themes](#orgc2d9988)
+        1.  [Default](#org884d6a7)
+2.  [Compton](#org43fabd2)
+3.  [Emacs](#org5357235)
+4.  [Firefox](#orgf57bf66)
+    1.  [Profiles](#org4f89863)
+    2.  [Policies](#orgb66044e)
+    3.  [UserJS](#org98feb95)
+        1.  [General](#org3ec7e54)
+        2.  [Themes](#orgbf47b5f)
+    4.  [Bootstrap](#orgb106a8b)
 
 
 
-<a id="orgda2c723"></a>
+<a id="org3dc5582"></a>
 
 # Awesome
 
 
-<a id="org941c349"></a>
+<a id="org723b77a"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="org00b6dd0"></a>
+<a id="orgc2d9988"></a>
 
 ## Themes
 
 
-<a id="org6c391df"></a>
+<a id="org884d6a7"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org6a3a4cc"></a>
+<a id="org43fabd2"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org883bb3b"></a>
+<a id="org5357235"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgf2c9932"></a>
+<a id="orgf57bf66"></a>
 
 # Firefox
 
 
-<a id="orgf206f64"></a>
+<a id="org4f89863"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgf2a31e8"></a>
+<a id="orgb66044e"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgbf46a92"></a>
+<a id="org98feb95"></a>
 
 ## UserJS
 
 
-<a id="orgc3f7b0e"></a>
+<a id="org3ec7e54"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgef7ffe5"></a>
+<a id="orgbf47b5f"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="orgf59a79f"></a>
+<a id="orgb106a8b"></a>
 
 ## Bootstrap
 
@@ -1069,18 +1069,18 @@ builds upon the GHacksUserJS.
 
 Functions:
 
--   createWorkDir: checks if the work directory already
+-   `createWorkDir`: checks if the work directory already
     exists, removes it if it does exist (which it will, in
     case non-zero termination of the script), to start afresh.
--   fetchGHacksJS: fetches the source from upstream and
+-   `fetchGHacksJS`: fetches the source from upstream and
     navigates into the folder
--   mkTweaks: makes the custom user.js tweaks according to the
-    option passed. Currently, supported themes are MaterialFox
-    and GNOME.
--   applyToProfiles: reads `profiles.ini` and creates the
+-   `mkTweaks`: makes the custom user.js tweaks according to the
+    option passed. Currently, supported themes are *MaterialFox*
+    and *GNOME*.
+-   `applyToProfiles`: reads `profiles.ini` and creates the
     specified profiles, thereafter copying the modified
     user.js files into those profiles.
--   cleanUp: removes the created work directory.
+-   `cleanUp`: removes the created work directory.
 
     #!/usr/bin/env bash
     
