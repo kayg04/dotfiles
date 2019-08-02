@@ -1,25 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#org7b21d1b)
-    1.  [rc.lua](#org2e66d90)
-    2.  [Themes](#orgd0eb77c)
-        1.  [Default](#org2a59e98)
-2.  [Compton](#orgf7f91b4)
-3.  [Emacs](#org981c330)
-4.  [Firefox](#org47bddf0)
-    1.  [Profiles](#org83b0b49)
-    2.  [Policies](#org47535a9)
-    3.  [UserJS](#org8b2c64d)
+1.  [Awesome](#orgd03b071)
+    1.  [rc.lua](#orgc2d8b90)
+    2.  [Themes](#orgf78f7b7)
+        1.  [Default](#org4e8b7e0)
+2.  [Compton](#orga8b04f9)
+3.  [Emacs](#org5e3c5de)
+4.  [Firefox](#org2b07906)
+    1.  [Profiles](#orgdde2567)
+    2.  [Policies](#orgbdc7f12)
+    3.  [UserJS](#orgde6a748)
+        1.  [General](#org0585c7e)
+        2.  [Themes](#orgb977e47)
+    4.  [Bootstrap](#org8563df5)
 
 
 
-<a id="org7b21d1b"></a>
+<a id="orgd03b071"></a>
 
 # Awesome
 
 
-<a id="org2e66d90"></a>
+<a id="orgc2d8b90"></a>
 
 ## rc.lua
 
@@ -592,12 +595,12 @@
     -- }}}
 
 
-<a id="orgd0eb77c"></a>
+<a id="orgf78f7b7"></a>
 
 ## Themes
 
 
-<a id="org2a59e98"></a>
+<a id="org4e8b7e0"></a>
 
 ### Default
 
@@ -734,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgf7f91b4"></a>
+<a id="orga8b04f9"></a>
 
 # Compton
 
@@ -835,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org981c330"></a>
+<a id="org5e3c5de"></a>
 
 # Emacs
 
@@ -851,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org47bddf0"></a>
+<a id="org2b07906"></a>
 
 # Firefox
 
 
-<a id="org83b0b49"></a>
+<a id="orgdde2567"></a>
 
 ## Profiles
 
@@ -904,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org47535a9"></a>
+<a id="orgbdc7f12"></a>
 
 ## Policies
 
@@ -918,7 +921,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
           "AcceptThirdParty": "never",
           "ExpireAtSessionEnd": false
         },
-        "DisableAppUpdate": true,
+        "DisableAppUpdate": false,
         "DisableDeveloperTools": false,
         "DisableFeedbackCommands": true,
         "DisableFirefoxAccounts": false,
@@ -929,7 +932,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
         "DisableProfileImport": false,
         "DisableSetDesktopBackground": false,
         "DisableSystemAddonUpdate": true,
-        "DisableTelemetry": true,
+        "DisableTelemetry": false,
         "DNSOverHTTPS": {
           "Enabled": true,
           "ProviderURL": "https://dns.quad9.net/dns-query",
@@ -943,6 +946,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
                        "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi",
+                       "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/peertubeify/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi",
@@ -966,7 +970,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
         "OfferToSaveLogins": false,
         "SanitizeOnShutdown": {
             "Cache": true,
-            "Cookies": true,
+            "Cookies": false,
             "Downloads": false,
             "FormData": false,
             "History": false,
@@ -980,9 +984,14 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org8b2c64d"></a>
+<a id="orgde6a748"></a>
 
 ## UserJS
+
+
+<a id="org0585c7e"></a>
+
+### General
 
 I use GHacks' UserJS which I think is an excellent beginner
 point towards making your own customizations as it allows
@@ -1032,4 +1041,93 @@ privacy-centered configuration.
     user_pref("javascript.options.wasm", true);
     
     /// Misc ///
+
+
+<a id="orgb977e47"></a>
+
+### Themes
+
+1.  MaterialFox
+
+        // MaterialFox //
+        
+        user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+        user_pref("svg.context-properties.content.enabled", true);
+        user_pref("browser.tabs.tabClipWidth", 83);
+        user_pref("materialFox.reduceTabOverflow", true);
+        user_pref("security.insecure_connection_text.enabled", true);
+        
+        // MaterialFox //
+
+
+<a id="org8563df5"></a>
+
+## Bootstrap
+
+    #!/usr/bin/env bash
+    
+    set -euo pipefail
+    
+    createWorkDir() {
+        if [[ -d ./workdir ]]; then
+            rm -rf ./workdir
+            mkdir -p ./workdir
+            cd ./workdir
+        fi
+    }
+    
+    fetchGHacksJS() {
+        git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs
+        cd ./ghjs
+    }
+    
+    mkTweaks() {
+        cp ../../*.js ./
+    
+        case "${1}" in
+            -m | --materialFox)
+                cat ./materialfox.js >> ./user-overrides.js
+                break
+                ;;
+            -g | --gnome)
+                cat ./gnome.js >> ./user-overrides.js
+                break
+                ;;
+            -h | --help)
+                echo -ne "\\nFirefox UserJS helper:
+                                     -g, --gnome: apply GNOME userchrome theme
+                                     -h, --help: display this message
+                                     -m, --materialFox: apply MaterialFox userchrome theme\\n"
+                break
+                ;;
+            *)
+                echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
+        esac
+    
+        ./updater.sh -u
+    }
+    
+    applyToProfiles() {
+        profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    
+        for profile in "${profileList}"; do
+            mkdir -p "${HOME}/.config/firefox/${profile}"
+            cp ./user.js "${HOME}/.config/firefox/${profile}"
+        done
+    }
+    
+    cleanUp() {
+        cd ../../
+        rm -rf ./workdir
+    }
+    
+    main() {
+        createWorkDir
+        fetchGHacksJS
+        mkTweaks "${1}"
+        applyToProfiles
+        cleanUp
+    }
+    
+    main "${1}"
 
