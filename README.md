@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgd6fbe8b)
-    1.  [rc.lua](#orgb58f920)
-    2.  [Themes](#org15cd6f0)
-        1.  [Default](#org7d11247)
-2.  [Compton](#org6c3448a)
-3.  [Emacs](#org5e9bf72)
-4.  [Firefox](#org9e9fee3)
-    1.  [Profiles](#org2470b33)
-    2.  [Policies](#orgf62a0b7)
-    3.  [UserJS](#orgb9275e0)
-        1.  [General](#org1c17331)
-        2.  [Themes](#orgef85050)
-    4.  [Bootstrap](#org8658753)
+1.  [Awesome](#org3fda08b)
+    1.  [rc.lua](#org0f30810)
+    2.  [Themes](#org9618155)
+        1.  [Default](#org162ad95)
+2.  [Compton](#orgd771ce9)
+3.  [Emacs](#org470b3a5)
+4.  [Firefox](#org375d6b1)
+    1.  [Profiles](#org782643c)
+    2.  [Policies](#org267717b)
+    3.  [UserJS](#orgb3c991d)
+        1.  [General](#org6429189)
+        2.  [Themes](#org9be1528)
+    4.  [Bootstrap](#orgc80c5a6)
 
 
 
-<a id="orgd6fbe8b"></a>
+<a id="org3fda08b"></a>
 
 # Awesome
 
 
-<a id="orgb58f920"></a>
+<a id="org0f30810"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="org15cd6f0"></a>
+<a id="org9618155"></a>
 
 ## Themes
 
 
-<a id="org7d11247"></a>
+<a id="org162ad95"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org6c3448a"></a>
+<a id="orgd771ce9"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org5e9bf72"></a>
+<a id="org470b3a5"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org9e9fee3"></a>
+<a id="org375d6b1"></a>
 
 # Firefox
 
 
-<a id="org2470b33"></a>
+<a id="org782643c"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgf62a0b7"></a>
+<a id="org267717b"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgb9275e0"></a>
+<a id="orgb3c991d"></a>
 
 ## UserJS
 
 
-<a id="org1c17331"></a>
+<a id="org6429189"></a>
 
 ### General
 
@@ -1043,13 +1043,13 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgef85050"></a>
+<a id="org9be1528"></a>
 
 ### Themes
 
 1.  MaterialFox
 
-        // MaterialFox //
+        /// MaterialFox ///
         
         user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
         user_pref("svg.context-properties.content.enabled", true);
@@ -1057,10 +1057,29 @@ privacy-centered configuration.
         user_pref("materialFox.reduceTabOverflow", true);
         user_pref("security.insecure_connection_text.enabled", true);
         
-        // MaterialFox //
+        /// MaterialFox ///
+
+2.  GNOME
+
+        /// GNOME ///
+        
+        /* user.js
+         * https://github.com/rafaelmardojai/firefox-gnome-theme/
+         */
+        
+        // Enable customChrome.css
+        user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+        
+        // Enable CSD
+        user_pref("browser.tabs.drawInTitlebar", true);
+        
+        // Set UI density to normal
+        user_pref("browser.uidensity", 0);
+        
+        /// GNOME ///
 
 
-<a id="org8658753"></a>
+<a id="orgc80c5a6"></a>
 
 ## Bootstrap
 

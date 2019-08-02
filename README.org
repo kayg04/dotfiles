@@ -989,7 +989,7 @@ privacy-centered configuration.
 *** Themes
 **** MaterialFox
 #+BEGIN_SRC js :tangle .mozilla/firefox/materialfox.js
-  // MaterialFox //
+  /// MaterialFox ///
 
   user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
   user_pref("svg.context-properties.content.enabled", true);
@@ -997,7 +997,26 @@ privacy-centered configuration.
   user_pref("materialFox.reduceTabOverflow", true);
   user_pref("security.insecure_connection_text.enabled", true);
 
-  // MaterialFox //
+  /// MaterialFox ///
+#+END_SRC
+**** GNOME
+#+BEGIN_SRC js :tangle .mozilla/firefox/gnome.js
+  /// GNOME ///
+
+  /* user.js
+   ,* https://github.com/rafaelmardojai/firefox-gnome-theme/
+   ,*/
+
+  // Enable customChrome.css
+  user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+
+  // Enable CSD
+  user_pref("browser.tabs.drawInTitlebar", true);
+
+  // Set UI density to normal
+  user_pref("browser.uidensity", 0);
+
+  /// GNOME ///
 #+END_SRC
 ** Bootstrap
 Functions:
