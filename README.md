@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgff9bb7e)
-    1.  [rc.lua](#org904b475)
-    2.  [Themes](#orgd143aa5)
-        1.  [Default](#orgb2ade6d)
-2.  [Compton](#orgb39b6e2)
-3.  [Emacs](#orgb477f49)
-4.  [Firefox](#org76feca3)
-    1.  [Profiles](#org99c7b61)
-    2.  [Policies](#org13a9407)
-    3.  [UserJS](#org7c7ea2a)
-        1.  [General](#orgcec539a)
-        2.  [Themes](#org8876d64)
-    4.  [Bootstrap](#org8fe1bbc)
+1.  [Awesome](#org43e06c2)
+    1.  [rc.lua](#orgc2008a9)
+    2.  [Themes](#org1a0674f)
+        1.  [Default](#org31efc43)
+2.  [Compton](#org3cc8d39)
+3.  [Emacs](#orgb0648c3)
+4.  [Firefox](#org8dd33e6)
+    1.  [Profiles](#org978f502)
+    2.  [Policies](#orge4e4ee1)
+    3.  [UserJS](#orgcfada0c)
+        1.  [General](#org0364ef6)
+        2.  [Themes](#org6da36bd)
+    4.  [Bootstrap](#orgb88c651)
 
 
 
-<a id="orgff9bb7e"></a>
+<a id="org43e06c2"></a>
 
 # Awesome
 
 
-<a id="org904b475"></a>
+<a id="orgc2008a9"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="orgd143aa5"></a>
+<a id="org1a0674f"></a>
 
 ## Themes
 
 
-<a id="orgb2ade6d"></a>
+<a id="org31efc43"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgb39b6e2"></a>
+<a id="org3cc8d39"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="orgb477f49"></a>
+<a id="orgb0648c3"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org76feca3"></a>
+<a id="org8dd33e6"></a>
 
 # Firefox
 
 
-<a id="org99c7b61"></a>
+<a id="org978f502"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org13a9407"></a>
+<a id="orge4e4ee1"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org7c7ea2a"></a>
+<a id="orgcfada0c"></a>
 
 ## UserJS
 
 
-<a id="orgcec539a"></a>
+<a id="org0364ef6"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org8876d64"></a>
+<a id="org6da36bd"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="org8fe1bbc"></a>
+<a id="orgb88c651"></a>
 
 ## Bootstrap
 
@@ -1089,9 +1089,10 @@ builds upon the GHacksUserJS.
     createWorkDir() {
         if [[ -d ./workdir ]]; then
             rm -rf ./workdir
-            mkdir -p ./workdir
-            cd ./workdir
         fi
+    
+        mkdir -p ./workdir
+        cd ./workdir
     }
     
     fetchGHacksJS() {

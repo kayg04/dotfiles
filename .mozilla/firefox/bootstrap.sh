@@ -5,9 +5,10 @@ set -euo pipefail
 createWorkDir() {
     if [[ -d ./workdir ]]; then
         rm -rf ./workdir
-        mkdir -p ./workdir
-        cd ./workdir
     fi
+
+    mkdir -p ./workdir
+    cd ./workdir
 }
 
 fetchGHacksJS() {
