@@ -45,6 +45,7 @@ mkTweaks() {
 applyToProfiles() {
     profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
+    IFS=' '; # Set separator to space
     for profile in "${profileList}"; do
         mkdir -p "${HOME}/.config/firefox/${profile}"
         cp ./user.js "${HOME}/.config/firefox/${profile}"

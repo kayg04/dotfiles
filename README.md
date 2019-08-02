@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#org43e06c2)
-    1.  [rc.lua](#orgc2008a9)
-    2.  [Themes](#org1a0674f)
-        1.  [Default](#org31efc43)
-2.  [Compton](#org3cc8d39)
-3.  [Emacs](#orgb0648c3)
-4.  [Firefox](#org8dd33e6)
-    1.  [Profiles](#org978f502)
-    2.  [Policies](#orge4e4ee1)
-    3.  [UserJS](#orgcfada0c)
-        1.  [General](#org0364ef6)
-        2.  [Themes](#org6da36bd)
-    4.  [Bootstrap](#orgb88c651)
+1.  [Awesome](#orgb632dd0)
+    1.  [rc.lua](#orgd23d070)
+    2.  [Themes](#org8c7be32)
+        1.  [Default](#org0ad8389)
+2.  [Compton](#org4409724)
+3.  [Emacs](#org83e7b89)
+4.  [Firefox](#org490fab0)
+    1.  [Profiles](#orge7cc3de)
+    2.  [Policies](#orgfc22d05)
+    3.  [UserJS](#orgaa3ed25)
+        1.  [General](#orgc25e8a4)
+        2.  [Themes](#orgb7fe463)
+    4.  [Bootstrap](#org9b37619)
 
 
 
-<a id="org43e06c2"></a>
+<a id="orgb632dd0"></a>
 
 # Awesome
 
 
-<a id="orgc2008a9"></a>
+<a id="orgd23d070"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="org1a0674f"></a>
+<a id="org8c7be32"></a>
 
 ## Themes
 
 
-<a id="org31efc43"></a>
+<a id="org0ad8389"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org3cc8d39"></a>
+<a id="org4409724"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="orgb0648c3"></a>
+<a id="org83e7b89"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org8dd33e6"></a>
+<a id="org490fab0"></a>
 
 # Firefox
 
 
-<a id="org978f502"></a>
+<a id="orge7cc3de"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orge4e4ee1"></a>
+<a id="orgfc22d05"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgcfada0c"></a>
+<a id="orgaa3ed25"></a>
 
 ## UserJS
 
 
-<a id="org0364ef6"></a>
+<a id="orgc25e8a4"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org6da36bd"></a>
+<a id="orgb7fe463"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="orgb88c651"></a>
+<a id="org9b37619"></a>
 
 ## Bootstrap
 
@@ -1129,6 +1129,7 @@ builds upon the GHacksUserJS.
     applyToProfiles() {
         profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
     
+        IFS=' '; # Set separator to space
         for profile in "${profileList}"; do
             mkdir -p "${HOME}/.config/firefox/${profile}"
             cp ./user.js "${HOME}/.config/firefox/${profile}"
