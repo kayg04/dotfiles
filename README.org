@@ -853,13 +853,13 @@ Firefox offers as I reinstall often.
   [Profile0]
   Name=Browse
   IsRelative=1
-  Path=../../.config/firefox/firefox.browse
+  Path=../../.config/firefox/browse
   Default=1
 
   [Profile1]
   Name=Research
   IsRelative=1
-  Path=../../.config/firefox/firefox.research
+  Path=../../.config/firefox/research
   Default=0
 #+END_SRC
 ** Policies

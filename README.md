@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#orge626b3e)
-    1.  [rc.lua](#orgc3c035c)
-    2.  [Themes](#org8316cb8)
-        1.  [Default](#org5ad56ee)
-2.  [Compton](#org03cbfb1)
-3.  [Emacs](#org198280d)
-4.  [Firefox](#orgfe728ce)
-    1.  [Profiles](#org999cd14)
-    2.  [Policies](#orgf54f8fe)
-    3.  [UserJS](#org9f1f915)
-        1.  [General](#org3cabfea)
-        2.  [Themes](#orgeda398f)
-    4.  [Bootstrap](#orgb7f8c6a)
+1.  [Awesome](#orgff9bb7e)
+    1.  [rc.lua](#org904b475)
+    2.  [Themes](#orgd143aa5)
+        1.  [Default](#orgb2ade6d)
+2.  [Compton](#orgb39b6e2)
+3.  [Emacs](#orgb477f49)
+4.  [Firefox](#org76feca3)
+    1.  [Profiles](#org99c7b61)
+    2.  [Policies](#org13a9407)
+    3.  [UserJS](#org7c7ea2a)
+        1.  [General](#orgcec539a)
+        2.  [Themes](#org8876d64)
+    4.  [Bootstrap](#org8fe1bbc)
 
 
 
-<a id="orge626b3e"></a>
+<a id="orgff9bb7e"></a>
 
 # Awesome
 
 
-<a id="orgc3c035c"></a>
+<a id="org904b475"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="org8316cb8"></a>
+<a id="orgd143aa5"></a>
 
 ## Themes
 
 
-<a id="org5ad56ee"></a>
+<a id="orgb2ade6d"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org03cbfb1"></a>
+<a id="orgb39b6e2"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org198280d"></a>
+<a id="orgb477f49"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgfe728ce"></a>
+<a id="org76feca3"></a>
 
 # Firefox
 
 
-<a id="org999cd14"></a>
+<a id="org99c7b61"></a>
 
 ## Profiles
 
@@ -897,17 +897,17 @@ Firefox offers as I reinstall often.
     [Profile0]
     Name=Browse
     IsRelative=1
-    Path=../../.config/firefox/firefox.browse
+    Path=../../.config/firefox/browse
     Default=1
     
     [Profile1]
     Name=Research
     IsRelative=1
-    Path=../../.config/firefox/firefox.research
+    Path=../../.config/firefox/research
     Default=0
 
 
-<a id="orgf54f8fe"></a>
+<a id="org13a9407"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org9f1f915"></a>
+<a id="org7c7ea2a"></a>
 
 ## UserJS
 
 
-<a id="org3cabfea"></a>
+<a id="orgcec539a"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgeda398f"></a>
+<a id="org8876d64"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="orgb7f8c6a"></a>
+<a id="org8fe1bbc"></a>
 
 ## Bootstrap
 
