@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgfa03170)
-    1.  [rc.lua](#org3aa45ed)
-    2.  [Themes](#orgba4b8c8)
-        1.  [Default](#org4a6c7e5)
-2.  [Compton](#org61932da)
-3.  [Emacs](#org4a503f5)
-4.  [Firefox](#org265b09f)
-    1.  [Profiles](#org262200f)
-    2.  [Policies](#org32d3540)
-    3.  [UserJS](#orgbdc5e5c)
-        1.  [General](#orgfdfc43c)
-        2.  [Themes](#org66a180e)
-    4.  [Bootstrap](#org83e08fa)
+1.  [Awesome](#org8ac31d0)
+    1.  [rc.lua](#orga1496bd)
+    2.  [Themes](#org9900344)
+        1.  [Default](#orgd3f1b6d)
+2.  [Compton](#org4d116ef)
+3.  [Emacs](#org506465a)
+4.  [Firefox](#org9e9d640)
+    1.  [Profiles](#org6566f66)
+    2.  [Policies](#orge8419a1)
+    3.  [UserJS](#org7cdb6bb)
+        1.  [General](#org011a0c8)
+        2.  [Themes](#orgcc0a7da)
+    4.  [Bootstrap](#org1e0e380)
 
 
 
-<a id="orgfa03170"></a>
+<a id="org8ac31d0"></a>
 
 # Awesome
 
 
-<a id="org3aa45ed"></a>
+<a id="orga1496bd"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="orgba4b8c8"></a>
+<a id="org9900344"></a>
 
 ## Themes
 
 
-<a id="org4a6c7e5"></a>
+<a id="orgd3f1b6d"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org61932da"></a>
+<a id="org4d116ef"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org4a503f5"></a>
+<a id="org506465a"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org265b09f"></a>
+<a id="org9e9d640"></a>
 
 # Firefox
 
 
-<a id="org262200f"></a>
+<a id="org6566f66"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org32d3540"></a>
+<a id="orge8419a1"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgbdc5e5c"></a>
+<a id="org7cdb6bb"></a>
 
 ## UserJS
 
 
-<a id="orgfdfc43c"></a>
+<a id="org011a0c8"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org66a180e"></a>
+<a id="orgcc0a7da"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="org83e08fa"></a>
+<a id="org1e0e380"></a>
 
 ## Bootstrap
 
@@ -1106,24 +1106,22 @@ builds upon the GHacksUserJS.
         case "${1}" in
             -m | --materialFox)
                 cat ./materialfox.js >> ./user-overrides.js
-                break
                 ;;
             -g | --gnome)
                 cat ./gnome.js >> ./user-overrides.js
-                break
                 ;;
             -h | --help)
                 echo -ne "\\nFirefox UserJS helper:
                                      -g, --gnome: apply GNOME userchrome theme
                                      -h, --help: display this message
                                      -m, --materialFox: apply MaterialFox userchrome theme\\n"
-                break
                 ;;
             *)
                 echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
+                exit 1
         esac
     
-        ./updater.sh -s
+        ./updater.sh -s 2>/dev/null 1>&2
     }
     
     applyToProfiles() {
@@ -1133,6 +1131,9 @@ builds upon the GHacksUserJS.
             mkdir -p "${HOME}/.config/firefox/${profile}"
             cp ./user.js "${HOME}/.config/firefox/${profile}"
         done
+    
+        mkdir -p "${HOME}/.mozilla/firefox"
+        cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
     }
     
     cleanUp() {
