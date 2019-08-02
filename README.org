@@ -1000,9 +1000,6 @@ privacy-centered configuration.
   // MaterialFox //
 #+END_SRC
 ** Bootstrap
-This script sets up my firefox profiles and custom userJS that
-builds upon the GHacksUserJS.
-
 Functions:
 - =createWorkDir=: checks if the work directory already
   exists, removes it if it does exist (which it will, in
@@ -1017,6 +1014,8 @@ Functions:
   user.js files into those profiles.
 - =cleanUp=: removes the created work directory.
 
+This script sets up my firefox profiles and custom userJS that
+builds upon the GHacksUserJS.
 #+BEGIN_SRC sh :tangle .mozilla/firefox/bootstrap.sh
   #!/usr/bin/env bash
 
