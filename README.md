@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#org8ac31d0)
-    1.  [rc.lua](#orga1496bd)
-    2.  [Themes](#org9900344)
-        1.  [Default](#orgd3f1b6d)
-2.  [Compton](#org4d116ef)
-3.  [Emacs](#org506465a)
-4.  [Firefox](#org9e9d640)
-    1.  [Profiles](#org6566f66)
-    2.  [Policies](#orge8419a1)
-    3.  [UserJS](#org7cdb6bb)
-        1.  [General](#org011a0c8)
-        2.  [Themes](#orgcc0a7da)
-    4.  [Bootstrap](#org1e0e380)
+1.  [Awesome](#orgfb59381)
+    1.  [rc.lua](#org7646e6b)
+    2.  [Themes](#orge4b2857)
+        1.  [Default](#orgdfdc624)
+2.  [Compton](#org824a6fe)
+3.  [Emacs](#org940fbac)
+4.  [Firefox](#org9c1a1a5)
+    1.  [Profiles](#org27091b7)
+    2.  [Policies](#orge141c6e)
+    3.  [UserJS](#org8fa19e2)
+        1.  [General](#org7f28d66)
+        2.  [Themes](#org3d918aa)
+    4.  [Bootstrap](#org3885413)
 
 
 
-<a id="org8ac31d0"></a>
+<a id="orgfb59381"></a>
 
 # Awesome
 
 
-<a id="orga1496bd"></a>
+<a id="org7646e6b"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="org9900344"></a>
+<a id="orge4b2857"></a>
 
 ## Themes
 
 
-<a id="orgd3f1b6d"></a>
+<a id="orgdfdc624"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org4d116ef"></a>
+<a id="org824a6fe"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org506465a"></a>
+<a id="org940fbac"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org9e9d640"></a>
+<a id="org9c1a1a5"></a>
 
 # Firefox
 
 
-<a id="org6566f66"></a>
+<a id="org27091b7"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orge8419a1"></a>
+<a id="orge141c6e"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org7cdb6bb"></a>
+<a id="org8fa19e2"></a>
 
 ## UserJS
 
 
-<a id="org011a0c8"></a>
+<a id="org7f28d66"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgcc0a7da"></a>
+<a id="org3d918aa"></a>
 
 ### Themes
 
@@ -1060,7 +1060,7 @@ privacy-centered configuration.
         // MaterialFox //
 
 
-<a id="org1e0e380"></a>
+<a id="org3885413"></a>
 
 ## Bootstrap
 
@@ -1091,18 +1091,21 @@ builds upon the GHacksUserJS.
             rm -rf ./workdir
         fi
     
+        echo "Creating Work Directory..."
         mkdir -p ./workdir
         cd ./workdir
     }
     
     fetchGHacksJS() {
-        git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs
+        echo "Fetching ghacks user.js..."
+        git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs 2>/dev/null 1>&2
         cd ./ghjs
     }
     
     mkTweaks() {
         cp ../../*.js ./
     
+        echo "Applying userchrome tweaks..."
         case "${1}" in
             -m | --materialFox)
                 cat ./materialfox.js >> ./user-overrides.js
@@ -1121,23 +1124,27 @@ builds upon the GHacksUserJS.
                 exit 1
         esac
     
+        echo "Merging tweaks with ghacks user.js..."
         ./updater.sh -s 2>/dev/null 1>&2
     }
     
     applyToProfiles() {
         profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
     
+        echo "Making profile directories..."
         for profile in ${profileList}; do
             mkdir -p "${HOME}/.config/firefox/${profile}"
             cp ./user.js "${HOME}/.config/firefox/${profile}"
         done
     
+        echo "Copying profiles.ini..."
         mkdir -p "${HOME}/.mozilla/firefox"
         cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
     }
     
     cleanUp() {
         cd ../../
+        echo "Cleaning up after myself..."
         rm -rf ./workdir
     }
     
@@ -1147,6 +1154,8 @@ builds upon the GHacksUserJS.
         mkTweaks "${1}"
         applyToProfiles
         cleanUp
+    
+        echo "Firefox is setup. Have a good day!"
     }
     
     main "${1}"

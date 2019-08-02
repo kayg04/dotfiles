@@ -7,18 +7,21 @@ createWorkDir() {
         rm -rf ./workdir
     fi
 
+    echo "Creating Work Directory..."
     mkdir -p ./workdir
     cd ./workdir
 }
 
 fetchGHacksJS() {
-    git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs
+    echo "Fetching ghacks user.js..."
+    git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs 2>/dev/null 1>&2
     cd ./ghjs
 }
 
 mkTweaks() {
     cp ../../*.js ./
 
+    echo "Applying userchrome tweaks..."
     case "${1}" in
         -m | --materialFox)
             cat ./materialfox.js >> ./user-overrides.js
@@ -37,23 +40,27 @@ mkTweaks() {
             exit 1
     esac
 
+    echo "Merging tweaks with ghacks user.js..."
     ./updater.sh -s 2>/dev/null 1>&2
 }
 
 applyToProfiles() {
     profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
+    echo "Making profile directories..."
     for profile in ${profileList}; do
         mkdir -p "${HOME}/.config/firefox/${profile}"
         cp ./user.js "${HOME}/.config/firefox/${profile}"
     done
 
+    echo "Copying profiles.ini..."
     mkdir -p "${HOME}/.mozilla/firefox"
     cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
 }
 
 cleanUp() {
     cd ../../
+    echo "Cleaning up after myself..."
     rm -rf ./workdir
 }
 
@@ -63,6 +70,8 @@ main() {
     mkTweaks "${1}"
     applyToProfiles
     cleanUp
+
+    echo "Firefox is setup. Have a good day!"
 }
 
 main "${1}"
