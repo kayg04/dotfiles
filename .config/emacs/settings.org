@@ -115,6 +115,11 @@ issues.
      regexp-search-ring))
   (savehist-mode 1)
 #+END_SRC
+** Path
+#+BEGIN_SRC emacs-lisp
+  ; (setenv "PATH" (concat (getenv "PATH") ":/home/kayg/.go/bin"))
+  (setq exec-path (append exec-path '("/home/kayg/.go/bin")))
+#+END_SRC
 ** Remove intrusive elements
 :PROPERTIES:
 :CUSTOM_ID: remove-elements
@@ -271,6 +276,10 @@ comes to emulating IDE features.
 *** INI
 #+BEGIN_SRC emacs-lisp
   (use-package ini-mode)
+#+END_SRC
+*** Java
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-java)
 #+END_SRC
 *** JSON
 #+BEGIN_SRC emacs-lisp
@@ -710,7 +719,7 @@ return statements.
 
 - Set theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'doom-peacock t)
+  (load-theme 'doom-dracula t)
 #+END_SRC
 *** Kaolin
 #+BEGIN_SRC emacs-lisp

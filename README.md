@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Awesome](#org3fda08b)
-    1.  [rc.lua](#org0f30810)
-    2.  [Themes](#org9618155)
-        1.  [Default](#org162ad95)
-2.  [Compton](#orgd771ce9)
-3.  [Emacs](#org470b3a5)
-4.  [Firefox](#org375d6b1)
-    1.  [Profiles](#org782643c)
-    2.  [Policies](#org267717b)
-    3.  [UserJS](#orgb3c991d)
-        1.  [General](#org6429189)
-        2.  [Themes](#org9be1528)
-    4.  [Bootstrap](#orgc80c5a6)
+1.  [Awesome](#org06546d5)
+    1.  [rc.lua](#org17c6907)
+    2.  [Themes](#org330f478)
+        1.  [Default](#orgf01328f)
+2.  [Compton](#org7a6c90c)
+3.  [Emacs](#org52d3f4d)
+4.  [Firefox](#org0a739ed)
+    1.  [Profiles](#orgfabe0f3)
+    2.  [Policies](#org4eb960c)
+    3.  [UserJS](#orge207d32)
+        1.  [General](#org235e42c)
+        2.  [Themes](#org72de6c8)
+    4.  [Bootstrap](#org6798abf)
 
 
 
-<a id="org3fda08b"></a>
+<a id="org06546d5"></a>
 
 # Awesome
 
 
-<a id="org0f30810"></a>
+<a id="org17c6907"></a>
 
 ## rc.lua
 
@@ -595,12 +595,12 @@
     -- }}}
 
 
-<a id="org9618155"></a>
+<a id="org330f478"></a>
 
 ## Themes
 
 
-<a id="org162ad95"></a>
+<a id="orgf01328f"></a>
 
 ### Default
 
@@ -737,7 +737,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgd771ce9"></a>
+<a id="org7a6c90c"></a>
 
 # Compton
 
@@ -838,7 +838,7 @@
     transition-length = 150;
 
 
-<a id="org470b3a5"></a>
+<a id="org52d3f4d"></a>
 
 # Emacs
 
@@ -854,12 +854,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org375d6b1"></a>
+<a id="org0a739ed"></a>
 
 # Firefox
 
 
-<a id="org782643c"></a>
+<a id="orgfabe0f3"></a>
 
 ## Profiles
 
@@ -907,7 +907,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org267717b"></a>
+<a id="org4eb960c"></a>
 
 ## Policies
 
@@ -984,12 +984,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgb3c991d"></a>
+<a id="orge207d32"></a>
 
 ## UserJS
 
 
-<a id="org6429189"></a>
+<a id="org235e42c"></a>
 
 ### General
 
@@ -1043,7 +1043,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org9be1528"></a>
+<a id="org72de6c8"></a>
 
 ### Themes
 
@@ -1079,7 +1079,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgc80c5a6"></a>
+<a id="org6798abf"></a>
 
 ## Bootstrap
 
