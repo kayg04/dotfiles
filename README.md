@@ -1,28 +1,30 @@
 
 # Table of Contents
 
-1.  [Awesome](#org06546d5)
-    1.  [rc.lua](#org17c6907)
-    2.  [Themes](#org330f478)
-        1.  [Default](#orgf01328f)
-2.  [Compton](#org7a6c90c)
-3.  [Emacs](#org52d3f4d)
-4.  [Firefox](#org0a739ed)
-    1.  [Profiles](#orgfabe0f3)
-    2.  [Policies](#org4eb960c)
-    3.  [UserJS](#orge207d32)
-        1.  [General](#org235e42c)
-        2.  [Themes](#org72de6c8)
-    4.  [Bootstrap](#org6798abf)
+1.  [Awesome](#orgdfdbdfc)
+    1.  [rc.lua](#org68efd44)
+    2.  [Themes](#org1c1264c)
+        1.  [Default](#orgb8e09b6)
+2.  [Compton](#orgab60b2a)
+3.  [Emacs](#org2c35941)
+4.  [Firefox](#orge8f2b4c)
+    1.  [Profiles](#orgfe0d8a3)
+    2.  [Policies](#org9863134)
+    3.  [UserJS](#org56cec78)
+        1.  [General](#org69bf64a)
+        2.  [Themes](#org03c3e4f)
+    4.  [Bootstrap](#org12c3788)
+5.  [ZSH](#orgd44fc88)
+    1.  [Defaults](#org320ebfd)
 
 
 
-<a id="org06546d5"></a>
+<a id="orgdfdbdfc"></a>
 
 # Awesome
 
 
-<a id="org17c6907"></a>
+<a id="org68efd44"></a>
 
 ## rc.lua
 
@@ -595,12 +597,12 @@
     -- }}}
 
 
-<a id="org330f478"></a>
+<a id="org1c1264c"></a>
 
 ## Themes
 
 
-<a id="orgf01328f"></a>
+<a id="orgb8e09b6"></a>
 
 ### Default
 
@@ -737,7 +739,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org7a6c90c"></a>
+<a id="orgab60b2a"></a>
 
 # Compton
 
@@ -838,7 +840,7 @@
     transition-length = 150;
 
 
-<a id="org52d3f4d"></a>
+<a id="org2c35941"></a>
 
 # Emacs
 
@@ -854,12 +856,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org0a739ed"></a>
+<a id="orge8f2b4c"></a>
 
 # Firefox
 
 
-<a id="orgfabe0f3"></a>
+<a id="orgfe0d8a3"></a>
 
 ## Profiles
 
@@ -907,7 +909,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org4eb960c"></a>
+<a id="org9863134"></a>
 
 ## Policies
 
@@ -984,12 +986,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orge207d32"></a>
+<a id="org56cec78"></a>
 
 ## UserJS
 
 
-<a id="org235e42c"></a>
+<a id="org69bf64a"></a>
 
 ### General
 
@@ -1043,7 +1045,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org72de6c8"></a>
+<a id="org03c3e4f"></a>
 
 ### Themes
 
@@ -1079,7 +1081,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org6798abf"></a>
+<a id="org12c3788"></a>
 
 ## Bootstrap
 
@@ -1184,4 +1186,41 @@ builds upon the GHacksUserJS.
     }
     
     main "${1}"
+
+
+<a id="orgd44fc88"></a>
+
+# ZSH
+
+
+<a id="org320ebfd"></a>
+
+## Defaults
+
+This script sets up OH-MY-ZSH on a system if it doesn't
+previously exist. It also imports all of my custom aliases
+and functions.
+
+    #!/usr/bin/env bash
+    
+    set -euo pipefail
+    
+    installOMZ() {
+        if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
+            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        else
+            exit 1
+        fi
+    }
+    
+    importDef() {
+        echo 'source ${HOME}/.config/zsh/*.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+    }
+    
+    main() {
+        installOMZ
+        importDef
+    }
+    
+    main
 

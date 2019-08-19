@@ -1120,3 +1120,32 @@ builds upon the GHacksUserJS.
 
   main "${1}"
 #+END_SRC
+* ZSH
+** Defaults
+This script sets up OH-MY-ZSH on a system if it doesn't
+previously exist. It also imports all of my custom aliases
+and functions.
+#+BEGIN_SRC sh :tangle .config/zsh/setup.sh
+  #!/usr/bin/env bash
+
+  set -euo pipefail
+
+  installOMZ() {
+      if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
+          sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      else
+          exit 1
+      fi
+  }
+
+  importDef() {
+      echo 'source ${HOME}/.config/zsh/*.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+  }
+
+  main() {
+      installOMZ
+      importDef
+  }
+
+  main
+#+END_SRC
