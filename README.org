@@ -1121,7 +1121,7 @@ builds upon the GHacksUserJS.
   main "${1}"
 #+END_SRC
 * ZSH
-** Defaults
+** Setup
 This script sets up OH-MY-ZSH on a system if it doesn't
 previously exist. It also imports all of my custom aliases
 and functions.
@@ -1148,4 +1148,12 @@ and functions.
   }
 
   main
+#+END_SRC
+
+** Functions
+*** Weather
+#+BEGIN_SRC sh :tangle .config/zsh/func.zsh
+  wttr() {
+      curl https://wttr.in/${1:-Bhubaneswar}
+  }
 #+END_SRC

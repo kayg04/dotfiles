@@ -1,30 +1,32 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgdfdbdfc)
-    1.  [rc.lua](#org68efd44)
-    2.  [Themes](#org1c1264c)
-        1.  [Default](#orgb8e09b6)
-2.  [Compton](#orgab60b2a)
-3.  [Emacs](#org2c35941)
-4.  [Firefox](#orge8f2b4c)
-    1.  [Profiles](#orgfe0d8a3)
-    2.  [Policies](#org9863134)
-    3.  [UserJS](#org56cec78)
-        1.  [General](#org69bf64a)
-        2.  [Themes](#org03c3e4f)
-    4.  [Bootstrap](#org12c3788)
-5.  [ZSH](#orgd44fc88)
-    1.  [Defaults](#org320ebfd)
+1.  [Awesome](#org6b2938b)
+    1.  [rc.lua](#orgc7134c4)
+    2.  [Themes](#org33b9a90)
+        1.  [Default](#org7c0a24d)
+2.  [Compton](#orgd68eec8)
+3.  [Emacs](#org544989a)
+4.  [Firefox](#orgeb7154f)
+    1.  [Profiles](#org9a73b60)
+    2.  [Policies](#org47a21bc)
+    3.  [UserJS](#org440069f)
+        1.  [General](#orge09ac98)
+        2.  [Themes](#org6227f09)
+    4.  [Bootstrap](#orgd8cb31d)
+5.  [ZSH](#orgd23b81a)
+    1.  [Setup](#org4f58b1e)
+    2.  [Functions](#org8e8ff60)
+        1.  [Weather](#org6bb88c9)
 
 
 
-<a id="orgdfdbdfc"></a>
+<a id="org6b2938b"></a>
 
 # Awesome
 
 
-<a id="org68efd44"></a>
+<a id="orgc7134c4"></a>
 
 ## rc.lua
 
@@ -597,12 +599,12 @@
     -- }}}
 
 
-<a id="org1c1264c"></a>
+<a id="org33b9a90"></a>
 
 ## Themes
 
 
-<a id="orgb8e09b6"></a>
+<a id="org7c0a24d"></a>
 
 ### Default
 
@@ -739,7 +741,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgab60b2a"></a>
+<a id="orgd68eec8"></a>
 
 # Compton
 
@@ -840,7 +842,7 @@
     transition-length = 150;
 
 
-<a id="org2c35941"></a>
+<a id="org544989a"></a>
 
 # Emacs
 
@@ -856,12 +858,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orge8f2b4c"></a>
+<a id="orgeb7154f"></a>
 
 # Firefox
 
 
-<a id="orgfe0d8a3"></a>
+<a id="org9a73b60"></a>
 
 ## Profiles
 
@@ -909,7 +911,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org9863134"></a>
+<a id="org47a21bc"></a>
 
 ## Policies
 
@@ -986,12 +988,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org56cec78"></a>
+<a id="org440069f"></a>
 
 ## UserJS
 
 
-<a id="org69bf64a"></a>
+<a id="orge09ac98"></a>
 
 ### General
 
@@ -1045,7 +1047,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org03c3e4f"></a>
+<a id="org6227f09"></a>
 
 ### Themes
 
@@ -1081,7 +1083,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org12c3788"></a>
+<a id="orgd8cb31d"></a>
 
 ## Bootstrap
 
@@ -1188,14 +1190,14 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="orgd44fc88"></a>
+<a id="orgd23b81a"></a>
 
 # ZSH
 
 
-<a id="org320ebfd"></a>
+<a id="org4f58b1e"></a>
 
-## Defaults
+## Setup
 
 This script sets up OH-MY-ZSH on a system if it doesn't
 previously exist. It also imports all of my custom aliases
@@ -1223,4 +1225,18 @@ and functions.
     }
     
     main
+
+
+<a id="org8e8ff60"></a>
+
+## Functions
+
+
+<a id="org6bb88c9"></a>
+
+### Weather
+
+    wttr() {
+        curl https://wttr.in/${1:-Bhubaneswar}
+    }
 
