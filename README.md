@@ -1,32 +1,33 @@
 
 # Table of Contents
 
-1.  [Awesome](#org6b2938b)
-    1.  [rc.lua](#orgc7134c4)
-    2.  [Themes](#org33b9a90)
-        1.  [Default](#org7c0a24d)
-2.  [Compton](#orgd68eec8)
-3.  [Emacs](#org544989a)
-4.  [Firefox](#orgeb7154f)
-    1.  [Profiles](#org9a73b60)
-    2.  [Policies](#org47a21bc)
-    3.  [UserJS](#org440069f)
-        1.  [General](#orge09ac98)
-        2.  [Themes](#org6227f09)
-    4.  [Bootstrap](#orgd8cb31d)
-5.  [ZSH](#orgd23b81a)
-    1.  [Setup](#org4f58b1e)
-    2.  [Functions](#org8e8ff60)
-        1.  [Weather](#org6bb88c9)
+1.  [Awesome](#orga453cb0)
+    1.  [rc.lua](#org17e71fc)
+    2.  [Themes](#org4e6ff54)
+        1.  [Default](#orgab1e7b8)
+2.  [Compton](#orgc9d7dac)
+3.  [Emacs](#org3171845)
+4.  [Firefox](#orgcd3b157)
+    1.  [Profiles](#org2c67d52)
+    2.  [Policies](#org50c9661)
+    3.  [UserJS](#orgb0f0e45)
+        1.  [General](#org2de409a)
+        2.  [Themes](#org835b8ed)
+    4.  [Bootstrap](#org0c5d804)
+5.  [ZSH](#orgded6857)
+    1.  [Setup](#orgbee2f0a)
+    2.  [Template](#orgbdc27cb)
+    3.  [Functions](#org581e603)
+        1.  [Weather](#org2735ad3)
 
 
 
-<a id="org6b2938b"></a>
+<a id="orga453cb0"></a>
 
 # Awesome
 
 
-<a id="orgc7134c4"></a>
+<a id="org17e71fc"></a>
 
 ## rc.lua
 
@@ -599,12 +600,12 @@
     -- }}}
 
 
-<a id="org33b9a90"></a>
+<a id="org4e6ff54"></a>
 
 ## Themes
 
 
-<a id="org7c0a24d"></a>
+<a id="orgab1e7b8"></a>
 
 ### Default
 
@@ -741,7 +742,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgd68eec8"></a>
+<a id="orgc9d7dac"></a>
 
 # Compton
 
@@ -842,7 +843,7 @@
     transition-length = 150;
 
 
-<a id="org544989a"></a>
+<a id="org3171845"></a>
 
 # Emacs
 
@@ -858,12 +859,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgeb7154f"></a>
+<a id="orgcd3b157"></a>
 
 # Firefox
 
 
-<a id="org9a73b60"></a>
+<a id="org2c67d52"></a>
 
 ## Profiles
 
@@ -911,7 +912,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org47a21bc"></a>
+<a id="org50c9661"></a>
 
 ## Policies
 
@@ -988,12 +989,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org440069f"></a>
+<a id="orgb0f0e45"></a>
 
 ## UserJS
 
 
-<a id="orge09ac98"></a>
+<a id="org2de409a"></a>
 
 ### General
 
@@ -1047,7 +1048,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org6227f09"></a>
+<a id="org835b8ed"></a>
 
 ### Themes
 
@@ -1083,7 +1084,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgd8cb31d"></a>
+<a id="org0c5d804"></a>
 
 ## Bootstrap
 
@@ -1190,12 +1191,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="orgd23b81a"></a>
+<a id="orgded6857"></a>
 
 # ZSH
 
 
-<a id="org4f58b1e"></a>
+<a id="orgbee2f0a"></a>
 
 ## Setup
 
@@ -1227,12 +1228,117 @@ and functions.
     main
 
 
-<a id="org8e8ff60"></a>
+<a id="orgbdc27cb"></a>
+
+## Template
+
+    # If you come from bash you might have to change your $PATH.
+    # export PATH=$HOME/bin:/usr/local/bin:$PATH
+    
+    # Path to your oh-my-zsh installation.
+    export ZSH="/home/kayg/.oh-my-zsh"
+    
+    # Set name of the theme to load --- if set to "random", it will
+    # load a random theme each time oh-my-zsh is loaded, in which case,
+    # to know which specific one was loaded, run: echo $RANDOM_THEME
+    # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+    ZSH_THEME="agnoster"
+    
+    # Set list of themes to pick from when loading at random
+    # Setting this variable when ZSH_THEME=random will cause zsh to load
+    # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+    # If set to an empty array, this variable will have no effect.
+    # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+    
+    # Uncomment the following line to use case-sensitive completion.
+    # CASE_SENSITIVE="true"
+    
+    # Uncomment the following line to use hyphen-insensitive completion.
+    # Case-sensitive completion must be off. _ and - will be interchangeable.
+    HYPHEN_INSENSITIVE="true"
+    
+    # Uncomment the following line to disable bi-weekly auto-update checks.
+    # DISABLE_AUTO_UPDATE="true"
+    
+    # Uncomment the following line to automatically update without prompting.
+    # DISABLE_UPDATE_PROMPT="true"
+    
+    # Uncomment the following line to change how often to auto-update (in days).
+    # export UPDATE_ZSH_DAYS=13
+    
+    # Uncomment the following line if pasting URLs and other text is messed up.
+    # DISABLE_MAGIC_FUNCTIONS=true
+    
+    # Uncomment the following line to disable colors in ls.
+    # DISABLE_LS_COLORS="true"
+    
+    # Uncomment the following line to disable auto-setting terminal title.
+    # DISABLE_AUTO_TITLE="true"
+    
+    # Uncomment the following line to enable command auto-correction.
+    ENABLE_CORRECTION="true"
+    
+    # Uncomment the following line to display red dots whilst waiting for completion.
+    COMPLETION_WAITING_DOTS="true"
+    
+    # Uncomment the following line if you want to disable marking untracked files
+    # under VCS as dirty. This makes repository status check for large repositories
+    # much, much faster.
+    # DISABLE_UNTRACKED_FILES_DIRTY="true"
+    
+    # Uncomment the following line if you want to change the command execution time
+    # stamp shown in the history command output.
+    # You can set one of the optional three formats:
+    # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+    # or set a custom format using the strftime function format specifications,
+    # see 'man strftime' for details.
+    # HIST_STAMPS="mm/dd/yyyy"
+    
+    # Would you like to use another custom folder than $ZSH/custom?
+    # ZSH_CUSTOM=/path/to/new-custom-folder
+    
+    # Which plugins would you like to load?
+    # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+    # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+    # Example format: plugins=(rails git textmate ruby lighthouse)
+    # Add wisely, as too many plugins slow down shell startup.
+    plugins=(git)
+    
+    source $ZSH/oh-my-zsh.sh
+    
+    # User configuration
+    
+    # export MANPATH="/usr/local/man:$MANPATH"
+    
+    # You may need to manually set your language environment
+    # export LANG=en_US.UTF-8
+    
+    # Preferred editor for local and remote sessions
+    # if [[ -n $SSH_CONNECTION ]]; then
+    #   export EDITOR='vim'
+    # else
+    #   export EDITOR='mvim'
+    # fi
+    
+    # Compilation flags
+    # export ARCHFLAGS="-arch x86_64"
+    
+    # Set personal aliases, overriding those provided by oh-my-zsh libs,
+    # plugins, and themes. Aliases can be placed here, though oh-my-zsh
+    # users are encouraged to define aliases within the ZSH_CUSTOM folder.
+    # For a full list of active aliases, run `alias`.
+    #
+    # Example aliases
+    # alias zshconfig="mate ~/.zshrc"
+    # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+<a id="org581e603"></a>
 
 ## Functions
 
 
-<a id="org6bb88c9"></a>
+<a id="org2735ad3"></a>
 
 ### Weather
 
