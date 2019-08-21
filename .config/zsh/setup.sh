@@ -11,7 +11,8 @@ installOMZ() {
 }
 
 importDef() {
-    echo 'source ${HOME}/.config/zsh/*.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+    echo 'source ${HOME}/.config/zsh/oh-my.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+    echo 'source ${HOME}/.config/zsh/func.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
 }
 
 main() {

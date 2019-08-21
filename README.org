@@ -1139,7 +1139,8 @@ and functions.
   }
 
   importDef() {
-      echo 'source ${HOME}/.config/zsh/*.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+      echo 'source ${HOME}/.config/zsh/oh-my.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+      echo 'source ${HOME}/.config/zsh/func.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
   }
 
   main() {
@@ -1151,6 +1152,7 @@ and functions.
 #+END_SRC
 
 ** Template
+OH-MY-ZSH template.
 #+BEGIN_SRC sh :tangle .config/zsh/oh-my.zsh
   # If you come from bash you might have to change your $PATH.
   # export PATH=$HOME/bin:/usr/local/bin:$PATH

@@ -1,33 +1,33 @@
 
 # Table of Contents
 
-1.  [Awesome](#orga453cb0)
-    1.  [rc.lua](#org17e71fc)
-    2.  [Themes](#org4e6ff54)
-        1.  [Default](#orgab1e7b8)
-2.  [Compton](#orgc9d7dac)
-3.  [Emacs](#org3171845)
-4.  [Firefox](#orgcd3b157)
-    1.  [Profiles](#org2c67d52)
-    2.  [Policies](#org50c9661)
-    3.  [UserJS](#orgb0f0e45)
-        1.  [General](#org2de409a)
-        2.  [Themes](#org835b8ed)
-    4.  [Bootstrap](#org0c5d804)
-5.  [ZSH](#orgded6857)
-    1.  [Setup](#orgbee2f0a)
-    2.  [Template](#orgbdc27cb)
-    3.  [Functions](#org581e603)
-        1.  [Weather](#org2735ad3)
+1.  [Awesome](#orgc319159)
+    1.  [rc.lua](#org2d381ca)
+    2.  [Themes](#orgcfe5359)
+        1.  [Default](#org023eea0)
+2.  [Compton](#org502fc02)
+3.  [Emacs](#org3fd9a22)
+4.  [Firefox](#orgb77213f)
+    1.  [Profiles](#orga9e1e9d)
+    2.  [Policies](#org6625343)
+    3.  [UserJS](#org8827e54)
+        1.  [General](#org40fa581)
+        2.  [Themes](#orgd6e8f9f)
+    4.  [Bootstrap](#org6f53882)
+5.  [ZSH](#orgd911b76)
+    1.  [Setup](#org4e6a87b)
+    2.  [Template](#org2256c92)
+    3.  [Functions](#org801a2b1)
+        1.  [Weather](#orge37f7f0)
 
 
 
-<a id="orga453cb0"></a>
+<a id="orgc319159"></a>
 
 # Awesome
 
 
-<a id="org17e71fc"></a>
+<a id="org2d381ca"></a>
 
 ## rc.lua
 
@@ -600,12 +600,12 @@
     -- }}}
 
 
-<a id="org4e6ff54"></a>
+<a id="orgcfe5359"></a>
 
 ## Themes
 
 
-<a id="orgab1e7b8"></a>
+<a id="org023eea0"></a>
 
 ### Default
 
@@ -742,7 +742,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgc9d7dac"></a>
+<a id="org502fc02"></a>
 
 # Compton
 
@@ -843,7 +843,7 @@
     transition-length = 150;
 
 
-<a id="org3171845"></a>
+<a id="org3fd9a22"></a>
 
 # Emacs
 
@@ -859,12 +859,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgcd3b157"></a>
+<a id="orgb77213f"></a>
 
 # Firefox
 
 
-<a id="org2c67d52"></a>
+<a id="orga9e1e9d"></a>
 
 ## Profiles
 
@@ -912,7 +912,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org50c9661"></a>
+<a id="org6625343"></a>
 
 ## Policies
 
@@ -989,12 +989,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgb0f0e45"></a>
+<a id="org8827e54"></a>
 
 ## UserJS
 
 
-<a id="org2de409a"></a>
+<a id="org40fa581"></a>
 
 ### General
 
@@ -1048,7 +1048,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org835b8ed"></a>
+<a id="orgd6e8f9f"></a>
 
 ### Themes
 
@@ -1084,7 +1084,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org0c5d804"></a>
+<a id="org6f53882"></a>
 
 ## Bootstrap
 
@@ -1191,12 +1191,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="orgded6857"></a>
+<a id="orgd911b76"></a>
 
 # ZSH
 
 
-<a id="orgbee2f0a"></a>
+<a id="org4e6a87b"></a>
 
 ## Setup
 
@@ -1217,7 +1217,8 @@ and functions.
     }
     
     importDef() {
-        echo 'source ${HOME}/.config/zsh/*.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+        echo 'source ${HOME}/.config/zsh/oh-my.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
+        echo 'source ${HOME}/.config/zsh/func.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
     }
     
     main() {
@@ -1228,9 +1229,11 @@ and functions.
     main
 
 
-<a id="orgbdc27cb"></a>
+<a id="org2256c92"></a>
 
 ## Template
+
+OH-MY-ZSH template.
 
     # If you come from bash you might have to change your $PATH.
     # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -1333,12 +1336,12 @@ and functions.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org581e603"></a>
+<a id="org801a2b1"></a>
 
 ## Functions
 
 
-<a id="org2735ad3"></a>
+<a id="orge37f7f0"></a>
 
 ### Weather
 
