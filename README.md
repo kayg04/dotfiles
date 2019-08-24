@@ -1,33 +1,33 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgc319159)
-    1.  [rc.lua](#org2d381ca)
-    2.  [Themes](#orgcfe5359)
-        1.  [Default](#org023eea0)
-2.  [Compton](#org502fc02)
-3.  [Emacs](#org3fd9a22)
-4.  [Firefox](#orgb77213f)
-    1.  [Profiles](#orga9e1e9d)
-    2.  [Policies](#org6625343)
-    3.  [UserJS](#org8827e54)
-        1.  [General](#org40fa581)
-        2.  [Themes](#orgd6e8f9f)
-    4.  [Bootstrap](#org6f53882)
-5.  [ZSH](#orgd911b76)
-    1.  [Setup](#org4e6a87b)
-    2.  [Template](#org2256c92)
-    3.  [Functions](#org801a2b1)
-        1.  [Weather](#orge37f7f0)
+1.  [Awesome](#org84cf4d3)
+    1.  [rc.lua](#orga62ecf4)
+    2.  [Themes](#org714f20b)
+        1.  [Default](#org542b3c5)
+2.  [Compton](#org1532467)
+3.  [Emacs](#orge142ff9)
+4.  [Firefox](#orgb9ead5d)
+    1.  [Profiles](#org280e3c2)
+    2.  [Policies](#org062a967)
+    3.  [UserJS](#org7a85f11)
+        1.  [General](#org448a0ab)
+        2.  [Themes](#orgcafbdcc)
+    4.  [Bootstrap](#orgfb41619)
+5.  [ZSH](#org0b7680b)
+    1.  [Setup](#org4ece40b)
+    2.  [Template](#org736a327)
+    3.  [Functions](#org56b1a9f)
+        1.  [Weather](#org9e93e57)
 
 
 
-<a id="orgc319159"></a>
+<a id="org84cf4d3"></a>
 
 # Awesome
 
 
-<a id="org2d381ca"></a>
+<a id="orga62ecf4"></a>
 
 ## rc.lua
 
@@ -600,12 +600,12 @@
     -- }}}
 
 
-<a id="orgcfe5359"></a>
+<a id="org714f20b"></a>
 
 ## Themes
 
 
-<a id="org023eea0"></a>
+<a id="org542b3c5"></a>
 
 ### Default
 
@@ -742,7 +742,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org502fc02"></a>
+<a id="org1532467"></a>
 
 # Compton
 
@@ -843,7 +843,7 @@
     transition-length = 150;
 
 
-<a id="org3fd9a22"></a>
+<a id="orge142ff9"></a>
 
 # Emacs
 
@@ -859,12 +859,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgb77213f"></a>
+<a id="orgb9ead5d"></a>
 
 # Firefox
 
 
-<a id="orga9e1e9d"></a>
+<a id="org280e3c2"></a>
 
 ## Profiles
 
@@ -912,7 +912,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org6625343"></a>
+<a id="org062a967"></a>
 
 ## Policies
 
@@ -989,12 +989,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org8827e54"></a>
+<a id="org7a85f11"></a>
 
 ## UserJS
 
 
-<a id="org40fa581"></a>
+<a id="org448a0ab"></a>
 
 ### General
 
@@ -1048,7 +1048,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgd6e8f9f"></a>
+<a id="orgcafbdcc"></a>
 
 ### Themes
 
@@ -1084,7 +1084,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org6f53882"></a>
+<a id="orgfb41619"></a>
 
 ## Bootstrap
 
@@ -1166,7 +1166,7 @@ builds upon the GHacksUserJS.
         cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
     
         echo "Copying policies.json..."
-        if ! cp ../../policies.json /opt/firefox-nightly/distribution/; then
+        if ! cp ../../policies.json /usr/lib/firefox/distribution; then
             echo "Please fix permissions on the firefox-nightly directory by executing:
                          sudo chown -R $USER:$USER /opt/firefox-nightly/"
         fi
@@ -1191,12 +1191,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="orgd911b76"></a>
+<a id="org0b7680b"></a>
 
 # ZSH
 
 
-<a id="org4e6a87b"></a>
+<a id="org4ece40b"></a>
 
 ## Setup
 
@@ -1229,7 +1229,7 @@ and functions.
     main
 
 
-<a id="org2256c92"></a>
+<a id="org736a327"></a>
 
 ## Template
 
@@ -1336,12 +1336,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org801a2b1"></a>
+<a id="org56b1a9f"></a>
 
 ## Functions
 
 
-<a id="orge37f7f0"></a>
+<a id="org9e93e57"></a>
 
 ### Weather
 

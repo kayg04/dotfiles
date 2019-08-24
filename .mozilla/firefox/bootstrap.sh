@@ -58,7 +58,7 @@ applyToProfiles() {
     cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
 
     echo "Copying policies.json..."
-    if ! cp ../../policies.json /opt/firefox-nightly/distribution/; then
+    if ! cp ../../policies.json /usr/lib/firefox/distribution; then
         echo "Please fix permissions on the firefox-nightly directory by executing:
                      sudo chown -R $USER:$USER /opt/firefox-nightly/"
     fi
