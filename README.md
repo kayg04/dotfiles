@@ -1,33 +1,33 @@
 
 # Table of Contents
 
-1.  [Awesome](#org84cf4d3)
-    1.  [rc.lua](#orga62ecf4)
-    2.  [Themes](#org714f20b)
-        1.  [Default](#org542b3c5)
-2.  [Compton](#org1532467)
-3.  [Emacs](#orge142ff9)
-4.  [Firefox](#orgb9ead5d)
-    1.  [Profiles](#org280e3c2)
-    2.  [Policies](#org062a967)
-    3.  [UserJS](#org7a85f11)
-        1.  [General](#org448a0ab)
-        2.  [Themes](#orgcafbdcc)
-    4.  [Bootstrap](#orgfb41619)
-5.  [ZSH](#org0b7680b)
-    1.  [Setup](#org4ece40b)
-    2.  [Template](#org736a327)
-    3.  [Functions](#org56b1a9f)
-        1.  [Weather](#org9e93e57)
+1.  [Awesome](#org1741558)
+    1.  [rc.lua](#org5193567)
+    2.  [Themes](#org1626d5a)
+        1.  [Default](#org57776de)
+2.  [Compton](#org426264e)
+3.  [Emacs](#org669133c)
+4.  [Firefox](#org00118ba)
+    1.  [Profiles](#org6e30248)
+    2.  [Policies](#orgb019bb6)
+    3.  [UserJS](#org9a6a0da)
+        1.  [General](#orgb6b00a5)
+        2.  [Themes](#org53f1308)
+    4.  [Bootstrap](#org9526e32)
+5.  [ZSH](#org6d92d31)
+    1.  [Setup](#org5c241a7)
+    2.  [Template](#org4c967b1)
+    3.  [Functions](#org9c94fd4)
+        1.  [Weather](#orgf6232e8)
 
 
 
-<a id="org84cf4d3"></a>
+<a id="org1741558"></a>
 
 # Awesome
 
 
-<a id="orga62ecf4"></a>
+<a id="org5193567"></a>
 
 ## rc.lua
 
@@ -600,12 +600,12 @@
     -- }}}
 
 
-<a id="org714f20b"></a>
+<a id="org1626d5a"></a>
 
 ## Themes
 
 
-<a id="org542b3c5"></a>
+<a id="org57776de"></a>
 
 ### Default
 
@@ -742,7 +742,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org1532467"></a>
+<a id="org426264e"></a>
 
 # Compton
 
@@ -843,7 +843,7 @@
     transition-length = 150;
 
 
-<a id="orge142ff9"></a>
+<a id="org669133c"></a>
 
 # Emacs
 
@@ -859,12 +859,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgb9ead5d"></a>
+<a id="org00118ba"></a>
 
 # Firefox
 
 
-<a id="org280e3c2"></a>
+<a id="org6e30248"></a>
 
 ## Profiles
 
@@ -912,7 +912,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org062a967"></a>
+<a id="orgb019bb6"></a>
 
 ## Policies
 
@@ -989,12 +989,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org7a85f11"></a>
+<a id="org9a6a0da"></a>
 
 ## UserJS
 
 
-<a id="org448a0ab"></a>
+<a id="orgb6b00a5"></a>
 
 ### General
 
@@ -1048,7 +1048,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgcafbdcc"></a>
+<a id="org53f1308"></a>
 
 ### Themes
 
@@ -1084,7 +1084,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgfb41619"></a>
+<a id="org9526e32"></a>
 
 ## Bootstrap
 
@@ -1165,11 +1165,8 @@ builds upon the GHacksUserJS.
         mkdir -p "${HOME}/.mozilla/firefox"
         cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
     
-        echo "Copying policies.json..."
-        if ! cp ../../policies.json /usr/lib/firefox/distribution; then
-            echo "Please fix permissions on the firefox-nightly directory by executing:
-                         sudo chown -R $USER:$USER /opt/firefox-nightly/"
-        fi
+        echo "Copying policies.json (need root permissions)..."
+        sudo cp ../../policies.json /usr/lib/firefox/distribution
     }
     
     cleanUp() {
@@ -1178,25 +1175,30 @@ builds upon the GHacksUserJS.
         rm -rf ./workdir
     }
     
+    startFirefox() {
+        $(command -v firefox) --ProfileManager
+    }
+    
     main() {
         createWorkDir
         fetchGHacksJS
         mkTweaks "${1}"
         applyToProfiles
         cleanUp
+        startFirefox
     
-        echo "Firefox is setup. Have a good day!"
+        echo "Firefox is setup and started. Have a good day!"
     }
     
     main "${1}"
 
 
-<a id="org0b7680b"></a>
+<a id="org6d92d31"></a>
 
 # ZSH
 
 
-<a id="org4ece40b"></a>
+<a id="org5c241a7"></a>
 
 ## Setup
 
@@ -1229,7 +1231,7 @@ and functions.
     main
 
 
-<a id="org736a327"></a>
+<a id="org4c967b1"></a>
 
 ## Template
 
@@ -1336,12 +1338,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org56b1a9f"></a>
+<a id="org9c94fd4"></a>
 
 ## Functions
 
 
-<a id="org9e93e57"></a>
+<a id="orgf6232e8"></a>
 
 ### Weather
 

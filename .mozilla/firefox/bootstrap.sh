@@ -57,11 +57,8 @@ applyToProfiles() {
     mkdir -p "${HOME}/.mozilla/firefox"
     cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
 
-    echo "Copying policies.json..."
-    if ! cp ../../policies.json /usr/lib/firefox/distribution; then
-        echo "Please fix permissions on the firefox-nightly directory by executing:
-                     sudo chown -R $USER:$USER /opt/firefox-nightly/"
-    fi
+    echo "Copying policies.json (need root permissions)..."
+    sudo cp ../../policies.json /usr/lib/firefox/distribution
 }
 
 cleanUp() {
@@ -70,14 +67,19 @@ cleanUp() {
     rm -rf ./workdir
 }
 
+startFirefox() {
+    $(command -v firefox) --ProfileManager
+}
+
 main() {
     createWorkDir
     fetchGHacksJS
     mkTweaks "${1}"
     applyToProfiles
     cleanUp
+    startFirefox
 
-    echo "Firefox is setup. Have a good day!"
+    echo "Firefox is setup and started. Have a good day!"
 }
 
 main "${1}"
