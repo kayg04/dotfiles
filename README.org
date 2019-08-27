@@ -805,6 +805,8 @@
   # Transitions
   transition-length = 150;
 #+END_SRC
+* Desktop
+** Wire
 * Emacs
 Since Emacs' settings are already managed through an org
 file, there is no need to go meta. This is the init.el file
@@ -873,18 +875,18 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
         "AcceptThirdParty": "never",
         "ExpireAtSessionEnd": false
       },
-      "DisableAppUpdate": false,
+      "DisableAppUpdate": true,
       "DisableDeveloperTools": false,
       "DisableFeedbackCommands": true,
       "DisableFirefoxAccounts": false,
       "DisableFirefoxScreenshots": true,
-      "DisableFirefoxStudies": false,
+      "DisableFirefoxStudies": true,
       "DisableMasterPasswordCreation": true,
       "DisablePocket": true,
       "DisableProfileImport": false,
       "DisableSetDesktopBackground": false,
       "DisableSystemAddonUpdate": true,
-      "DisableTelemetry": false,
+      "DisableTelemetry": true,
       "DNSOverHTTPS": {
         "Enabled": true,
         "ProviderURL": "https://dns.quad9.net/dns-query",
@@ -1067,11 +1069,15 @@ builds upon the GHacksUserJS.
           -g | --gnome)
               cat ./gnome.js >> ./user-overrides.js
               ;;
+          -n | --none)
+              return
+              ;;
           -h | --help)
               echo -ne "\\nFirefox UserJS helper:
                                    -g, --gnome: apply GNOME userchrome theme
                                    -h, --help: display this message
-                                   -m, --materialFox: apply MaterialFox userchrome theme\\n"
+                                   -m, --materialFox: apply MaterialFox userchrome theme
+                                   -n, --none: no theme\\n"
               ;;
           ,*)
               echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
@@ -1096,7 +1102,13 @@ builds upon the GHacksUserJS.
       cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
 
       echo "Copying policies.json (need root permissions)..."
-      sudo cp ../../policies.json /usr/lib/firefox/distribution
+
+      if [[ -d /usr/lib/firefox/distribution ]]; then
+          sudo cp ../../policies.json /usr/lib/firefox/distribution
+      elif [[ -d /opt/firefox-nightly ]]; then
+          sudo chown -R ${USER}:${USER} /opt/firefox-nightly
+          cp ../../policies.json /opt/firefox-nightly/distribution
+      fi
   }
 
   cleanUp() {
@@ -1121,6 +1133,64 @@ builds upon the GHacksUserJS.
   }
 
   main "${1}"
+#+END_SRC
+* Ungoogled Chromium
+** ENV VARS
+From Debian bug tracker:
+#+begin_quote
+As can be seen in the upstream discussion, this happens whenever mesa
+drivers are used since threads are used in their GLSL shader
+implementation.  This does have a consequence, chromium's GPU driver
+will not be sandboxed.  You can see this in about:gpu.
+
+Also seen upstream, it should be possible to work around the problem
+by setting MESA_GLSL_CACHE_DISABLE=true.
+
+Best wishes,
+Mike
+#+end_quote
+
+#+BEGIN_SRC text
+  MESA_GLSL_CACHE_DISABLE=true
+#+END_SRC
+** Flags
+#+BEGIN_SRC conf
+  # Disable workarounds for various GPU driver bugs.
+  --disable-gpu-driver-bug-workarounds
+
+  # Enable hardware acceleration
+  --enable-accelerated-mjpeg-decode
+  --enable-accelerated-video
+  --enable-gpu-rasterization
+  --enable-native-gpu-memory-buffers
+  --enable-zero-copy
+  --ignore-gpu-blacklist
+
+  # Disables the crash reporting.
+  --disable-breakpad
+  # Disables cloud backup feature.
+  --disable-cloud-import
+  # Disables installation of default apps on first run. This is used during automated testing.
+  --disable-default-apps
+  # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
+  --disable-ntp-most-likely-favicons-from-server
+  # Disables showing popular sites on the NTP.
+  --disable-ntp-popular-sites
+  # Disable auto-reload of error pages if offline.
+  --disable-offline-auto-reload
+  # Disables sign-in promo.
+  --disable-signin-promo
+  # The "disable" flag for kEnableSingleClickAutofill.
+  --disable-single-click-autofill
+  # Disables syncing browser data to a Google Account.
+  --disable-sync
+  # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+  --no-default-browser-check
+  # Don't send hyperlink auditing pings.
+  --no-pings
+  # Enable Dark Mode
+  --force-dark-mode
+  --enable-features=WebUIDarkMode
 #+END_SRC
 * ZSH
 ** Setup

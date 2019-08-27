@@ -1,33 +1,38 @@
 
 # Table of Contents
 
-1.  [Awesome](#org1741558)
-    1.  [rc.lua](#org5193567)
-    2.  [Themes](#org1626d5a)
-        1.  [Default](#org57776de)
-2.  [Compton](#org426264e)
-3.  [Emacs](#org669133c)
-4.  [Firefox](#org00118ba)
-    1.  [Profiles](#org6e30248)
-    2.  [Policies](#orgb019bb6)
-    3.  [UserJS](#org9a6a0da)
-        1.  [General](#orgb6b00a5)
-        2.  [Themes](#org53f1308)
-    4.  [Bootstrap](#org9526e32)
-5.  [ZSH](#org6d92d31)
-    1.  [Setup](#org5c241a7)
-    2.  [Template](#org4c967b1)
-    3.  [Functions](#org9c94fd4)
-        1.  [Weather](#orgf6232e8)
+1.  [Awesome](#org3a88900)
+    1.  [rc.lua](#org1e06a99)
+    2.  [Themes](#org3c55302)
+        1.  [Default](#orgeb9a8ac)
+2.  [Compton](#orgd495b8e)
+3.  [Desktop](#orgb4d0de7)
+    1.  [Wire](#org83577db)
+4.  [Emacs](#orga40156c)
+5.  [Firefox](#org466661a)
+    1.  [Profiles](#org1de2ded)
+    2.  [Policies](#org9c0baf1)
+    3.  [UserJS](#orge73e381)
+        1.  [General](#org0f7d109)
+        2.  [Themes](#orgbfb9e09)
+    4.  [Bootstrap](#orga9ea238)
+6.  [Ungoogled Chromium](#org7c3a927)
+    1.  [ENV VARS](#org12052f6)
+    2.  [Flags](#org5c23d18)
+7.  [ZSH](#org286eba8)
+    1.  [Setup](#org250531d)
+    2.  [Template](#orgf8cfc23)
+    3.  [Functions](#org8a81b2f)
+        1.  [Weather](#org5e2cfd7)
 
 
 
-<a id="org1741558"></a>
+<a id="org3a88900"></a>
 
 # Awesome
 
 
-<a id="org5193567"></a>
+<a id="org1e06a99"></a>
 
 ## rc.lua
 
@@ -600,12 +605,12 @@
     -- }}}
 
 
-<a id="org1626d5a"></a>
+<a id="org3c55302"></a>
 
 ## Themes
 
 
-<a id="org57776de"></a>
+<a id="orgeb9a8ac"></a>
 
 ### Default
 
@@ -742,7 +747,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org426264e"></a>
+<a id="orgd495b8e"></a>
 
 # Compton
 
@@ -843,7 +848,17 @@
     transition-length = 150;
 
 
-<a id="org669133c"></a>
+<a id="orgb4d0de7"></a>
+
+# Desktop
+
+
+<a id="org83577db"></a>
+
+## Wire
+
+
+<a id="orga40156c"></a>
 
 # Emacs
 
@@ -859,12 +874,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org00118ba"></a>
+<a id="org466661a"></a>
 
 # Firefox
 
 
-<a id="org6e30248"></a>
+<a id="org1de2ded"></a>
 
 ## Profiles
 
@@ -912,7 +927,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgb019bb6"></a>
+<a id="org9c0baf1"></a>
 
 ## Policies
 
@@ -926,18 +941,18 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
           "AcceptThirdParty": "never",
           "ExpireAtSessionEnd": false
         },
-        "DisableAppUpdate": false,
+        "DisableAppUpdate": true,
         "DisableDeveloperTools": false,
         "DisableFeedbackCommands": true,
         "DisableFirefoxAccounts": false,
         "DisableFirefoxScreenshots": true,
-        "DisableFirefoxStudies": false,
+        "DisableFirefoxStudies": true,
         "DisableMasterPasswordCreation": true,
         "DisablePocket": true,
         "DisableProfileImport": false,
         "DisableSetDesktopBackground": false,
         "DisableSystemAddonUpdate": true,
-        "DisableTelemetry": false,
+        "DisableTelemetry": true,
         "DNSOverHTTPS": {
           "Enabled": true,
           "ProviderURL": "https://dns.quad9.net/dns-query",
@@ -989,12 +1004,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org9a6a0da"></a>
+<a id="orge73e381"></a>
 
 ## UserJS
 
 
-<a id="orgb6b00a5"></a>
+<a id="org0f7d109"></a>
 
 ### General
 
@@ -1048,7 +1063,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org53f1308"></a>
+<a id="orgbfb9e09"></a>
 
 ### Themes
 
@@ -1084,7 +1099,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org9526e32"></a>
+<a id="orga9ea238"></a>
 
 ## Bootstrap
 
@@ -1137,11 +1152,15 @@ builds upon the GHacksUserJS.
             -g | --gnome)
                 cat ./gnome.js >> ./user-overrides.js
                 ;;
+            -n | --none)
+                return
+                ;;
             -h | --help)
                 echo -ne "\\nFirefox UserJS helper:
                                      -g, --gnome: apply GNOME userchrome theme
                                      -h, --help: display this message
-                                     -m, --materialFox: apply MaterialFox userchrome theme\\n"
+                                     -m, --materialFox: apply MaterialFox userchrome theme
+                                     -n, --none: no theme\\n"
                 ;;
             *)
                 echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
@@ -1166,7 +1185,13 @@ builds upon the GHacksUserJS.
         cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
     
         echo "Copying policies.json (need root permissions)..."
-        sudo cp ../../policies.json /usr/lib/firefox/distribution
+    
+        if [[ -d /usr/lib/firefox/distribution ]]; then
+            sudo cp ../../policies.json /usr/lib/firefox/distribution
+        elif [[ -d /opt/firefox-nightly ]]; then
+            sudo chown -R ${USER}:${USER} /opt/firefox-nightly
+            cp ../../policies.json /opt/firefox-nightly/distribution
+        fi
     }
     
     cleanUp() {
@@ -1193,12 +1218,79 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org6d92d31"></a>
+<a id="org7c3a927"></a>
+
+# Ungoogled Chromium
+
+
+<a id="org12052f6"></a>
+
+## ENV VARS
+
+From Debian bug tracker:
+
+> As can be seen in the upstream discussion, this happens whenever mesa
+> drivers are used since threads are used in their GLSL shader
+> implementation.  This does have a consequence, chromium's GPU driver
+> will not be sandboxed.  You can see this in about:gpu.
+> 
+> Also seen upstream, it should be possible to work around the problem
+> by setting MESA<sub>GLSL</sub><sub>CACHE</sub><sub>DISABLE</sub>=true.
+> 
+> Best wishes,
+> Mike
+
+    MESA_GLSL_CACHE_DISABLE=true
+
+
+<a id="org5c23d18"></a>
+
+## Flags
+
+    # Disable workarounds for various GPU driver bugs.
+    --disable-gpu-driver-bug-workarounds
+    
+    # Enable hardware acceleration
+    --enable-accelerated-mjpeg-decode
+    --enable-accelerated-video
+    --enable-gpu-rasterization
+    --enable-native-gpu-memory-buffers
+    --enable-zero-copy
+    --ignore-gpu-blacklist
+    
+    # Disables the crash reporting.
+    --disable-breakpad
+    # Disables cloud backup feature.
+    --disable-cloud-import
+    # Disables installation of default apps on first run. This is used during automated testing.
+    --disable-default-apps
+    # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
+    --disable-ntp-most-likely-favicons-from-server
+    # Disables showing popular sites on the NTP.
+    --disable-ntp-popular-sites
+    # Disable auto-reload of error pages if offline.
+    --disable-offline-auto-reload
+    # Disables sign-in promo.
+    --disable-signin-promo
+    # The "disable" flag for kEnableSingleClickAutofill.
+    --disable-single-click-autofill
+    # Disables syncing browser data to a Google Account.
+    --disable-sync
+    # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+    --no-default-browser-check
+    # Don't send hyperlink auditing pings.
+    --no-pings
+    # Enable Dark Mode
+    --force-dark-mode
+    --enable-features=WebUIDarkMode
+
+
+<a id="org286eba8"></a>
 
 # ZSH
 
 
-<a id="org5c241a7"></a>
+<a id="org250531d"></a>
 
 ## Setup
 
@@ -1231,7 +1323,7 @@ and functions.
     main
 
 
-<a id="org4c967b1"></a>
+<a id="orgf8cfc23"></a>
 
 ## Template
 
@@ -1338,12 +1430,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org9c94fd4"></a>
+<a id="org8a81b2f"></a>
 
 ## Functions
 
 
-<a id="orgf6232e8"></a>
+<a id="org5e2cfd7"></a>
 
 ### Weather
 

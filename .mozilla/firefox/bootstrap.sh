@@ -29,11 +29,15 @@ mkTweaks() {
         -g | --gnome)
             cat ./gnome.js >> ./user-overrides.js
             ;;
+        -n | --none)
+            return
+            ;;
         -h | --help)
             echo -ne "\\nFirefox UserJS helper:
                                  -g, --gnome: apply GNOME userchrome theme
                                  -h, --help: display this message
-                                 -m, --materialFox: apply MaterialFox userchrome theme\\n"
+                                 -m, --materialFox: apply MaterialFox userchrome theme
+                                 -n, --none: no theme\\n"
             ;;
         *)
             echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
@@ -58,7 +62,13 @@ applyToProfiles() {
     cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
 
     echo "Copying policies.json (need root permissions)..."
-    sudo cp ../../policies.json /usr/lib/firefox/distribution
+
+    if [[ -d /usr/lib/firefox/distribution ]]; then
+        sudo cp ../../policies.json /usr/lib/firefox/distribution
+    elif [[ -d /opt/firefox-nightly ]]; then
+        sudo chown -R ${USER}:${USER} /opt/firefox-nightly
+        cp ../../policies.json /opt/firefox-nightly/distribution
+    fi
 }
 
 cleanUp() {
