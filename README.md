@@ -1,38 +1,38 @@
 
 # Table of Contents
 
-1.  [Awesome](#org3a88900)
-    1.  [rc.lua](#org1e06a99)
-    2.  [Themes](#org3c55302)
-        1.  [Default](#orgeb9a8ac)
-2.  [Compton](#orgd495b8e)
-3.  [Desktop](#orgb4d0de7)
-    1.  [Wire](#org83577db)
-4.  [Emacs](#orga40156c)
-5.  [Firefox](#org466661a)
-    1.  [Profiles](#org1de2ded)
-    2.  [Policies](#org9c0baf1)
-    3.  [UserJS](#orge73e381)
-        1.  [General](#org0f7d109)
-        2.  [Themes](#orgbfb9e09)
-    4.  [Bootstrap](#orga9ea238)
-6.  [Ungoogled Chromium](#org7c3a927)
-    1.  [ENV VARS](#org12052f6)
-    2.  [Flags](#org5c23d18)
-7.  [ZSH](#org286eba8)
-    1.  [Setup](#org250531d)
-    2.  [Template](#orgf8cfc23)
-    3.  [Functions](#org8a81b2f)
-        1.  [Weather](#org5e2cfd7)
+1.  [Awesome](#org6e46816)
+    1.  [rc.lua](#orgc78e44f)
+    2.  [Themes](#org9039b0f)
+        1.  [Default](#org515cd17)
+2.  [Compton](#org5d3739d)
+3.  [Desktop](#orga4559d1)
+    1.  [Wire](#orge5dfec9)
+4.  [Emacs](#org1e1f1c7)
+5.  [Firefox](#org1a28b91)
+    1.  [Profiles](#org6905d6a)
+    2.  [Policies](#orgac7aeec)
+    3.  [UserJS](#orge2ea7cc)
+        1.  [General](#org5ca05ca)
+        2.  [Themes](#org1fda49a)
+    4.  [Bootstrap](#org44d9330)
+6.  [Ungoogled Chromium](#org6484d1c)
+    1.  [ENV VARS](#orgbcd8e0a)
+    2.  [Flags](#org52de397)
+7.  [ZSH](#org40631d7)
+    1.  [Setup](#org7782d97)
+    2.  [Template](#orge18f73b)
+    3.  [Functions](#org4196954)
+        1.  [Weather](#orgb880ae9)
 
 
 
-<a id="org3a88900"></a>
+<a id="org6e46816"></a>
 
 # Awesome
 
 
-<a id="org1e06a99"></a>
+<a id="orgc78e44f"></a>
 
 ## rc.lua
 
@@ -605,12 +605,12 @@
     -- }}}
 
 
-<a id="org3c55302"></a>
+<a id="org9039b0f"></a>
 
 ## Themes
 
 
-<a id="orgeb9a8ac"></a>
+<a id="org515cd17"></a>
 
 ### Default
 
@@ -747,7 +747,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgd495b8e"></a>
+<a id="org5d3739d"></a>
 
 # Compton
 
@@ -848,17 +848,17 @@
     transition-length = 150;
 
 
-<a id="orgb4d0de7"></a>
+<a id="orga4559d1"></a>
 
 # Desktop
 
 
-<a id="org83577db"></a>
+<a id="orge5dfec9"></a>
 
 ## Wire
 
 
-<a id="orga40156c"></a>
+<a id="org1e1f1c7"></a>
 
 # Emacs
 
@@ -874,12 +874,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org466661a"></a>
+<a id="org1a28b91"></a>
 
 # Firefox
 
 
-<a id="org1de2ded"></a>
+<a id="org6905d6a"></a>
 
 ## Profiles
 
@@ -927,7 +927,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org9c0baf1"></a>
+<a id="orgac7aeec"></a>
 
 ## Policies
 
@@ -1004,12 +1004,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orge73e381"></a>
+<a id="orge2ea7cc"></a>
 
 ## UserJS
 
 
-<a id="org0f7d109"></a>
+<a id="org5ca05ca"></a>
 
 ### General
 
@@ -1063,7 +1063,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgbfb9e09"></a>
+<a id="org1fda49a"></a>
 
 ### Themes
 
@@ -1099,7 +1099,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orga9ea238"></a>
+<a id="org44d9330"></a>
 
 ## Bootstrap
 
@@ -1218,12 +1218,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org7c3a927"></a>
+<a id="org6484d1c"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org12052f6"></a>
+<a id="orgbcd8e0a"></a>
 
 ## ENV VARS
 
@@ -1243,13 +1243,14 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org5c23d18"></a>
+<a id="org52de397"></a>
 
 ## Flags
 
+Better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
+
     # Disable workarounds for various GPU driver bugs.
     --disable-gpu-driver-bug-workarounds
-    
     # Enable hardware acceleration
     --enable-accelerated-mjpeg-decode
     --enable-accelerated-video
@@ -1257,7 +1258,6 @@ From Debian bug tracker:
     --enable-native-gpu-memory-buffers
     --enable-zero-copy
     --ignore-gpu-blacklist
-    
     # Disables the crash reporting.
     --disable-breakpad
     # Disables cloud backup feature.
@@ -1285,12 +1285,12 @@ From Debian bug tracker:
     --enable-features=WebUIDarkMode
 
 
-<a id="org286eba8"></a>
+<a id="org40631d7"></a>
 
 # ZSH
 
 
-<a id="org250531d"></a>
+<a id="org7782d97"></a>
 
 ## Setup
 
@@ -1323,7 +1323,7 @@ and functions.
     main
 
 
-<a id="orgf8cfc23"></a>
+<a id="orge18f73b"></a>
 
 ## Template
 
@@ -1430,12 +1430,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org8a81b2f"></a>
+<a id="org4196954"></a>
 
 ## Functions
 
 
-<a id="org5e2cfd7"></a>
+<a id="orgb880ae9"></a>
 
 ### Weather
 
