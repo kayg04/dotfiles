@@ -6,7 +6,7 @@
       "AcceptThirdParty": "never",
       "ExpireAtSessionEnd": false
     },
-    "DisableAppUpdate": true,
+    "DisableAppUpdate": false,
     "DisableDeveloperTools": false,
     "DisableFeedbackCommands": true,
     "DisableFirefoxAccounts": false,

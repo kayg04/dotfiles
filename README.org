@@ -875,7 +875,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
         "AcceptThirdParty": "never",
         "ExpireAtSessionEnd": false
       },
-      "DisableAppUpdate": true,
+      "DisableAppUpdate": false,
       "DisableDeveloperTools": false,
       "DisableFeedbackCommands": true,
       "DisableFirefoxAccounts": false,
