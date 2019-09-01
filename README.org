@@ -1101,13 +1101,15 @@ builds upon the GHacksUserJS.
       mkdir -p "${HOME}/.mozilla/firefox"
       cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
 
-      echo "Copying policies.json (need root permissions)..."
+      echo "Copying policies.json (may need root permissions)..."
 
       if [[ -d /usr/lib/firefox/distribution ]]; then
           sudo cp ../../policies.json /usr/lib/firefox/distribution
       elif [[ -d /opt/firefox-nightly ]]; then
           sudo chown -R ${USER}:${USER} /opt/firefox-nightly
           cp ../../policies.json /opt/firefox-nightly/distribution
+      elif [[ -d /opt/firefox-developer-edition ]]; then
+          cp ../../policies.json /opt/firefox-developer-edition/distribution
       fi
   }
 

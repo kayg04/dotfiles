@@ -1,38 +1,38 @@
 
 # Table of Contents
 
-1.  [Awesome](#org6e46816)
-    1.  [rc.lua](#orgc78e44f)
-    2.  [Themes](#org9039b0f)
-        1.  [Default](#org515cd17)
-2.  [Compton](#org5d3739d)
-3.  [Desktop](#orga4559d1)
-    1.  [Wire](#orge5dfec9)
-4.  [Emacs](#org1e1f1c7)
-5.  [Firefox](#org1a28b91)
-    1.  [Profiles](#org6905d6a)
-    2.  [Policies](#orgac7aeec)
-    3.  [UserJS](#orge2ea7cc)
-        1.  [General](#org5ca05ca)
-        2.  [Themes](#org1fda49a)
-    4.  [Bootstrap](#org44d9330)
-6.  [Ungoogled Chromium](#org6484d1c)
-    1.  [ENV VARS](#orgbcd8e0a)
-    2.  [Flags](#org52de397)
-7.  [ZSH](#org40631d7)
-    1.  [Setup](#org7782d97)
-    2.  [Template](#orge18f73b)
-    3.  [Functions](#org4196954)
-        1.  [Weather](#orgb880ae9)
+1.  [Awesome](#org750cf26)
+    1.  [rc.lua](#org738024e)
+    2.  [Themes](#orgbbd5a8f)
+        1.  [Default](#org2f15f4e)
+2.  [Compton](#org4c7f0cf)
+3.  [Desktop](#org31a1a7f)
+    1.  [Wire](#org314c4c1)
+4.  [Emacs](#orgc3885f2)
+5.  [Firefox](#org5af6281)
+    1.  [Profiles](#org89217c2)
+    2.  [Policies](#orgf8dbee2)
+    3.  [UserJS](#orgc01e2a5)
+        1.  [General](#org73809ce)
+        2.  [Themes](#org1fa6e71)
+    4.  [Bootstrap](#orgadce78c)
+6.  [Ungoogled Chromium](#org362ce9e)
+    1.  [ENV VARS](#org7d9c863)
+    2.  [Flags](#orgdcb4638)
+7.  [ZSH](#org8859ed1)
+    1.  [Setup](#org45e16d8)
+    2.  [Template](#orgbe585ea)
+    3.  [Functions](#orged9ce13)
+        1.  [Weather](#org04a3291)
 
 
 
-<a id="org6e46816"></a>
+<a id="org750cf26"></a>
 
 # Awesome
 
 
-<a id="orgc78e44f"></a>
+<a id="org738024e"></a>
 
 ## rc.lua
 
@@ -605,12 +605,12 @@
     -- }}}
 
 
-<a id="org9039b0f"></a>
+<a id="orgbbd5a8f"></a>
 
 ## Themes
 
 
-<a id="org515cd17"></a>
+<a id="org2f15f4e"></a>
 
 ### Default
 
@@ -747,7 +747,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org5d3739d"></a>
+<a id="org4c7f0cf"></a>
 
 # Compton
 
@@ -848,17 +848,17 @@
     transition-length = 150;
 
 
-<a id="orga4559d1"></a>
+<a id="org31a1a7f"></a>
 
 # Desktop
 
 
-<a id="orge5dfec9"></a>
+<a id="org314c4c1"></a>
 
 ## Wire
 
 
-<a id="org1e1f1c7"></a>
+<a id="orgc3885f2"></a>
 
 # Emacs
 
@@ -874,12 +874,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org1a28b91"></a>
+<a id="org5af6281"></a>
 
 # Firefox
 
 
-<a id="org6905d6a"></a>
+<a id="org89217c2"></a>
 
 ## Profiles
 
@@ -927,7 +927,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgac7aeec"></a>
+<a id="orgf8dbee2"></a>
 
 ## Policies
 
@@ -1004,12 +1004,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orge2ea7cc"></a>
+<a id="orgc01e2a5"></a>
 
 ## UserJS
 
 
-<a id="org5ca05ca"></a>
+<a id="org73809ce"></a>
 
 ### General
 
@@ -1063,7 +1063,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org1fda49a"></a>
+<a id="org1fa6e71"></a>
 
 ### Themes
 
@@ -1099,7 +1099,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org44d9330"></a>
+<a id="orgadce78c"></a>
 
 ## Bootstrap
 
@@ -1184,13 +1184,15 @@ builds upon the GHacksUserJS.
         mkdir -p "${HOME}/.mozilla/firefox"
         cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
     
-        echo "Copying policies.json (need root permissions)..."
+        echo "Copying policies.json (may need root permissions)..."
     
         if [[ -d /usr/lib/firefox/distribution ]]; then
             sudo cp ../../policies.json /usr/lib/firefox/distribution
         elif [[ -d /opt/firefox-nightly ]]; then
             sudo chown -R ${USER}:${USER} /opt/firefox-nightly
             cp ../../policies.json /opt/firefox-nightly/distribution
+        elif [[ -d /opt/firefox-developer-edition ]]; then
+            cp ../../policies.json /opt/firefox-developer-edition/distribution
         fi
     }
     
@@ -1218,12 +1220,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org6484d1c"></a>
+<a id="org362ce9e"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgbcd8e0a"></a>
+<a id="org7d9c863"></a>
 
 ## ENV VARS
 
@@ -1243,7 +1245,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org52de397"></a>
+<a id="orgdcb4638"></a>
 
 ## Flags
 
@@ -1285,12 +1287,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="org40631d7"></a>
+<a id="org8859ed1"></a>
 
 # ZSH
 
 
-<a id="org7782d97"></a>
+<a id="org45e16d8"></a>
 
 ## Setup
 
@@ -1323,7 +1325,7 @@ and functions.
     main
 
 
-<a id="orge18f73b"></a>
+<a id="orgbe585ea"></a>
 
 ## Template
 
@@ -1430,12 +1432,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org4196954"></a>
+<a id="orged9ce13"></a>
 
 ## Functions
 
 
-<a id="orgb880ae9"></a>
+<a id="org04a3291"></a>
 
 ### Weather
 
