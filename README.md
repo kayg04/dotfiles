@@ -1,38 +1,38 @@
 
 # Table of Contents
 
-1.  [Awesome](#org3bf8b82)
-    1.  [rc.lua](#org6ca4590)
-    2.  [Themes](#orgf7c46e3)
-        1.  [Default](#orgb6f1702)
-2.  [Compton](#org0c6939a)
-3.  [Desktop](#org25dd270)
-    1.  [Wire](#org24931aa)
-4.  [Emacs](#orgcb068d3)
-5.  [Firefox](#orga283687)
-    1.  [Profiles](#org5e43d02)
-    2.  [Policies](#org186b4c8)
-    3.  [UserJS](#orgb02b4ca)
-        1.  [General](#org2da1196)
-        2.  [Themes](#orgd7eac75)
-    4.  [Bootstrap](#orgcb1bcf8)
-6.  [Ungoogled Chromium](#org93ccad4)
-    1.  [ENV VARS](#org4575a94)
-    2.  [Flags](#org5e36406)
-7.  [ZSH](#org20a6c45)
-    1.  [Setup](#org1304809)
-    2.  [Template](#org605b971)
-    3.  [Functions](#orgf83f878)
-        1.  [Weather](#org5f640df)
+1.  [Awesome](#orge6ff351)
+    1.  [rc.lua](#orgaffcdcd)
+    2.  [Themes](#orgec53a99)
+        1.  [Default](#orgee28e25)
+2.  [Compton](#org06c416e)
+3.  [Desktop](#org0e34307)
+    1.  [Wire](#org2f9abfd)
+4.  [Emacs](#org493e87d)
+5.  [Firefox](#org6b7f4cf)
+    1.  [Profiles](#orge3ca73e)
+    2.  [Policies](#org6586ebc)
+    3.  [UserJS](#org12de3ac)
+        1.  [General](#org41bcf3e)
+        2.  [Themes](#orge2eb278)
+    4.  [Bootstrap](#org280f7c4)
+6.  [Ungoogled Chromium](#org25b6ee2)
+    1.  [ENV VARS](#orgbb5235c)
+    2.  [Flags](#orgbeca10f)
+7.  [ZSH](#orgec897e4)
+    1.  [Setup](#orgd694f61)
+    2.  [Template](#org2027199)
+    3.  [Functions](#org55f0cc0)
+        1.  [Weather](#orga7e2897)
 
 
 
-<a id="org3bf8b82"></a>
+<a id="orge6ff351"></a>
 
 # Awesome
 
 
-<a id="org6ca4590"></a>
+<a id="orgaffcdcd"></a>
 
 ## rc.lua
 
@@ -605,12 +605,12 @@
     -- }}}
 
 
-<a id="orgf7c46e3"></a>
+<a id="orgec53a99"></a>
 
 ## Themes
 
 
-<a id="orgb6f1702"></a>
+<a id="orgee28e25"></a>
 
 ### Default
 
@@ -747,7 +747,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org0c6939a"></a>
+<a id="org06c416e"></a>
 
 # Compton
 
@@ -848,17 +848,17 @@
     transition-length = 150;
 
 
-<a id="org25dd270"></a>
+<a id="org0e34307"></a>
 
 # Desktop
 
 
-<a id="org24931aa"></a>
+<a id="org2f9abfd"></a>
 
 ## Wire
 
 
-<a id="orgcb068d3"></a>
+<a id="org493e87d"></a>
 
 # Emacs
 
@@ -874,12 +874,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orga283687"></a>
+<a id="org6b7f4cf"></a>
 
 # Firefox
 
 
-<a id="org5e43d02"></a>
+<a id="orge3ca73e"></a>
 
 ## Profiles
 
@@ -927,7 +927,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org186b4c8"></a>
+<a id="org6586ebc"></a>
 
 ## Policies
 
@@ -969,7 +969,6 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
                        "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/peertubeify/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi",
-                       "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi",
                        "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi"
@@ -1004,12 +1003,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgb02b4ca"></a>
+<a id="org12de3ac"></a>
 
 ## UserJS
 
 
-<a id="org2da1196"></a>
+<a id="org41bcf3e"></a>
 
 ### General
 
@@ -1063,7 +1062,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgd7eac75"></a>
+<a id="orge2eb278"></a>
 
 ### Themes
 
@@ -1099,7 +1098,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgcb1bcf8"></a>
+<a id="org280f7c4"></a>
 
 ## Bootstrap
 
@@ -1220,12 +1219,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org93ccad4"></a>
+<a id="org25b6ee2"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org4575a94"></a>
+<a id="orgbb5235c"></a>
 
 ## ENV VARS
 
@@ -1245,7 +1244,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org5e36406"></a>
+<a id="orgbeca10f"></a>
 
 ## Flags
 
@@ -1287,12 +1286,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="org20a6c45"></a>
+<a id="orgec897e4"></a>
 
 # ZSH
 
 
-<a id="org1304809"></a>
+<a id="orgd694f61"></a>
 
 ## Setup
 
@@ -1325,7 +1324,7 @@ and functions.
     main
 
 
-<a id="org605b971"></a>
+<a id="org2027199"></a>
 
 ## Template
 
@@ -1432,12 +1431,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="orgf83f878"></a>
+<a id="org55f0cc0"></a>
 
 ## Functions
 
 
-<a id="org5f640df"></a>
+<a id="orga7e2897"></a>
 
 ### Weather
 
