@@ -348,6 +348,7 @@ display errors.
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :hook (prog-mode . smartparens-mode)
+    :hook (prog-mode . electric-pair-mode)
     :config
     (require 'smartparens-config))
 #+END_SRC
