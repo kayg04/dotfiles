@@ -1,39 +1,39 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgac77567)
-    1.  [rc.lua](#orgf560665)
-    2.  [Themes](#orga405b19)
-        1.  [Default](#orgb5a4ad9)
-2.  [Compton](#orgcbeb29d)
-3.  [Desktop](#orgdebfec3)
-    1.  [Wire](#org6f57fbe)
-4.  [Emacs](#org524f670)
-5.  [Firefox](#org3082826)
-    1.  [Profiles](#org05e5220)
-    2.  [Policies](#orgf76a51c)
-    3.  [UserJS](#orgc4ef532)
-        1.  [General](#org6b70457)
-        2.  [Themes](#orge8a75f4)
-    4.  [Bootstrap](#org9c28d34)
-6.  [Ungoogled Chromium](#org0617d2a)
-    1.  [ENV VARS](#orgd878e31)
-    2.  [Flags](#orgcc0d8f2)
-7.  [ZSH](#org0fc2588)
-    1.  [Setup](#org6a194e0)
-    2.  [Template](#org64c80da)
-    3.  [Functions](#orgd1cb83f)
-        1.  [Weather](#orgc8a2404)
-    4.  [Variables](#orged31a1c)
+1.  [Awesome](#orgacfed38)
+    1.  [rc.lua](#org945deec)
+    2.  [Themes](#org225cd9e)
+        1.  [Default](#orgf9c2010)
+2.  [Compton](#orga9c0ab7)
+3.  [Desktop](#orgc03d7a4)
+    1.  [Wire](#orgb2c05fb)
+4.  [Emacs](#orgeeeda5d)
+5.  [Firefox](#orgd90a49d)
+    1.  [Profiles](#org1230623)
+    2.  [Policies](#org78197d6)
+    3.  [UserJS](#orgbc7a4fb)
+        1.  [General](#org0942d4c)
+        2.  [Themes](#org2d01824)
+    4.  [Bootstrap](#org5412fad)
+6.  [Ungoogled Chromium](#org3d7e713)
+    1.  [ENV VARS](#org1c13426)
+    2.  [Flags](#org3b1a652)
+7.  [ZSH](#org6d7674f)
+    1.  [Setup](#orga5d68b4)
+    2.  [Template](#org9e9eaf3)
+    3.  [Functions](#org4aa117c)
+        1.  [Weather](#org15cb75a)
+    4.  [Variables](#org8de2ed4)
 
 
 
-<a id="orgac77567"></a>
+<a id="orgacfed38"></a>
 
 # Awesome
 
 
-<a id="orgf560665"></a>
+<a id="org945deec"></a>
 
 ## rc.lua
 
@@ -606,12 +606,12 @@
     -- }}}
 
 
-<a id="orga405b19"></a>
+<a id="org225cd9e"></a>
 
 ## Themes
 
 
-<a id="orgb5a4ad9"></a>
+<a id="orgf9c2010"></a>
 
 ### Default
 
@@ -748,7 +748,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgcbeb29d"></a>
+<a id="orga9c0ab7"></a>
 
 # Compton
 
@@ -849,17 +849,17 @@
     transition-length = 150;
 
 
-<a id="orgdebfec3"></a>
+<a id="orgc03d7a4"></a>
 
 # Desktop
 
 
-<a id="org6f57fbe"></a>
+<a id="orgb2c05fb"></a>
 
 ## Wire
 
 
-<a id="org524f670"></a>
+<a id="orgeeeda5d"></a>
 
 # Emacs
 
@@ -875,12 +875,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org3082826"></a>
+<a id="orgd90a49d"></a>
 
 # Firefox
 
 
-<a id="org05e5220"></a>
+<a id="org1230623"></a>
 
 ## Profiles
 
@@ -928,7 +928,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgf76a51c"></a>
+<a id="org78197d6"></a>
 
 ## Policies
 
@@ -1004,12 +1004,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgc4ef532"></a>
+<a id="orgbc7a4fb"></a>
 
 ## UserJS
 
 
-<a id="org6b70457"></a>
+<a id="org0942d4c"></a>
 
 ### General
 
@@ -1063,7 +1063,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orge8a75f4"></a>
+<a id="org2d01824"></a>
 
 ### Themes
 
@@ -1099,7 +1099,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org9c28d34"></a>
+<a id="org5412fad"></a>
 
 ## Bootstrap
 
@@ -1220,12 +1220,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org0617d2a"></a>
+<a id="org3d7e713"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgd878e31"></a>
+<a id="org1c13426"></a>
 
 ## ENV VARS
 
@@ -1245,7 +1245,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgcc0d8f2"></a>
+<a id="org3b1a652"></a>
 
 ## Flags
 
@@ -1287,12 +1287,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="org0fc2588"></a>
+<a id="org6d7674f"></a>
 
 # ZSH
 
 
-<a id="org6a194e0"></a>
+<a id="orga5d68b4"></a>
 
 ## Setup
 
@@ -1325,7 +1325,7 @@ and functions.
     main
 
 
-<a id="org64c80da"></a>
+<a id="org9e9eaf3"></a>
 
 ## Template
 
@@ -1432,12 +1432,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="orgd1cb83f"></a>
+<a id="org4aa117c"></a>
 
 ## Functions
 
 
-<a id="orgc8a2404"></a>
+<a id="org15cb75a"></a>
 
 ### Weather
 
@@ -1446,7 +1446,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="orged31a1c"></a>
+<a id="org8de2ed4"></a>
 
 ## Variables
 
