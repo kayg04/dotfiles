@@ -1333,3 +1333,9 @@ OH-MY-ZSH template.
       curl https://wttr.in/${1:-Bhubaneswar}
   }
 #+END_SRC
+** Variables
+#+BEGIN_SRC sh :tangle .config/zsh/func.zsh
+  export PATH="${PATH}:${HOME}/.local/bin"
+  export GOPATH="${HOME}/.go"
+  export GOBIN="${HOME}/.local/bin"
+#+END_SRC

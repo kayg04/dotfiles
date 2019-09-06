@@ -1,38 +1,39 @@
 
 # Table of Contents
 
-1.  [Awesome](#orge6ff351)
-    1.  [rc.lua](#orgaffcdcd)
-    2.  [Themes](#orgec53a99)
-        1.  [Default](#orgee28e25)
-2.  [Compton](#org06c416e)
-3.  [Desktop](#org0e34307)
-    1.  [Wire](#org2f9abfd)
-4.  [Emacs](#org493e87d)
-5.  [Firefox](#org6b7f4cf)
-    1.  [Profiles](#orge3ca73e)
-    2.  [Policies](#org6586ebc)
-    3.  [UserJS](#org12de3ac)
-        1.  [General](#org41bcf3e)
-        2.  [Themes](#orge2eb278)
-    4.  [Bootstrap](#org280f7c4)
-6.  [Ungoogled Chromium](#org25b6ee2)
-    1.  [ENV VARS](#orgbb5235c)
-    2.  [Flags](#orgbeca10f)
-7.  [ZSH](#orgec897e4)
-    1.  [Setup](#orgd694f61)
-    2.  [Template](#org2027199)
-    3.  [Functions](#org55f0cc0)
-        1.  [Weather](#orga7e2897)
+1.  [Awesome](#orgac77567)
+    1.  [rc.lua](#orgf560665)
+    2.  [Themes](#orga405b19)
+        1.  [Default](#orgb5a4ad9)
+2.  [Compton](#orgcbeb29d)
+3.  [Desktop](#orgdebfec3)
+    1.  [Wire](#org6f57fbe)
+4.  [Emacs](#org524f670)
+5.  [Firefox](#org3082826)
+    1.  [Profiles](#org05e5220)
+    2.  [Policies](#orgf76a51c)
+    3.  [UserJS](#orgc4ef532)
+        1.  [General](#org6b70457)
+        2.  [Themes](#orge8a75f4)
+    4.  [Bootstrap](#org9c28d34)
+6.  [Ungoogled Chromium](#org0617d2a)
+    1.  [ENV VARS](#orgd878e31)
+    2.  [Flags](#orgcc0d8f2)
+7.  [ZSH](#org0fc2588)
+    1.  [Setup](#org6a194e0)
+    2.  [Template](#org64c80da)
+    3.  [Functions](#orgd1cb83f)
+        1.  [Weather](#orgc8a2404)
+    4.  [Variables](#orged31a1c)
 
 
 
-<a id="orge6ff351"></a>
+<a id="orgac77567"></a>
 
 # Awesome
 
 
-<a id="orgaffcdcd"></a>
+<a id="orgf560665"></a>
 
 ## rc.lua
 
@@ -605,12 +606,12 @@
     -- }}}
 
 
-<a id="orgec53a99"></a>
+<a id="orga405b19"></a>
 
 ## Themes
 
 
-<a id="orgee28e25"></a>
+<a id="orgb5a4ad9"></a>
 
 ### Default
 
@@ -747,7 +748,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org06c416e"></a>
+<a id="orgcbeb29d"></a>
 
 # Compton
 
@@ -848,17 +849,17 @@
     transition-length = 150;
 
 
-<a id="org0e34307"></a>
+<a id="orgdebfec3"></a>
 
 # Desktop
 
 
-<a id="org2f9abfd"></a>
+<a id="org6f57fbe"></a>
 
 ## Wire
 
 
-<a id="org493e87d"></a>
+<a id="org524f670"></a>
 
 # Emacs
 
@@ -874,12 +875,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org6b7f4cf"></a>
+<a id="org3082826"></a>
 
 # Firefox
 
 
-<a id="orge3ca73e"></a>
+<a id="org05e5220"></a>
 
 ## Profiles
 
@@ -927,7 +928,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org6586ebc"></a>
+<a id="orgf76a51c"></a>
 
 ## Policies
 
@@ -1003,12 +1004,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org12de3ac"></a>
+<a id="orgc4ef532"></a>
 
 ## UserJS
 
 
-<a id="org41bcf3e"></a>
+<a id="org6b70457"></a>
 
 ### General
 
@@ -1062,7 +1063,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orge2eb278"></a>
+<a id="orge8a75f4"></a>
 
 ### Themes
 
@@ -1098,7 +1099,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org280f7c4"></a>
+<a id="org9c28d34"></a>
 
 ## Bootstrap
 
@@ -1219,12 +1220,12 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org25b6ee2"></a>
+<a id="org0617d2a"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgbb5235c"></a>
+<a id="orgd878e31"></a>
 
 ## ENV VARS
 
@@ -1244,7 +1245,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgbeca10f"></a>
+<a id="orgcc0d8f2"></a>
 
 ## Flags
 
@@ -1286,12 +1287,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="orgec897e4"></a>
+<a id="org0fc2588"></a>
 
 # ZSH
 
 
-<a id="orgd694f61"></a>
+<a id="org6a194e0"></a>
 
 ## Setup
 
@@ -1324,7 +1325,7 @@ and functions.
     main
 
 
-<a id="org2027199"></a>
+<a id="org64c80da"></a>
 
 ## Template
 
@@ -1431,16 +1432,25 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org55f0cc0"></a>
+<a id="orgd1cb83f"></a>
 
 ## Functions
 
 
-<a id="orga7e2897"></a>
+<a id="orgc8a2404"></a>
 
 ### Weather
 
     wttr() {
         curl https://wttr.in/${1:-Bhubaneswar}
     }
+
+
+<a id="orged31a1c"></a>
+
+## Variables
+
+    export PATH="${PATH}:${HOME}/.local/bin"
+    export GOPATH="${HOME}/.go"
+    export GOBIN="${HOME}/.local/bin"
 
