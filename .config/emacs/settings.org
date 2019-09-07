@@ -118,7 +118,7 @@ issues.
 ** Path
 #+BEGIN_SRC emacs-lisp
   ; (setenv "PATH" (concat (getenv "PATH") ":/home/kayg/.go/bin"))
-  (setq exec-path (append exec-path '("/home/kayg/.go/bin")))
+  (setq exec-path (append exec-path '("/home/kayg/.local/bin")))
 #+END_SRC
 ** Remove intrusive elements
 :PROPERTIES:
@@ -164,8 +164,6 @@ issues.
     uniquify-buffer-name-style 'forward          ; Set buffer name style for files that have same base folder
     window-combination-resize t                  ; Resize windows proportionally
     x-stretch-cursor t)                          ; Stretch cursor to the glypth width
-
-  (add-to-list 'exec-path "/home/yozu/.local/bin") ; Append to $PATH
 #+END_SRC
 *** Set default modes
 :PROPERTIES:
@@ -191,7 +189,7 @@ issues.
 - Garbage collection will happen automatically once this
   many /bytes/ have been allocated.
 #+BEGIN_SRC emacs-lisp
-  (setq gc-cons-threshold 2000000)
+  (setq gc-cons-threshold 200000000)
 #+END_SRC
 *** Profiler
 :PROPERTIES:
@@ -232,7 +230,10 @@ comes to emulating IDE features.
 
   (use-package lsp-ui
     :defer t
-    :commands lsp-ui-mode)
+    :commands lsp-ui-mode
+    :config
+    (setq-default lsp-ui-doc-max-height 100)
+    (setq-default lsp-ui-doc-max-width 100))
 
   (use-package company-lsp
     :defer t
