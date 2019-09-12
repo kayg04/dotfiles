@@ -1,0 +1,198 @@
+{
+    "breadcrumbs.enabled": true,
+    "editor.fontLigatures": true,
+    "editor.fontSize": 20,
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.renderControlCharacters": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.trimAutoWhitespace": true,
+    // Vim features
+    "vim.autoindent": true,
+    "vim.hlsearch": false,
+    "vim.highlightedyank.enable": true,
+    // Vim plugins
+    "vim.surround": true,
+    "vim.camelCaseMotion.enable": false,
+    // Vim keybindings
+    "vim.leader": "space",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["escape"],
+        },
+        {
+            "before": ["k", "j"],
+            "after": ["escape"],
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // navigation
+       {
+           "before": ["g", "h"],
+           "commands": [
+               "cursorHome",
+           ]
+       },
+       {
+           "before": ["g", "j"],
+           "commands": [
+               "cursorBottom",
+           ],
+       },
+       {
+           "before": ["g", "k"],
+           "commands": [
+               "cursorTop",
+           ],
+       },
+       {
+           "before": ["g", "l"],
+           "commands": [
+               "cursorEnd",
+           ],
+       },
+        // helm
+       {
+           "before": ["<leader>", "<leader>"],
+           "commands":  [
+               "workbench.action.showCommands",
+           ],
+       },
+       {
+           "before": ["<leader>", "h", "f"],
+           "commands":  [
+               "workbench.action.quickOpen",
+           ],
+       },
+       // buffers
+       {
+           "before": ["<leader>", "b", "w"],
+           "commands": [
+               "workbench.action.files.save",
+           ],
+       },
+       {
+           "before": ["<leader>", "b", "q"],
+           "commands": [
+               "workbench.action.closeActiveEditor",
+           ],
+       },
+       // windows
+       {
+           "before": ["<leader>", "w", "/"],
+           "commands": [
+               "workbench.action.splitEditorRight"
+           ],
+       },
+       {
+           "before": ["<leader>", "w", "-"],
+           "commands": [
+               "workbench.action.splitEditorDown"
+           ],
+       },
+       {
+           "before": ["<leader>", "w", "h"],
+           "commands": [
+               "workbench.action.focusLeftGroup"
+           ],
+       },
+       {
+           "before": ["<leader>", "w", "j"],
+           "commands": [
+               "workbench.action.focusBelowGroup"
+           ],
+       },
+       {
+           "before": ["<leader>", "w", "k"],
+           "commands": [
+               "workbench.action.focusAboveGroup"
+           ],
+       },
+       {
+           "before": ["<leader>", "w", "l"],
+           "commands": [
+               "workbench.action.focusRightGroup"
+           ],
+       },
+       // terminal
+       {
+           "before": ["<leader>", "t", "t"],
+           "commands": [
+               "workbench.action.terminal.toggleTerminal"
+           ],
+       },
+       // panels and sidebars
+       {
+           "before": ["<leader>", "p", "t"],
+           "commands": [
+               "workbench.action.togglePanel"
+           ],
+       },
+       {
+           "before": ["<leader>", "s", "t"],
+           "commands": [
+               "workbench.action.toggleSidebarVisibility"
+           ],
+       },
+       // Run tasks
+       {
+           "before": ["<leader>", "r", "r"],
+           "commands": [
+               "workbench.action.tasks.reRunTask"
+           ],
+       },
+       {
+           "before": ["<leader>", "r", "b"],
+           "commands": [
+               "workbench.action.tasks.build"
+           ],
+       },
+       {
+           "before": ["<leader>", "r", "c"],
+           "commands": [
+               "workbench.action.tasks.configureTaskRunner"
+           ],
+       },
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "p",
+            ],
+            "after": [
+                "p",
+                "g",
+                "v",
+                "y",
+            ],
+        },
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
+        },
+    ],
+    "vim.useSystemClipboard": true,
+    "window.menuBarVisibility": "default",
+    "window.zoomLevel": 0,
+    "workbench.editor.showTabs": true,
+    "workbench.activityBar.visible": false,
+    "workbench.statusBar.visible": true,
+    "C_Cpp.clang_format_fallbackStyle": "LLVM",
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.overviewRulerBorder": false,
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden"
+}

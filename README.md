@@ -1,39 +1,42 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgacfed38)
-    1.  [rc.lua](#org945deec)
-    2.  [Themes](#org225cd9e)
-        1.  [Default](#orgf9c2010)
-2.  [Compton](#orga9c0ab7)
-3.  [Desktop](#orgc03d7a4)
-    1.  [Wire](#orgb2c05fb)
-4.  [Emacs](#orgeeeda5d)
-5.  [Firefox](#orgd90a49d)
-    1.  [Profiles](#org1230623)
-    2.  [Policies](#org78197d6)
-    3.  [UserJS](#orgbc7a4fb)
-        1.  [General](#org0942d4c)
-        2.  [Themes](#org2d01824)
-    4.  [Bootstrap](#org5412fad)
-6.  [Ungoogled Chromium](#org3d7e713)
-    1.  [ENV VARS](#org1c13426)
-    2.  [Flags](#org3b1a652)
-7.  [ZSH](#org6d7674f)
-    1.  [Setup](#orga5d68b4)
-    2.  [Template](#org9e9eaf3)
-    3.  [Functions](#org4aa117c)
-        1.  [Weather](#org15cb75a)
-    4.  [Variables](#org8de2ed4)
+1.  [Awesome](#orgffffa3c)
+    1.  [rc.lua](#org5326c34)
+    2.  [Themes](#orgf5554c2)
+        1.  [Default](#orgd2a831a)
+2.  [Compton](#orgb43d9d6)
+3.  [Desktop](#orgfbf4371)
+    1.  [Wire](#org3709282)
+4.  [Emacs](#orgd66344d)
+5.  [Firefox](#org73684d5)
+    1.  [Profiles](#orgf9396e8)
+    2.  [Policies](#orgc17a94a)
+    3.  [UserJS](#org3970e2b)
+        1.  [General](#org1bdf64c)
+        2.  [Themes](#org248183e)
+    4.  [Bootstrap](#orgf9cea6b)
+6.  [VSCodium](#org40e0560)
+    1.  [Settings](#orgaac1fdd)
+    2.  [Keybindings](#orgd4db91b)
+7.  [Ungoogled Chromium](#org5c95405)
+    1.  [ENV VARS](#orgfbdad77)
+    2.  [Flags](#orgd13869b)
+8.  [ZSH](#orgd6aa584)
+    1.  [Setup](#org9ec7691)
+    2.  [Template](#orgf5b4125)
+    3.  [Functions](#org822b2b2)
+        1.  [Weather](#org5da4f2b)
+    4.  [Variables](#orge3be6b7)
 
 
 
-<a id="orgacfed38"></a>
+<a id="orgffffa3c"></a>
 
 # Awesome
 
 
-<a id="org945deec"></a>
+<a id="org5326c34"></a>
 
 ## rc.lua
 
@@ -606,12 +609,12 @@
     -- }}}
 
 
-<a id="org225cd9e"></a>
+<a id="orgf5554c2"></a>
 
 ## Themes
 
 
-<a id="orgf9c2010"></a>
+<a id="orgd2a831a"></a>
 
 ### Default
 
@@ -748,7 +751,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orga9c0ab7"></a>
+<a id="orgb43d9d6"></a>
 
 # Compton
 
@@ -849,17 +852,17 @@
     transition-length = 150;
 
 
-<a id="orgc03d7a4"></a>
+<a id="orgfbf4371"></a>
 
 # Desktop
 
 
-<a id="orgb2c05fb"></a>
+<a id="org3709282"></a>
 
 ## Wire
 
 
-<a id="orgeeeda5d"></a>
+<a id="orgd66344d"></a>
 
 # Emacs
 
@@ -875,12 +878,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgd90a49d"></a>
+<a id="org73684d5"></a>
 
 # Firefox
 
 
-<a id="org1230623"></a>
+<a id="orgf9396e8"></a>
 
 ## Profiles
 
@@ -928,7 +931,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org78197d6"></a>
+<a id="orgc17a94a"></a>
 
 ## Policies
 
@@ -1004,12 +1007,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgbc7a4fb"></a>
+<a id="org3970e2b"></a>
 
 ## UserJS
 
 
-<a id="org0942d4c"></a>
+<a id="org1bdf64c"></a>
 
 ### General
 
@@ -1063,7 +1066,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org2d01824"></a>
+<a id="org248183e"></a>
 
 ### Themes
 
@@ -1099,7 +1102,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org5412fad"></a>
+<a id="orgf9cea6b"></a>
 
 ## Bootstrap
 
@@ -1220,12 +1223,297 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org3d7e713"></a>
+<a id="org40e0560"></a>
+
+# VSCodium
+
+
+<a id="orgaac1fdd"></a>
+
+## Settings
+
+    {
+        "breadcrumbs.enabled": true,
+        "editor.fontLigatures": true,
+        "editor.fontSize": 20,
+        "editor.lineNumbers": "relative",
+        "editor.minimap.enabled": false,
+        "editor.renderControlCharacters": false,
+        "editor.renderWhitespace": "boundary",
+        "editor.trimAutoWhitespace": true,
+        // Vim features
+        "vim.autoindent": true,
+        "vim.hlsearch": false,
+        "vim.highlightedyank.enable": true,
+        // Vim plugins
+        "vim.surround": true,
+        "vim.camelCaseMotion.enable": false,
+        // Vim keybindings
+        "vim.leader": "space",
+        "vim.insertModeKeyBindings": [
+            {
+                "before": ["j", "k"],
+                "after": ["escape"],
+            },
+            {
+                "before": ["k", "j"],
+                "after": ["escape"],
+            },
+        ],
+        "vim.normalModeKeyBindingsNonRecursive": [
+            // navigation
+           {
+               "before": ["g", "h"],
+               "commands": [
+                   "cursorHome",
+               ]
+           },
+           {
+               "before": ["g", "j"],
+               "commands": [
+                   "cursorBottom",
+               ],
+           },
+           {
+               "before": ["g", "k"],
+               "commands": [
+                   "cursorTop",
+               ],
+           },
+           {
+               "before": ["g", "l"],
+               "commands": [
+                   "cursorEnd",
+               ],
+           },
+            // helm
+           {
+               "before": ["<leader>", "<leader>"],
+               "commands":  [
+                   "workbench.action.showCommands",
+               ],
+           },
+           {
+               "before": ["<leader>", "h", "f"],
+               "commands":  [
+                   "workbench.action.quickOpen",
+               ],
+           },
+           // buffers
+           {
+               "before": ["<leader>", "b", "w"],
+               "commands": [
+                   "workbench.action.files.save",
+               ],
+           },
+           {
+               "before": ["<leader>", "b", "q"],
+               "commands": [
+                   "workbench.action.closeActiveEditor",
+               ],
+           },
+           // windows
+           {
+               "before": ["<leader>", "w", "/"],
+               "commands": [
+                   "workbench.action.splitEditorRight"
+               ],
+           },
+           {
+               "before": ["<leader>", "w", "-"],
+               "commands": [
+                   "workbench.action.splitEditorDown"
+               ],
+           },
+           {
+               "before": ["<leader>", "w", "h"],
+               "commands": [
+                   "workbench.action.focusLeftGroup"
+               ],
+           },
+           {
+               "before": ["<leader>", "w", "j"],
+               "commands": [
+                   "workbench.action.focusBelowGroup"
+               ],
+           },
+           {
+               "before": ["<leader>", "w", "k"],
+               "commands": [
+                   "workbench.action.focusAboveGroup"
+               ],
+           },
+           {
+               "before": ["<leader>", "w", "l"],
+               "commands": [
+                   "workbench.action.focusRightGroup"
+               ],
+           },
+           // terminal
+           {
+               "before": ["<leader>", "t", "t"],
+               "commands": [
+                   "workbench.action.terminal.toggleTerminal"
+               ],
+           },
+           // panels and sidebars
+           {
+               "before": ["<leader>", "p", "t"],
+               "commands": [
+                   "workbench.action.togglePanel"
+               ],
+           },
+           {
+               "before": ["<leader>", "s", "t"],
+               "commands": [
+                   "workbench.action.toggleSidebarVisibility"
+               ],
+           },
+           // Run tasks
+           {
+               "before": ["<leader>", "r", "r"],
+               "commands": [
+                   "workbench.action.tasks.reRunTask"
+               ],
+           },
+           {
+               "before": ["<leader>", "r", "b"],
+               "commands": [
+                   "workbench.action.tasks.build"
+               ],
+           },
+           {
+               "before": ["<leader>", "r", "c"],
+               "commands": [
+                   "workbench.action.tasks.configureTaskRunner"
+               ],
+           },
+        ],
+        "vim.visualModeKeyBindingsNonRecursive": [
+            {
+                "before": [
+                    "p",
+                ],
+                "after": [
+                    "p",
+                    "g",
+                    "v",
+                    "y",
+                ],
+            },
+            {
+                "before": [
+                    ">"
+                ],
+                "commands": [
+                    "editor.action.indentLines"
+                ]
+            },
+            {
+                "before": [
+                    "<"
+                ],
+                "commands": [
+                    "editor.action.outdentLines"
+                ]
+            },
+        ],
+        "vim.useSystemClipboard": true,
+        "window.menuBarVisibility": "default",
+        "window.zoomLevel": 0,
+        "workbench.editor.showTabs": true,
+        "workbench.activityBar.visible": false,
+        "workbench.statusBar.visible": true,
+        "C_Cpp.clang_format_fallbackStyle": "LLVM",
+        "editor.hideCursorInOverviewRuler": true,
+        "editor.overviewRulerBorder": false,
+        "editor.scrollbar.horizontal": "hidden",
+        "editor.scrollbar.vertical": "hidden"
+    }
+
+
+<a id="orgd4db91b"></a>
+
+## Keybindings
+
+    [
+        {
+            "key": "ctrl+space space",
+            "command": "workbench.action.showCommands"
+        },
+        {
+            "key": "ctrl+space s",
+            "command": "workbench.action.toggleSidebarVisibility"
+        },
+        {
+            "key": "ctrl+` t",
+            "command": "workbench.action.terminal.toggleTerminal"
+        },
+        {
+            "key": "ctrl+p t",
+            "command": "workbench.action.togglePanel"
+        },
+        {
+            "key": "ctrl+space f",
+            "command": "workbench.action.quickOpen"
+        },
+        {
+            "key": "ctrl+space /",
+            "command": "workbench.action.findInFiles"
+        },
+        {
+            "key": "ctrl+shift+f",
+            "command": "-workbench.action.findInFiles"
+        },
+        {
+            "key": "ctrl+space m",
+            "command": "workbench.actions.view.problems"
+        },
+        {
+            "key": "ctrl+shift+m",
+            "command": "-workbench.actions.view.problems"
+        },
+        {
+            "key": "ctrl+`",
+            "command": "-workbench.action.terminal.toggleTerminal"
+        },
+        {
+            "key": "ctrl+shift+space t",
+            "command": "workbench.action.terminal.new"
+        },
+        {
+            "key": "ctrl+shift+`",
+            "command": "-workbench.action.terminal.new"
+        },
+        {
+            "key": "tab",
+            "command": "selectNextSuggestion",
+            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+        },
+        {
+            "key": "ctrl+down",
+            "command": "-selectNextSuggestion",
+            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+        },
+        {
+            "key": "shift+tab",
+            "command": "selectPrevSuggestion",
+            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+        },
+        {
+            "key": "ctrl+up",
+            "command": "-selectPrevSuggestion",
+            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+        }
+    ]
+
+
+<a id="org5c95405"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org1c13426"></a>
+<a id="orgfbdad77"></a>
 
 ## ENV VARS
 
@@ -1245,7 +1533,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org3b1a652"></a>
+<a id="orgd13869b"></a>
 
 ## Flags
 
@@ -1287,12 +1575,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="org6d7674f"></a>
+<a id="orgd6aa584"></a>
 
 # ZSH
 
 
-<a id="orga5d68b4"></a>
+<a id="org9ec7691"></a>
 
 ## Setup
 
@@ -1325,7 +1613,7 @@ and functions.
     main
 
 
-<a id="org9e9eaf3"></a>
+<a id="orgf5b4125"></a>
 
 ## Template
 
@@ -1432,12 +1720,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org4aa117c"></a>
+<a id="org822b2b2"></a>
 
 ## Functions
 
 
-<a id="org15cb75a"></a>
+<a id="org5da4f2b"></a>
 
 ### Weather
 
@@ -1446,7 +1734,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org8de2ed4"></a>
+<a id="orge3be6b7"></a>
 
 ## Variables
 
