@@ -1338,7 +1338,7 @@ builds upon the GHacksUserJS.
   }
 #+END_SRC
 ** Keybindings
-#+BEGIN_SRC json .config/VSCodium/User/keybindings.json
+#+BEGIN_SRC json :tangle .config/VSCodium/User/keybindings.json
   [
       {
           "key": "ctrl+space space",
