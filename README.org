@@ -825,20 +825,27 @@ configuration elsewhere.
   asked at startup.
 
 Sometimes Firefox amazes me by how customizable it is. I
-have two profiles with Firefox; one for browsing and one for
-/research/. Since a lot of my research gets lost and I'm
-unable to refer to previous findings, it helps to have a
-separate profile. Both profiles are stored in a standardized
-XDG configuration directory (=~/.config/firefox=) rather
-than the default (=~/.mozilla/firefox/=). I would also
-rather name my own profiles than let firefox name them
-randomly.
+have +two+ three profiles with Firefox; one for browsing,
+one for /research/ and one for web applications. Since a lot
+of my research gets lost and I'm unable to refer to previous
+findings, it helps to have a separate profile. All profiles
+are stored in a standardized XDG configuration directory
+(=~/.config/firefox=) rather than the default
+(=~/.mozilla/firefox/=). I would also rather name my own
+profiles than let firefox name them randomly.
 
-I tried running Electron Apps with it but sadly, things like
-pasting images from clipboard and downloading files from
-Skype (yes, my workplace uses *Skype* in 2019, *groan*) do
-not work. Hence I now rely on Ungoogled Chromium to do my
-dirty work.
++I tried running Electron Apps with it but sadly, things+
++like pasting images from clipboard and downloading files+
++from Skype (yes, my workplace uses *Skype* in 2019, *groan*)+
++do not work. Hence I now rely on Ungoogled Chromium to do my+
++dirty work.+
+
+I tried using ungoogled chromium for dirty web apps but
+recently, on Arch Linux, =libjsoncpp= got an update and
+broke chromium which isn't as regularly built as the
+upstream binaries. So though, clipboard interaction was a
+sweet feature to have, I can let it go for relatively good
+stability.
 
 Although things work fine with UC, I'm unsure if Chromium
 profiles actually provide a /temporary-container/ sort of
@@ -862,6 +869,12 @@ Firefox offers as I reinstall often.
   Name=Research
   IsRelative=1
   Path=../../.config/firefox/research
+  Default=0
+
+  [Profile2]
+  Name=WebApps
+  IsRelative=1
+  Path=../../.config/firefox/webapps
   Default=0
 #+END_SRC
 ** Policies
@@ -1092,6 +1105,7 @@ builds upon the GHacksUserJS.
 
       echo "Making profile directories..."
       for profile in ${profileList}; do
+          echo "-> Copying user.js to profile: ${profile}..."
           mkdir -p "${HOME}/.config/firefox/${profile}"
           cp ./user.js "${HOME}/.config/firefox/${profile}"
       done
@@ -1136,6 +1150,12 @@ builds upon the GHacksUserJS.
   main "${1}"
 #+END_SRC
 * VSCodium
+I tried VSCodium for a brief period of time but the fact
+that a completely keyboard driven workflow cannot be
+achieved with ease bothers me a lot. Don't get me wrong, the
+autocompletion and the learning curve are simply amazing but
+there's no other reason to choose VSCodium over something as
+mature as Emacs.
 ** Settings
 #+BEGIN_SRC json :tangle .config/VSCodium/User/settings.json
   {

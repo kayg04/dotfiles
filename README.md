@@ -1,42 +1,42 @@
 
 # Table of Contents
 
-1.  [Awesome](#orge5ce90e)
-    1.  [rc.lua](#orgc273dd2)
-    2.  [Themes](#org44a55d3)
-        1.  [Default](#org304bd9d)
-2.  [Compton](#orgddd7a04)
-3.  [Desktop](#org4ef3832)
-    1.  [Wire](#org2bddd2f)
-4.  [Emacs](#org26b448a)
-5.  [Firefox](#org135dcc0)
-    1.  [Profiles](#org58ec8a8)
-    2.  [Policies](#org46cba9b)
-    3.  [UserJS](#org9f9f587)
-        1.  [General](#org8d168a9)
-        2.  [Themes](#org098492c)
-    4.  [Bootstrap](#orgac8ad5b)
-6.  [VSCodium](#org089180d)
-    1.  [Settings](#org8864f94)
-    2.  [Keybindings](#org0eee305)
-7.  [Ungoogled Chromium](#orgdd60bec)
-    1.  [ENV VARS](#orgfe6cfd2)
-    2.  [Flags](#org6ba6388)
-8.  [ZSH](#org6eac539)
-    1.  [Setup](#org5953899)
-    2.  [Template](#orge609ef9)
-    3.  [Functions](#org3e7c9f7)
-        1.  [Weather](#org886995a)
-    4.  [Variables](#org479c96a)
+1.  [Awesome](#orgf67770e)
+    1.  [rc.lua](#orgc8f029e)
+    2.  [Themes](#org04d2db3)
+        1.  [Default](#org0fcee60)
+2.  [Compton](#orgea27b06)
+3.  [Desktop](#orgca0dc19)
+    1.  [Wire](#org90f32fd)
+4.  [Emacs](#org860fe03)
+5.  [Firefox](#org47e11f8)
+    1.  [Profiles](#orgfcc4ffa)
+    2.  [Policies](#orgd703d03)
+    3.  [UserJS](#org3fc2c01)
+        1.  [General](#org2a27d40)
+        2.  [Themes](#org3e08953)
+    4.  [Bootstrap](#org2febdef)
+6.  [VSCodium](#orgd8f390f)
+    1.  [Settings](#orgbef1813)
+    2.  [Keybindings](#orgb2689db)
+7.  [Ungoogled Chromium](#orgc889858)
+    1.  [ENV VARS](#org49aa74e)
+    2.  [Flags](#org59c9192)
+8.  [ZSH](#orgdabda78)
+    1.  [Setup](#org1bc3294)
+    2.  [Template](#org4cfa9fe)
+    3.  [Functions](#org16a2a40)
+        1.  [Weather](#orgc880744)
+    4.  [Variables](#org7fc5271)
 
 
 
-<a id="orge5ce90e"></a>
+<a id="orgf67770e"></a>
 
 # Awesome
 
 
-<a id="orgc273dd2"></a>
+<a id="orgc8f029e"></a>
 
 ## rc.lua
 
@@ -609,12 +609,12 @@
     -- }}}
 
 
-<a id="org44a55d3"></a>
+<a id="org04d2db3"></a>
 
 ## Themes
 
 
-<a id="org304bd9d"></a>
+<a id="org0fcee60"></a>
 
 ### Default
 
@@ -751,7 +751,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgddd7a04"></a>
+<a id="orgea27b06"></a>
 
 # Compton
 
@@ -852,17 +852,17 @@
     transition-length = 150;
 
 
-<a id="org4ef3832"></a>
+<a id="orgca0dc19"></a>
 
 # Desktop
 
 
-<a id="org2bddd2f"></a>
+<a id="org90f32fd"></a>
 
 ## Wire
 
 
-<a id="org26b448a"></a>
+<a id="org860fe03"></a>
 
 # Emacs
 
@@ -878,12 +878,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org135dcc0"></a>
+<a id="org47e11f8"></a>
 
 # Firefox
 
 
-<a id="org58ec8a8"></a>
+<a id="orgfcc4ffa"></a>
 
 ## Profiles
 
@@ -891,20 +891,27 @@ configuration elsewhere.
     asked at startup.
 
 Sometimes Firefox amazes me by how customizable it is. I
-have two profiles with Firefox; one for browsing and one for
-*research*. Since a lot of my research gets lost and I'm
-unable to refer to previous findings, it helps to have a
-separate profile. Both profiles are stored in a standardized
-XDG configuration directory (`~/.config/firefox`) rather
-than the default (`~/.mozilla/firefox/`). I would also
-rather name my own profiles than let firefox name them
-randomly.
+have <del>two</del> three profiles with Firefox; one for browsing,
+one for *research* and one for web applications. Since a lot
+of my research gets lost and I'm unable to refer to previous
+findings, it helps to have a separate profile. All profiles
+are stored in a standardized XDG configuration directory
+(`~/.config/firefox`) rather than the default
+(`~/.mozilla/firefox/`). I would also rather name my own
+profiles than let firefox name them randomly.
 
-I tried running Electron Apps with it but sadly, things like
-pasting images from clipboard and downloading files from
-Skype (yes, my workplace uses **Skype** in 2019, **groan**) do
-not work. Hence I now rely on Ungoogled Chromium to do my
-dirty work.
+<del>I tried running Electron Apps with it but sadly, things</del>
+<del>like pasting images from clipboard and downloading files</del>
+<del>from Skype (yes, my workplace uses **Skype** in 2019, **groan**)</del>
+<del>do not work. Hence I now rely on Ungoogled Chromium to do my</del>
+<del>dirty work.</del>
+
+I tried using ungoogled chromium for dirty web apps but
+recently, on Arch Linux, `libjsoncpp` got an update and
+broke chromium which isn't as regularly built as the
+upstream binaries. So though, clipboard interaction was a
+sweet feature to have, I can let it go for relatively good
+stability.
 
 Although things work fine with UC, I'm unsure if Chromium
 profiles actually provide a *temporary-container* sort of
@@ -929,9 +936,15 @@ Firefox offers as I reinstall often.
     IsRelative=1
     Path=../../.config/firefox/research
     Default=0
+    
+    [Profile2]
+    Name=WebApps
+    IsRelative=1
+    Path=../../.config/firefox/webapps
+    Default=0
 
 
-<a id="org46cba9b"></a>
+<a id="orgd703d03"></a>
 
 ## Policies
 
@@ -1007,12 +1020,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org9f9f587"></a>
+<a id="org3fc2c01"></a>
 
 ## UserJS
 
 
-<a id="org8d168a9"></a>
+<a id="org2a27d40"></a>
 
 ### General
 
@@ -1066,7 +1079,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org098492c"></a>
+<a id="org3e08953"></a>
 
 ### Themes
 
@@ -1102,7 +1115,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgac8ad5b"></a>
+<a id="org2febdef"></a>
 
 ## Bootstrap
 
@@ -1179,6 +1192,7 @@ builds upon the GHacksUserJS.
     
         echo "Making profile directories..."
         for profile in ${profileList}; do
+            echo "-> Copying user.js to profile: ${profile}..."
             mkdir -p "${HOME}/.config/firefox/${profile}"
             cp ./user.js "${HOME}/.config/firefox/${profile}"
         done
@@ -1223,12 +1237,19 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org089180d"></a>
+<a id="orgd8f390f"></a>
 
 # VSCodium
 
+I tried VSCodium for a brief period of time but the fact
+that a completely keyboard driven workflow cannot be
+achieved with ease bothers me a lot. Don't get me wrong, the
+autocompletion and the learning curve are simply amazing but
+there's no other reason to choose VSCodium over something as
+mature as Emacs.
 
-<a id="org8864f94"></a>
+
+<a id="orgbef1813"></a>
 
 ## Settings
 
@@ -1432,7 +1453,7 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="org0eee305"></a>
+<a id="orgb2689db"></a>
 
 ## Keybindings
 
@@ -1508,12 +1529,12 @@ builds upon the GHacksUserJS.
     ]
 
 
-<a id="orgdd60bec"></a>
+<a id="orgc889858"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgfe6cfd2"></a>
+<a id="org49aa74e"></a>
 
 ## ENV VARS
 
@@ -1533,7 +1554,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org6ba6388"></a>
+<a id="org59c9192"></a>
 
 ## Flags
 
@@ -1575,12 +1596,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="org6eac539"></a>
+<a id="orgdabda78"></a>
 
 # ZSH
 
 
-<a id="org5953899"></a>
+<a id="org1bc3294"></a>
 
 ## Setup
 
@@ -1613,7 +1634,7 @@ and functions.
     main
 
 
-<a id="orge609ef9"></a>
+<a id="org4cfa9fe"></a>
 
 ## Template
 
@@ -1720,12 +1741,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org3e7c9f7"></a>
+<a id="org16a2a40"></a>
 
 ## Functions
 
 
-<a id="org886995a"></a>
+<a id="orgc880744"></a>
 
 ### Weather
 
@@ -1734,7 +1755,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org479c96a"></a>
+<a id="org7fc5271"></a>
 
 ## Variables
 

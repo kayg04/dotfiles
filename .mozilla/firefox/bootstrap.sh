@@ -53,6 +53,7 @@ applyToProfiles() {
 
     echo "Making profile directories..."
     for profile in ${profileList}; do
+        echo "-> Copying user.js to profile: ${profile}..."
         mkdir -p "${HOME}/.config/firefox/${profile}"
         cp ./user.js "${HOME}/.config/firefox/${profile}"
     done
