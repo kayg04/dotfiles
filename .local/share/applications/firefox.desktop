@@ -1,0 +1,34 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox Developer Edition
+GenericName=Web Browser
+Comment=Browse the World Wide Web
+Keywords=Internet;WWW;Browser;Web;Explorer
+Exec=/usr/bin/firefox %u
+Icon=firefox-developer-edition
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;
+StartupNotify=true
+StartupWMClass=firefoxdeveloperedition
+Categories=Network;WebBrowser;
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=/usr/bin/firefox --new-window %u
+
+[Desktop Action new-private-window]
+Name=New Private Window
+Exec=/usr/bin/firefox --private-window %u
+
+[Desktop Entry]
+Name=Riot
+Comment=A feature-rich client for Matrix.org
+Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://riot.im/app/
+Terminal=false
+Type=Application
+Icon=riot
+StartupWMClass="Riot"
+Categories=Network;InstantMessaging;Chat;IRCClient

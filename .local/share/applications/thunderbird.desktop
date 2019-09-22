@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=Thunderbird (Bleeding edge)
+Comment=Send and receive mail with Thunderbird
+GenericName=Mail Client (Bleeding edge)
+Exec=/opt/thunderbird-beta/thunderbird %u
+Terminal=false
+Type=Application
+Icon=thunderbird-beta
+Categories=Network;Email;
+MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;
+StartupNotify=true
+Actions=ComposeMessage;OpenAddressBook;
+
+[Desktop Action ComposeMessage]
+Name=Write new message
+Exec=/opt/thunderbird-beta/thunderbird -compose
+
+[Desktop Action OpenAddressBook]
+Name=Open address book
+Exec=/opt/thunderbird-beta/thunderbird -addressbook

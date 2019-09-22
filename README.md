@@ -1,43 +1,46 @@
 
 # Table of Contents
 
-1.  [Awesome](#org1a49d52)
-    1.  [rc.lua](#orga11d389)
-    2.  [Themes](#orgae716c7)
-        1.  [Default](#org7dfbfa9)
-2.  [Compton](#org9f6043b)
-3.  [Desktop](#orgb8ff2f6)
-    1.  [Wire](#orgab202b2)
-4.  [Emacs](#orgcfc2646)
-5.  [Firefox](#orgaae7fc8)
-    1.  [Profiles](#org55f2f86)
-    2.  [Policies](#orgbf08bf8)
-    3.  [UserJS](#orgd0ebf9f)
-        1.  [General](#org73d8b47)
-        2.  [Themes](#org14bddbc)
-    4.  [Bootstrap](#org8f5e74d)
-6.  [VSCodium](#orgb3c9349)
-    1.  [Settings](#org72bafa0)
-    2.  [Keybindings](#org367b0e7)
-7.  [Ungoogled Chromium](#org76c72c4)
-    1.  [Environment Variables](#org2d3735a)
-    2.  [Extension Updater](#org1ec1b76)
-    3.  [Flags](#orgb95d929)
-8.  [ZSH](#org3e738d6)
-    1.  [Setup](#org2c7ff52)
-    2.  [Template](#org96a9902)
-    3.  [Functions](#org21e653b)
-        1.  [Weather](#orgd50a7f2)
-    4.  [Variables](#org00b27f2)
+1.  [Awesome](#org87a997d)
+    1.  [rc.lua](#org90aad42)
+    2.  [Themes](#orgb7c7b37)
+        1.  [Default](#orgfecea90)
+2.  [Compton](#orgf438275)
+3.  [Desktop](#org96187d3)
+    1.  [Firefox](#orge963e08)
+    2.  [Riot](#orgc6e4448)
+    3.  [Thunderbird](#org373f092)
+    4.  [Wire](#org8e7fac1)
+4.  [Emacs](#org27d6706)
+5.  [Firefox](#orgbe0951d)
+    1.  [Profiles](#org2ef735b)
+    2.  [Policies](#org59ab26b)
+    3.  [UserJS](#org9c4b3bf)
+        1.  [General](#org2dfdbca)
+        2.  [Themes](#org15fff25)
+    4.  [Bootstrap](#org75e5c4e)
+6.  [VSCodium](#org33b5454)
+    1.  [Settings](#orge5ec0ab)
+    2.  [Keybindings](#org9c50aa0)
+7.  [Ungoogled Chromium](#org5f72749)
+    1.  [Environment Variables](#orgbb1fef6)
+    2.  [Extension Updater](#orge624649)
+    3.  [Flags](#org443cfb6)
+8.  [ZSH](#org9961d07)
+    1.  [Setup](#orgd218543)
+    2.  [Template](#orgdbf33da)
+    3.  [Functions](#orgfa997bd)
+        1.  [Weather](#org2250e4f)
+    4.  [Variables](#org5880fe7)
 
 
 
-<a id="org1a49d52"></a>
+<a id="org87a997d"></a>
 
 # Awesome
 
 
-<a id="orga11d389"></a>
+<a id="org90aad42"></a>
 
 ## rc.lua
 
@@ -610,12 +613,12 @@
     -- }}}
 
 
-<a id="orgae716c7"></a>
+<a id="orgb7c7b37"></a>
 
 ## Themes
 
 
-<a id="org7dfbfa9"></a>
+<a id="orgfecea90"></a>
 
 ### Default
 
@@ -752,7 +755,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org9f6043b"></a>
+<a id="orgf438275"></a>
 
 # Compton
 
@@ -853,17 +856,102 @@
     transition-length = 150;
 
 
-<a id="orgb8ff2f6"></a>
+<a id="org96187d3"></a>
 
 # Desktop
 
 
-<a id="orgab202b2"></a>
+<a id="orge963e08"></a>
+
+## Firefox
+
+    [Desktop Entry]
+    Version=1.0
+    Name=Firefox Developer Edition
+    GenericName=Web Browser
+    Comment=Browse the World Wide Web
+    Keywords=Internet;WWW;Browser;Web;Explorer
+    Exec=/usr/bin/firefox %u
+    Icon=firefox-developer-edition
+    Terminal=false
+    X-MultipleArgs=false
+    Type=Application
+    MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;
+    StartupNotify=true
+    StartupWMClass=firefoxdeveloperedition
+    Categories=Network;WebBrowser;
+    Actions=new-window;new-private-window;
+    
+    [Desktop Action new-window]
+    Name=New Window
+    Exec=/usr/bin/firefox --new-window %u
+    
+    [Desktop Action new-private-window]
+    Name=New Private Window
+    Exec=/usr/bin/firefox --private-window %u
+
+
+<a id="orgc6e4448"></a>
+
+## Riot
+
+    [Desktop Entry]
+    Name=Riot
+    Comment=A feature-rich client for Matrix.org
+    Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://riot.im/app/
+    Terminal=false
+    Type=Application
+    Icon=riot
+    StartupWMClass="Riot"
+    Categories=Network;InstantMessaging;Chat;IRCClient
+
+
+<a id="org373f092"></a>
+
+## Thunderbird
+
+    [Desktop Entry]
+    Name=Thunderbird (Bleeding edge)
+    Comment=Send and receive mail with Thunderbird
+    GenericName=Mail Client (Bleeding edge)
+    Exec=/opt/thunderbird-beta/thunderbird %u
+    Terminal=false
+    Type=Application
+    Icon=thunderbird-beta
+    Categories=Network;Email;
+    MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;
+    StartupNotify=true
+    Actions=ComposeMessage;OpenAddressBook;
+    
+    [Desktop Action ComposeMessage]
+    Name=Write new message
+    Exec=/opt/thunderbird-beta/thunderbird -compose
+    
+    [Desktop Action OpenAddressBook]
+    Name=Open address book
+    Exec=/opt/thunderbird-beta/thunderbird -addressbook
+
+
+<a id="org8e7fac1"></a>
 
 ## Wire
 
+    [Desktop Entry]
+    Name=Wire
+    Comment=The most secure collaboration platform.
+    Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://app.wire.com
+    Terminal=false
+    Type=Application
+    Icon=wire-desktop
+    StartupWMClass=Wire
+    Categories=Network;
+    GenericName=Secure messenger
+    Keywords=chat;encrypt;e2e;messenger;videocall
+    MimeType=x-scheme-handler/wire
+    Version=1.1
 
-<a id="orgcfc2646"></a>
+
+<a id="org27d6706"></a>
 
 # Emacs
 
@@ -879,12 +967,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgaae7fc8"></a>
+<a id="orgbe0951d"></a>
 
 # Firefox
 
 
-<a id="org55f2f86"></a>
+<a id="org2ef735b"></a>
 
 ## Profiles
 
@@ -941,7 +1029,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgbf08bf8"></a>
+<a id="org59ab26b"></a>
 
 ## Policies
 
@@ -1017,12 +1105,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgd0ebf9f"></a>
+<a id="org9c4b3bf"></a>
 
 ## UserJS
 
 
-<a id="org73d8b47"></a>
+<a id="org2dfdbca"></a>
 
 ### General
 
@@ -1076,7 +1164,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org14bddbc"></a>
+<a id="org15fff25"></a>
 
 ### Themes
 
@@ -1112,7 +1200,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org8f5e74d"></a>
+<a id="org75e5c4e"></a>
 
 ## Bootstrap
 
@@ -1234,7 +1322,7 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="orgb3c9349"></a>
+<a id="org33b5454"></a>
 
 # VSCodium
 
@@ -1246,7 +1334,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org72bafa0"></a>
+<a id="orge5ec0ab"></a>
 
 ## Settings
 
@@ -1450,7 +1538,7 @@ mature as Emacs.
     }
 
 
-<a id="org367b0e7"></a>
+<a id="org9c50aa0"></a>
 
 ## Keybindings
 
@@ -1526,12 +1614,12 @@ mature as Emacs.
     ]
 
 
-<a id="org76c72c4"></a>
+<a id="org5f72749"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org2d3735a"></a>
+<a id="orgbb1fef6"></a>
 
 ## Environment Variables
 
@@ -1551,7 +1639,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org1ec1b76"></a>
+<a id="orge624649"></a>
 
 ## Extension Updater
 
@@ -1582,7 +1670,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="orgb95d929"></a>
+<a id="org443cfb6"></a>
 
 ## Flags
 
@@ -1624,12 +1712,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org3e738d6"></a>
+<a id="org9961d07"></a>
 
 # ZSH
 
 
-<a id="org2c7ff52"></a>
+<a id="orgd218543"></a>
 
 ## Setup
 
@@ -1662,7 +1750,7 @@ and functions.
     main
 
 
-<a id="org96a9902"></a>
+<a id="orgdbf33da"></a>
 
 ## Template
 
@@ -1769,12 +1857,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org21e653b"></a>
+<a id="orgfa997bd"></a>
 
 ## Functions
 
 
-<a id="orgd50a7f2"></a>
+<a id="org2250e4f"></a>
 
 ### Weather
 
@@ -1783,7 +1871,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org00b27f2"></a>
+<a id="org5880fe7"></a>
 
 ## Variables
 

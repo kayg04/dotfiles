@@ -806,7 +806,84 @@
   transition-length = 150;
 #+END_SRC
 * Desktop
+** Firefox
+#+BEGIN_SRC conf :tangle .local/share/applications/firefox.desktop
+  [Desktop Entry]
+  Version=1.0
+  Name=Firefox Developer Edition
+  GenericName=Web Browser
+  Comment=Browse the World Wide Web
+  Keywords=Internet;WWW;Browser;Web;Explorer
+  Exec=/usr/bin/firefox %u
+  Icon=firefox-developer-edition
+  Terminal=false
+  X-MultipleArgs=false
+  Type=Application
+  MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;
+  StartupNotify=true
+  StartupWMClass=firefoxdeveloperedition
+  Categories=Network;WebBrowser;
+  Actions=new-window;new-private-window;
+
+  [Desktop Action new-window]
+  Name=New Window
+  Exec=/usr/bin/firefox --new-window %u
+
+  [Desktop Action new-private-window]
+  Name=New Private Window
+  Exec=/usr/bin/firefox --private-window %u
+#+END_SRC
+** Riot
+#+BEGIN_SRC conf :tangle .local/share/applications/firefox.desktop
+  [Desktop Entry]
+  Name=Riot
+  Comment=A feature-rich client for Matrix.org
+  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://riot.im/app/
+  Terminal=false
+  Type=Application
+  Icon=riot
+  StartupWMClass="Riot"
+  Categories=Network;InstantMessaging;Chat;IRCClient
+#+END_SRC
+** Thunderbird
+#+BEGIN_SRC conf :tangle .local/share/applications/thunderbird.desktop
+  [Desktop Entry]
+  Name=Thunderbird (Bleeding edge)
+  Comment=Send and receive mail with Thunderbird
+  GenericName=Mail Client (Bleeding edge)
+  Exec=/opt/thunderbird-beta/thunderbird %u
+  Terminal=false
+  Type=Application
+  Icon=thunderbird-beta
+  Categories=Network;Email;
+  MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;
+  StartupNotify=true
+  Actions=ComposeMessage;OpenAddressBook;
+
+  [Desktop Action ComposeMessage]
+  Name=Write new message
+  Exec=/opt/thunderbird-beta/thunderbird -compose
+
+  [Desktop Action OpenAddressBook]
+  Name=Open address book
+  Exec=/opt/thunderbird-beta/thunderbird -addressbook
+#+END_SRC
 ** Wire
+#+BEGIN_SRC conf :tangle .local/share/applications/wire.desktop
+  [Desktop Entry]
+  Name=Wire
+  Comment=The most secure collaboration platform.
+  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://app.wire.com
+  Terminal=false
+  Type=Application
+  Icon=wire-desktop
+  StartupWMClass=Wire
+  Categories=Network;
+  GenericName=Secure messenger
+  Keywords=chat;encrypt;e2e;messenger;videocall
+  MimeType=x-scheme-handler/wire
+  Version=1.1
+#+END_SRC
 * Emacs
 Since Emacs' settings are already managed through an org
 file, there is no need to go meta. This is the init.el file
