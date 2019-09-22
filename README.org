@@ -840,12 +840,14 @@ profiles than let firefox name them randomly.
 +do not work. Hence I now rely on Ungoogled Chromium to do my+
 +dirty work.+
 
-I tried using ungoogled chromium for dirty web apps but
-recently, on Arch Linux, =libjsoncpp= got an update and
-broke chromium which isn't as regularly built as the
-upstream binaries. So though, clipboard interaction was a
-sweet feature to have, I can let it go for relatively good
-stability.
++I tried using ungoogled chromium for dirty web apps but+
++recently, on Arch Linux, =libjsoncpp= got an update and+
++broke chromium which isn't as regularly built as the+
++upstream binaries. So though, clipboard interaction was a+
++sweet feature to have, I can let it go for relatively good+
++stability.+
+
+Ungoogled Chromium works again!
 
 Although things work fine with UC, I'm unsure if Chromium
 profiles actually provide a /temporary-container/ sort of
@@ -869,12 +871,6 @@ Firefox offers as I reinstall often.
   Name=Research
   IsRelative=1
   Path=../../.config/firefox/research
-  Default=0
-
-  [Profile2]
-  Name=WebApps
-  IsRelative=1
-  Path=../../.config/firefox/webapps
   Default=0
 #+END_SRC
 ** Policies
@@ -1431,7 +1427,7 @@ mature as Emacs.
   ]
 #+END_SRC
 * Ungoogled Chromium
-** ENV VARS
+** Environment Variables
 From Debian bug tracker:
 #+begin_quote
 As can be seen in the upstream discussion, this happens whenever mesa
@@ -1449,11 +1445,38 @@ Mike
 #+BEGIN_SRC text
   MESA_GLSL_CACHE_DISABLE=true
 #+END_SRC
+** Extension Updater
+- =userDataDir= is your data directory for Chromium.
+  Normally, it is $HOME/.config/chromium. However since I
+  sync my chromium profiles using Nextcloud and only use it
+  for web applications; I like to keep it separated from the
+  default installation.
+- =extIDList= is the list of all extensions you have
+  installed currently. The list is fetched from the data
+  directory.
+
+For this function to work, you must set
+=chrome://flags/#extension-mime-request-handling= to /Always
+prompt for install/ for automatic installation.
+#+BEGIN_SRC sh
+  #!/usr/bin/env bash
+
+  updateExtensions() {
+      userDataDir="${HOME}/.config/chromium/Apps"
+      extIDList=$(ls -1 "${userDataDir}/Default/Extensions")
+      chromiumVersion=$(chromium --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
+
+      for extID in ${extIDList}; do
+          updateURL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${chromiumVersion}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
+          chromium --user-data-dir="${userDataDir}" "${updateURL}"
+      done
+  }
+#+END_SRC
 ** Flags
-Better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
+A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
 #+BEGIN_SRC conf :tangle .config/chromium-flags.conf
   # Disable workarounds for various GPU driver bugs.
-  --disable-gpu-driver-bug-workarounds
+  # --disable-gpu-driver-bug-workarounds
   # Enable hardware acceleration
   --enable-accelerated-mjpeg-decode
   --enable-accelerated-video

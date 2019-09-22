@@ -1,42 +1,43 @@
 
 # Table of Contents
 
-1.  [Awesome](#orgf67770e)
-    1.  [rc.lua](#orgc8f029e)
-    2.  [Themes](#org04d2db3)
-        1.  [Default](#org0fcee60)
-2.  [Compton](#orgea27b06)
-3.  [Desktop](#orgca0dc19)
-    1.  [Wire](#org90f32fd)
-4.  [Emacs](#org860fe03)
-5.  [Firefox](#org47e11f8)
-    1.  [Profiles](#orgfcc4ffa)
-    2.  [Policies](#orgd703d03)
-    3.  [UserJS](#org3fc2c01)
-        1.  [General](#org2a27d40)
-        2.  [Themes](#org3e08953)
-    4.  [Bootstrap](#org2febdef)
-6.  [VSCodium](#orgd8f390f)
-    1.  [Settings](#orgbef1813)
-    2.  [Keybindings](#orgb2689db)
-7.  [Ungoogled Chromium](#orgc889858)
-    1.  [ENV VARS](#org49aa74e)
-    2.  [Flags](#org59c9192)
-8.  [ZSH](#orgdabda78)
-    1.  [Setup](#org1bc3294)
-    2.  [Template](#org4cfa9fe)
-    3.  [Functions](#org16a2a40)
-        1.  [Weather](#orgc880744)
-    4.  [Variables](#org7fc5271)
+1.  [Awesome](#org1a49d52)
+    1.  [rc.lua](#orga11d389)
+    2.  [Themes](#orgae716c7)
+        1.  [Default](#org7dfbfa9)
+2.  [Compton](#org9f6043b)
+3.  [Desktop](#orgb8ff2f6)
+    1.  [Wire](#orgab202b2)
+4.  [Emacs](#orgcfc2646)
+5.  [Firefox](#orgaae7fc8)
+    1.  [Profiles](#org55f2f86)
+    2.  [Policies](#orgbf08bf8)
+    3.  [UserJS](#orgd0ebf9f)
+        1.  [General](#org73d8b47)
+        2.  [Themes](#org14bddbc)
+    4.  [Bootstrap](#org8f5e74d)
+6.  [VSCodium](#orgb3c9349)
+    1.  [Settings](#org72bafa0)
+    2.  [Keybindings](#org367b0e7)
+7.  [Ungoogled Chromium](#org76c72c4)
+    1.  [Environment Variables](#org2d3735a)
+    2.  [Extension Updater](#org1ec1b76)
+    3.  [Flags](#orgb95d929)
+8.  [ZSH](#org3e738d6)
+    1.  [Setup](#org2c7ff52)
+    2.  [Template](#org96a9902)
+    3.  [Functions](#org21e653b)
+        1.  [Weather](#orgd50a7f2)
+    4.  [Variables](#org00b27f2)
 
 
 
-<a id="orgf67770e"></a>
+<a id="org1a49d52"></a>
 
 # Awesome
 
 
-<a id="orgc8f029e"></a>
+<a id="orga11d389"></a>
 
 ## rc.lua
 
@@ -609,12 +610,12 @@
     -- }}}
 
 
-<a id="org04d2db3"></a>
+<a id="orgae716c7"></a>
 
 ## Themes
 
 
-<a id="org0fcee60"></a>
+<a id="org7dfbfa9"></a>
 
 ### Default
 
@@ -751,7 +752,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgea27b06"></a>
+<a id="org9f6043b"></a>
 
 # Compton
 
@@ -852,17 +853,17 @@
     transition-length = 150;
 
 
-<a id="orgca0dc19"></a>
+<a id="orgb8ff2f6"></a>
 
 # Desktop
 
 
-<a id="org90f32fd"></a>
+<a id="orgab202b2"></a>
 
 ## Wire
 
 
-<a id="org860fe03"></a>
+<a id="orgcfc2646"></a>
 
 # Emacs
 
@@ -878,12 +879,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org47e11f8"></a>
+<a id="orgaae7fc8"></a>
 
 # Firefox
 
 
-<a id="orgfcc4ffa"></a>
+<a id="org55f2f86"></a>
 
 ## Profiles
 
@@ -906,12 +907,14 @@ profiles than let firefox name them randomly.
 <del>do not work. Hence I now rely on Ungoogled Chromium to do my</del>
 <del>dirty work.</del>
 
-I tried using ungoogled chromium for dirty web apps but
-recently, on Arch Linux, `libjsoncpp` got an update and
-broke chromium which isn't as regularly built as the
-upstream binaries. So though, clipboard interaction was a
-sweet feature to have, I can let it go for relatively good
-stability.
+<del>I tried using ungoogled chromium for dirty web apps but</del>
+<del>recently, on Arch Linux, `libjsoncpp` got an update and</del>
+<del>broke chromium which isn't as regularly built as the</del>
+<del>upstream binaries. So though, clipboard interaction was a</del>
+<del>sweet feature to have, I can let it go for relatively good</del>
+<del>stability.</del>
+
+Ungoogled Chromium works again!
 
 Although things work fine with UC, I'm unsure if Chromium
 profiles actually provide a *temporary-container* sort of
@@ -936,15 +939,9 @@ Firefox offers as I reinstall often.
     IsRelative=1
     Path=../../.config/firefox/research
     Default=0
-    
-    [Profile2]
-    Name=WebApps
-    IsRelative=1
-    Path=../../.config/firefox/webapps
-    Default=0
 
 
-<a id="orgd703d03"></a>
+<a id="orgbf08bf8"></a>
 
 ## Policies
 
@@ -1020,12 +1017,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org3fc2c01"></a>
+<a id="orgd0ebf9f"></a>
 
 ## UserJS
 
 
-<a id="org2a27d40"></a>
+<a id="org73d8b47"></a>
 
 ### General
 
@@ -1079,7 +1076,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org3e08953"></a>
+<a id="org14bddbc"></a>
 
 ### Themes
 
@@ -1115,7 +1112,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org2febdef"></a>
+<a id="org8f5e74d"></a>
 
 ## Bootstrap
 
@@ -1237,7 +1234,7 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="orgd8f390f"></a>
+<a id="orgb3c9349"></a>
 
 # VSCodium
 
@@ -1249,7 +1246,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="orgbef1813"></a>
+<a id="org72bafa0"></a>
 
 ## Settings
 
@@ -1453,7 +1450,7 @@ mature as Emacs.
     }
 
 
-<a id="orgb2689db"></a>
+<a id="org367b0e7"></a>
 
 ## Keybindings
 
@@ -1529,14 +1526,14 @@ mature as Emacs.
     ]
 
 
-<a id="orgc889858"></a>
+<a id="org76c72c4"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org49aa74e"></a>
+<a id="org2d3735a"></a>
 
-## ENV VARS
+## Environment Variables
 
 From Debian bug tracker:
 
@@ -1554,14 +1551,45 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org59c9192"></a>
+<a id="org1ec1b76"></a>
+
+## Extension Updater
+
+-   `userDataDir` is your data directory for Chromium.
+    Normally, it is $HOME/.config/chromium. However since I
+    sync my chromium profiles using Nextcloud and only use it
+    for web applications; I like to keep it separated from the
+    default installation.
+-   `extIDList` is the list of all extensions you have
+    installed currently. The list is fetched from the data
+    directory.
+
+For this function to work, you must set
+`chrome://flags/#extension-mime-request-handling` to *Always
+prompt for install* for automatic installation.
+
+    #!/usr/bin/env bash
+    
+    updateExtensions() {
+        userDataDir="${HOME}/.config/chromium/Apps"
+        extIDList=$(ls -1 "${userDataDir}/Default/Extensions")
+        chromiumVersion=$(chromium --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
+    
+        for extID in ${extIDList}; do
+            updateURL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${chromiumVersion}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
+            chromium --user-data-dir="${userDataDir}" "${updateURL}"
+        done
+    }
+
+
+<a id="orgb95d929"></a>
 
 ## Flags
 
-Better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
+A better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
 
     # Disable workarounds for various GPU driver bugs.
-    --disable-gpu-driver-bug-workarounds
+    # --disable-gpu-driver-bug-workarounds
     # Enable hardware acceleration
     --enable-accelerated-mjpeg-decode
     --enable-accelerated-video
@@ -1596,12 +1624,12 @@ Better explanation can be found [here](https://peter.sh/experiments/chromium-com
     --enable-features=WebUIDarkMode
 
 
-<a id="orgdabda78"></a>
+<a id="org3e738d6"></a>
 
 # ZSH
 
 
-<a id="org1bc3294"></a>
+<a id="org2c7ff52"></a>
 
 ## Setup
 
@@ -1634,7 +1662,7 @@ and functions.
     main
 
 
-<a id="org4cfa9fe"></a>
+<a id="org96a9902"></a>
 
 ## Template
 
@@ -1741,12 +1769,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org16a2a40"></a>
+<a id="org21e653b"></a>
 
 ## Functions
 
 
-<a id="orgc880744"></a>
+<a id="orgd50a7f2"></a>
 
 ### Weather
 
@@ -1755,7 +1783,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org7fc5271"></a>
+<a id="org00b27f2"></a>
 
 ## Variables
 
