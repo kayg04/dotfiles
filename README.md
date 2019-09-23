@@ -1,46 +1,46 @@
 
 # Table of Contents
 
-1.  [Awesome](#org87a997d)
-    1.  [rc.lua](#org90aad42)
-    2.  [Themes](#orgb7c7b37)
-        1.  [Default](#orgfecea90)
-2.  [Compton](#orgf438275)
-3.  [Desktop](#org96187d3)
-    1.  [Firefox](#orge963e08)
-    2.  [Riot](#orgc6e4448)
-    3.  [Thunderbird](#org373f092)
-    4.  [Wire](#org8e7fac1)
-4.  [Emacs](#org27d6706)
-5.  [Firefox](#orgbe0951d)
-    1.  [Profiles](#org2ef735b)
-    2.  [Policies](#org59ab26b)
-    3.  [UserJS](#org9c4b3bf)
-        1.  [General](#org2dfdbca)
-        2.  [Themes](#org15fff25)
-    4.  [Bootstrap](#org75e5c4e)
-6.  [VSCodium](#org33b5454)
-    1.  [Settings](#orge5ec0ab)
-    2.  [Keybindings](#org9c50aa0)
-7.  [Ungoogled Chromium](#org5f72749)
-    1.  [Environment Variables](#orgbb1fef6)
-    2.  [Extension Updater](#orge624649)
-    3.  [Flags](#org443cfb6)
-8.  [ZSH](#org9961d07)
-    1.  [Setup](#orgd218543)
-    2.  [Template](#orgdbf33da)
-    3.  [Functions](#orgfa997bd)
-        1.  [Weather](#org2250e4f)
-    4.  [Variables](#org5880fe7)
+1.  [Awesome](#org0c719a0)
+    1.  [rc.lua](#orgd66a711)
+    2.  [Themes](#orgef8bad7)
+        1.  [Default](#org54eb6bd)
+2.  [Compton](#orgc5ea664)
+3.  [Desktop](#org70b7748)
+    1.  [Firefox](#org59299b9)
+    2.  [Riot](#orgcdf65ba)
+    3.  [Thunderbird](#org6e15adc)
+    4.  [Wire](#org64006a2)
+4.  [Emacs](#org94f4311)
+5.  [Firefox](#orgccb4180)
+    1.  [Profiles](#orge479028)
+    2.  [Policies](#orgd3d92ca)
+    3.  [UserJS](#org3f0cf06)
+        1.  [General](#orga29f07e)
+        2.  [Themes](#org13c00e0)
+    4.  [Bootstrap](#org9b3c469)
+6.  [VSCodium](#org5b88462)
+    1.  [Settings](#org701971f)
+    2.  [Keybindings](#org728fddd)
+7.  [Ungoogled Chromium](#orgdbdc754)
+    1.  [Environment Variables](#orgbf57b53)
+    2.  [Extension Updater](#orgd3fdb00)
+    3.  [Flags](#orgc241560)
+8.  [ZSH](#orge476516)
+    1.  [Setup](#orga16d6ae)
+    2.  [Template](#org85e860a)
+    3.  [Functions](#org6f2c435)
+        1.  [Weather](#org2ac7fa8)
+    4.  [Variables](#orgc56286b)
 
 
 
-<a id="org87a997d"></a>
+<a id="org0c719a0"></a>
 
 # Awesome
 
 
-<a id="org90aad42"></a>
+<a id="orgd66a711"></a>
 
 ## rc.lua
 
@@ -613,12 +613,12 @@
     -- }}}
 
 
-<a id="orgb7c7b37"></a>
+<a id="orgef8bad7"></a>
 
 ## Themes
 
 
-<a id="orgfecea90"></a>
+<a id="org54eb6bd"></a>
 
 ### Default
 
@@ -755,7 +755,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgf438275"></a>
+<a id="orgc5ea664"></a>
 
 # Compton
 
@@ -856,12 +856,12 @@
     transition-length = 150;
 
 
-<a id="org96187d3"></a>
+<a id="org70b7748"></a>
 
 # Desktop
 
 
-<a id="orge963e08"></a>
+<a id="org59299b9"></a>
 
 ## Firefox
 
@@ -891,7 +891,7 @@
     Exec=/usr/bin/firefox --private-window %u
 
 
-<a id="orgc6e4448"></a>
+<a id="orgcdf65ba"></a>
 
 ## Riot
 
@@ -906,7 +906,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="org373f092"></a>
+<a id="org6e15adc"></a>
 
 ## Thunderbird
 
@@ -932,7 +932,7 @@
     Exec=/opt/thunderbird-beta/thunderbird -addressbook
 
 
-<a id="org8e7fac1"></a>
+<a id="org64006a2"></a>
 
 ## Wire
 
@@ -951,7 +951,7 @@
     Version=1.1
 
 
-<a id="org27d6706"></a>
+<a id="org94f4311"></a>
 
 # Emacs
 
@@ -967,12 +967,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgbe0951d"></a>
+<a id="orgccb4180"></a>
 
 # Firefox
 
 
-<a id="org2ef735b"></a>
+<a id="orge479028"></a>
 
 ## Profiles
 
@@ -1029,7 +1029,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org59ab26b"></a>
+<a id="orgd3d92ca"></a>
 
 ## Policies
 
@@ -1041,7 +1041,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
         "Cookies": {
           "Default": true,
           "AcceptThirdParty": "never",
-          "ExpireAtSessionEnd": false
+          "ExpireAtSessionEnd": true
         },
         "DisableAppUpdate": false,
         "DisableDeveloperTools": false,
@@ -1096,7 +1096,7 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
             "FormData": false,
             "History": false,
             "Sessions": true,
-            "SiteSettings": true,
+            "SiteSettings": false,
             "OfflineApps": true
         },
         "SearchBar": "unified",
@@ -1105,12 +1105,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org9c4b3bf"></a>
+<a id="org3f0cf06"></a>
 
 ## UserJS
 
 
-<a id="org2dfdbca"></a>
+<a id="orga29f07e"></a>
 
 ### General
 
@@ -1164,7 +1164,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org15fff25"></a>
+<a id="org13c00e0"></a>
 
 ### Themes
 
@@ -1200,7 +1200,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org75e5c4e"></a>
+<a id="org9b3c469"></a>
 
 ## Bootstrap
 
@@ -1322,7 +1322,7 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org33b5454"></a>
+<a id="org5b88462"></a>
 
 # VSCodium
 
@@ -1334,7 +1334,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="orge5ec0ab"></a>
+<a id="org701971f"></a>
 
 ## Settings
 
@@ -1538,7 +1538,7 @@ mature as Emacs.
     }
 
 
-<a id="org9c50aa0"></a>
+<a id="org728fddd"></a>
 
 ## Keybindings
 
@@ -1614,12 +1614,12 @@ mature as Emacs.
     ]
 
 
-<a id="org5f72749"></a>
+<a id="orgdbdc754"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgbb1fef6"></a>
+<a id="orgbf57b53"></a>
 
 ## Environment Variables
 
@@ -1639,7 +1639,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orge624649"></a>
+<a id="orgd3fdb00"></a>
 
 ## Extension Updater
 
@@ -1670,7 +1670,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="org443cfb6"></a>
+<a id="orgc241560"></a>
 
 ## Flags
 
@@ -1712,12 +1712,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org9961d07"></a>
+<a id="orge476516"></a>
 
 # ZSH
 
 
-<a id="orgd218543"></a>
+<a id="orga16d6ae"></a>
 
 ## Setup
 
@@ -1750,7 +1750,7 @@ and functions.
     main
 
 
-<a id="orgdbf33da"></a>
+<a id="org85e860a"></a>
 
 ## Template
 
@@ -1857,12 +1857,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="orgfa997bd"></a>
+<a id="org6f2c435"></a>
 
 ## Functions
 
 
-<a id="org2250e4f"></a>
+<a id="org2ac7fa8"></a>
 
 ### Weather
 
@@ -1871,7 +1871,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org5880fe7"></a>
+<a id="orgc56286b"></a>
 
 ## Variables
 

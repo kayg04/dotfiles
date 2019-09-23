@@ -959,7 +959,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
       "Cookies": {
         "Default": true,
         "AcceptThirdParty": "never",
-        "ExpireAtSessionEnd": false
+        "ExpireAtSessionEnd": true
       },
       "DisableAppUpdate": false,
       "DisableDeveloperTools": false,
@@ -1014,7 +1014,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
           "FormData": false,
           "History": false,
           "Sessions": true,
-          "SiteSettings": true,
+          "SiteSettings": false,
           "OfflineApps": true
       },
       "SearchBar": "unified",
