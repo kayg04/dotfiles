@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Deezer
+StartupNotify=true
+Icon=deezer
+Comment=Deezer audio streaming service
+Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.deezer.com/
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/deezer;
+StartupWMClass=deezer
+Categories=Audio;Music;Player;AudioVideo;

@@ -1,46 +1,46 @@
 
 # Table of Contents
 
-1.  [Awesome](#org0c719a0)
-    1.  [rc.lua](#orgd66a711)
-    2.  [Themes](#orgef8bad7)
-        1.  [Default](#org54eb6bd)
-2.  [Compton](#orgc5ea664)
-3.  [Desktop](#org70b7748)
-    1.  [Firefox](#org59299b9)
-    2.  [Riot](#orgcdf65ba)
-    3.  [Thunderbird](#org6e15adc)
-    4.  [Wire](#org64006a2)
-4.  [Emacs](#org94f4311)
-5.  [Firefox](#orgccb4180)
-    1.  [Profiles](#orge479028)
-    2.  [Policies](#orgd3d92ca)
-    3.  [UserJS](#org3f0cf06)
-        1.  [General](#orga29f07e)
-        2.  [Themes](#org13c00e0)
-    4.  [Bootstrap](#org9b3c469)
-6.  [VSCodium](#org5b88462)
-    1.  [Settings](#org701971f)
-    2.  [Keybindings](#org728fddd)
-7.  [Ungoogled Chromium](#orgdbdc754)
-    1.  [Environment Variables](#orgbf57b53)
-    2.  [Extension Updater](#orgd3fdb00)
-    3.  [Flags](#orgc241560)
-8.  [ZSH](#orge476516)
-    1.  [Setup](#orga16d6ae)
-    2.  [Template](#org85e860a)
-    3.  [Functions](#org6f2c435)
-        1.  [Weather](#org2ac7fa8)
-    4.  [Variables](#orgc56286b)
+1.  [Awesome](#org099387a)
+    1.  [rc.lua](#orgeb7851d)
+    2.  [Themes](#orga88576e)
+        1.  [Default](#org43728d4)
+2.  [Compton](#org6442593)
+3.  [Desktop](#org55b2543)
+    1.  [Deezer](#orgdde1bb5)
+    2.  [Riot](#org7635dba)
+    3.  [Saavn](#orga325eef)
+    4.  [Wire](#org2585448)
+4.  [Emacs](#org4f5cbd4)
+5.  [Firefox](#orgb35ba33)
+    1.  [Profiles](#org7416c95)
+    2.  [Policies](#org85037e6)
+    3.  [UserJS](#org32175a0)
+        1.  [General](#org0cd9f44)
+        2.  [Themes](#orgbeefc96)
+    4.  [Bootstrap](#orged40b4a)
+6.  [VSCodium](#org5087435)
+    1.  [Settings](#org5b3c623)
+    2.  [Keybindings](#orgad1b960)
+7.  [Ungoogled Chromium](#org31155eb)
+    1.  [Environment Variables](#org25cee15)
+    2.  [Extension Updater](#orgc1b79cf)
+    3.  [Flags](#org0b933c9)
+8.  [ZSH](#org3f74e21)
+    1.  [Setup](#org957bf36)
+    2.  [Template](#orge43b43b)
+    3.  [Functions](#orgc4919dd)
+        1.  [Weather](#org06b1b38)
+    4.  [Variables](#org39eac36)
 
 
 
-<a id="org0c719a0"></a>
+<a id="org099387a"></a>
 
 # Awesome
 
 
-<a id="orgd66a711"></a>
+<a id="orgeb7851d"></a>
 
 ## rc.lua
 
@@ -613,12 +613,12 @@
     -- }}}
 
 
-<a id="orgef8bad7"></a>
+<a id="orga88576e"></a>
 
 ## Themes
 
 
-<a id="org54eb6bd"></a>
+<a id="org43728d4"></a>
 
 ### Default
 
@@ -755,7 +755,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgc5ea664"></a>
+<a id="org6442593"></a>
 
 # Compton
 
@@ -856,42 +856,29 @@
     transition-length = 150;
 
 
-<a id="org70b7748"></a>
+<a id="org55b2543"></a>
 
 # Desktop
 
 
-<a id="org59299b9"></a>
+<a id="orgdde1bb5"></a>
 
-## Firefox
+## Deezer
 
     [Desktop Entry]
-    Version=1.0
-    Name=Firefox Developer Edition
-    GenericName=Web Browser
-    Comment=Browse the World Wide Web
-    Keywords=Internet;WWW;Browser;Web;Explorer
-    Exec=/usr/bin/firefox %u
-    Icon=firefox-developer-edition
-    Terminal=false
-    X-MultipleArgs=false
-    Type=Application
-    MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;
+    Name=Deezer
     StartupNotify=true
-    StartupWMClass=firefoxdeveloperedition
-    Categories=Network;WebBrowser;
-    Actions=new-window;new-private-window;
-    
-    [Desktop Action new-window]
-    Name=New Window
-    Exec=/usr/bin/firefox --new-window %u
-    
-    [Desktop Action new-private-window]
-    Name=New Private Window
-    Exec=/usr/bin/firefox --private-window %u
+    Icon=deezer
+    Comment=Deezer audio streaming service
+    Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.deezer.com/
+    Terminal=false
+    Type=Application
+    MimeType=x-scheme-handler/deezer;
+    StartupWMClass=deezer
+    Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgcdf65ba"></a>
+<a id="org7635dba"></a>
 
 ## Riot
 
@@ -906,33 +893,24 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="org6e15adc"></a>
+<a id="orga325eef"></a>
 
-## Thunderbird
+## Saavn
 
     [Desktop Entry]
-    Name=Thunderbird (Bleeding edge)
-    Comment=Send and receive mail with Thunderbird
-    GenericName=Mail Client (Bleeding edge)
-    Exec=/opt/thunderbird-beta/thunderbird %u
+    Name=Saavn
+    StartupNotify=true
+    Icon=saavn
+    Comment=Saavn audio streaming service
+    Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.jiosaavn.com/
     Terminal=false
     Type=Application
-    Icon=thunderbird-beta
-    Categories=Network;Email;
-    MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;
-    StartupNotify=true
-    Actions=ComposeMessage;OpenAddressBook;
-    
-    [Desktop Action ComposeMessage]
-    Name=Write new message
-    Exec=/opt/thunderbird-beta/thunderbird -compose
-    
-    [Desktop Action OpenAddressBook]
-    Name=Open address book
-    Exec=/opt/thunderbird-beta/thunderbird -addressbook
+    MimeType=x-scheme-handler/saavn;
+    StartupWMClass=saavn
+    Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org64006a2"></a>
+<a id="org2585448"></a>
 
 ## Wire
 
@@ -951,7 +929,7 @@
     Version=1.1
 
 
-<a id="org94f4311"></a>
+<a id="org4f5cbd4"></a>
 
 # Emacs
 
@@ -967,12 +945,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgccb4180"></a>
+<a id="orgb35ba33"></a>
 
 # Firefox
 
 
-<a id="orge479028"></a>
+<a id="org7416c95"></a>
 
 ## Profiles
 
@@ -1029,7 +1007,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orgd3d92ca"></a>
+<a id="org85037e6"></a>
 
 ## Policies
 
@@ -1105,12 +1083,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org3f0cf06"></a>
+<a id="org32175a0"></a>
 
 ## UserJS
 
 
-<a id="orga29f07e"></a>
+<a id="org0cd9f44"></a>
 
 ### General
 
@@ -1164,7 +1142,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org13c00e0"></a>
+<a id="orgbeefc96"></a>
 
 ### Themes
 
@@ -1200,7 +1178,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org9b3c469"></a>
+<a id="orged40b4a"></a>
 
 ## Bootstrap
 
@@ -1322,7 +1300,7 @@ builds upon the GHacksUserJS.
     main "${1}"
 
 
-<a id="org5b88462"></a>
+<a id="org5087435"></a>
 
 # VSCodium
 
@@ -1334,7 +1312,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org701971f"></a>
+<a id="org5b3c623"></a>
 
 ## Settings
 
@@ -1538,7 +1516,7 @@ mature as Emacs.
     }
 
 
-<a id="org728fddd"></a>
+<a id="orgad1b960"></a>
 
 ## Keybindings
 
@@ -1614,12 +1592,12 @@ mature as Emacs.
     ]
 
 
-<a id="orgdbdc754"></a>
+<a id="org31155eb"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgbf57b53"></a>
+<a id="org25cee15"></a>
 
 ## Environment Variables
 
@@ -1639,7 +1617,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgd3fdb00"></a>
+<a id="orgc1b79cf"></a>
 
 ## Extension Updater
 
@@ -1670,7 +1648,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="orgc241560"></a>
+<a id="org0b933c9"></a>
 
 ## Flags
 
@@ -1712,12 +1690,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="orge476516"></a>
+<a id="org3f74e21"></a>
 
 # ZSH
 
 
-<a id="orga16d6ae"></a>
+<a id="org957bf36"></a>
 
 ## Setup
 
@@ -1750,7 +1728,7 @@ and functions.
     main
 
 
-<a id="org85e860a"></a>
+<a id="orge43b43b"></a>
 
 ## Template
 
@@ -1857,12 +1835,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org6f2c435"></a>
+<a id="orgc4919dd"></a>
 
 ## Functions
 
 
-<a id="org2ac7fa8"></a>
+<a id="org06b1b38"></a>
 
 ### Weather
 
@@ -1871,7 +1849,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="orgc56286b"></a>
+<a id="org39eac36"></a>
 
 ## Variables
 

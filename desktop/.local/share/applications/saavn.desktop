@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Saavn
+StartupNotify=true
+Icon=saavn
+Comment=Saavn audio streaming service
+Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.jiosaavn.com/
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/saavn;
+StartupWMClass=saavn
+Categories=Audio;Music;Player;AudioVideo;

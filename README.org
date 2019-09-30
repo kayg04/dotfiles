@@ -1,9 +1,10 @@
 #+TITLE: README
 #+AUTHOR: K Gopal Krishna
+#+PROPERTY: header-args :cache on :mkdirp yes
 
 * Awesome
 ** rc.lua
-#+BEGIN_SRC lua :tangle .config/awesome/rc.lua
+#+BEGIN_SRC lua :tangle awesomewm/.config/awesome/rc.lua
   -- If LuaRocks is installed, make sure that packages installed through it are
   -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
   pcall(require, "luarocks.loader")
@@ -574,7 +575,7 @@
 #+END_SRC
 ** Themes
 *** Default
-#+BEGIN_SRC lua :tangle .config/awesome/themes/default/theme.lua
+#+BEGIN_SRC lua :tangle awesomewm/.config/awesome/themes/default/theme.lua
   ---------------------------
   -- Default awesome theme --
   ---------------------------
@@ -708,7 +709,7 @@
   -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 #+END_SRC
 * Compton
-#+BEGIN_SRC conf :tangle .config/compton/compton.conf
+#+BEGIN_SRC conf :tangle compton/.config/compton/compton.conf
   # Shadow
   shadow = true;
   no-dnd-shadow = true;
@@ -806,35 +807,22 @@
   transition-length = 150;
 #+END_SRC
 * Desktop
-** Firefox
-#+BEGIN_SRC conf :tangle .local/share/applications/firefox.desktop
+** Deezer
+#+BEGIN_SRC conf :tangle desktop/.local/share/applications/deezer.desktop
   [Desktop Entry]
-  Version=1.0
-  Name=Firefox Developer Edition
-  GenericName=Web Browser
-  Comment=Browse the World Wide Web
-  Keywords=Internet;WWW;Browser;Web;Explorer
-  Exec=/usr/bin/firefox %u
-  Icon=firefox-developer-edition
-  Terminal=false
-  X-MultipleArgs=false
-  Type=Application
-  MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;
+  Name=Deezer
   StartupNotify=true
-  StartupWMClass=firefoxdeveloperedition
-  Categories=Network;WebBrowser;
-  Actions=new-window;new-private-window;
-
-  [Desktop Action new-window]
-  Name=New Window
-  Exec=/usr/bin/firefox --new-window %u
-
-  [Desktop Action new-private-window]
-  Name=New Private Window
-  Exec=/usr/bin/firefox --private-window %u
+  Icon=deezer
+  Comment=Deezer audio streaming service
+  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.deezer.com/
+  Terminal=false
+  Type=Application
+  MimeType=x-scheme-handler/deezer;
+  StartupWMClass=deezer
+  Categories=Audio;Music;Player;AudioVideo;
 #+END_SRC
 ** Riot
-#+BEGIN_SRC conf :tangle .local/share/applications/firefox.desktop
+#+BEGIN_SRC conf :tangle desktop/.local/share/applications/riot.desktop
   [Desktop Entry]
   Name=Riot
   Comment=A feature-rich client for Matrix.org
@@ -845,31 +833,22 @@
   StartupWMClass="Riot"
   Categories=Network;InstantMessaging;Chat;IRCClient
 #+END_SRC
-** Thunderbird
-#+BEGIN_SRC conf :tangle .local/share/applications/thunderbird.desktop
+** Saavn
+#+BEGIN_SRC conf :tangle desktop/.local/share/applications/saavn.desktop
   [Desktop Entry]
-  Name=Thunderbird (Bleeding edge)
-  Comment=Send and receive mail with Thunderbird
-  GenericName=Mail Client (Bleeding edge)
-  Exec=/opt/thunderbird-beta/thunderbird %u
+  Name=Saavn
+  StartupNotify=true
+  Icon=saavn
+  Comment=Saavn audio streaming service
+  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.jiosaavn.com/
   Terminal=false
   Type=Application
-  Icon=thunderbird-beta
-  Categories=Network;Email;
-  MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;
-  StartupNotify=true
-  Actions=ComposeMessage;OpenAddressBook;
-
-  [Desktop Action ComposeMessage]
-  Name=Write new message
-  Exec=/opt/thunderbird-beta/thunderbird -compose
-
-  [Desktop Action OpenAddressBook]
-  Name=Open address book
-  Exec=/opt/thunderbird-beta/thunderbird -addressbook
+  MimeType=x-scheme-handler/saavn;
+  StartupWMClass=saavn
+  Categories=Audio;Music;Player;AudioVideo;
 #+END_SRC
 ** Wire
-#+BEGIN_SRC conf :tangle .local/share/applications/wire.desktop
+#+BEGIN_SRC conf :tangle desktop/.local/share/applications/wire.desktop
   [Desktop Entry]
   Name=Wire
   Comment=The most secure collaboration platform.
@@ -889,7 +868,7 @@ Since Emacs' settings are already managed through an org
 file, there is no need to go meta. This is the init.el file
 which emacs first reads and uses it tangle its full
 configuration elsewhere.
-#+BEGIN_SRC emacs-lisp :tangle .emacs
+#+BEGIN_SRC emacs-lisp :tangle emacs/.emacs
   (require 'org)
   (setq-default user-emacs-directory "~/.config/emacs/")
   (org-babel-load-file
@@ -934,7 +913,7 @@ that an application running on one profile is externally
 aware. Please correct me on this if you have more
 information. I also miss the declarative configuration that
 Firefox offers as I reinstall often.
-#+BEGIN_SRC ini :tangle .mozilla/firefox/profiles.ini
+#+BEGIN_SRC ini :tangle firefox/.mozilla/firefox/profiles.ini
   [General]
   StartWithLastProfile=1
 
@@ -1230,7 +1209,7 @@ autocompletion and the learning curve are simply amazing but
 there's no other reason to choose VSCodium over something as
 mature as Emacs.
 ** Settings
-#+BEGIN_SRC json :tangle .config/VSCodium/User/settings.json
+#+BEGIN_SRC json :tangle vscodium/.config/VSCodium/User/settings.json
   {
       "breadcrumbs.enabled": true,
       "editor.fontLigatures": true,
@@ -1431,7 +1410,7 @@ mature as Emacs.
   }
 #+END_SRC
 ** Keybindings
-#+BEGIN_SRC json :tangle .config/VSCodium/User/keybindings.json
+#+BEGIN_SRC json :tangle vscodium/.config/VSCodium/User/keybindings.json
   [
       {
           "key": "ctrl+space space",
@@ -1551,7 +1530,7 @@ prompt for install/ for automatic installation.
 #+END_SRC
 ** Flags
 A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
-#+BEGIN_SRC conf :tangle .config/chromium-flags.conf
+#+BEGIN_SRC conf :tangle chromium/.config/chromium-flags.conf
   # Disable workarounds for various GPU driver bugs.
   # --disable-gpu-driver-bug-workarounds
   # Enable hardware acceleration
@@ -1592,7 +1571,7 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
 This script sets up OH-MY-ZSH on a system if it doesn't
 previously exist. It also imports all of my custom aliases
 and functions.
-#+BEGIN_SRC sh :tangle .config/zsh/setup.sh
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/setup.sh
   #!/usr/bin/env bash
 
   set -euo pipefail
@@ -1620,7 +1599,7 @@ and functions.
 
 ** Template
 OH-MY-ZSH template.
-#+BEGIN_SRC sh :tangle .config/zsh/oh-my.zsh
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/oh-my.zsh
   # If you come from bash you might have to change your $PATH.
   # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -1723,13 +1702,13 @@ OH-MY-ZSH template.
 #+END_SRC
 ** Functions
 *** Weather
-#+BEGIN_SRC sh :tangle .config/zsh/func.zsh
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/func.zsh
   wttr() {
       curl https://wttr.in/${1:-Bhubaneswar}
   }
 #+END_SRC
 ** Variables
-#+BEGIN_SRC sh :tangle .config/zsh/var.zsh
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/var.zsh
   export PATH="${PATH}:${HOME}/.local/bin"
   export GOPATH="${HOME}/.go"
   export GOBIN="${HOME}/.local/bin"
