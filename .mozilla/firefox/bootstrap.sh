@@ -53,7 +53,7 @@ mkTweaks() {
 updateUserJS() {
     createWorkDir
     fetchGHacksJS
-    mkTweaks
+    mkTweaks -n
 }
 
 applyUserJS() {

@@ -131,3 +131,23 @@ setupVSCodium() {
 setupChromium() {
     ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
 }
+
+addToPath() {
+    echo -e "Adding this program to $PATH so that it is globally available."
+    ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
+}
+
+main() {
+    addToPath
+
+    case "${1}" in
+        "setup")
+            setup "${2}"
+            ;;
+        "update")
+            update "${2}"
+            ;;
+    esac
+}
+
+main "${@}"
