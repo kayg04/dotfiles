@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # global declarations
-SCRIPT_PATH=$(realpath $(dirname "$0"))
+SCRIPT_PATH=$(dirname $(realpath "$0"))
 
 update() {
     case "${1}" in

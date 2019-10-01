@@ -10,7 +10,7 @@
   set -euo pipefail
 
   # global declarations
-  SCRIPT_PATH=$(realpath $(dirname "$0"))
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
 
   update() {
       case "${1}" in
@@ -1270,7 +1270,7 @@ builds upon the GHacksUserJS.
   set -euo pipefail
 
   # global declarations
-  SCRIPT_PATH=$(realpath $(dirname "$0"))
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
 
   createWorkDir() {
       if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
