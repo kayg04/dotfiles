@@ -140,6 +140,7 @@
 
   addToPath() {
       echo -e "Adding this program to \$PATH so that it is globally available."
+      mkdir -p "${HOME}"/.local/bin
       ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
   }
 

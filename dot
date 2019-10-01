@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # import sanity
-set -euxo pipefail
+set -euo pipefail
 
 # global declarations
 SCRIPT_PATH=$(dirname $(realpath "$0"))
@@ -134,6 +134,7 @@ setupChromium() {
 
 addToPath() {
     echo -e "Adding this program to \$PATH so that it is globally available."
+    mkdir -p "${HOME}"/.local/bin
     ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
 }
 
