@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # import sanity
-set -euo pipefail
+set -euxo pipefail
 
 # global declarations
 SCRIPT_PATH=$(dirname $(realpath "$0"))
