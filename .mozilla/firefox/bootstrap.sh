@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # global declarations
-SCRIPT_PATH=$(dirname $(realpath "$0"))
+SCRIPT_PATH=$(dirname $(realpath "${BASH_SOURCE}"))
 
 createWorkDir() {
     if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
