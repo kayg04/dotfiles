@@ -1,42 +1,42 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#org00ce433)
-2.  [Awesome](#org92bb9c1)
-    1.  [rc.lua](#orgf2e6efa)
-    2.  [Themes](#org6f6fe32)
-        1.  [Default](#orgf535f4a)
-3.  [Compton](#orgf65d9ac)
-4.  [Desktop](#org4a015f8)
-    1.  [Deezer](#org29cbf5c)
-    2.  [Riot](#org4457953)
-    3.  [Saavn](#orge033c59)
-    4.  [Wire](#org676661a)
-5.  [Emacs](#org24eafe8)
-6.  [Firefox](#org3fed98d)
-    1.  [Profiles](#org1c46ccd)
-    2.  [Policies](#org88bfedb)
-    3.  [UserJS](#org34209ae)
-        1.  [General](#orgd8805a6)
-        2.  [Themes](#orgaea2548)
-    4.  [Bootstrap](#org77d2642)
-7.  [VSCodium](#org37c1f8a)
-    1.  [Settings](#org388fac5)
-    2.  [Keybindings](#orgc1b768d)
-8.  [Ungoogled Chromium](#org6d81bb9)
-    1.  [Environment Variables](#orgf505fdb)
-    2.  [Extension Updater](#orgea01b38)
-    3.  [Flags](#org182a092)
-9.  [ZSH](#orgea49110)
-    1.  [Setup](#orgabf6da5)
-    2.  [Template](#orgeadf21a)
-    3.  [Functions](#org0ca06db)
-        1.  [Weather](#org791b257)
-    4.  [Variables](#org08abe09)
+1.  [Bootstrap](#org51d9099)
+2.  [Awesome](#orga07528b)
+    1.  [rc.lua](#orgb8709c8)
+    2.  [Themes](#orgeef8ce9)
+        1.  [Default](#org1c47380)
+3.  [Compton](#org81e276f)
+4.  [Desktop](#org1956872)
+    1.  [Deezer](#orgf3084f4)
+    2.  [Riot](#orgcaa9a21)
+    3.  [Saavn](#org3dc0bf2)
+    4.  [Wire](#org856ecad)
+5.  [Emacs](#org92c3ab7)
+6.  [Firefox](#orged8d772)
+    1.  [Profiles](#orgfa9ff44)
+    2.  [Policies](#org30ec629)
+    3.  [UserJS](#orgd6c64e5)
+        1.  [General](#org63b0d37)
+        2.  [Themes](#org4319413)
+    4.  [Bootstrap](#orgea031df)
+7.  [VSCodium](#orga10ee25)
+    1.  [Settings](#org26892c6)
+    2.  [Keybindings](#orgb0fa4be)
+8.  [Ungoogled Chromium](#org14f3c8f)
+    1.  [Environment Variables](#org2fc41bd)
+    2.  [Extension Updater](#org69b6494)
+    3.  [Flags](#org4bdf2e0)
+9.  [ZSH](#org9a1b2c7)
+    1.  [Setup](#org9c5d300)
+    2.  [Template](#org5d2dc75)
+    3.  [Functions](#org1bd782a)
+        1.  [Weather](#orge902c32)
+    4.  [Variables](#orgbf756f7)
 
 
 
-<a id="org00ce433"></a>
+<a id="org51d9099"></a>
 
 # Bootstrap
 
@@ -200,12 +200,12 @@
     main "${@}"
 
 
-<a id="org92bb9c1"></a>
+<a id="orga07528b"></a>
 
 # Awesome
 
 
-<a id="orgf2e6efa"></a>
+<a id="orgb8709c8"></a>
 
 ## rc.lua
 
@@ -778,12 +778,12 @@
     -- }}}
 
 
-<a id="org6f6fe32"></a>
+<a id="orgeef8ce9"></a>
 
 ## Themes
 
 
-<a id="orgf535f4a"></a>
+<a id="org1c47380"></a>
 
 ### Default
 
@@ -920,7 +920,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgf65d9ac"></a>
+<a id="org81e276f"></a>
 
 # Compton
 
@@ -1021,12 +1021,12 @@
     transition-length = 150;
 
 
-<a id="org4a015f8"></a>
+<a id="org1956872"></a>
 
 # Desktop
 
 
-<a id="org29cbf5c"></a>
+<a id="orgf3084f4"></a>
 
 ## Deezer
 
@@ -1043,7 +1043,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org4457953"></a>
+<a id="orgcaa9a21"></a>
 
 ## Riot
 
@@ -1058,7 +1058,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orge033c59"></a>
+<a id="org3dc0bf2"></a>
 
 ## Saavn
 
@@ -1075,7 +1075,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org676661a"></a>
+<a id="org856ecad"></a>
 
 ## Wire
 
@@ -1094,7 +1094,7 @@
     Version=1.1
 
 
-<a id="org24eafe8"></a>
+<a id="org92c3ab7"></a>
 
 # Emacs
 
@@ -1112,12 +1112,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org3fed98d"></a>
+<a id="orged8d772"></a>
 
 # Firefox
 
 
-<a id="org1c46ccd"></a>
+<a id="orgfa9ff44"></a>
 
 ## Profiles
 
@@ -1174,7 +1174,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org88bfedb"></a>
+<a id="org30ec629"></a>
 
 ## Policies
 
@@ -1250,12 +1250,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org34209ae"></a>
+<a id="orgd6c64e5"></a>
 
 ## UserJS
 
 
-<a id="orgd8805a6"></a>
+<a id="org63b0d37"></a>
 
 ### General
 
@@ -1309,7 +1309,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgaea2548"></a>
+<a id="org4319413"></a>
 
 ### Themes
 
@@ -1345,7 +1345,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org77d2642"></a>
+<a id="orgea031df"></a>
 
 ## Bootstrap
 
@@ -1375,7 +1375,7 @@ builds upon the GHacksUserJS.
     # global declarations
     SCRIPT_PATH=$(dirname $(realpath "${BASH_SOURCE}"))
     
-    createWorkDir() {
+    mkWorkDir() {
         if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
             rm -rf "${SCRIPT_PATH}"/workdir
         fi
@@ -1419,7 +1419,7 @@ builds upon the GHacksUserJS.
     }
     
     updateUserJS() {
-        createWorkDir
+        mkWorkDir
         fetchGHacksJS
         mkTweaks -n
     }
@@ -1478,7 +1478,7 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="org37c1f8a"></a>
+<a id="orga10ee25"></a>
 
 # VSCodium
 
@@ -1490,7 +1490,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org388fac5"></a>
+<a id="org26892c6"></a>
 
 ## Settings
 
@@ -1694,7 +1694,7 @@ mature as Emacs.
     }
 
 
-<a id="orgc1b768d"></a>
+<a id="orgb0fa4be"></a>
 
 ## Keybindings
 
@@ -1770,12 +1770,12 @@ mature as Emacs.
     ]
 
 
-<a id="org6d81bb9"></a>
+<a id="org14f3c8f"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgf505fdb"></a>
+<a id="org2fc41bd"></a>
 
 ## Environment Variables
 
@@ -1795,7 +1795,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgea01b38"></a>
+<a id="org69b6494"></a>
 
 ## Extension Updater
 
@@ -1826,7 +1826,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="org182a092"></a>
+<a id="org4bdf2e0"></a>
 
 ## Flags
 
@@ -1868,12 +1868,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="orgea49110"></a>
+<a id="org9a1b2c7"></a>
 
 # ZSH
 
 
-<a id="orgabf6da5"></a>
+<a id="org9c5d300"></a>
 
 ## Setup
 
@@ -1906,7 +1906,7 @@ and functions.
     main
 
 
-<a id="orgeadf21a"></a>
+<a id="org5d2dc75"></a>
 
 ## Template
 
@@ -2013,12 +2013,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org0ca06db"></a>
+<a id="org1bd782a"></a>
 
 ## Functions
 
 
-<a id="org791b257"></a>
+<a id="orge902c32"></a>
 
 ### Weather
 
@@ -2027,7 +2027,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org08abe09"></a>
+<a id="orgbf756f7"></a>
 
 ## Variables
 

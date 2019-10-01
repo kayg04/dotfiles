@@ -1273,7 +1273,7 @@ builds upon the GHacksUserJS.
   # global declarations
   SCRIPT_PATH=$(dirname $(realpath "${BASH_SOURCE}"))
 
-  createWorkDir() {
+  mkWorkDir() {
       if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
           rm -rf "${SCRIPT_PATH}"/workdir
       fi
@@ -1317,7 +1317,7 @@ builds upon the GHacksUserJS.
   }
 
   updateUserJS() {
-      createWorkDir
+      mkWorkDir
       fetchGHacksJS
       mkTweaks -n
   }

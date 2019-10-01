@@ -6,7 +6,7 @@ set -euo pipefail
 # global declarations
 SCRIPT_PATH=$(dirname $(realpath "${BASH_SOURCE}"))
 
-createWorkDir() {
+mkWorkDir() {
     if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
         rm -rf "${SCRIPT_PATH}"/workdir
     fi
@@ -50,7 +50,7 @@ mkTweaks() {
 }
 
 updateUserJS() {
-    createWorkDir
+    mkWorkDir
     fetchGHacksJS
     mkTweaks -n
 }
