@@ -104,7 +104,7 @@ cleanUp() {
 
 startFirefox() {
     $(command -v firefox) --ProfileManager 2> /dev/null || \
-    $(command -v firefox-developer-edition) --ProfileManager
+    $(command -v firefox-developer-edition) --ProfileManager 2> /dev/null
 
     echo "Firefox is setup and started. Have a good day!"
 }
