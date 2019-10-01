@@ -11,6 +11,8 @@
 
   # global declarations
   SCRIPT_PATH=$(dirname $(realpath "$0"))
+  ZSH="${HOME}/.config/omz"
+  ZSH_CUSTOM="${HOME}/.config/omz/custom"
 
   update() {
       case "${1}" in
