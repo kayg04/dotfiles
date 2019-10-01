@@ -138,14 +138,18 @@ addToPath() {
 }
 
 main() {
-    addToPath
-
     case "${1}" in
         "setup")
             setup "${2}"
             ;;
         "update")
             update "${2}"
+            ;;
+        "set")
+            addToPath
+            ;;
+        *)
+            echo -e "Invalid option."
             ;;
     esac
 }
