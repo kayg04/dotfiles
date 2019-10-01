@@ -1,41 +1,41 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#org940f4ba)
-2.  [Awesome](#org3205991)
-    1.  [rc.lua](#org3125863)
-    2.  [Themes](#org7f261a3)
-        1.  [Default](#org4544fae)
-3.  [Compton](#org59ab29c)
-4.  [Desktop](#org375222a)
-    1.  [Deezer](#org546de82)
-    2.  [Riot](#orge7ae9df)
-    3.  [Saavn](#orge27891e)
-    4.  [Wire](#org1c577cb)
-5.  [Emacs](#orgfbf5671)
-6.  [Firefox](#org4ed2307)
-    1.  [Profiles](#org4197d5c)
-    2.  [Policies](#org3be2c6b)
-    3.  [UserJS](#org291d185)
-        1.  [General](#org5aa8c1d)
-        2.  [Themes](#org755c7b5)
-    4.  [Setup](#orgbe473dd)
-7.  [VSCodium](#orgd14b65a)
-    1.  [Settings](#org0c3ed43)
-    2.  [Keybindings](#org67daa2b)
-8.  [Ungoogled Chromium](#org2713155)
-    1.  [Environment Variables](#org33106c7)
-    2.  [Extension Updater](#org2b73c85)
-    3.  [Flags](#orge635566)
-9.  [ZSH](#org876bf6d)
-    1.  [Oh-my-zsh stuff](#org280b296)
-    2.  [Functions](#orgaa0fd58)
-        1.  [Weather](#org1d532f2)
-    3.  [Variables](#orgb2ab2f7)
+1.  [Bootstrap](#org5336b8d)
+2.  [Awesome](#orgadfffa0)
+    1.  [rc.lua](#org650a8b5)
+    2.  [Themes](#org3402ff2)
+        1.  [Default](#org2b97b7f)
+3.  [Compton](#org542eebe)
+4.  [Desktop](#orgf0ec9ce)
+    1.  [Deezer](#org53119c9)
+    2.  [Riot](#org8e6111d)
+    3.  [Saavn](#org1de30b1)
+    4.  [Wire](#org0b4fe00)
+5.  [Emacs](#orgc220617)
+6.  [Firefox](#orgb505c75)
+    1.  [Profiles](#orgb1a481a)
+    2.  [Policies](#org497ccfa)
+    3.  [UserJS](#org5424fe4)
+        1.  [General](#orgcc5bbba)
+        2.  [Themes](#org8765f74)
+    4.  [Setup](#org6bebd7b)
+7.  [VSCodium](#org94dc390)
+    1.  [Settings](#org9c2961d)
+    2.  [Keybindings](#org4d759d4)
+8.  [Ungoogled Chromium](#org0bf4541)
+    1.  [Environment Variables](#org4b21784)
+    2.  [Extension Updater](#orge1f1efb)
+    3.  [Flags](#org2163640)
+9.  [ZSH](#org74a23a6)
+    1.  [Oh-my-zsh stuff](#org736042b)
+    2.  [Functions](#org5360e95)
+        1.  [Weather](#org38349a7)
+    3.  [Variables](#org169decb)
 
 
 
-<a id="org940f4ba"></a>
+<a id="org5336b8d"></a>
 
 # Bootstrap
 
@@ -181,6 +181,8 @@
         if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
             export ZSH="${HOME}/.config/omz"
             sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+            git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
         else
             exit 1
         fi
@@ -212,12 +214,12 @@
     main "${@}"
 
 
-<a id="org3205991"></a>
+<a id="orgadfffa0"></a>
 
 # Awesome
 
 
-<a id="org3125863"></a>
+<a id="org650a8b5"></a>
 
 ## rc.lua
 
@@ -790,12 +792,12 @@
     -- }}}
 
 
-<a id="org7f261a3"></a>
+<a id="org3402ff2"></a>
 
 ## Themes
 
 
-<a id="org4544fae"></a>
+<a id="org2b97b7f"></a>
 
 ### Default
 
@@ -932,7 +934,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org59ab29c"></a>
+<a id="org542eebe"></a>
 
 # Compton
 
@@ -1033,12 +1035,12 @@
     transition-length = 150;
 
 
-<a id="org375222a"></a>
+<a id="orgf0ec9ce"></a>
 
 # Desktop
 
 
-<a id="org546de82"></a>
+<a id="org53119c9"></a>
 
 ## Deezer
 
@@ -1055,7 +1057,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orge7ae9df"></a>
+<a id="org8e6111d"></a>
 
 ## Riot
 
@@ -1070,7 +1072,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orge27891e"></a>
+<a id="org1de30b1"></a>
 
 ## Saavn
 
@@ -1087,7 +1089,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org1c577cb"></a>
+<a id="org0b4fe00"></a>
 
 ## Wire
 
@@ -1106,7 +1108,7 @@
     Version=1.1
 
 
-<a id="orgfbf5671"></a>
+<a id="orgc220617"></a>
 
 # Emacs
 
@@ -1124,12 +1126,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org4ed2307"></a>
+<a id="orgb505c75"></a>
 
 # Firefox
 
 
-<a id="org4197d5c"></a>
+<a id="orgb1a481a"></a>
 
 ## Profiles
 
@@ -1186,7 +1188,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org3be2c6b"></a>
+<a id="org497ccfa"></a>
 
 ## Policies
 
@@ -1262,12 +1264,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org291d185"></a>
+<a id="org5424fe4"></a>
 
 ## UserJS
 
 
-<a id="org5aa8c1d"></a>
+<a id="orgcc5bbba"></a>
 
 ### General
 
@@ -1321,7 +1323,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org755c7b5"></a>
+<a id="org8765f74"></a>
 
 ### Themes
 
@@ -1357,7 +1359,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgbe473dd"></a>
+<a id="org6bebd7b"></a>
 
 ## Setup
 
@@ -1490,7 +1492,7 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgd14b65a"></a>
+<a id="org94dc390"></a>
 
 # VSCodium
 
@@ -1502,7 +1504,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org0c3ed43"></a>
+<a id="org9c2961d"></a>
 
 ## Settings
 
@@ -1706,7 +1708,7 @@ mature as Emacs.
     }
 
 
-<a id="org67daa2b"></a>
+<a id="org4d759d4"></a>
 
 ## Keybindings
 
@@ -1782,12 +1784,12 @@ mature as Emacs.
     ]
 
 
-<a id="org2713155"></a>
+<a id="org0bf4541"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org33106c7"></a>
+<a id="org4b21784"></a>
 
 ## Environment Variables
 
@@ -1807,7 +1809,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org2b73c85"></a>
+<a id="orge1f1efb"></a>
 
 ## Extension Updater
 
@@ -1838,7 +1840,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="orge635566"></a>
+<a id="org2163640"></a>
 
 ## Flags
 
@@ -1880,12 +1882,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org876bf6d"></a>
+<a id="org74a23a6"></a>
 
 # ZSH
 
 
-<a id="org280b296"></a>
+<a id="org736042b"></a>
 
 ## Oh-my-zsh stuff
 
@@ -1906,24 +1908,26 @@ Settings specific to OMZ.
     # Display red dots whilst waiting for completion.
     COMPLETION_WAITING_DOTS="true"
     
-    # Which plugins would you like to load?
-    # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-    # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-    # Example format: plugins=(rails git textmate ruby lighthouse)
-    # Add wisely, as too many plugins slow down shell startup.
+    # Too many plugins slow down shell startup.
+    # Plugins can be found in $ZSH/plugins
     plugins=(
+        copyfile
         git
+        vi-mode
+        z
+        zsh-syntax-highlighting
+        zsh-autosuggestions
     )
     
-    source $ZSH/oh-my-zsh.sh
+    source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="orgaa0fd58"></a>
+<a id="org5360e95"></a>
 
 ## Functions
 
 
-<a id="org1d532f2"></a>
+<a id="org38349a7"></a>
 
 ### Weather
 
@@ -1935,11 +1939,25 @@ unless specified otherwise.
     }
 
 
-<a id="orgb2ab2f7"></a>
+<a id="org169decb"></a>
 
 ## Variables
 
+    # PATH
     export PATH="${PATH}:${HOME}/.local/bin"
+    
+    # GO
     export GOPATH="${HOME}/.go"
     export GOBIN="${HOME}/.local/bin"
+    
+    # ZSH
+    # Fetch suggestions asynchronously
+    export ZSH_AUTOSUGGEST_USE_ASYNC=1
+    # order of strategies to try
+    export ZSH_AUTOSUGGEST_STRATEGY=(
+        match_prev_cmd
+        completion
+    )
+    # Avoid autosuggestions for buffers that are too large
+    export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
