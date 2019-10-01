@@ -2,9 +2,145 @@
 #+AUTHOR: K Gopal Krishna
 #+PROPERTY: header-args :cache on :mkdirp yes
 
+* Bootstrap
+#+BEGIN_SRC sh :tangle dot
+  #!/usr/bin/env bash
+
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(realpath $(dirname "$0"))
+
+  update() {
+      case "${1}" in
+          "awesome")
+              updateAwesomeWM
+              ;;
+          "compton")
+              updateCompton
+              ;;
+          "desktop")
+              updateDesktop
+              ;;
+          "emacs")
+              updateEmacs
+              ;;
+          "firefox")
+              updateFirefox
+              ;;
+          "chromium")
+              updateChromium
+              ;;
+          "zsh")
+              updateZSH
+              ;;
+      esac
+  }
+
+  updateAwesomeWM() {
+      ln -sf "${SCRIPT_PATH}"/.config/awesome/*.lua "${HOME}"/.config/awesome/
+      ln -sf "${SCRIPT_PATH}"/.config/awesome/themes/default/*.lua "${HOME}"/.config/awesome/themes/default/
+  }
+
+  updateCompton() {
+      ln -sf "${SCRIPT_PATH}"/.config/compton/*.conf "${HOME}"/.config/compton/
+  }
+
+  updateDesktop() {
+      ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
+  }
+
+  updateEmacs() {
+      ln -sf "${SCRIPT_PATH}"/.emacs "${HOME}"/
+      ln -sf "${SCRIPT_PATH}"/.config/emacs/* "${HOME}"/.config/emacs/
+  }
+
+  updateFirefox() {
+      source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+
+      applyPolicies
+      applyProfilesINI
+      updateUserJS
+      applyUserJS
+      cleanUp
+  }
+
+  updateVSCodium() {
+      ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+  }
+
+  updateChromium() {
+      ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+  }
+
+  setup() {
+      case "${1}" in
+          "awesome")
+              setupAwesomeWM
+              ;;
+          "compton")
+              setupCompton
+              ;;
+          "desktop")
+              setupDesktop
+              ;;
+          "emacs")
+              setupEmacs
+              ;;
+          "firefox")
+              setupFirefox
+              ;;
+          "chromium")
+              setupChromium
+              ;;
+          "zsh")
+              setupZSH
+              ;;
+      esac
+  }
+
+  setupAwesomeWM() {
+      mkdir -p "${HOME}"/.config/awesome
+      mkdir -p "${HOME}"/.config/awesome/themes/default
+  }
+
+  setupCompton() {
+      mkdir -p "${HOME}"/.config/compton
+  }
+
+  setupDesktop() {
+      mkdir -p "${HOME}"/.local/share/applications
+  }
+
+  setupEmacs() {
+      mkdir -p "${HOME}"/.config/emacs
+  }
+
+  setupFirefox() {
+      source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+
+      applyPolicies
+      createProfilesINIDir
+      applyProfilesINI
+      createProfiles
+      updateUserJS
+      applyUserJS
+      cleanUp
+      startFirefox
+  }
+
+  setupVSCodium() {
+      ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+  }
+
+  setupChromium() {
+      ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+  }
+#+END_SRC
 * Awesome
 ** rc.lua
-#+BEGIN_SRC lua :tangle awesomewm/.config/awesome/rc.lua
+#+BEGIN_SRC lua :tangle .config/awesome/rc.lua
   -- If LuaRocks is installed, make sure that packages installed through it are
   -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
   pcall(require, "luarocks.loader")
@@ -575,7 +711,7 @@
 #+END_SRC
 ** Themes
 *** Default
-#+BEGIN_SRC lua :tangle awesomewm/.config/awesome/themes/default/theme.lua
+#+BEGIN_SRC lua :tangle .config/awesome/themes/default/theme.lua
   ---------------------------
   -- Default awesome theme --
   ---------------------------
@@ -709,7 +845,7 @@
   -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 #+END_SRC
 * Compton
-#+BEGIN_SRC conf :tangle compton/.config/compton/compton.conf
+#+BEGIN_SRC conf :tangle .config/compton/compton.conf
   # Shadow
   shadow = true;
   no-dnd-shadow = true;
@@ -808,7 +944,7 @@
 #+END_SRC
 * Desktop
 ** Deezer
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/deezer.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/deezer.desktop
   [Desktop Entry]
   Name=Deezer
   StartupNotify=true
@@ -822,7 +958,7 @@
   Categories=Audio;Music;Player;AudioVideo;
 #+END_SRC
 ** Riot
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/riot.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/riot.desktop
   [Desktop Entry]
   Name=Riot
   Comment=A feature-rich client for Matrix.org
@@ -834,7 +970,7 @@
   Categories=Network;InstantMessaging;Chat;IRCClient
 #+END_SRC
 ** Saavn
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/saavn.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/saavn.desktop
   [Desktop Entry]
   Name=Saavn
   StartupNotify=true
@@ -848,7 +984,7 @@
   Categories=Audio;Music;Player;AudioVideo;
 #+END_SRC
 ** Wire
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/wire.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/wire.desktop
   [Desktop Entry]
   Name=Wire
   Comment=The most secure collaboration platform.
@@ -868,9 +1004,11 @@ Since Emacs' settings are already managed through an org
 file, there is no need to go meta. This is the init.el file
 which emacs first reads and uses it tangle its full
 configuration elsewhere.
-#+BEGIN_SRC emacs-lisp :tangle emacs/.emacs
+#+BEGIN_SRC emacs-lisp :tangle .emacs
   (require 'org)
   (setq-default user-emacs-directory "~/.config/emacs/")
+  (setq-default package-user-dir "~/.config/emacs/pkgs")
+  (setq-default backup-directory-alist "~/.config/emacs/backups")
   (org-babel-load-file
    (expand-file-name "settings.org"
                      user-emacs-directory))
@@ -913,7 +1051,7 @@ that an application running on one profile is externally
 aware. Please correct me on this if you have more
 information. I also miss the declarative configuration that
 Firefox offers as I reinstall often.
-#+BEGIN_SRC ini :tangle firefox/.mozilla/firefox/profiles.ini
+#+BEGIN_SRC ini :tangle .mozilla/firefox/profiles.ini
   [General]
   StartWithLastProfile=1
 
@@ -1104,26 +1242,28 @@ builds upon the GHacksUserJS.
 #+BEGIN_SRC sh :tangle .mozilla/firefox/bootstrap.sh
   #!/usr/bin/env bash
 
+  # import sanity
   set -euo pipefail
 
+  # global declarations
+  SCRIPT_PATH=$(realpath $(dirname "$0"))
+
   createWorkDir() {
-      if [[ -d ./workdir ]]; then
-          rm -rf ./workdir
+      if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
+          rm -rf "${SCRIPT_PATH}"/workdir
       fi
 
       echo "Creating Work Directory..."
-      mkdir -p ./workdir
-      cd ./workdir
+      mkdir -p "${SCRIPT_PATH}"/workdir
   }
 
   fetchGHacksJS() {
       echo "Fetching ghacks user.js..."
-      git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs 2>/dev/null 1>&2
-      cd ./ghjs
+      git clone https://github.com/ghacksuserjs/ghacks-user.js.git "${SCRIPT_PATH}"/workdir/ghjs 2>/dev/null 1>&2
   }
 
   mkTweaks() {
-      cp ../../*.js ./
+      cp "${SCRIPT_PATH}"/*.js "${SCRIPT_PATH}"/workdir/ghjs
 
       echo "Applying userchrome tweaks..."
       case "${1}" in
@@ -1149,57 +1289,66 @@ builds upon the GHacksUserJS.
       esac
 
       echo "Merging tweaks with ghacks user.js..."
-      ./updater.sh -s 2>/dev/null 1>&2
+      "${SCRIPT_PATH}"/workdir/ghjs/updater.sh -s 2>/dev/null 1>&2
   }
 
-  applyToProfiles() {
+  updateUserJS() {
+      createWorkDir
+      fetchGHacksJS
+      mkTweaks
+  }
+
+  applyUserJS() {
+      profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+
+      for profile in ${profileList}; do
+          echo "-> Copying user.js to profile: ${profile}..."
+          cp "${SCRIPT_PATH}"/workdir/ghjs/user.js "${HOME}/.config/firefox/${profile}"
+      done
+  }
+
+  createProfilesINIDir() {
+      mkdir -p "${HOME}/.mozilla/firefox"
+  }
+
+  applyProfilesINI() {
+      ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
+  }
+
+  createProfiles() {
       profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
       echo "Making profile directories..."
       for profile in ${profileList}; do
-          echo "-> Copying user.js to profile: ${profile}..."
           mkdir -p "${HOME}/.config/firefox/${profile}"
-          cp ./user.js "${HOME}/.config/firefox/${profile}"
       done
+  }
 
-      echo "Copying profiles.ini..."
-      mkdir -p "${HOME}/.mozilla/firefox"
-      cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
-
+  applyPolicies() {
       echo "Copying policies.json (may need root permissions)..."
 
-      if [[ -d /usr/lib/firefox/distribution ]]; then
-          sudo cp ../../policies.json /usr/lib/firefox/distribution
+      if [[ -d /usr/lib/firefox ]]; then
+          sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox/distribution
       elif [[ -d /opt/firefox-nightly ]]; then
           sudo chown -R ${USER}:${USER} /opt/firefox-nightly
-          cp ../../policies.json /opt/firefox-nightly/distribution
+          ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-nightly/distribution
       elif [[ -d /opt/firefox-developer-edition ]]; then
-          cp ../../policies.json /opt/firefox-developer-edition/distribution
+          ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-developer-edition/distribution
+      elif [[ -d /usr/lib/firefox-developer-edition ]]; then
+          sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox-developer-edition/distribution
       fi
   }
 
   cleanUp() {
-      cd ../../
       echo "Cleaning up after myself..."
-      rm -rf ./workdir
+      rm -rf "${SCRIPT_PATH}"/workdir
   }
 
   startFirefox() {
       $(command -v firefox) --ProfileManager
-  }
-
-  main() {
-      createWorkDir
-      fetchGHacksJS
-      mkTweaks "${1}"
-      applyToProfiles
-      cleanUp
-      startFirefox
 
       echo "Firefox is setup and started. Have a good day!"
   }
-
-  main "${1}"
 #+END_SRC
 * VSCodium
 I tried VSCodium for a brief period of time but the fact
@@ -1209,7 +1358,7 @@ autocompletion and the learning curve are simply amazing but
 there's no other reason to choose VSCodium over something as
 mature as Emacs.
 ** Settings
-#+BEGIN_SRC json :tangle vscodium/.config/VSCodium/User/settings.json
+#+BEGIN_SRC json :tangle .config/VSCodium/User/settings.json
   {
       "breadcrumbs.enabled": true,
       "editor.fontLigatures": true,
@@ -1410,7 +1559,7 @@ mature as Emacs.
   }
 #+END_SRC
 ** Keybindings
-#+BEGIN_SRC json :tangle vscodium/.config/VSCodium/User/keybindings.json
+#+BEGIN_SRC json :tangle .config/VSCodium/User/keybindings.json
   [
       {
           "key": "ctrl+space space",

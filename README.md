@@ -1,46 +1,186 @@
 
 # Table of Contents
 
-1.  [Awesome](#org099387a)
-    1.  [rc.lua](#orgeb7851d)
-    2.  [Themes](#orga88576e)
-        1.  [Default](#org43728d4)
-2.  [Compton](#org6442593)
-3.  [Desktop](#org55b2543)
-    1.  [Deezer](#orgdde1bb5)
-    2.  [Riot](#org7635dba)
-    3.  [Saavn](#orga325eef)
-    4.  [Wire](#org2585448)
-4.  [Emacs](#org4f5cbd4)
-5.  [Firefox](#orgb35ba33)
-    1.  [Profiles](#org7416c95)
-    2.  [Policies](#org85037e6)
-    3.  [UserJS](#org32175a0)
-        1.  [General](#org0cd9f44)
-        2.  [Themes](#orgbeefc96)
-    4.  [Bootstrap](#orged40b4a)
-6.  [VSCodium](#org5087435)
-    1.  [Settings](#org5b3c623)
-    2.  [Keybindings](#orgad1b960)
-7.  [Ungoogled Chromium](#org31155eb)
-    1.  [Environment Variables](#org25cee15)
-    2.  [Extension Updater](#orgc1b79cf)
-    3.  [Flags](#org0b933c9)
-8.  [ZSH](#org3f74e21)
-    1.  [Setup](#org957bf36)
-    2.  [Template](#orge43b43b)
-    3.  [Functions](#orgc4919dd)
-        1.  [Weather](#org06b1b38)
-    4.  [Variables](#org39eac36)
+1.  [Bootstrap](#org44a9425)
+2.  [Awesome](#orgde272ca)
+    1.  [rc.lua](#org3cabd45)
+    2.  [Themes](#org19bb7ba)
+        1.  [Default](#org7256a30)
+3.  [Compton](#orgfe3ddc8)
+4.  [Desktop](#org7b22540)
+    1.  [Deezer](#orgb7cdda0)
+    2.  [Riot](#org6cc0f1d)
+    3.  [Saavn](#org6bb14e1)
+    4.  [Wire](#orgf725796)
+5.  [Emacs](#orgf5f2122)
+6.  [Firefox](#org924c99d)
+    1.  [Profiles](#orgc020671)
+    2.  [Policies](#org2da7fba)
+    3.  [UserJS](#org550299a)
+        1.  [General](#org3227c52)
+        2.  [Themes](#org4fba700)
+    4.  [Bootstrap](#orgd2a06a1)
+7.  [VSCodium](#org8f25f09)
+    1.  [Settings](#org0fbfb5f)
+    2.  [Keybindings](#orgcc2b44a)
+8.  [Ungoogled Chromium](#org0d5d82b)
+    1.  [Environment Variables](#org9a5bebd)
+    2.  [Extension Updater](#orgf984f10)
+    3.  [Flags](#org22cedca)
+9.  [ZSH](#org01adbc5)
+    1.  [Setup](#orgd9141a3)
+    2.  [Template](#orgd5ca004)
+    3.  [Functions](#orge1056e4)
+        1.  [Weather](#orgab4ce1c)
+    4.  [Variables](#orge1adfad)
 
 
 
-<a id="org099387a"></a>
+<a id="org44a9425"></a>
+
+# Bootstrap
+
+    #!/usr/bin/env bash
+    
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(realpath $(dirname "$0"))
+    
+    update() {
+        case "${1}" in
+            "awesome")
+                updateAwesomeWM
+                ;;
+            "compton")
+                updateCompton
+                ;;
+            "desktop")
+                updateDesktop
+                ;;
+            "emacs")
+                updateEmacs
+                ;;
+            "firefox")
+                updateFirefox
+                ;;
+            "chromium")
+                updateChromium
+                ;;
+            "zsh")
+                updateZSH
+                ;;
+        esac
+    }
+    
+    updateAwesomeWM() {
+        ln -sf "${SCRIPT_PATH}"/.config/awesome/*.lua "${HOME}"/.config/awesome/
+        ln -sf "${SCRIPT_PATH}"/.config/awesome/themes/default/*.lua "${HOME}"/.config/awesome/themes/default/
+    }
+    
+    updateCompton() {
+        ln -sf "${SCRIPT_PATH}"/.config/compton/*.conf "${HOME}"/.config/compton/
+    }
+    
+    updateDesktop() {
+        ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
+    }
+    
+    updateEmacs() {
+        ln -sf "${SCRIPT_PATH}"/.emacs "${HOME}"/
+        ln -sf "${SCRIPT_PATH}"/.config/emacs/* "${HOME}"/.config/emacs/
+    }
+    
+    updateFirefox() {
+        source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+    
+        applyPolicies
+        applyProfilesINI
+        updateUserJS
+        applyUserJS
+        cleanUp
+    }
+    
+    updateVSCodium() {
+        ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+    }
+    
+    updateChromium() {
+        ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+    }
+    
+    setup() {
+        case "${1}" in
+            "awesome")
+                setupAwesomeWM
+                ;;
+            "compton")
+                setupCompton
+                ;;
+            "desktop")
+                setupDesktop
+                ;;
+            "emacs")
+                setupEmacs
+                ;;
+            "firefox")
+                setupFirefox
+                ;;
+            "chromium")
+                setupChromium
+                ;;
+            "zsh")
+                setupZSH
+                ;;
+        esac
+    }
+    
+    setupAwesomeWM() {
+        mkdir -p "${HOME}"/.config/awesome
+        mkdir -p "${HOME}"/.config/awesome/themes/default
+    }
+    
+    setupCompton() {
+        mkdir -p "${HOME}"/.config/compton
+    }
+    
+    setupDesktop() {
+        mkdir -p "${HOME}"/.local/share/applications
+    }
+    
+    setupEmacs() {
+        mkdir -p "${HOME}"/.config/emacs
+    }
+    
+    setupFirefox() {
+        source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+    
+        applyPolicies
+        createProfilesINIDir
+        applyProfilesINI
+        createProfiles
+        updateUserJS
+        applyUserJS
+        cleanUp
+        startFirefox
+    }
+    
+    setupVSCodium() {
+        ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+    }
+    
+    setupChromium() {
+        ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+    }
+
+
+<a id="orgde272ca"></a>
 
 # Awesome
 
 
-<a id="orgeb7851d"></a>
+<a id="org3cabd45"></a>
 
 ## rc.lua
 
@@ -613,12 +753,12 @@
     -- }}}
 
 
-<a id="orga88576e"></a>
+<a id="org19bb7ba"></a>
 
 ## Themes
 
 
-<a id="org43728d4"></a>
+<a id="org7256a30"></a>
 
 ### Default
 
@@ -755,7 +895,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org6442593"></a>
+<a id="orgfe3ddc8"></a>
 
 # Compton
 
@@ -856,12 +996,12 @@
     transition-length = 150;
 
 
-<a id="org55b2543"></a>
+<a id="org7b22540"></a>
 
 # Desktop
 
 
-<a id="orgdde1bb5"></a>
+<a id="orgb7cdda0"></a>
 
 ## Deezer
 
@@ -878,7 +1018,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org7635dba"></a>
+<a id="org6cc0f1d"></a>
 
 ## Riot
 
@@ -893,7 +1033,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orga325eef"></a>
+<a id="org6bb14e1"></a>
 
 ## Saavn
 
@@ -910,7 +1050,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org2585448"></a>
+<a id="orgf725796"></a>
 
 ## Wire
 
@@ -929,7 +1069,7 @@
     Version=1.1
 
 
-<a id="org4f5cbd4"></a>
+<a id="orgf5f2122"></a>
 
 # Emacs
 
@@ -940,17 +1080,19 @@ configuration elsewhere.
 
     (require 'org)
     (setq-default user-emacs-directory "~/.config/emacs/")
+    (setq-default package-user-dir "~/.config/emacs/pkgs")
+    (setq-default backup-directory-alist "~/.config/emacs/backups")
     (org-babel-load-file
      (expand-file-name "settings.org"
                        user-emacs-directory))
 
 
-<a id="orgb35ba33"></a>
+<a id="org924c99d"></a>
 
 # Firefox
 
 
-<a id="org7416c95"></a>
+<a id="orgc020671"></a>
 
 ## Profiles
 
@@ -1007,7 +1149,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org85037e6"></a>
+<a id="org2da7fba"></a>
 
 ## Policies
 
@@ -1083,12 +1225,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org32175a0"></a>
+<a id="org550299a"></a>
 
 ## UserJS
 
 
-<a id="org0cd9f44"></a>
+<a id="org3227c52"></a>
 
 ### General
 
@@ -1142,7 +1284,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgbeefc96"></a>
+<a id="org4fba700"></a>
 
 ### Themes
 
@@ -1178,7 +1320,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orged40b4a"></a>
+<a id="orgd2a06a1"></a>
 
 ## Bootstrap
 
@@ -1202,26 +1344,28 @@ builds upon the GHacksUserJS.
 
     #!/usr/bin/env bash
     
+    # import sanity
     set -euo pipefail
     
+    # global declarations
+    SCRIPT_PATH=$(realpath $(dirname "$0"))
+    
     createWorkDir() {
-        if [[ -d ./workdir ]]; then
-            rm -rf ./workdir
+        if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
+            rm -rf "${SCRIPT_PATH}"/workdir
         fi
     
         echo "Creating Work Directory..."
-        mkdir -p ./workdir
-        cd ./workdir
+        mkdir -p "${SCRIPT_PATH}"/workdir
     }
     
     fetchGHacksJS() {
         echo "Fetching ghacks user.js..."
-        git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs 2>/dev/null 1>&2
-        cd ./ghjs
+        git clone https://github.com/ghacksuserjs/ghacks-user.js.git "${SCRIPT_PATH}"/workdir/ghjs 2>/dev/null 1>&2
     }
     
     mkTweaks() {
-        cp ../../*.js ./
+        cp "${SCRIPT_PATH}"/*.js "${SCRIPT_PATH}"/workdir/ghjs
     
         echo "Applying userchrome tweaks..."
         case "${1}" in
@@ -1247,60 +1391,69 @@ builds upon the GHacksUserJS.
         esac
     
         echo "Merging tweaks with ghacks user.js..."
-        ./updater.sh -s 2>/dev/null 1>&2
+        "${SCRIPT_PATH}"/workdir/ghjs/updater.sh -s 2>/dev/null 1>&2
     }
     
-    applyToProfiles() {
+    updateUserJS() {
+        createWorkDir
+        fetchGHacksJS
+        mkTweaks
+    }
+    
+    applyUserJS() {
+        profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    
+        for profile in ${profileList}; do
+            echo "-> Copying user.js to profile: ${profile}..."
+            cp "${SCRIPT_PATH}"/workdir/ghjs/user.js "${HOME}/.config/firefox/${profile}"
+        done
+    }
+    
+    createProfilesINIDir() {
+        mkdir -p "${HOME}/.mozilla/firefox"
+    }
+    
+    applyProfilesINI() {
+        ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
+    }
+    
+    createProfiles() {
         profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
     
         echo "Making profile directories..."
         for profile in ${profileList}; do
-            echo "-> Copying user.js to profile: ${profile}..."
             mkdir -p "${HOME}/.config/firefox/${profile}"
-            cp ./user.js "${HOME}/.config/firefox/${profile}"
         done
+    }
     
-        echo "Copying profiles.ini..."
-        mkdir -p "${HOME}/.mozilla/firefox"
-        cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
-    
+    applyPolicies() {
         echo "Copying policies.json (may need root permissions)..."
     
-        if [[ -d /usr/lib/firefox/distribution ]]; then
-            sudo cp ../../policies.json /usr/lib/firefox/distribution
+        if [[ -d /usr/lib/firefox ]]; then
+            sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox/distribution
         elif [[ -d /opt/firefox-nightly ]]; then
             sudo chown -R ${USER}:${USER} /opt/firefox-nightly
-            cp ../../policies.json /opt/firefox-nightly/distribution
+            ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-nightly/distribution
         elif [[ -d /opt/firefox-developer-edition ]]; then
-            cp ../../policies.json /opt/firefox-developer-edition/distribution
+            ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-developer-edition/distribution
+        elif [[ -d /usr/lib/firefox-developer-edition ]]; then
+            sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox-developer-edition/distribution
         fi
     }
     
     cleanUp() {
-        cd ../../
         echo "Cleaning up after myself..."
-        rm -rf ./workdir
+        rm -rf "${SCRIPT_PATH}"/workdir
     }
     
     startFirefox() {
         $(command -v firefox) --ProfileManager
-    }
-    
-    main() {
-        createWorkDir
-        fetchGHacksJS
-        mkTweaks "${1}"
-        applyToProfiles
-        cleanUp
-        startFirefox
     
         echo "Firefox is setup and started. Have a good day!"
     }
-    
-    main "${1}"
 
 
-<a id="org5087435"></a>
+<a id="org8f25f09"></a>
 
 # VSCodium
 
@@ -1312,7 +1465,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org5b3c623"></a>
+<a id="org0fbfb5f"></a>
 
 ## Settings
 
@@ -1516,7 +1669,7 @@ mature as Emacs.
     }
 
 
-<a id="orgad1b960"></a>
+<a id="orgcc2b44a"></a>
 
 ## Keybindings
 
@@ -1592,12 +1745,12 @@ mature as Emacs.
     ]
 
 
-<a id="org31155eb"></a>
+<a id="org0d5d82b"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org25cee15"></a>
+<a id="org9a5bebd"></a>
 
 ## Environment Variables
 
@@ -1617,7 +1770,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgc1b79cf"></a>
+<a id="orgf984f10"></a>
 
 ## Extension Updater
 
@@ -1648,7 +1801,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="org0b933c9"></a>
+<a id="org22cedca"></a>
 
 ## Flags
 
@@ -1690,12 +1843,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org3f74e21"></a>
+<a id="org01adbc5"></a>
 
 # ZSH
 
 
-<a id="org957bf36"></a>
+<a id="orgd9141a3"></a>
 
 ## Setup
 
@@ -1728,7 +1881,7 @@ and functions.
     main
 
 
-<a id="orge43b43b"></a>
+<a id="orgd5ca004"></a>
 
 ## Template
 
@@ -1835,12 +1988,12 @@ OH-MY-ZSH template.
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="orgc4919dd"></a>
+<a id="orge1056e4"></a>
 
 ## Functions
 
 
-<a id="org06b1b38"></a>
+<a id="orgab4ce1c"></a>
 
 ### Weather
 
@@ -1849,7 +2002,7 @@ OH-MY-ZSH template.
     }
 
 
-<a id="org39eac36"></a>
+<a id="orge1adfad"></a>
 
 ## Variables
 

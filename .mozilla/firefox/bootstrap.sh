@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
 
+# import sanity
 set -euo pipefail
 
+# global declarations
+SCRIPT_PATH=$(realpath $(dirname "$0"))
+
 createWorkDir() {
-    if [[ -d ./workdir ]]; then
-        rm -rf ./workdir
+    if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
+        rm -rf "${SCRIPT_PATH}"/workdir
     fi
 
     echo "Creating Work Directory..."
-    mkdir -p ./workdir
-    cd ./workdir
+    mkdir -p "${SCRIPT_PATH}"/workdir
 }
 
 fetchGHacksJS() {
     echo "Fetching ghacks user.js..."
-    git clone https://github.com/ghacksuserjs/ghacks-user.js.git ./ghjs 2>/dev/null 1>&2
-    cd ./ghjs
+    git clone https://github.com/ghacksuserjs/ghacks-user.js.git "${SCRIPT_PATH}"/workdir/ghjs 2>/dev/null 1>&2
 }
 
 mkTweaks() {
-    cp ../../*.js ./
+    cp "${SCRIPT_PATH}"/*.js "${SCRIPT_PATH}"/workdir/ghjs
 
     echo "Applying userchrome tweaks..."
     case "${1}" in
@@ -45,54 +47,63 @@ mkTweaks() {
     esac
 
     echo "Merging tweaks with ghacks user.js..."
-    ./updater.sh -s 2>/dev/null 1>&2
+    "${SCRIPT_PATH}"/workdir/ghjs/updater.sh -s 2>/dev/null 1>&2
 }
 
-applyToProfiles() {
+updateUserJS() {
+    createWorkDir
+    fetchGHacksJS
+    mkTweaks
+}
+
+applyUserJS() {
+    profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+
+    for profile in ${profileList}; do
+        echo "-> Copying user.js to profile: ${profile}..."
+        cp "${SCRIPT_PATH}"/workdir/ghjs/user.js "${HOME}/.config/firefox/${profile}"
+    done
+}
+
+createProfilesINIDir() {
+    mkdir -p "${HOME}/.mozilla/firefox"
+}
+
+applyProfilesINI() {
+    ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
+}
+
+createProfiles() {
     profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
     echo "Making profile directories..."
     for profile in ${profileList}; do
-        echo "-> Copying user.js to profile: ${profile}..."
         mkdir -p "${HOME}/.config/firefox/${profile}"
-        cp ./user.js "${HOME}/.config/firefox/${profile}"
     done
+}
 
-    echo "Copying profiles.ini..."
-    mkdir -p "${HOME}/.mozilla/firefox"
-    cp ../../profiles.ini "${HOME}/.mozilla/firefox/"
-
+applyPolicies() {
     echo "Copying policies.json (may need root permissions)..."
 
-    if [[ -d /usr/lib/firefox/distribution ]]; then
-        sudo cp ../../policies.json /usr/lib/firefox/distribution
+    if [[ -d /usr/lib/firefox ]]; then
+        sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox/distribution
     elif [[ -d /opt/firefox-nightly ]]; then
         sudo chown -R ${USER}:${USER} /opt/firefox-nightly
-        cp ../../policies.json /opt/firefox-nightly/distribution
+        ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-nightly/distribution
     elif [[ -d /opt/firefox-developer-edition ]]; then
-        cp ../../policies.json /opt/firefox-developer-edition/distribution
+        ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-developer-edition/distribution
+    elif [[ -d /usr/lib/firefox-developer-edition ]]; then
+        sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox-developer-edition/distribution
     fi
 }
 
 cleanUp() {
-    cd ../../
     echo "Cleaning up after myself..."
-    rm -rf ./workdir
+    rm -rf "${SCRIPT_PATH}"/workdir
 }
 
 startFirefox() {
     $(command -v firefox) --ProfileManager
-}
-
-main() {
-    createWorkDir
-    fetchGHacksJS
-    mkTweaks "${1}"
-    applyToProfiles
-    cleanUp
-    startFirefox
 
     echo "Firefox is setup and started. Have a good day!"
 }
-
-main "${1}"

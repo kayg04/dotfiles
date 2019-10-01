@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+
+# import sanity
+set -euo pipefail
+
+# global declarations
+SCRIPT_PATH=$(realpath $(dirname "$0"))
+
+update() {
+    case "${1}" in
+        "awesome")
+            updateAwesomeWM
+            ;;
+        "compton")
+            updateCompton
+            ;;
+        "desktop")
+            updateDesktop
+            ;;
+        "emacs")
+            updateEmacs
+            ;;
+        "firefox")
+            updateFirefox
+            ;;
+        "chromium")
+            updateChromium
+            ;;
+        "zsh")
+            updateZSH
+            ;;
+    esac
+}
+
+updateAwesomeWM() {
+    ln -sf "${SCRIPT_PATH}"/.config/awesome/*.lua "${HOME}"/.config/awesome/
+    ln -sf "${SCRIPT_PATH}"/.config/awesome/themes/default/*.lua "${HOME}"/.config/awesome/themes/default/
+}
+
+updateCompton() {
+    ln -sf "${SCRIPT_PATH}"/.config/compton/*.conf "${HOME}"/.config/compton/
+}
+
+updateDesktop() {
+    ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
+}
+
+updateEmacs() {
+    ln -sf "${SCRIPT_PATH}"/.emacs "${HOME}"/
+    ln -sf "${SCRIPT_PATH}"/.config/emacs/* "${HOME}"/.config/emacs/
+}
+
+updateFirefox() {
+    source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+
+    applyPolicies
+    applyProfilesINI
+    updateUserJS
+    applyUserJS
+    cleanUp
+}
+
+updateVSCodium() {
+    ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+}
+
+updateChromium() {
+    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+}
+
+setup() {
+    case "${1}" in
+        "awesome")
+            setupAwesomeWM
+            ;;
+        "compton")
+            setupCompton
+            ;;
+        "desktop")
+            setupDesktop
+            ;;
+        "emacs")
+            setupEmacs
+            ;;
+        "firefox")
+            setupFirefox
+            ;;
+        "chromium")
+            setupChromium
+            ;;
+        "zsh")
+            setupZSH
+            ;;
+    esac
+}
+
+setupAwesomeWM() {
+    mkdir -p "${HOME}"/.config/awesome
+    mkdir -p "${HOME}"/.config/awesome/themes/default
+}
+
+setupCompton() {
+    mkdir -p "${HOME}"/.config/compton
+}
+
+setupDesktop() {
+    mkdir -p "${HOME}"/.local/share/applications
+}
+
+setupEmacs() {
+    mkdir -p "${HOME}"/.config/emacs
+}
+
+setupFirefox() {
+    source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+
+    applyPolicies
+    createProfilesINIDir
+    applyProfilesINI
+    createProfiles
+    updateUserJS
+    applyUserJS
+    cleanUp
+    startFirefox
+}
+
+setupVSCodium() {
+    ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+}
+
+setupChromium() {
+    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+}
