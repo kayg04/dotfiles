@@ -26,13 +26,12 @@ mkTweaks() {
     echo "Applying userchrome tweaks..."
     case "${1}" in
         -m | --materialFox)
-            cat ./materialfox.js >> ./user-overrides.js
+            cat "${SCRIPT_PATH}"/workdir/ghjs/materialfox.js >> "${SCRIPT_PATH}"/workdir/ghjs/user-overrides.js
             ;;
         -g | --gnome)
-            cat ./gnome.js >> ./user-overrides.js
+            cat "${SCRIPT_PATH}"/workdir/ghjs/gnome.js >> "${SCRIPT_PATH}"/workdir/ghjs/user-overrides.js
             ;;
         -n | --none)
-            return
             ;;
         -h | --help)
             echo -ne "\\nFirefox UserJS helper:
