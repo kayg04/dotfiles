@@ -2,7 +2,7 @@
 export ZSH="/home/kayg/.config/omz"
 
 # Set OMZ theme
-ZSH_THEME="pure"
+ZSH_THEME="fox"
 
 # _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
