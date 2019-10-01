@@ -74,7 +74,7 @@ applyProfilesINI() {
 }
 
 createProfiles() {
-    profileList=$(cat ../../profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
     echo "Making profile directories..."
     for profile in ${profileList}; do
