@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# import sanity
+set -euo pipefail
+
+# global declarations
+USER_DATA_DIR="${HOME}/.config/chromium/Apps"
+EXT_DIR="${USER_DATA_DIR}/Default/Extensions"
+EXTID_LIST=$(ls -1 "${EXT_DIR}")
+CHROMIUM_VERSION=$(chromium --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
+
+printDetails() {
+    echo -e "Your Chromium version is ${CHROMIUM_VERSION}.\nYour profile is located at ${USER_DATA_DIR}."
+}
+
+checkForUpdate() {
+    if [[ "${1}" != "${2}" ]]; then
+        echo "An update is available for ${extName} (ID: ${extID})."
+    else
+        return 1
+    fi
+}
+
+fetchExtension() {
+    curl -sL "${1}" > ext.crx
+}
+
+installExtension() {
+    7z x ext.crx -yo"${1}" 1>/dev/null
+}
+
+cleanExtension() {
+    rm ext.crx
+    rm -rf "${1}"
+}
+
+main() {
+    printDetails
+
+    for extID in ${EXTID_LIST}; do
+        UPDATE_URL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROMIUM_VERSION}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
+        extName=$(cat "${EXT_DIR}/${extID}"/*/manifest.json | grep -i '"name"' | cut -d ':' -f2 | sed -e 's/,//g' -e 's/\"//g' -e 's/^\ //g')
+        oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | sed 's/\./\_/g')
+        newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g' -e 's/\.crx//g')
+        oldVersionDir=$(ls -1 "${EXT_DIR}/${extID}")
+        newVersionDir=$(echo ${newVersion} | sed -r 's/^(.*)_/\1\\/; s/\_/\./g; s/\\/_/')
+
+        echo $oldVersion $newVersion
+
+        if checkForUpdate "${oldVersion}" "${newVersion}"; then
+            fetchExtension "${UPDATE_URL}"
+            installExtension "${EXT_DIR}/${extID}/${newVersionDir}"
+            cleanExtension "${EXT_DIR}/${extID}/${oldVersionDir}"
+        else
+            continue
+        fi
+    done
+}
