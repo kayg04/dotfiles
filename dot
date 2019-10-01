@@ -68,6 +68,10 @@ updateChromium() {
     ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
 }
 
+updateZSH() {
+    ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
+}
+
 setup() {
     case "${1}" in
         "awesome")
@@ -130,6 +134,15 @@ setupVSCodium() {
 
 setupChromium() {
     ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+}
+
+setupZSH() {
+    if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
+        export ZSH="${HOME}/.config/omz"
+        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    else
+        exit 1
+    fi
 }
 
 addToPath() {

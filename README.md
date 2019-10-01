@@ -1,42 +1,41 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#org51d9099)
-2.  [Awesome](#orga07528b)
-    1.  [rc.lua](#orgb8709c8)
-    2.  [Themes](#orgeef8ce9)
-        1.  [Default](#org1c47380)
-3.  [Compton](#org81e276f)
-4.  [Desktop](#org1956872)
-    1.  [Deezer](#orgf3084f4)
-    2.  [Riot](#orgcaa9a21)
-    3.  [Saavn](#org3dc0bf2)
-    4.  [Wire](#org856ecad)
-5.  [Emacs](#org92c3ab7)
-6.  [Firefox](#orged8d772)
-    1.  [Profiles](#orgfa9ff44)
-    2.  [Policies](#org30ec629)
-    3.  [UserJS](#orgd6c64e5)
-        1.  [General](#org63b0d37)
-        2.  [Themes](#org4319413)
-    4.  [Bootstrap](#orgea031df)
-7.  [VSCodium](#orga10ee25)
-    1.  [Settings](#org26892c6)
-    2.  [Keybindings](#orgb0fa4be)
-8.  [Ungoogled Chromium](#org14f3c8f)
-    1.  [Environment Variables](#org2fc41bd)
-    2.  [Extension Updater](#org69b6494)
-    3.  [Flags](#org4bdf2e0)
-9.  [ZSH](#org9a1b2c7)
-    1.  [Setup](#org9c5d300)
-    2.  [Template](#org5d2dc75)
-    3.  [Functions](#org1bd782a)
-        1.  [Weather](#orge902c32)
-    4.  [Variables](#orgbf756f7)
+1.  [Bootstrap](#org37f1a11)
+2.  [Awesome](#org29b5d4f)
+    1.  [rc.lua](#orga877080)
+    2.  [Themes](#orgdc9dfab)
+        1.  [Default](#org65e5aec)
+3.  [Compton](#orgc614e36)
+4.  [Desktop](#orga88fcd3)
+    1.  [Deezer](#org505405b)
+    2.  [Riot](#orga9415d3)
+    3.  [Saavn](#org6e64efb)
+    4.  [Wire](#org66055e7)
+5.  [Emacs](#org15c0df2)
+6.  [Firefox](#org53088f5)
+    1.  [Profiles](#org1ec981c)
+    2.  [Policies](#orga907cb4)
+    3.  [UserJS](#orgfcf54dd)
+        1.  [General](#org8e19f73)
+        2.  [Themes](#org022a662)
+    4.  [Setup](#org45cb4dc)
+7.  [VSCodium](#org9d14072)
+    1.  [Settings](#orgefa44de)
+    2.  [Keybindings](#org2dda666)
+8.  [Ungoogled Chromium](#org1b2e449)
+    1.  [Environment Variables](#org333a861)
+    2.  [Extension Updater](#org09233e7)
+    3.  [Flags](#org580c8f9)
+9.  [ZSH](#org36f769f)
+    1.  [Oh-my-zsh stuff](#orged302b9)
+    2.  [Functions](#orgf9f5b94)
+        1.  [Weather](#orgfad4679)
+    3.  [Variables](#orgb357e73)
 
 
 
-<a id="org51d9099"></a>
+<a id="org37f1a11"></a>
 
 # Bootstrap
 
@@ -110,6 +109,10 @@
         ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
     }
     
+    updateZSH() {
+        ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
+    }
+    
     setup() {
         case "${1}" in
             "awesome")
@@ -174,6 +177,15 @@
         ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
     }
     
+    setupZSH() {
+        if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
+            export ZSH="${HOME}/.config/omz"
+            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        else
+            exit 1
+        fi
+    }
+    
     addToPath() {
         echo -e "Adding this program to \$PATH so that it is globally available."
         mkdir -p "${HOME}"/.local/bin
@@ -200,12 +212,12 @@
     main "${@}"
 
 
-<a id="orga07528b"></a>
+<a id="org29b5d4f"></a>
 
 # Awesome
 
 
-<a id="orgb8709c8"></a>
+<a id="orga877080"></a>
 
 ## rc.lua
 
@@ -778,12 +790,12 @@
     -- }}}
 
 
-<a id="orgeef8ce9"></a>
+<a id="orgdc9dfab"></a>
 
 ## Themes
 
 
-<a id="org1c47380"></a>
+<a id="org65e5aec"></a>
 
 ### Default
 
@@ -920,7 +932,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org81e276f"></a>
+<a id="orgc614e36"></a>
 
 # Compton
 
@@ -1021,12 +1033,12 @@
     transition-length = 150;
 
 
-<a id="org1956872"></a>
+<a id="orga88fcd3"></a>
 
 # Desktop
 
 
-<a id="orgf3084f4"></a>
+<a id="org505405b"></a>
 
 ## Deezer
 
@@ -1043,7 +1055,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgcaa9a21"></a>
+<a id="orga9415d3"></a>
 
 ## Riot
 
@@ -1058,7 +1070,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="org3dc0bf2"></a>
+<a id="org6e64efb"></a>
 
 ## Saavn
 
@@ -1075,7 +1087,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org856ecad"></a>
+<a id="org66055e7"></a>
 
 ## Wire
 
@@ -1094,7 +1106,7 @@
     Version=1.1
 
 
-<a id="org92c3ab7"></a>
+<a id="org15c0df2"></a>
 
 # Emacs
 
@@ -1112,12 +1124,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orged8d772"></a>
+<a id="org53088f5"></a>
 
 # Firefox
 
 
-<a id="orgfa9ff44"></a>
+<a id="org1ec981c"></a>
 
 ## Profiles
 
@@ -1174,7 +1186,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org30ec629"></a>
+<a id="orga907cb4"></a>
 
 ## Policies
 
@@ -1250,12 +1262,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgd6c64e5"></a>
+<a id="orgfcf54dd"></a>
 
 ## UserJS
 
 
-<a id="org63b0d37"></a>
+<a id="org8e19f73"></a>
 
 ### General
 
@@ -1309,7 +1321,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org4319413"></a>
+<a id="org022a662"></a>
 
 ### Themes
 
@@ -1345,9 +1357,9 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgea031df"></a>
+<a id="org45cb4dc"></a>
 
-## Bootstrap
+## Setup
 
 Functions:
 
@@ -1478,7 +1490,7 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orga10ee25"></a>
+<a id="org9d14072"></a>
 
 # VSCodium
 
@@ -1490,7 +1502,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org26892c6"></a>
+<a id="orgefa44de"></a>
 
 ## Settings
 
@@ -1694,7 +1706,7 @@ mature as Emacs.
     }
 
 
-<a id="orgb0fa4be"></a>
+<a id="org2dda666"></a>
 
 ## Keybindings
 
@@ -1770,12 +1782,12 @@ mature as Emacs.
     ]
 
 
-<a id="org14f3c8f"></a>
+<a id="org1b2e449"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org2fc41bd"></a>
+<a id="org333a861"></a>
 
 ## Environment Variables
 
@@ -1795,7 +1807,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org69b6494"></a>
+<a id="org09233e7"></a>
 
 ## Extension Updater
 
@@ -1826,7 +1838,7 @@ prompt for install* for automatic installation.
     }
 
 
-<a id="org4bdf2e0"></a>
+<a id="org580c8f9"></a>
 
 ## Flags
 
@@ -1868,166 +1880,62 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org9a1b2c7"></a>
+<a id="org36f769f"></a>
 
 # ZSH
 
 
-<a id="org9c5d300"></a>
+<a id="orged302b9"></a>
 
-## Setup
+## Oh-my-zsh stuff
 
-This script sets up OH-MY-ZSH on a system if it doesn't
-previously exist. It also imports all of my custom aliases
-and functions.
+Settings specific to OMZ.
 
-    #!/usr/bin/env bash
+    # Path to oh-my-zsh installation.
+    export ZSH="/home/kayg/.config/omz"
     
-    set -euo pipefail
+    # Set OMZ theme
+    ZSH_THEME="pure"
     
-    installOMZ() {
-        if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
-            sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        else
-            exit 1
-        fi
-    }
-    
-    importDef() {
-        echo 'source ${HOME}/.config/zsh/oh-my.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
-        echo 'source ${HOME}/.config/zsh/func.zsh 2>/dev/null 1>&2' >> "${HOME}/.zshrc"
-    }
-    
-    main() {
-        installOMZ
-        importDef
-    }
-    
-    main
-
-
-<a id="org5d2dc75"></a>
-
-## Template
-
-OH-MY-ZSH template.
-
-    # If you come from bash you might have to change your $PATH.
-    # export PATH=$HOME/bin:/usr/local/bin:$PATH
-    
-    # Path to your oh-my-zsh installation.
-    export ZSH="/home/kayg/.oh-my-zsh"
-    
-    # Set name of the theme to load --- if set to "random", it will
-    # load a random theme each time oh-my-zsh is loaded, in which case,
-    # to know which specific one was loaded, run: echo $RANDOM_THEME
-    # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-    ZSH_THEME="agnoster"
-    
-    # Set list of themes to pick from when loading at random
-    # Setting this variable when ZSH_THEME=random will cause zsh to load
-    # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-    # If set to an empty array, this variable will have no effect.
-    # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-    
-    # Uncomment the following line to use case-sensitive completion.
-    # CASE_SENSITIVE="true"
-    
-    # Uncomment the following line to use hyphen-insensitive completion.
-    # Case-sensitive completion must be off. _ and - will be interchangeable.
+    # _ and - will be interchangeable.
     HYPHEN_INSENSITIVE="true"
     
-    # Uncomment the following line to disable bi-weekly auto-update checks.
-    # DISABLE_AUTO_UPDATE="true"
-    
-    # Uncomment the following line to automatically update without prompting.
-    # DISABLE_UPDATE_PROMPT="true"
-    
-    # Uncomment the following line to change how often to auto-update (in days).
-    # export UPDATE_ZSH_DAYS=13
-    
-    # Uncomment the following line if pasting URLs and other text is messed up.
-    # DISABLE_MAGIC_FUNCTIONS=true
-    
-    # Uncomment the following line to disable colors in ls.
-    # DISABLE_LS_COLORS="true"
-    
-    # Uncomment the following line to disable auto-setting terminal title.
-    # DISABLE_AUTO_TITLE="true"
-    
-    # Uncomment the following line to enable command auto-correction.
+    # Enable command auto-correction.
     ENABLE_CORRECTION="true"
     
-    # Uncomment the following line to display red dots whilst waiting for completion.
+    # Display red dots whilst waiting for completion.
     COMPLETION_WAITING_DOTS="true"
-    
-    # Uncomment the following line if you want to disable marking untracked files
-    # under VCS as dirty. This makes repository status check for large repositories
-    # much, much faster.
-    # DISABLE_UNTRACKED_FILES_DIRTY="true"
-    
-    # Uncomment the following line if you want to change the command execution time
-    # stamp shown in the history command output.
-    # You can set one of the optional three formats:
-    # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-    # or set a custom format using the strftime function format specifications,
-    # see 'man strftime' for details.
-    # HIST_STAMPS="mm/dd/yyyy"
-    
-    # Would you like to use another custom folder than $ZSH/custom?
-    # ZSH_CUSTOM=/path/to/new-custom-folder
     
     # Which plugins would you like to load?
     # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
     # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
     # Example format: plugins=(rails git textmate ruby lighthouse)
     # Add wisely, as too many plugins slow down shell startup.
-    plugins=(git)
+    plugins=(
+        git
+    )
     
     source $ZSH/oh-my-zsh.sh
-    
-    # User configuration
-    
-    # export MANPATH="/usr/local/man:$MANPATH"
-    
-    # You may need to manually set your language environment
-    # export LANG=en_US.UTF-8
-    
-    # Preferred editor for local and remote sessions
-    # if [[ -n $SSH_CONNECTION ]]; then
-    #   export EDITOR='vim'
-    # else
-    #   export EDITOR='mvim'
-    # fi
-    
-    # Compilation flags
-    # export ARCHFLAGS="-arch x86_64"
-    
-    # Set personal aliases, overriding those provided by oh-my-zsh libs,
-    # plugins, and themes. Aliases can be placed here, though oh-my-zsh
-    # users are encouraged to define aliases within the ZSH_CUSTOM folder.
-    # For a full list of active aliases, run `alias`.
-    #
-    # Example aliases
-    # alias zshconfig="mate ~/.zshrc"
-    # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-<a id="org1bd782a"></a>
+<a id="orgf9f5b94"></a>
 
 ## Functions
 
 
-<a id="orge902c32"></a>
+<a id="orgfad4679"></a>
 
 ### Weather
+
+Fetches the current weather from wttr.in, assumes my city
+unless specified otherwise.
 
     wttr() {
         curl https://wttr.in/${1:-Bhubaneswar}
     }
 
 
-<a id="orgbf756f7"></a>
+<a id="orgb357e73"></a>
 
 ## Variables
 
