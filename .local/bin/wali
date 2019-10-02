@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+# import sanity
+set -euo pipefail
+
+# global declarations
+SCRIPT_PATH=$(dirname $(realpath "$0"))
+WALL_STORAGE_PATH="${HOME}/Pictures/Wallpapers/Wallhaven"
+WALL_TEMP_PATH="${HOME}/Downloads"
+
+changeWallStoragePath() {
+    while true; do
+        echo -ne "Wallpapers storage path is currently set to ${WALL_STORAGE_PATH}. Do you want to change it? "
+        read -r resp
+
+        echo
+        case "${resp}" in
+            [yY]|[yY][eE][Ss])
+                echo -ne "Please enter a path for wallpaper storage: "
+                read -r WALL_STORAGE_PATH
+
+                echo
+                if [[ ! -d "${WALL_STORAGE_PATH}" ]]; then
+                    echo "You've entered a path that does not exist."
+                    continue
+                else
+                    break
+                fi
+                ;;
+            [nN]|[nN][oO])
+                break
+                ;;
+            *)
+                echo -e "Invalid response."
+                continue
+        esac
+    done
+}
+
+changeWallTempPath() {
+    while true; do
+        echo -ne "Wallpapers temporary storage path is currently set to ${WALL_TEMP_PATH}. Do you want to change it? "
+        read -r resp
+
+        echo
+        case "${resp}" in
+            [yY]|[yY][eE][Ss])
+                echo -ne "Please enter a path for wallpaper storage: "
+                read -r WALL_TEMP_PATH
+
+                echo
+                if [[ ! -d "${WALL_TEMP_PATH}" ]]; then
+                    echo "You've entered a path that does not exist."
+                    continue
+                else
+                    break
+                fi
+                ;;
+            [nN]|[nN][oO])
+                break
+                ;;
+            *)
+                echo -e "Invalid response."
+                continue
+        esac
+    done
+}
+
+rename() {
+    lastIndex=$(ls -1 --sort=version "${WALL_STORAGE_PATH}" | grep -E '^[0-9]+\.[a-z]+$' | tail -1 | cut -d '.' -f1)
+    wallList=$(ls -1 --sort=time "${WALL_TEMP_PATH}" | grep -E '^[wW]allhaven.*')
+
+    echo -e "Renaming wallpapers..."
+    for wall in ${wallList}; do
+        ext=$(echo "${wall}" | cut -d '.' -f2)
+        if mv "${WALL_TEMP_PATH}/${wall}" "${WALL_STORAGE_PATH}/$((lastIndex + 1)).${ext}"; then
+            echo -e "${WALL_TEMP_PATH}/${wall} has been renamed to ${WALL_STORAGE_PATH}/$((lastIndex + 1)).${ext}"
+        else
+            echo -e "File ${WALL_TEMP_PATH}/${wall} could not be renamed."
+        fi
+
+        lastIndex="$((lastIndex + 1))"
+    done
+}
+
+main() {
+    set +u
+    case "${1}" in
+        "-s"|"--silent")
+            rename 1>/dev/null 2>&1
+            ;;
+    esac
+    set -u
+
+    changeWallStoragePath
+    changeWallTempPath
+    rename
+}
+
+main
