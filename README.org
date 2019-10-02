@@ -31,6 +31,9 @@
           "firefox")
               updateFirefox
               ;;
+          "thunderbird")
+              updateThunderbird
+              ;;
           "chromium")
               updateChromium
               ;;
@@ -66,6 +69,10 @@
       updateUserJS
       applyUserJS
       cleanUp
+  }
+
+  updateThunderbird() {
+      ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
   }
 
   updateVSCodium() {
@@ -105,6 +112,9 @@
           "firefox")
               setupFirefox
               ;;
+          "thunderbird")
+              setupThunderbird
+              ;;
           "chromium")
               setupChromium
               ;;
@@ -142,6 +152,11 @@
       applyUserJS
       cleanUp
       startFirefox
+  }
+
+  setupThunderbird() {
+      mkdir -p "${HOME}"/.config/thunderbird/primary
+      updateThunderbird
   }
 
   setupVSCodium() {
