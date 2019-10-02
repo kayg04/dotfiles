@@ -1566,6 +1566,13 @@ this moment.
   main "${@}"
 #+END_SRC
 ** Virtual Desktop Bar (KDE)
+- =fetchSource= gets the latest master from github and
+  places it in a subdirectory.
+- =installDeps= installs the missing dependencies required
+  for building virtual desktop bar.
+- =buildTarget= executes a list of commands as mentioned on
+  the github page for building the widget.
+- Lastly, =cleanUp= removes the downloaded source.
 #+BEGIN_SRC sh :tangle .local/bin/vdb :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
