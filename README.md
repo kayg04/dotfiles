@@ -1,41 +1,41 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#org35fa8be)
-2.  [Awesome](#org933371c)
-    1.  [rc.lua](#orgab83332)
-    2.  [Themes](#orgfeee214)
-        1.  [Default](#org4f944de)
-3.  [Compton](#orgb8c8437)
-4.  [Desktop](#orga7453af)
-    1.  [Deezer](#orge119a92)
-    2.  [Riot](#orgdca8958)
-    3.  [Saavn](#orgf7b18b8)
-    4.  [Wire](#org2e1934b)
-5.  [Emacs](#org2d2d178)
-6.  [Firefox](#org3f89ada)
-    1.  [Profiles](#org31a1ea7)
-    2.  [Policies](#org243335d)
-    3.  [UserJS](#orgc8ed6c4)
-        1.  [General](#org86c0ac7)
-        2.  [Themes](#org76de0ef)
-    4.  [Setup](#orgeb4561a)
-7.  [VSCodium](#orgd3358f9)
-    1.  [Settings](#org8484edf)
-    2.  [Keybindings](#orgaf4cecf)
-8.  [Ungoogled Chromium](#org73e7e1e)
-    1.  [Environment Variables](#orgef774fe)
-    2.  [Extension Updater](#orge5a2337)
-    3.  [Flags](#org01df5a1)
-9.  [ZSH](#org4aa41fe)
-    1.  [Oh-my-zsh stuff](#orga320b6b)
-    2.  [Functions](#org67965e5)
-        1.  [Weather](#orgd87c212)
-    3.  [Variables](#org8d1a03f)
+1.  [Bootstrap](#orgfa7a8a8)
+2.  [Awesome](#org34943f0)
+    1.  [rc.lua](#org54afec6)
+    2.  [Themes](#org45288dd)
+        1.  [Default](#org1eae8a0)
+3.  [Compton](#orgf7432b8)
+4.  [Desktop](#org6eb033c)
+    1.  [Deezer](#org100a812)
+    2.  [Riot](#org8c8aa7e)
+    3.  [Saavn](#orgde88fe8)
+    4.  [Wire](#org77673af)
+5.  [Emacs](#orge8ebeec)
+6.  [Firefox](#orge591555)
+    1.  [Profiles](#org75797a9)
+    2.  [Policies](#orgba3703b)
+    3.  [UserJS](#orgbda2f42)
+        1.  [General](#org9dbb2ff)
+        2.  [Themes](#org5f1aaee)
+    4.  [Setup](#org4a3d955)
+7.  [VSCodium](#org45b5915)
+    1.  [Settings](#orgc0c0bbc)
+    2.  [Keybindings](#org15702b7)
+8.  [Ungoogled Chromium](#org2e5f106)
+    1.  [Environment Variables](#org0539dc5)
+    2.  [Extension Updater](#org0f7bfac)
+    3.  [Flags](#org0ada63f)
+9.  [ZSH](#org942f0ac)
+    1.  [Oh-my-zsh stuff](#org9ed2905)
+    2.  [Functions](#org26e8822)
+        1.  [Weather](#org30e496a)
+    3.  [Variables](#orgcc39b18)
 
 
 
-<a id="org35fa8be"></a>
+<a id="orgfa7a8a8"></a>
 
 # Bootstrap
 
@@ -222,12 +222,12 @@
     main "${@}"
 
 
-<a id="org933371c"></a>
+<a id="org34943f0"></a>
 
 # Awesome
 
 
-<a id="orgab83332"></a>
+<a id="org54afec6"></a>
 
 ## rc.lua
 
@@ -800,12 +800,12 @@
     -- }}}
 
 
-<a id="orgfeee214"></a>
+<a id="org45288dd"></a>
 
 ## Themes
 
 
-<a id="org4f944de"></a>
+<a id="org1eae8a0"></a>
 
 ### Default
 
@@ -942,7 +942,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgb8c8437"></a>
+<a id="orgf7432b8"></a>
 
 # Compton
 
@@ -1043,12 +1043,12 @@
     transition-length = 150;
 
 
-<a id="orga7453af"></a>
+<a id="org6eb033c"></a>
 
 # Desktop
 
 
-<a id="orge119a92"></a>
+<a id="org100a812"></a>
 
 ## Deezer
 
@@ -1065,7 +1065,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgdca8958"></a>
+<a id="org8c8aa7e"></a>
 
 ## Riot
 
@@ -1080,7 +1080,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orgf7b18b8"></a>
+<a id="orgde88fe8"></a>
 
 ## Saavn
 
@@ -1097,7 +1097,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org2e1934b"></a>
+<a id="org77673af"></a>
 
 ## Wire
 
@@ -1116,7 +1116,7 @@
     Version=1.1
 
 
-<a id="org2d2d178"></a>
+<a id="orge8ebeec"></a>
 
 # Emacs
 
@@ -1134,12 +1134,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org3f89ada"></a>
+<a id="orge591555"></a>
 
 # Firefox
 
 
-<a id="org31a1ea7"></a>
+<a id="org75797a9"></a>
 
 ## Profiles
 
@@ -1196,7 +1196,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org243335d"></a>
+<a id="orgba3703b"></a>
 
 ## Policies
 
@@ -1272,12 +1272,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgc8ed6c4"></a>
+<a id="orgbda2f42"></a>
 
 ## UserJS
 
 
-<a id="org86c0ac7"></a>
+<a id="org9dbb2ff"></a>
 
 ### General
 
@@ -1331,7 +1331,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org76de0ef"></a>
+<a id="org5f1aaee"></a>
 
 ### Themes
 
@@ -1367,7 +1367,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgeb4561a"></a>
+<a id="org4a3d955"></a>
 
 ## Setup
 
@@ -1500,7 +1500,7 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgd3358f9"></a>
+<a id="org45b5915"></a>
 
 # VSCodium
 
@@ -1512,7 +1512,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org8484edf"></a>
+<a id="orgc0c0bbc"></a>
 
 ## Settings
 
@@ -1716,7 +1716,7 @@ mature as Emacs.
     }
 
 
-<a id="orgaf4cecf"></a>
+<a id="org15702b7"></a>
 
 ## Keybindings
 
@@ -1792,12 +1792,12 @@ mature as Emacs.
     ]
 
 
-<a id="org73e7e1e"></a>
+<a id="org2e5f106"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgef774fe"></a>
+<a id="org0539dc5"></a>
 
 ## Environment Variables
 
@@ -1817,7 +1817,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orge5a2337"></a>
+<a id="org0f7bfac"></a>
 
 ## Extension Updater
 
@@ -1842,32 +1842,23 @@ prompt for install* for automatic installation.
     # global declarations
     USER_DATA_DIR="${HOME}/.config/chromium/Apps"
     EXT_DIR="${USER_DATA_DIR}/Default/Extensions"
-    EXTID_LIST=$(ls -1 "${EXT_DIR}")
-    CHROMIUM_VERSION=$(chromium --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
+    EXTID_LIST=$(ls -1 "${EXT_DIR}" | grep -v Temp)
+    CHROMIUM_VERSION=$($(command -v chromium) --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
     
     printDetails() {
         echo -e "Your Chromium version is ${CHROMIUM_VERSION}.\nYour profile is located at ${USER_DATA_DIR}."
     }
     
     checkForUpdate() {
-        if [[ "${1}" != "${2}" ]]; then
-            echo "An update is available for ${extName} (ID: ${extID})."
+        if [[ "${1}" -gt "${2}" ]]; then
+            return 0
         else
             return 1
         fi
     }
     
-    fetchExtension() {
-        curl -sL "${1}" > ext.crx
-    }
-    
     installExtension() {
-        7z x ext.crx -yo"${1}" 1>/dev/null
-    }
-    
-    cleanExtension() {
-        rm ext.crx
-        rm -rf "${1}"
+        $(command -v chromium) --user-data-dir="${USER_DATA_DIR}" "${1}"
     }
     
     main() {
@@ -1875,26 +1866,24 @@ prompt for install* for automatic installation.
     
         for extID in ${EXTID_LIST}; do
             UPDATE_URL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROMIUM_VERSION}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
-            extName=$(cat "${EXT_DIR}/${extID}"/*/manifest.json | grep -i '"name"' | cut -d ':' -f2 | sed -e 's/,//g' -e 's/\"//g' -e 's/^\ //g')
-            oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | sed 's/\./\_/g')
-            newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g' -e 's/\.crx//g')
-            oldVersionDir=$(ls -1 "${EXT_DIR}/${extID}")
-            newVersionDir=$(echo ${newVersion} | sed -r 's/^(.*)_/\1\\/; s/\_/\./g; s/\\/_/')
     
-            echo $oldVersion $newVersion
+            if [[ -n $(ls -1 "${EXT_DIR}/${extID}") ]]; then
+                oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | tail -1 | sed 's/\.//g; s/\_//g')
+                newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g; s/\.crx//g; s/\.//g; s/\_//g')
     
-            if checkForUpdate "${oldVersion}" "${newVersion}"; then
-                fetchExtension "${UPDATE_URL}"
-                installExtension "${EXT_DIR}/${extID}/${newVersionDir}"
-                cleanExtension "${EXT_DIR}/${extID}/${oldVersionDir}"
+                if checkForUpdate "${newVersion}" "${oldVersion}"; then
+                    installExtension "${UPDATE_URL}"
+                else
+                    continue
+                fi
             else
-                continue
+                installExtension "${UPDATE_URL}"
             fi
         done
     }
 
 
-<a id="org01df5a1"></a>
+<a id="org0ada63f"></a>
 
 ## Flags
 
@@ -1936,12 +1925,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org4aa41fe"></a>
+<a id="org942f0ac"></a>
 
 # ZSH
 
 
-<a id="orga320b6b"></a>
+<a id="org9ed2905"></a>
 
 ## Oh-my-zsh stuff
 
@@ -1976,12 +1965,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org67965e5"></a>
+<a id="org26e8822"></a>
 
 ## Functions
 
 
-<a id="orgd87c212"></a>
+<a id="org30e496a"></a>
 
 ### Weather
 
@@ -1993,7 +1982,7 @@ unless specified otherwise.
     }
 
 
-<a id="org8d1a03f"></a>
+<a id="orgcc39b18"></a>
 
 ## Variables
 
