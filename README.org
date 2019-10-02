@@ -1732,6 +1732,23 @@ script has been previously installed.
   main
 #+END_SRC
 ** Wallpaper Index
+Variables:
+- =WALL_STORAGE_PATH= holds the location where the indexed
+  wallpapers are kept. Default value is
+  =$HOME/Pictures/Wallpapers/Wallhaven= (expected to change in
+  the future).
+- =WALL_TEMP_PATH= holds the location where the wallpapers
+  are downloaded or wherever they are kept unorganized.
+  Default value is $HOME/Downloads.
+
+Functions:
+- =changeWallStoragePath= prompts for a new location for
+  =WALL_STORAGE_PATH= and proceeds normally if
+  - the response is any of "y", "Y", "yes", "YES", etc and the entered path exists
+  - the response is any of "n", "N", "no", "NO", etc
+  In case of an invalid response, the prompt is shown again.
+- =changeWallTempPath= is exactly the same as
+  =changeWallStoragePath= but for =WALL_TEMP_PATH=.
 #+BEGIN_SRC sh :tangle .local/bin/wali :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
