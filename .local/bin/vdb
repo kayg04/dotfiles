@@ -7,39 +7,47 @@ SCRIPT_PATH=$(dirname $(realpath "$0"))
 URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
 
 fetchSource() {
-    git clone "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar
+    echo -e "Fetching source..."
+    git clone "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
 }
 
 installDeps() {
-    sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc
+    echo -e "Installing dependencies (if any)..."
+    sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null
 }
 
 buildTarget() {
     cd "${SCRIPT_PATH}"/virtual-desktop-bar
     mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
     cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-    cmake "${SCRIPT_PATH}"/virtual-desktop-bar
+    cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
 
-    echo -e "Building target..."
-    make -j$(nproc)
+    echo -e "Building Virtual Desktop Bar..."
+    make -j$(nproc) 1> /dev/null
+}
+
+installTarget() {
+    cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
 
     echo -e "Installing target (need root permissions)..."
-    sudo make install
+    sudo make install 1> /dev/null
 }
 
 cleanUp() {
+    echo -e "Cleaning up after myself..."
     rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
 }
 
 main() {
     if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
         cleanUp
-    else
-        fetchSource
-        installDeps
-        buildTarget
-        cleanUp
     fi
+
+    fetchSource
+    installDeps
+    buildTarget
+    installTarget
+    cleanUp
 }
 
 main
