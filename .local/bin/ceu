@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # import sanity
 set -euo pipefail
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # import sanity
 set -euo pipefail
 
@@ -30,6 +29,9 @@ update() {
             ;;
         "chromium")
             updateChromium
+            ;;
+        "utilsh")
+            updateUtilsh
             ;;
         "zsh")
             updateZSH
@@ -77,6 +79,10 @@ updateChromium() {
     ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
 }
 
+updateUtilsh() {
+    ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
+}
+
 updateZSH() {
     if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
@@ -112,6 +118,9 @@ setup() {
         "chromium")
             setupChromium
             ;;
+        "utilsh")
+            setupUtilsh
+            ;;
         "zsh")
             setupZSH
             ;;
@@ -121,18 +130,22 @@ setup() {
 setupAwesomeWM() {
     mkdir -p "${HOME}"/.config/awesome
     mkdir -p "${HOME}"/.config/awesome/themes/default
+    updateAwesomeWM
 }
 
 setupCompton() {
     mkdir -p "${HOME}"/.config/compton
+    updateCompton
 }
 
 setupDesktop() {
     mkdir -p "${HOME}"/.local/share/applications
+    updateDesktop
 }
 
 setupEmacs() {
     mkdir -p "${HOME}"/.config/emacs
+    updateEmacs
 }
 
 setupFirefox() {
@@ -154,11 +167,15 @@ setupThunderbird() {
 }
 
 setupVSCodium() {
-    ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+    updateVSCodium
 }
 
 setupChromium() {
-    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+    updateChromium
+}
+
+setupUtilsh() {
+    updateUtilsh
 }
 
 setupZSH() {

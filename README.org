@@ -3,9 +3,7 @@
 #+PROPERTY: header-args :cache on :mkdirp yes
 
 * Bootstrap
-#+BEGIN_SRC sh :tangle dot
-  #!/usr/bin/env bash
-
+#+BEGIN_SRC sh :tangle dot :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
 
@@ -36,6 +34,9 @@
               ;;
           "chromium")
               updateChromium
+              ;;
+          "utilsh")
+              updateUtilsh
               ;;
           "zsh")
               updateZSH
@@ -83,6 +84,10 @@
       ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
   }
 
+  updateUtilsh() {
+      ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
+  }
+
   updateZSH() {
       if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
           git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
@@ -118,6 +123,9 @@
           "chromium")
               setupChromium
               ;;
+          "utilsh")
+              setupUtilsh
+              ;;
           "zsh")
               setupZSH
               ;;
@@ -127,18 +135,22 @@
   setupAwesomeWM() {
       mkdir -p "${HOME}"/.config/awesome
       mkdir -p "${HOME}"/.config/awesome/themes/default
+      updateAwesomeWM
   }
 
   setupCompton() {
       mkdir -p "${HOME}"/.config/compton
+      updateCompton
   }
 
   setupDesktop() {
       mkdir -p "${HOME}"/.local/share/applications
+      updateDesktop
   }
 
   setupEmacs() {
       mkdir -p "${HOME}"/.config/emacs
+      updateEmacs
   }
 
   setupFirefox() {
@@ -160,11 +172,15 @@
   }
 
   setupVSCodium() {
-      ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+      updateVSCodium
   }
 
   setupChromium() {
-      ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+      updateChromium
+  }
+
+  setupUtilsh() {
+      updateUtilsh
   }
 
   setupZSH() {
@@ -1445,7 +1461,46 @@ Mike
 #+BEGIN_SRC text
   MESA_GLSL_CACHE_DISABLE=true
 #+END_SRC
-** Extension Updater
+** Flags
+A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
+#+BEGIN_SRC conf :tangle chromium/.config/chromium-flags.conf
+  # Disable workarounds for various GPU driver bugs.
+  # --disable-gpu-driver-bug-workarounds
+  # Enable hardware acceleration
+  --enable-accelerated-mjpeg-decode
+  --enable-accelerated-video
+  --enable-gpu-rasterization
+  --enable-native-gpu-memory-buffers
+  --enable-zero-copy
+  --ignore-gpu-blacklist
+  # Disables the crash reporting.
+  --disable-breakpad
+  # Disables cloud backup feature.
+  --disable-cloud-import
+  # Disables installation of default apps on first run. This is used during automated testing.
+  --disable-default-apps
+  # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
+  --disable-ntp-most-likely-favicons-from-server
+  # Disables showing popular sites on the NTP.
+  --disable-ntp-popular-sites
+  # Disable auto-reload of error pages if offline.
+  --disable-offline-auto-reload
+  # Disables sign-in promo.
+  --disable-signin-promo
+  # The "disable" flag for kEnableSingleClickAutofill.
+  --disable-single-click-autofill
+  # Disables syncing browser data to a Google Account.
+  --disable-sync
+  # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+  --no-default-browser-check
+  # Don't send hyperlink auditing pings.
+  --no-pings
+  # Enable Dark Mode
+  --force-dark-mode
+  --enable-features=WebUIDarkMode
+#+END_SRC
+* Utility
+** Ungoogled Chromium Extension Updater
 - =USER_DATA_DIR= is your data directory for Chromium.
   Normally, it is $HOME/.config/chromium. However since I
   sync my chromium profiles using Nextcloud and only use it
@@ -1463,9 +1518,7 @@ For this function to work, you must set
 prompt for install/ for automatic prompts. A truly
 unattended way of updating extensions is not possible at
 this moment.
-#+BEGIN_SRC sh :tangle ceu
-  #!/usr/bin/env bash
-
+#+BEGIN_SRC sh :tangle .local/bin/ceu :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
 
@@ -1511,44 +1564,6 @@ this moment.
   }
 
   main "${@}"
-#+END_SRC
-** Flags
-A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
-#+BEGIN_SRC conf :tangle chromium/.config/chromium-flags.conf
-  # Disable workarounds for various GPU driver bugs.
-  # --disable-gpu-driver-bug-workarounds
-  # Enable hardware acceleration
-  --enable-accelerated-mjpeg-decode
-  --enable-accelerated-video
-  --enable-gpu-rasterization
-  --enable-native-gpu-memory-buffers
-  --enable-zero-copy
-  --ignore-gpu-blacklist
-  # Disables the crash reporting.
-  --disable-breakpad
-  # Disables cloud backup feature.
-  --disable-cloud-import
-  # Disables installation of default apps on first run. This is used during automated testing.
-  --disable-default-apps
-  # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
-  --disable-ntp-most-likely-favicons-from-server
-  # Disables showing popular sites on the NTP.
-  --disable-ntp-popular-sites
-  # Disable auto-reload of error pages if offline.
-  --disable-offline-auto-reload
-  # Disables sign-in promo.
-  --disable-signin-promo
-  # The "disable" flag for kEnableSingleClickAutofill.
-  --disable-single-click-autofill
-  # Disables syncing browser data to a Google Account.
-  --disable-sync
-  # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
-  --no-default-browser-check
-  # Don't send hyperlink auditing pings.
-  --no-pings
-  # Enable Dark Mode
-  --force-dark-mode
-  --enable-features=WebUIDarkMode
 #+END_SRC
 * VSCodium
 I tried VSCodium for a brief period of time but the fact

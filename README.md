@@ -1,48 +1,47 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgd9f98db)
-2.  [Awesome](#org608a802)
-    1.  [rc.lua](#org0c79d71)
-    2.  [Themes](#orgb146b4a)
-        1.  [Default](#orgeb6422a)
-3.  [Compton](#orgd481da3)
-4.  [Desktop](#org74b05e8)
-    1.  [Deezer](#org31671f1)
-    2.  [Riot](#org7393a04)
-    3.  [Saavn](#orga80ebae)
-    4.  [Wire](#org7f04458)
-5.  [Emacs](#org22e68ce)
-6.  [Firefox](#org3b84f42)
-    1.  [Profiles](#orga0fb3ea)
-    2.  [Policies](#org5343a47)
-    3.  [UserJS](#org500519a)
-        1.  [General](#orgd8e5ad6)
-        2.  [Themes](#org03b6f5e)
-    4.  [Setup](#org4c34e53)
-7.  [Thunderbird](#orgd42a1fd)
-    1.  [Profiles](#orgde23ea3)
-8.  [Ungoogled Chromium](#orgccec9b7)
-    1.  [Environment Variables](#orgd8e9331)
-    2.  [Extension Updater](#orgb8169a9)
-    3.  [Flags](#orgfe53ebf)
-9.  [VSCodium](#org21526e5)
-    1.  [Settings](#org3d033a7)
-    2.  [Keybindings](#org33e529b)
-10. [ZSH](#org88e1eaa)
-    1.  [Oh-my-zsh stuff](#org4149c3d)
-    2.  [Functions](#orgcf7a7b9)
-        1.  [Weather](#org8ee5874)
-    3.  [Variables](#orgcabb72b)
+1.  [Bootstrap](#orgf784c5f)
+2.  [Awesome](#org47aeca5)
+    1.  [rc.lua](#org7edfa89)
+    2.  [Themes](#orga59f259)
+        1.  [Default](#org51258e7)
+3.  [Compton](#org7d25e05)
+4.  [Desktop](#org489c0de)
+    1.  [Deezer](#org405c74f)
+    2.  [Riot](#org2a7ad2e)
+    3.  [Saavn](#orgbbd4a80)
+    4.  [Wire](#orgdf15181)
+5.  [Emacs](#orgf996320)
+6.  [Firefox](#org1160a5c)
+    1.  [Profiles](#org7c14962)
+    2.  [Policies](#orgcc226ce)
+    3.  [UserJS](#org194de08)
+        1.  [General](#org54c2601)
+        2.  [Themes](#org450422e)
+    4.  [Setup](#org873ea0f)
+7.  [Thunderbird](#org7fe7408)
+    1.  [Profiles](#org670d23b)
+8.  [Ungoogled Chromium](#org17d610e)
+    1.  [Environment Variables](#org1f5bb04)
+    2.  [Flags](#org1edd615)
+9.  [Utility](#org21bebea)
+    1.  [Ungoogled Chromium Extension Updater](#org5be2084)
+10. [VSCodium](#org7fcb7fa)
+    1.  [Settings](#org7e8bb60)
+    2.  [Keybindings](#org2d36303)
+11. [ZSH](#org83b138f)
+    1.  [Oh-my-zsh stuff](#orgf9c0054)
+    2.  [Functions](#orgb1de2ed)
+        1.  [Weather](#orgc70fce0)
+    3.  [Variables](#org0e24a1b)
 
 
 
-<a id="orgd9f98db"></a>
+<a id="orgf784c5f"></a>
 
 # Bootstrap
 
-    #!/usr/bin/env bash
-    
     # import sanity
     set -euo pipefail
     
@@ -73,6 +72,9 @@
                 ;;
             "chromium")
                 updateChromium
+                ;;
+            "utilsh")
+                updateUtilsh
                 ;;
             "zsh")
                 updateZSH
@@ -120,6 +122,10 @@
         ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
     }
     
+    updateUtilsh() {
+        ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
+    }
+    
     updateZSH() {
         if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
             git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
@@ -155,6 +161,9 @@
             "chromium")
                 setupChromium
                 ;;
+            "utilsh")
+                setupUtilsh
+                ;;
             "zsh")
                 setupZSH
                 ;;
@@ -164,18 +173,22 @@
     setupAwesomeWM() {
         mkdir -p "${HOME}"/.config/awesome
         mkdir -p "${HOME}"/.config/awesome/themes/default
+        updateAwesomeWM
     }
     
     setupCompton() {
         mkdir -p "${HOME}"/.config/compton
+        updateCompton
     }
     
     setupDesktop() {
         mkdir -p "${HOME}"/.local/share/applications
+        updateDesktop
     }
     
     setupEmacs() {
         mkdir -p "${HOME}"/.config/emacs
+        updateEmacs
     }
     
     setupFirefox() {
@@ -197,11 +210,15 @@
     }
     
     setupVSCodium() {
-        ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+        updateVSCodium
     }
     
     setupChromium() {
-        ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+        updateChromium
+    }
+    
+    setupUtilsh() {
+        updateUtilsh
     }
     
     setupZSH() {
@@ -239,12 +256,12 @@
     main "${@}"
 
 
-<a id="org608a802"></a>
+<a id="org47aeca5"></a>
 
 # Awesome
 
 
-<a id="org0c79d71"></a>
+<a id="org7edfa89"></a>
 
 ## rc.lua
 
@@ -817,12 +834,12 @@
     -- }}}
 
 
-<a id="orgb146b4a"></a>
+<a id="orga59f259"></a>
 
 ## Themes
 
 
-<a id="orgeb6422a"></a>
+<a id="org51258e7"></a>
 
 ### Default
 
@@ -959,7 +976,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgd481da3"></a>
+<a id="org7d25e05"></a>
 
 # Compton
 
@@ -1060,12 +1077,12 @@
     transition-length = 150;
 
 
-<a id="org74b05e8"></a>
+<a id="org489c0de"></a>
 
 # Desktop
 
 
-<a id="org31671f1"></a>
+<a id="org405c74f"></a>
 
 ## Deezer
 
@@ -1082,7 +1099,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org7393a04"></a>
+<a id="org2a7ad2e"></a>
 
 ## Riot
 
@@ -1097,7 +1114,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orga80ebae"></a>
+<a id="orgbbd4a80"></a>
 
 ## Saavn
 
@@ -1114,7 +1131,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org7f04458"></a>
+<a id="orgdf15181"></a>
 
 ## Wire
 
@@ -1133,7 +1150,7 @@
     Version=1.1
 
 
-<a id="org22e68ce"></a>
+<a id="orgf996320"></a>
 
 # Emacs
 
@@ -1151,12 +1168,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org3b84f42"></a>
+<a id="org1160a5c"></a>
 
 # Firefox
 
 
-<a id="orga0fb3ea"></a>
+<a id="org7c14962"></a>
 
 ## Profiles
 
@@ -1213,7 +1230,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org5343a47"></a>
+<a id="orgcc226ce"></a>
 
 ## Policies
 
@@ -1289,12 +1306,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org500519a"></a>
+<a id="org194de08"></a>
 
 ## UserJS
 
 
-<a id="orgd8e5ad6"></a>
+<a id="org54c2601"></a>
 
 ### General
 
@@ -1348,7 +1365,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org03b6f5e"></a>
+<a id="org450422e"></a>
 
 ### Themes
 
@@ -1384,7 +1401,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org4c34e53"></a>
+<a id="org873ea0f"></a>
 
 ## Setup
 
@@ -1517,12 +1534,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgd42a1fd"></a>
+<a id="org7fe7408"></a>
 
 # Thunderbird
 
 
-<a id="orgde23ea3"></a>
+<a id="org670d23b"></a>
 
 ## Profiles
 
@@ -1538,12 +1555,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="orgccec9b7"></a>
+<a id="org17d610e"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgd8e9331"></a>
+<a id="org1f5bb04"></a>
 
 ## Environment Variables
 
@@ -1563,9 +1580,56 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgb8169a9"></a>
+<a id="org1edd615"></a>
 
-## Extension Updater
+## Flags
+
+A better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
+
+    # Disable workarounds for various GPU driver bugs.
+    # --disable-gpu-driver-bug-workarounds
+    # Enable hardware acceleration
+    --enable-accelerated-mjpeg-decode
+    --enable-accelerated-video
+    --enable-gpu-rasterization
+    --enable-native-gpu-memory-buffers
+    --enable-zero-copy
+    --ignore-gpu-blacklist
+    # Disables the crash reporting.
+    --disable-breakpad
+    # Disables cloud backup feature.
+    --disable-cloud-import
+    # Disables installation of default apps on first run. This is used during automated testing.
+    --disable-default-apps
+    # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
+    --disable-ntp-most-likely-favicons-from-server
+    # Disables showing popular sites on the NTP.
+    --disable-ntp-popular-sites
+    # Disable auto-reload of error pages if offline.
+    --disable-offline-auto-reload
+    # Disables sign-in promo.
+    --disable-signin-promo
+    # The "disable" flag for kEnableSingleClickAutofill.
+    --disable-single-click-autofill
+    # Disables syncing browser data to a Google Account.
+    --disable-sync
+    # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+    --no-default-browser-check
+    # Don't send hyperlink auditing pings.
+    --no-pings
+    # Enable Dark Mode
+    --force-dark-mode
+    --enable-features=WebUIDarkMode
+
+
+<a id="org21bebea"></a>
+
+# Utility
+
+
+<a id="org5be2084"></a>
+
+## Ungoogled Chromium Extension Updater
 
 -   `USER_DATA_DIR` is your data directory for Chromium.
     Normally, it is $HOME/.config/chromium. However since I
@@ -1585,8 +1649,6 @@ prompt for install* for automatic prompts. A truly
 unattended way of updating extensions is not possible at
 this moment.
 
-    #!/usr/bin/env bash
-    
     # import sanity
     set -euo pipefail
     
@@ -1634,49 +1696,7 @@ this moment.
     main "${@}"
 
 
-<a id="orgfe53ebf"></a>
-
-## Flags
-
-A better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
-
-    # Disable workarounds for various GPU driver bugs.
-    # --disable-gpu-driver-bug-workarounds
-    # Enable hardware acceleration
-    --enable-accelerated-mjpeg-decode
-    --enable-accelerated-video
-    --enable-gpu-rasterization
-    --enable-native-gpu-memory-buffers
-    --enable-zero-copy
-    --ignore-gpu-blacklist
-    # Disables the crash reporting.
-    --disable-breakpad
-    # Disables cloud backup feature.
-    --disable-cloud-import
-    # Disables installation of default apps on first run. This is used during automated testing.
-    --disable-default-apps
-    # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
-    --disable-ntp-most-likely-favicons-from-server
-    # Disables showing popular sites on the NTP.
-    --disable-ntp-popular-sites
-    # Disable auto-reload of error pages if offline.
-    --disable-offline-auto-reload
-    # Disables sign-in promo.
-    --disable-signin-promo
-    # The "disable" flag for kEnableSingleClickAutofill.
-    --disable-single-click-autofill
-    # Disables syncing browser data to a Google Account.
-    --disable-sync
-    # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
-    --no-default-browser-check
-    # Don't send hyperlink auditing pings.
-    --no-pings
-    # Enable Dark Mode
-    --force-dark-mode
-    --enable-features=WebUIDarkMode
-
-
-<a id="org21526e5"></a>
+<a id="org7fcb7fa"></a>
 
 # VSCodium
 
@@ -1688,7 +1708,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org3d033a7"></a>
+<a id="org7e8bb60"></a>
 
 ## Settings
 
@@ -1892,7 +1912,7 @@ mature as Emacs.
     }
 
 
-<a id="org33e529b"></a>
+<a id="org2d36303"></a>
 
 ## Keybindings
 
@@ -1968,12 +1988,12 @@ mature as Emacs.
     ]
 
 
-<a id="org88e1eaa"></a>
+<a id="org83b138f"></a>
 
 # ZSH
 
 
-<a id="org4149c3d"></a>
+<a id="orgf9c0054"></a>
 
 ## Oh-my-zsh stuff
 
@@ -2008,12 +2028,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="orgcf7a7b9"></a>
+<a id="orgb1de2ed"></a>
 
 ## Functions
 
 
-<a id="org8ee5874"></a>
+<a id="orgc70fce0"></a>
 
 ### Weather
 
@@ -2025,7 +2045,7 @@ unless specified otherwise.
     }
 
 
-<a id="orgcabb72b"></a>
+<a id="org0e24a1b"></a>
 
 ## Variables
 
