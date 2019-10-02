@@ -8,12 +8,21 @@ URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
 
 fetchSource() {
     echo -e "Fetching source..."
-    git clone "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
+    if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
+        echo -e "\t-> Source fetched successfully."
+    else
+        echo -e "\t-> Source couldn't be fetched."
+    fi
 }
 
 installDeps() {
     echo -e "Installing dependencies (if any)..."
-    sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null
+
+    if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
+        echo -e "\t-> Installed all required dependencies."
+    else
+        echo -e "\t-> All dependencies could not be installed!"
+    fi
 }
 
 buildTarget() {
@@ -23,18 +32,26 @@ buildTarget() {
     cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
 
     echo -e "Building Virtual Desktop Bar..."
-    make -j$(nproc) 1> /dev/null
+    if make -j$(nproc) 1> /dev/null; then
+        echo -e "\t-> Building successful."
+    else
+        echo -e "\t-> Building failed!"
+    fi
 }
 
 installTarget() {
     cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
 
     echo -e "Installing target (need root permissions)..."
-    sudo make install 1> /dev/null
+    if sudo make install 1> /dev/null 2>&1; then
+        echo -e "\t-> Installing successful."
+    else
+        echo -e "\t-> Installing failed!"
+    fi
 }
 
 cleanUp() {
-    echo -e "Cleaning up after myself..."
+    echo -e "Cleaning up all the cruft..."
     rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
 }
 

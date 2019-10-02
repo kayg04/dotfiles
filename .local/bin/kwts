@@ -8,16 +8,29 @@ URL="https://github.com/kwin-scripts/kwin-tiling.git"
 
 fetchSource() {
     echo -e "Fetching source..."
-    git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling
+    if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
+        echo -e "\t-> Source fetched successfully."
+    else
+        echo -e "\t-> Source couldn't be fetched."
+    fi
 }
 
 installScript() {
     echo -e "Installing KWin Tiling Script..."
-    plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+    if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
+        echo -e "\t-> Installation successful."
+    else
+        echo -e "\t-> Installation failed!"
+    fi
 }
 
 updateScript() {
-    plasmapkg2 --type kwinscript --update "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+    echo -e "Updating KWin Tiling Script..."
+    if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
+        echo -e "\t-> Update successful."
+    else
+        echo -e "\t-> Update failed!"
+    fi
 }
 
 fixConf() {
@@ -27,7 +40,7 @@ fixConf() {
 }
 
 cleanUp() {
-    echo -e "Cleaning up after myself..."
+    echo -e "Cleaning up all the cruft..."
     rm -rf "${SCRIPT_PATH}"/kwin-tiling
 }
 

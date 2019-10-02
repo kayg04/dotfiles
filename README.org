@@ -1502,6 +1502,12 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
 * Utility
 A crontab entry (as root, wherever needed) can be added to automate periodic builds / runs.
 
+A few guidelines followed throughout these scripts:
+- Output is silenced and is replaced by friendly messages.
+- Errors are handled explicitly instead of letting the script fail.
+- Each task is divided into functions, no matter how small.
+  The main function looks like nothing more than a series of steps (function calls).
+- Documentation for what the function does and why is provided.
 ** Ungoogled Chromium Extension Updater
 - =USER_DATA_DIR= is your data directory for Chromium.
   Normally, it is $HOME/.config/chromium. However since I
@@ -1587,12 +1593,21 @@ this moment.
 
   fetchSource() {
       echo -e "Fetching source..."
-      git clone "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
+          echo -e "\t-> Source fetched successfully."
+      else
+          echo -e "\t-> Source couldn't be fetched."
+      fi
   }
 
   installDeps() {
       echo -e "Installing dependencies (if any)..."
-      sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null
+
+      if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
+          echo -e "\t-> Installed all required dependencies."
+      else
+          echo -e "\t-> All dependencies could not be installed!"
+      fi
   }
 
   buildTarget() {
@@ -1602,18 +1617,26 @@ this moment.
       cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
 
       echo -e "Building Virtual Desktop Bar..."
-      make -j$(nproc) 1> /dev/null
+      if make -j$(nproc) 1> /dev/null; then
+          echo -e "\t-> Building successful."
+      else
+          echo -e "\t-> Building failed!"
+      fi
   }
 
   installTarget() {
       cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
 
       echo -e "Installing target (need root permissions)..."
-      sudo make install 1> /dev/null
+      if sudo make install 1> /dev/null 2>&1; then
+          echo -e "\t-> Installing successful."
+      else
+          echo -e "\t-> Installing failed!"
+      fi
   }
 
   cleanUp() {
-      echo -e "Cleaning up after myself..."
+      echo -e "Cleaning up all the cruft..."
       rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
   }
 
@@ -1635,6 +1658,9 @@ this moment.
 Mostly the same as /Virtual Desktop Bar/ sans the building.
 The quirk here is to symlink a =.desktop= file for the gooey
 configuration section to appear.
+
+There is also an update step which is necessary if the
+script has been previously installed.
 #+BEGIN_SRC sh :tangle .local/bin/kwts :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
@@ -1645,16 +1671,29 @@ configuration section to appear.
 
   fetchSource() {
       echo -e "Fetching source..."
-      git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
+          echo -e "\t-> Source fetched successfully."
+      else
+          echo -e "\t-> Source couldn't be fetched."
+      fi
   }
 
   installScript() {
       echo -e "Installing KWin Tiling Script..."
-      plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+      if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
+          echo -e "\t-> Installation successful."
+      else
+          echo -e "\t-> Installation failed!"
+      fi
   }
 
   updateScript() {
-      plasmapkg2 --type kwinscript --update "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+      echo -e "Updating KWin Tiling Script..."
+      if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
+          echo -e "\t-> Update successful."
+      else
+          echo -e "\t-> Update failed!"
+      fi
   }
 
   fixConf() {
@@ -1664,7 +1703,7 @@ configuration section to appear.
   }
 
   cleanUp() {
-      echo -e "Cleaning up after myself..."
+      echo -e "Cleaning up all the cruft..."
       rm -rf "${SCRIPT_PATH}"/kwin-tiling
   }
 
