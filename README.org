@@ -1749,6 +1749,15 @@ Functions:
   In case of an invalid response, the prompt is shown again.
 - =changeWallTempPath= is exactly the same as
   =changeWallStoragePath= but for =WALL_TEMP_PATH=.
+- =rename= does the following:
+  - reads the last index from =WALL_STORAGE_PATH= and
+    wallpaper list from =WALL_TEMP_PATH=
+  - runs through the list of wallpapers, separates extension
+    from name in order to preserve it in the renamed file
+  - renames files with a message saying so
+  - updates the index after each rename
+- =main=, unless either of "-s" or "--silent" is passed,
+  proceeds to invoke all functions.
 #+BEGIN_SRC sh :tangle .local/bin/wali :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
@@ -1827,6 +1836,7 @@ Functions:
               echo -e "${WALL_TEMP_PATH}/${wall} has been renamed to ${WALL_STORAGE_PATH}/$((lastIndex + 1)).${ext}"
           else
               echo -e "File ${WALL_TEMP_PATH}/${wall} could not be renamed."
+              exit 1
           fi
 
           lastIndex="$((lastIndex + 1))"

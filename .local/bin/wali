@@ -76,6 +76,7 @@ rename() {
             echo -e "${WALL_TEMP_PATH}/${wall} has been renamed to ${WALL_STORAGE_PATH}/$((lastIndex + 1)).${ext}"
         else
             echo -e "File ${WALL_TEMP_PATH}/${wall} could not be renamed."
+            exit 1
         fi
 
         lastIndex="$((lastIndex + 1))"
