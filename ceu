@@ -37,11 +37,11 @@ main() {
 
             if checkForUpdate "${newVersion}" "${oldVersion}"; then
                 installExtension "${UPDATE_URL}"
-            else
-                continue
             fi
         else
             installExtension "${UPDATE_URL}"
         fi
     done
 }
+
+main "${@}"

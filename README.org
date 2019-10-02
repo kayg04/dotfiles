@@ -1751,14 +1751,14 @@ prompt for install/ for automatic installation.
 
               if checkForUpdate "${newVersion}" "${oldVersion}"; then
                   installExtension "${UPDATE_URL}"
-              else
-                  continue
               fi
           else
               installExtension "${UPDATE_URL}"
           fi
       done
   }
+
+  main "${@}"
 #+END_SRC
 ** Flags
 A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
