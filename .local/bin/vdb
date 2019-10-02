@@ -29,7 +29,13 @@ buildTarget() {
     cd "${SCRIPT_PATH}"/virtual-desktop-bar
     mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
     cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-    cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null
+
+    echo -e "Generating configuration..."
+    if cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null 2>&1; then
+        echo -e "\t-> Configuration generated."
+    else
+        echo -e "\t-> Configuration generation failed!"
+    fi
 
     echo -e "Building Virtual Desktop Bar..."
     if make -j$(nproc) 1> /dev/null; then
