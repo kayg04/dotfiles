@@ -1565,6 +1565,53 @@ this moment.
 
   main "${@}"
 #+END_SRC
+** Virtual Desktop Bar (KDE)
+#+BEGIN_SRC sh :tangle .local/bin/vdb :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
+
+  fetchSource() {
+      git clone "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar
+  }
+
+  installDeps() {
+      sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc
+  }
+
+  buildTarget() {
+      cd "${SCRIPT_PATH}"/virtual-desktop-bar
+      mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
+      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
+      cmake "${SCRIPT_PATH}"/virtual-desktop-bar
+
+      echo -e "Building target..."
+      make -j$(nproc)
+
+      echo -e "Installing target (need root permissions)..."
+      sudo make install
+  }
+
+  cleanUp() {
+      rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
+  }
+
+  main() {
+      if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
+          cleanUp
+      else
+          fetchSource
+          installDeps
+          buildTarget
+          cleanUp
+      fi
+  }
+
+  main
+#+END_SRC
 * VSCodium
 I tried VSCodium for a brief period of time but the fact
 that a completely keyboard driven workflow cannot be
