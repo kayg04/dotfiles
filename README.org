@@ -1645,13 +1645,19 @@ configuration section to appear.
 
   fetchSource() {
       echo -e "Fetching source..."
-      git clone "${URL}" "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+      git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling
   }
 
   installScript() {
       echo -e "Installing KWin Tiling Script..."
       plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+  }
 
+  updateScript() {
+      plasmapkg2 --type kwinscript --update "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null
+  }
+
+  fixConf() {
       # necessary for configuration option in KWin Scripts menu
       mkdir -p "${HOME}"/.local/share/kservices5
       ln -sf "${HOME}"/.local/share/kwin/scripts/kwin-script-tiling/metadata.desktop "${HOME}"/.local/share/kservices5/kwin-script-tiling.desktop
@@ -1668,7 +1674,13 @@ configuration section to appear.
       fi
 
       fetchSource
-      installScript
+      if [[ -d /home/kayg/.local/share/kwin/scripts/kwin-script-tiling ]]; then
+          updateScript
+      else
+          installScript
+      fi
+
+      fixConf
       cleanUp
   }
 
