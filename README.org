@@ -1533,7 +1533,7 @@ this moment.
   }
 
   checkForUpdate() {
-      if [[ "${1}" -gt "${2}" ]]; then
+      if [[ $((10#${1})) -gt $((10#${2})) ]]; then
           return 0
       else
           return 1

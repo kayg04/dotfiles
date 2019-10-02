@@ -1,45 +1,45 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgbb38b2d)
-2.  [Awesome](#orge150ff8)
-    1.  [rc.lua](#orgbe009d1)
-    2.  [Themes](#orga0c78ba)
-        1.  [Default](#orgc08d5fe)
-3.  [Compton](#org670884e)
-4.  [Desktop](#orgc7ce8fa)
-    1.  [Deezer](#org35c0c56)
-    2.  [Riot](#orgdcb1267)
-    3.  [Saavn](#orgc4d9b5d)
-    4.  [Wire](#org464adae)
-5.  [Emacs](#org465de5e)
-6.  [Firefox](#org364a337)
-    1.  [Profiles](#org5199969)
-    2.  [Policies](#orga05b00f)
-    3.  [UserJS](#orgaf37a23)
-        1.  [General](#orgb29e767)
-        2.  [Themes](#org969723c)
-    4.  [Setup](#org21db5cb)
-7.  [Thunderbird](#orgba58e43)
-    1.  [Profiles](#org10b42ff)
-8.  [Ungoogled Chromium](#orgf788620)
-    1.  [Environment Variables](#org8abcd3d)
-    2.  [Flags](#orgb99be24)
-9.  [Utility](#org918cb99)
-    1.  [Ungoogled Chromium Extension Updater](#org2aa7c8c)
-    2.  [Virtual Desktop Bar (KDE)](#orgd5e1728)
-10. [VSCodium](#org4f8f25f)
-    1.  [Settings](#org2c3c650)
-    2.  [Keybindings](#orgbff3e0e)
-11. [ZSH](#orgf052c84)
-    1.  [Oh-my-zsh stuff](#orgc42b027)
-    2.  [Functions](#orgc3fe6fe)
-        1.  [Weather](#org9eee0c8)
-    3.  [Variables](#org59d0f92)
+1.  [Bootstrap](#orgf478c92)
+2.  [Awesome](#org00a11f7)
+    1.  [rc.lua](#org0796153)
+    2.  [Themes](#org4a53a2b)
+        1.  [Default](#orgf8533ed)
+3.  [Compton](#org5115d41)
+4.  [Desktop](#orga385a55)
+    1.  [Deezer](#org10bd396)
+    2.  [Riot](#org2759050)
+    3.  [Saavn](#org5f92682)
+    4.  [Wire](#org8cf00aa)
+5.  [Emacs](#orgf6b0b9d)
+6.  [Firefox](#orgcb19e67)
+    1.  [Profiles](#org64a502b)
+    2.  [Policies](#org76e888f)
+    3.  [UserJS](#orgcc2a28c)
+        1.  [General](#org895b794)
+        2.  [Themes](#orgcc408d3)
+    4.  [Setup](#orgc9b959e)
+7.  [Thunderbird](#org1d41479)
+    1.  [Profiles](#org38505cf)
+8.  [Ungoogled Chromium](#orgc0d3670)
+    1.  [Environment Variables](#orgcc7b350)
+    2.  [Flags](#orga9c517e)
+9.  [Utility](#org6839fe6)
+    1.  [Ungoogled Chromium Extension Updater](#org2c1b685)
+    2.  [Virtual Desktop Bar (KDE)](#orged4ebb6)
+10. [VSCodium](#org9c607a9)
+    1.  [Settings](#orga4dcc41)
+    2.  [Keybindings](#org974d799)
+11. [ZSH](#orgffcbc39)
+    1.  [Oh-my-zsh stuff](#org4833e99)
+    2.  [Functions](#org0ef6ca3)
+        1.  [Weather](#org9fe8504)
+    3.  [Variables](#org1810257)
 
 
 
-<a id="orgbb38b2d"></a>
+<a id="orgf478c92"></a>
 
 # Bootstrap
 
@@ -257,12 +257,12 @@
     main "${@}"
 
 
-<a id="orge150ff8"></a>
+<a id="org00a11f7"></a>
 
 # Awesome
 
 
-<a id="orgbe009d1"></a>
+<a id="org0796153"></a>
 
 ## rc.lua
 
@@ -835,12 +835,12 @@
     -- }}}
 
 
-<a id="orga0c78ba"></a>
+<a id="org4a53a2b"></a>
 
 ## Themes
 
 
-<a id="orgc08d5fe"></a>
+<a id="orgf8533ed"></a>
 
 ### Default
 
@@ -977,7 +977,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org670884e"></a>
+<a id="org5115d41"></a>
 
 # Compton
 
@@ -1078,12 +1078,12 @@
     transition-length = 150;
 
 
-<a id="orgc7ce8fa"></a>
+<a id="orga385a55"></a>
 
 # Desktop
 
 
-<a id="org35c0c56"></a>
+<a id="org10bd396"></a>
 
 ## Deezer
 
@@ -1100,7 +1100,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgdcb1267"></a>
+<a id="org2759050"></a>
 
 ## Riot
 
@@ -1115,7 +1115,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orgc4d9b5d"></a>
+<a id="org5f92682"></a>
 
 ## Saavn
 
@@ -1132,7 +1132,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org464adae"></a>
+<a id="org8cf00aa"></a>
 
 ## Wire
 
@@ -1151,7 +1151,7 @@
     Version=1.1
 
 
-<a id="org465de5e"></a>
+<a id="orgf6b0b9d"></a>
 
 # Emacs
 
@@ -1169,12 +1169,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="org364a337"></a>
+<a id="orgcb19e67"></a>
 
 # Firefox
 
 
-<a id="org5199969"></a>
+<a id="org64a502b"></a>
 
 ## Profiles
 
@@ -1231,7 +1231,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orga05b00f"></a>
+<a id="org76e888f"></a>
 
 ## Policies
 
@@ -1307,12 +1307,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="orgaf37a23"></a>
+<a id="orgcc2a28c"></a>
 
 ## UserJS
 
 
-<a id="orgb29e767"></a>
+<a id="org895b794"></a>
 
 ### General
 
@@ -1366,7 +1366,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org969723c"></a>
+<a id="orgcc408d3"></a>
 
 ### Themes
 
@@ -1402,7 +1402,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org21db5cb"></a>
+<a id="orgc9b959e"></a>
 
 ## Setup
 
@@ -1535,12 +1535,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgba58e43"></a>
+<a id="org1d41479"></a>
 
 # Thunderbird
 
 
-<a id="org10b42ff"></a>
+<a id="org38505cf"></a>
 
 ## Profiles
 
@@ -1556,12 +1556,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="orgf788620"></a>
+<a id="orgc0d3670"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org8abcd3d"></a>
+<a id="orgcc7b350"></a>
 
 ## Environment Variables
 
@@ -1581,7 +1581,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgb99be24"></a>
+<a id="orga9c517e"></a>
 
 ## Flags
 
@@ -1623,12 +1623,12 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org918cb99"></a>
+<a id="org6839fe6"></a>
 
 # Utility
 
 
-<a id="org2aa7c8c"></a>
+<a id="org2c1b685"></a>
 
 ## Ungoogled Chromium Extension Updater
 
@@ -1664,7 +1664,7 @@ this moment.
     }
     
     checkForUpdate() {
-        if [[ "${1}" -gt "${2}" ]]; then
+        if [[ $((10#${1})) -gt $((10#${2})) ]]; then
             return 0
         else
             return 1
@@ -1697,7 +1697,7 @@ this moment.
     main "${@}"
 
 
-<a id="orgd5e1728"></a>
+<a id="orged4ebb6"></a>
 
 ## Virtual Desktop Bar (KDE)
 
@@ -1757,7 +1757,7 @@ A crontab entry as root can be added to automate periodic builds.
     main
 
 
-<a id="org4f8f25f"></a>
+<a id="org9c607a9"></a>
 
 # VSCodium
 
@@ -1769,7 +1769,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org2c3c650"></a>
+<a id="orga4dcc41"></a>
 
 ## Settings
 
@@ -1973,7 +1973,7 @@ mature as Emacs.
     }
 
 
-<a id="orgbff3e0e"></a>
+<a id="org974d799"></a>
 
 ## Keybindings
 
@@ -2049,12 +2049,12 @@ mature as Emacs.
     ]
 
 
-<a id="orgf052c84"></a>
+<a id="orgffcbc39"></a>
 
 # ZSH
 
 
-<a id="orgc42b027"></a>
+<a id="org4833e99"></a>
 
 ## Oh-my-zsh stuff
 
@@ -2089,12 +2089,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="orgc3fe6fe"></a>
+<a id="org0ef6ca3"></a>
 
 ## Functions
 
 
-<a id="org9eee0c8"></a>
+<a id="org9fe8504"></a>
 
 ### Weather
 
@@ -2106,7 +2106,7 @@ unless specified otherwise.
     }
 
 
-<a id="org59d0f92"></a>
+<a id="org1810257"></a>
 
 ## Variables
 
