@@ -1,41 +1,43 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgdf4c5e1)
-2.  [Awesome](#orgfe34457)
-    1.  [rc.lua](#org5802bb8)
-    2.  [Themes](#org0f322eb)
-        1.  [Default](#org766e5c1)
-3.  [Compton](#org3654349)
-4.  [Desktop](#org11714ed)
-    1.  [Deezer](#org19d9a2e)
-    2.  [Riot](#orgd165ab5)
-    3.  [Saavn](#orgf2d0138)
-    4.  [Wire](#org4c19632)
-5.  [Emacs](#orge280fa7)
-6.  [Firefox](#orgd2336de)
-    1.  [Profiles](#org2725b21)
-    2.  [Policies](#org72bed61)
-    3.  [UserJS](#org29ef671)
-        1.  [General](#org3ea5cac)
-        2.  [Themes](#orgcd3e8e5)
-    4.  [Setup](#orge2c4ef3)
-7.  [VSCodium](#org63cf9ed)
-    1.  [Settings](#orgf2b3283)
-    2.  [Keybindings](#org55f3a54)
-8.  [Ungoogled Chromium](#orgb53050c)
-    1.  [Environment Variables](#org5d800a6)
-    2.  [Extension Updater](#org00ad4ce)
-    3.  [Flags](#org85a8a33)
-9.  [ZSH](#org2b2bb4b)
-    1.  [Oh-my-zsh stuff](#orgff8b92d)
-    2.  [Functions](#org4f36b18)
-        1.  [Weather](#org7ed8ed6)
-    3.  [Variables](#orgc12adf2)
+1.  [Bootstrap](#org7465dd1)
+2.  [Awesome](#org2eac92a)
+    1.  [rc.lua](#orgabebdef)
+    2.  [Themes](#org9d7e550)
+        1.  [Default](#org937cd1c)
+3.  [Compton](#org1fff938)
+4.  [Desktop](#org0b13ec5)
+    1.  [Deezer](#org1a9f94a)
+    2.  [Riot](#orgda52907)
+    3.  [Saavn](#orgfa90c30)
+    4.  [Wire](#org6ee0b4c)
+5.  [Emacs](#org03294a4)
+6.  [Firefox](#orge9dab23)
+    1.  [Profiles](#orgeb9c4ab)
+    2.  [Policies](#orgada2516)
+    3.  [UserJS](#orgda26f38)
+        1.  [General](#org8097f63)
+        2.  [Themes](#orgdab7f19)
+    4.  [Setup](#org178d970)
+7.  [Thunderbird](#orgcb848bf)
+    1.  [Profiles](#orgf297554)
+8.  [Ungoogled Chromium](#orgc5f03be)
+    1.  [Environment Variables](#orgfe87acb)
+    2.  [Extension Updater](#org47b78cd)
+    3.  [Flags](#org542b9ae)
+9.  [VSCodium](#org2456ce6)
+    1.  [Settings](#orge42cf35)
+    2.  [Keybindings](#org353f62a)
+10. [ZSH](#orgcc84e84)
+    1.  [Oh-my-zsh stuff](#org6923036)
+    2.  [Functions](#org983d2fd)
+        1.  [Weather](#orgb37ce9a)
+    3.  [Variables](#org33eceaf)
 
 
 
-<a id="orgdf4c5e1"></a>
+<a id="org7465dd1"></a>
 
 # Bootstrap
 
@@ -222,12 +224,12 @@
     main "${@}"
 
 
-<a id="orgfe34457"></a>
+<a id="org2eac92a"></a>
 
 # Awesome
 
 
-<a id="org5802bb8"></a>
+<a id="orgabebdef"></a>
 
 ## rc.lua
 
@@ -800,12 +802,12 @@
     -- }}}
 
 
-<a id="org0f322eb"></a>
+<a id="org9d7e550"></a>
 
 ## Themes
 
 
-<a id="org766e5c1"></a>
+<a id="org937cd1c"></a>
 
 ### Default
 
@@ -942,7 +944,7 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org3654349"></a>
+<a id="org1fff938"></a>
 
 # Compton
 
@@ -1043,12 +1045,12 @@
     transition-length = 150;
 
 
-<a id="org11714ed"></a>
+<a id="org0b13ec5"></a>
 
 # Desktop
 
 
-<a id="org19d9a2e"></a>
+<a id="org1a9f94a"></a>
 
 ## Deezer
 
@@ -1065,7 +1067,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgd165ab5"></a>
+<a id="orgda52907"></a>
 
 ## Riot
 
@@ -1080,7 +1082,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orgf2d0138"></a>
+<a id="orgfa90c30"></a>
 
 ## Saavn
 
@@ -1097,7 +1099,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org4c19632"></a>
+<a id="org6ee0b4c"></a>
 
 ## Wire
 
@@ -1116,7 +1118,7 @@
     Version=1.1
 
 
-<a id="orge280fa7"></a>
+<a id="org03294a4"></a>
 
 # Emacs
 
@@ -1134,12 +1136,12 @@ configuration elsewhere.
                        user-emacs-directory))
 
 
-<a id="orgd2336de"></a>
+<a id="orge9dab23"></a>
 
 # Firefox
 
 
-<a id="org2725b21"></a>
+<a id="orgeb9c4ab"></a>
 
 ## Profiles
 
@@ -1196,7 +1198,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org72bed61"></a>
+<a id="orgada2516"></a>
 
 ## Policies
 
@@ -1272,12 +1274,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org29ef671"></a>
+<a id="orgda26f38"></a>
 
 ## UserJS
 
 
-<a id="org3ea5cac"></a>
+<a id="org8097f63"></a>
 
 ### General
 
@@ -1331,7 +1333,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgcd3e8e5"></a>
+<a id="orgdab7f19"></a>
 
 ### Themes
 
@@ -1367,7 +1369,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orge2c4ef3"></a>
+<a id="org178d970"></a>
 
 ## Setup
 
@@ -1500,7 +1502,166 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="org63cf9ed"></a>
+<a id="orgcb848bf"></a>
+
+# Thunderbird
+
+
+<a id="orgf297554"></a>
+
+## Profiles
+
+This reads the same as the profiles section of Firefox.
+
+    [General]
+    StartWithLastProfile=1
+    
+    [Profile0]
+    Name=Primary
+    IsRelative=1
+    Path=../../.config/thunderbird/primary
+    Default=1
+
+
+<a id="orgc5f03be"></a>
+
+# Ungoogled Chromium
+
+
+<a id="orgfe87acb"></a>
+
+## Environment Variables
+
+From Debian bug tracker:
+
+> As can be seen in the upstream discussion, this happens whenever mesa
+> drivers are used since threads are used in their GLSL shader
+> implementation.  This does have a consequence, chromium's GPU driver
+> will not be sandboxed.  You can see this in about:gpu.
+> 
+> Also seen upstream, it should be possible to work around the problem
+> by setting MESA<sub>GLSL</sub><sub>CACHE</sub><sub>DISABLE</sub>=true.
+> 
+> Best wishes,
+> Mike
+
+    MESA_GLSL_CACHE_DISABLE=true
+
+
+<a id="org47b78cd"></a>
+
+## Extension Updater
+
+-   `USER_DATA_DIR` is your data directory for Chromium.
+    Normally, it is $HOME/.config/chromium. However since I
+    sync my chromium profiles using Nextcloud and only use it
+    for web applications; I like to keep it separated from the
+    default installation.
+-   `EXT_DIR` is the directory where extensions are stored.
+-   `EXTID_LIST` is the list of all extensions you have
+    installed currently. The list is fetched from the data
+    directory, excluding the *Temp* directory.
+-   `CHROMIUM_VERSION` fetches the major version of chromium
+    that is installed.
+
+For this function to work, you must set
+`chrome://flags/#extension-mime-request-handling` to *Always
+prompt for install* for automatic prompts. A truly
+unattended way of updating extensions is not possible at
+this moment.
+
+    #!/usr/bin/env bash
+    
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    USER_DATA_DIR="${HOME}/.config/chromium/Apps"
+    EXT_DIR="${USER_DATA_DIR}/Default/Extensions"
+    EXTID_LIST=$(ls -1 "${EXT_DIR}" | grep -v Temp)
+    CHROMIUM_VERSION=$($(command -v chromium) --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
+    
+    printDetails() {
+        echo -e "Your Chromium version is ${CHROMIUM_VERSION}.\nYour profile is located at ${USER_DATA_DIR}."
+    }
+    
+    checkForUpdate() {
+        if [[ "${1}" -gt "${2}" ]]; then
+            return 0
+        else
+            return 1
+        fi
+    }
+    
+    installExtension() {
+        $(command -v chromium) --user-data-dir="${USER_DATA_DIR}" "${1}"
+    }
+    
+    main() {
+        printDetails
+    
+        for extID in ${EXTID_LIST}; do
+            UPDATE_URL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROMIUM_VERSION}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
+    
+            if [[ -n $(ls -1 "${EXT_DIR}/${extID}") ]]; then
+                oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | tail -1 | sed 's/\.//g; s/\_//g')
+                newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g; s/\.crx//g; s/\.//g; s/\_//g')
+    
+                if checkForUpdate "${newVersion}" "${oldVersion}"; then
+                    installExtension "${UPDATE_URL}"
+                fi
+            else
+                installExtension "${UPDATE_URL}"
+            fi
+        done
+    }
+    
+    main "${@}"
+
+
+<a id="org542b9ae"></a>
+
+## Flags
+
+A better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
+
+    # Disable workarounds for various GPU driver bugs.
+    # --disable-gpu-driver-bug-workarounds
+    # Enable hardware acceleration
+    --enable-accelerated-mjpeg-decode
+    --enable-accelerated-video
+    --enable-gpu-rasterization
+    --enable-native-gpu-memory-buffers
+    --enable-zero-copy
+    --ignore-gpu-blacklist
+    # Disables the crash reporting.
+    --disable-breakpad
+    # Disables cloud backup feature.
+    --disable-cloud-import
+    # Disables installation of default apps on first run. This is used during automated testing.
+    --disable-default-apps
+    # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
+    --disable-ntp-most-likely-favicons-from-server
+    # Disables showing popular sites on the NTP.
+    --disable-ntp-popular-sites
+    # Disable auto-reload of error pages if offline.
+    --disable-offline-auto-reload
+    # Disables sign-in promo.
+    --disable-signin-promo
+    # The "disable" flag for kEnableSingleClickAutofill.
+    --disable-single-click-autofill
+    # Disables syncing browser data to a Google Account.
+    --disable-sync
+    # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+    --no-default-browser-check
+    # Don't send hyperlink auditing pings.
+    --no-pings
+    # Enable Dark Mode
+    --force-dark-mode
+    --enable-features=WebUIDarkMode
+
+
+<a id="org2456ce6"></a>
 
 # VSCodium
 
@@ -1512,7 +1673,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="orgf2b3283"></a>
+<a id="orge42cf35"></a>
 
 ## Settings
 
@@ -1716,7 +1877,7 @@ mature as Emacs.
     }
 
 
-<a id="org55f3a54"></a>
+<a id="org353f62a"></a>
 
 ## Keybindings
 
@@ -1792,145 +1953,12 @@ mature as Emacs.
     ]
 
 
-<a id="orgb53050c"></a>
-
-# Ungoogled Chromium
-
-
-<a id="org5d800a6"></a>
-
-## Environment Variables
-
-From Debian bug tracker:
-
-> As can be seen in the upstream discussion, this happens whenever mesa
-> drivers are used since threads are used in their GLSL shader
-> implementation.  This does have a consequence, chromium's GPU driver
-> will not be sandboxed.  You can see this in about:gpu.
-> 
-> Also seen upstream, it should be possible to work around the problem
-> by setting MESA<sub>GLSL</sub><sub>CACHE</sub><sub>DISABLE</sub>=true.
-> 
-> Best wishes,
-> Mike
-
-    MESA_GLSL_CACHE_DISABLE=true
-
-
-<a id="org00ad4ce"></a>
-
-## Extension Updater
-
--   `userDataDir` is your data directory for Chromium.
-    Normally, it is $HOME/.config/chromium. However since I
-    sync my chromium profiles using Nextcloud and only use it
-    for web applications; I like to keep it separated from the
-    default installation.
--   `extIDList` is the list of all extensions you have
-    installed currently. The list is fetched from the data
-    directory.
-
-For this function to work, you must set
-`chrome://flags/#extension-mime-request-handling` to *Always
-prompt for install* for automatic installation.
-
-    #!/usr/bin/env bash
-    
-    # import sanity
-    set -euo pipefail
-    
-    # global declarations
-    USER_DATA_DIR="${HOME}/.config/chromium/Apps"
-    EXT_DIR="${USER_DATA_DIR}/Default/Extensions"
-    EXTID_LIST=$(ls -1 "${EXT_DIR}" | grep -v Temp)
-    CHROMIUM_VERSION=$($(command -v chromium) --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
-    
-    printDetails() {
-        echo -e "Your Chromium version is ${CHROMIUM_VERSION}.\nYour profile is located at ${USER_DATA_DIR}."
-    }
-    
-    checkForUpdate() {
-        if [[ "${1}" -gt "${2}" ]]; then
-            return 0
-        else
-            return 1
-        fi
-    }
-    
-    installExtension() {
-        $(command -v chromium) --user-data-dir="${USER_DATA_DIR}" "${1}"
-    }
-    
-    main() {
-        printDetails
-    
-        for extID in ${EXTID_LIST}; do
-            UPDATE_URL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROMIUM_VERSION}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
-    
-            if [[ -n $(ls -1 "${EXT_DIR}/${extID}") ]]; then
-                oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | tail -1 | sed 's/\.//g; s/\_//g')
-                newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g; s/\.crx//g; s/\.//g; s/\_//g')
-    
-                if checkForUpdate "${newVersion}" "${oldVersion}"; then
-                    installExtension "${UPDATE_URL}"
-                fi
-            else
-                installExtension "${UPDATE_URL}"
-            fi
-        done
-    }
-    
-    main "${@}"
-
-
-<a id="org85a8a33"></a>
-
-## Flags
-
-A better explanation can be found [here](https://peter.sh/experiments/chromium-command-line-switches/).
-
-    # Disable workarounds for various GPU driver bugs.
-    # --disable-gpu-driver-bug-workarounds
-    # Enable hardware acceleration
-    --enable-accelerated-mjpeg-decode
-    --enable-accelerated-video
-    --enable-gpu-rasterization
-    --enable-native-gpu-memory-buffers
-    --enable-zero-copy
-    --ignore-gpu-blacklist
-    # Disables the crash reporting.
-    --disable-breakpad
-    # Disables cloud backup feature.
-    --disable-cloud-import
-    # Disables installation of default apps on first run. This is used during automated testing.
-    --disable-default-apps
-    # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
-    --disable-ntp-most-likely-favicons-from-server
-    # Disables showing popular sites on the NTP.
-    --disable-ntp-popular-sites
-    # Disable auto-reload of error pages if offline.
-    --disable-offline-auto-reload
-    # Disables sign-in promo.
-    --disable-signin-promo
-    # The "disable" flag for kEnableSingleClickAutofill.
-    --disable-single-click-autofill
-    # Disables syncing browser data to a Google Account.
-    --disable-sync
-    # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
-    --no-default-browser-check
-    # Don't send hyperlink auditing pings.
-    --no-pings
-    # Enable Dark Mode
-    --force-dark-mode
-    --enable-features=WebUIDarkMode
-
-
-<a id="org2b2bb4b"></a>
+<a id="orgcc84e84"></a>
 
 # ZSH
 
 
-<a id="orgff8b92d"></a>
+<a id="org6923036"></a>
 
 ## Oh-my-zsh stuff
 
@@ -1965,12 +1993,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org4f36b18"></a>
+<a id="org983d2fd"></a>
 
 ## Functions
 
 
-<a id="org7ed8ed6"></a>
+<a id="orgb37ce9a"></a>
 
 ### Weather
 
@@ -1982,7 +2010,7 @@ unless specified otherwise.
     }
 
 
-<a id="orgc12adf2"></a>
+<a id="org33eceaf"></a>
 
 ## Variables
 

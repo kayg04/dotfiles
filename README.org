@@ -1398,6 +1398,143 @@ builds upon the GHacksUserJS.
       echo "Firefox is setup and started. Have a good day!"
   }
 #+END_SRC
+* Thunderbird
+** Profiles
+This reads the same as the profiles section of Firefox.
+#+BEGIN_SRC ini :tangle .thunderbird/profiles.ini
+  [General]
+  StartWithLastProfile=1
+
+  [Profile0]
+  Name=Primary
+  IsRelative=1
+  Path=../../.config/thunderbird/primary
+  Default=1
+#+END_SRC
+* Ungoogled Chromium
+** Environment Variables
+From Debian bug tracker:
+#+begin_quote
+As can be seen in the upstream discussion, this happens whenever mesa
+drivers are used since threads are used in their GLSL shader
+implementation.  This does have a consequence, chromium's GPU driver
+will not be sandboxed.  You can see this in about:gpu.
+
+Also seen upstream, it should be possible to work around the problem
+by setting MESA_GLSL_CACHE_DISABLE=true.
+
+Best wishes,
+Mike
+#+end_quote
+
+#+BEGIN_SRC text
+  MESA_GLSL_CACHE_DISABLE=true
+#+END_SRC
+** Extension Updater
+- =USER_DATA_DIR= is your data directory for Chromium.
+  Normally, it is $HOME/.config/chromium. However since I
+  sync my chromium profiles using Nextcloud and only use it
+  for web applications; I like to keep it separated from the
+  default installation.
+- =EXT_DIR= is the directory where extensions are stored.
+- =EXTID_LIST= is the list of all extensions you have
+  installed currently. The list is fetched from the data
+  directory, excluding the /Temp/ directory.
+- =CHROMIUM_VERSION= fetches the major version of chromium
+  that is installed.
+
+For this function to work, you must set
+=chrome://flags/#extension-mime-request-handling= to /Always
+prompt for install/ for automatic prompts. A truly
+unattended way of updating extensions is not possible at
+this moment.
+#+BEGIN_SRC sh :tangle ceu
+  #!/usr/bin/env bash
+
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  USER_DATA_DIR="${HOME}/.config/chromium/Apps"
+  EXT_DIR="${USER_DATA_DIR}/Default/Extensions"
+  EXTID_LIST=$(ls -1 "${EXT_DIR}" | grep -v Temp)
+  CHROMIUM_VERSION=$($(command -v chromium) --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
+
+  printDetails() {
+      echo -e "Your Chromium version is ${CHROMIUM_VERSION}.\nYour profile is located at ${USER_DATA_DIR}."
+  }
+
+  checkForUpdate() {
+      if [[ "${1}" -gt "${2}" ]]; then
+          return 0
+      else
+          return 1
+      fi
+  }
+
+  installExtension() {
+      $(command -v chromium) --user-data-dir="${USER_DATA_DIR}" "${1}"
+  }
+
+  main() {
+      printDetails
+
+      for extID in ${EXTID_LIST}; do
+          UPDATE_URL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROMIUM_VERSION}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
+
+          if [[ -n $(ls -1 "${EXT_DIR}/${extID}") ]]; then
+              oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | tail -1 | sed 's/\.//g; s/\_//g')
+              newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g; s/\.crx//g; s/\.//g; s/\_//g')
+
+              if checkForUpdate "${newVersion}" "${oldVersion}"; then
+                  installExtension "${UPDATE_URL}"
+              fi
+          else
+              installExtension "${UPDATE_URL}"
+          fi
+      done
+  }
+
+  main "${@}"
+#+END_SRC
+** Flags
+A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
+#+BEGIN_SRC conf :tangle chromium/.config/chromium-flags.conf
+  # Disable workarounds for various GPU driver bugs.
+  # --disable-gpu-driver-bug-workarounds
+  # Enable hardware acceleration
+  --enable-accelerated-mjpeg-decode
+  --enable-accelerated-video
+  --enable-gpu-rasterization
+  --enable-native-gpu-memory-buffers
+  --enable-zero-copy
+  --ignore-gpu-blacklist
+  # Disables the crash reporting.
+  --disable-breakpad
+  # Disables cloud backup feature.
+  --disable-cloud-import
+  # Disables installation of default apps on first run. This is used during automated testing.
+  --disable-default-apps
+  # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
+  --disable-ntp-most-likely-favicons-from-server
+  # Disables showing popular sites on the NTP.
+  --disable-ntp-popular-sites
+  # Disable auto-reload of error pages if offline.
+  --disable-offline-auto-reload
+  # Disables sign-in promo.
+  --disable-signin-promo
+  # The "disable" flag for kEnableSingleClickAutofill.
+  --disable-single-click-autofill
+  # Disables syncing browser data to a Google Account.
+  --disable-sync
+  # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+  --no-default-browser-check
+  # Don't send hyperlink auditing pings.
+  --no-pings
+  # Enable Dark Mode
+  --force-dark-mode
+  --enable-features=WebUIDarkMode
+#+END_SRC
 * VSCodium
 I tried VSCodium for a brief period of time but the fact
 that a completely keyboard driven workflow cannot be
@@ -1678,125 +1815,6 @@ mature as Emacs.
           "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
       }
   ]
-#+END_SRC
-* Ungoogled Chromium
-** Environment Variables
-From Debian bug tracker:
-#+begin_quote
-As can be seen in the upstream discussion, this happens whenever mesa
-drivers are used since threads are used in their GLSL shader
-implementation.  This does have a consequence, chromium's GPU driver
-will not be sandboxed.  You can see this in about:gpu.
-
-Also seen upstream, it should be possible to work around the problem
-by setting MESA_GLSL_CACHE_DISABLE=true.
-
-Best wishes,
-Mike
-#+end_quote
-
-#+BEGIN_SRC text
-  MESA_GLSL_CACHE_DISABLE=true
-#+END_SRC
-** Extension Updater
-- =userDataDir= is your data directory for Chromium.
-  Normally, it is $HOME/.config/chromium. However since I
-  sync my chromium profiles using Nextcloud and only use it
-  for web applications; I like to keep it separated from the
-  default installation.
-- =extIDList= is the list of all extensions you have
-  installed currently. The list is fetched from the data
-  directory.
-
-For this function to work, you must set
-=chrome://flags/#extension-mime-request-handling= to /Always
-prompt for install/ for automatic installation.
-#+BEGIN_SRC sh :tangle ceu
-  #!/usr/bin/env bash
-
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  USER_DATA_DIR="${HOME}/.config/chromium/Apps"
-  EXT_DIR="${USER_DATA_DIR}/Default/Extensions"
-  EXTID_LIST=$(ls -1 "${EXT_DIR}" | grep -v Temp)
-  CHROMIUM_VERSION=$($(command -v chromium) --version | grep -o '\s[0-9][0-9]\.[0-9]' | tr -d ' ')
-
-  printDetails() {
-      echo -e "Your Chromium version is ${CHROMIUM_VERSION}.\nYour profile is located at ${USER_DATA_DIR}."
-  }
-
-  checkForUpdate() {
-      if [[ "${1}" -gt "${2}" ]]; then
-          return 0
-      else
-          return 1
-      fi
-  }
-
-  installExtension() {
-      $(command -v chromium) --user-data-dir="${USER_DATA_DIR}" "${1}"
-  }
-
-  main() {
-      printDetails
-
-      for extID in ${EXTID_LIST}; do
-          UPDATE_URL="https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROMIUM_VERSION}&x=id%3D${extID}%26installsource%3Dondemand%26uc"
-
-          if [[ -n $(ls -1 "${EXT_DIR}/${extID}") ]]; then
-              oldVersion=$(ls -1 "${EXT_DIR}/${extID}" | tail -1 | sed 's/\.//g; s/\_//g')
-              newVersion=$(curl -s "${UPDATE_URL}" | grep --only extension_[0-9]*_[0-9]*_[0-9]*.*.crx | sed -e 's/extension_//g; s/\.crx//g; s/\.//g; s/\_//g')
-
-              if checkForUpdate "${newVersion}" "${oldVersion}"; then
-                  installExtension "${UPDATE_URL}"
-              fi
-          else
-              installExtension "${UPDATE_URL}"
-          fi
-      done
-  }
-
-  main "${@}"
-#+END_SRC
-** Flags
-A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
-#+BEGIN_SRC conf :tangle chromium/.config/chromium-flags.conf
-  # Disable workarounds for various GPU driver bugs.
-  # --disable-gpu-driver-bug-workarounds
-  # Enable hardware acceleration
-  --enable-accelerated-mjpeg-decode
-  --enable-accelerated-video
-  --enable-gpu-rasterization
-  --enable-native-gpu-memory-buffers
-  --enable-zero-copy
-  --ignore-gpu-blacklist
-  # Disables the crash reporting.
-  --disable-breakpad
-  # Disables cloud backup feature.
-  --disable-cloud-import
-  # Disables installation of default apps on first run. This is used during automated testing.
-  --disable-default-apps
-  # Disables the new Google favicon server for fetching favicons for Most Likely tiles on the New Tab Page.
-  --disable-ntp-most-likely-favicons-from-server
-  # Disables showing popular sites on the NTP.
-  --disable-ntp-popular-sites
-  # Disable auto-reload of error pages if offline.
-  --disable-offline-auto-reload
-  # Disables sign-in promo.
-  --disable-signin-promo
-  # The "disable" flag for kEnableSingleClickAutofill.
-  --disable-single-click-autofill
-  # Disables syncing browser data to a Google Account.
-  --disable-sync
-  # Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
-  --no-default-browser-check
-  # Don't send hyperlink auditing pings.
-  --no-pings
-  # Enable Dark Mode
-  --force-dark-mode
-  --enable-features=WebUIDarkMode
 #+END_SRC
 * ZSH
 ** Oh-my-zsh stuff
