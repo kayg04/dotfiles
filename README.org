@@ -1573,6 +1573,8 @@ this moment.
 - =buildTarget= executes a list of commands as mentioned on
   the github page for building the widget.
 - Lastly, =cleanUp= removes the downloaded source.
+
+A crontab entry as root can be added to automate periodic builds.
 #+BEGIN_SRC sh :tangle .local/bin/vdb :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
