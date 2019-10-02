@@ -1463,7 +1463,7 @@ Mike
 #+END_SRC
 ** Flags
 A better explanation can be found [[https://peter.sh/experiments/chromium-command-line-switches/][here]].
-#+BEGIN_SRC conf :tangle chromium/.config/chromium-flags.conf
+#+BEGIN_SRC conf :tangle .config/chromium-flags.conf
   # Disable workarounds for various GPU driver bugs.
   # --disable-gpu-driver-bug-workarounds
   # Enable hardware acceleration
