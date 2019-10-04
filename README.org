@@ -1,6 +1,6 @@
 #+TITLE: README
 #+AUTHOR: K Gopal Krishna
-#+PROPERTY: header-args :cache on :mkdirp yes
+#+PROPERTY: header-args :cache yes :mkdirp yes
 
 * Bootstrap
 #+BEGIN_SRC sh :tangle dot :shebang "#!/usr/bin/env bash"
@@ -1459,6 +1459,7 @@ builds upon the GHacksUserJS.
 ** Environment
 #+BEGIN_SRC sh :tangle .config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
   export SSH_ASKPASS="$(command -v ksshaskpass)"
+  export GIT_ASKPASS="$(command -v ksshaskpass)"
 #+END_SRC
 * Thunderbird
 ** Profiles
