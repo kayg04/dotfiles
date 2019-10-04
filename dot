@@ -208,6 +208,10 @@ addToPath() {
     ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
 }
 
+refresh() {
+    git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
+}
+
 main() {
     case "${1}" in
         "setup")
@@ -218,6 +222,9 @@ main() {
             ;;
         "set")
             addToPath
+            ;;
+        "refresh")
+            refresh
             ;;
         *)
             echo -e "Invalid option."
