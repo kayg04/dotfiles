@@ -27,6 +27,9 @@ update() {
         "plasma")
             updatePlasma
             ;;
+        "systemd")
+            updateSystemd
+            ;;
         "thunderbird")
             updateThunderbird
             ;;
@@ -73,6 +76,14 @@ updateFirefox() {
 updatePlasma() {
     ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
     ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
+}
+
+updateSystemd() {
+    ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
+
+    for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
+        systemctl --user enable --now "${service}"
+    done
 }
 
 updateThunderbird() {
@@ -122,6 +133,9 @@ setup() {
             ;;
         "plasma")
             setupPlasma
+            ;;
+        "systemd")
+            setupSystemd
             ;;
         "thunderbird")
             setupThunderbird
@@ -174,6 +188,10 @@ setupFirefox() {
 
 setupPlasma() {
     updatePlasma
+}
+
+setupSystemd() {
+    mkdir -p "${HOME}/.config/systemd/user"
 }
 
 setupThunderbird() {

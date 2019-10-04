@@ -32,6 +32,9 @@
           "plasma")
               updatePlasma
               ;;
+          "systemd")
+              updateSystemd
+              ;;
           "thunderbird")
               updateThunderbird
               ;;
@@ -78,6 +81,14 @@
   updatePlasma() {
       ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
       ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
+  }
+
+  updateSystemd() {
+      ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
+
+      for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
+          systemctl --user enable --now "${service}"
+      done
   }
 
   updateThunderbird() {
@@ -127,6 +138,9 @@
               ;;
           "plasma")
               setupPlasma
+              ;;
+          "systemd")
+              setupSystemd
               ;;
           "thunderbird")
               setupThunderbird
@@ -179,6 +193,10 @@
 
   setupPlasma() {
       updatePlasma
+  }
+
+  setupSystemd() {
+      mkdir -p "${HOME}/.config/systemd/user"
   }
 
   setupThunderbird() {
@@ -1467,6 +1485,20 @@ builds upon the GHacksUserJS.
 #+BEGIN_SRC sh :tangle .config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
   export SSH_ASKPASS="$(command -v ksshaskpass)"
   export GIT_ASKPASS="$(command -v ksshaskpass)"
+#+END_SRC
+* Systemd
+** SSH Agent
+#+BEGIN_SRC conf :tangle .config/systemd/user/ssh-agent.service
+  [Unit]
+  Description=SSH key agent
+
+  [Service]
+  Type=simple
+  Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+  ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+  [Install]
+  WantedBy=default.target
 #+END_SRC
 * Thunderbird
 ** Profiles
