@@ -24,6 +24,9 @@ update() {
         "firefox")
             updateFirefox
             ;;
+        "plasma")
+            updatePlasma
+            ;;
         "thunderbird")
             updateThunderbird
             ;;
@@ -65,6 +68,11 @@ updateFirefox() {
     updateUserJS
     applyUserJS
     cleanUp
+}
+
+updatePlasma() {
+    ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
+    ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
 }
 
 updateThunderbird() {
@@ -111,6 +119,9 @@ setup() {
             ;;
         "firefox")
             setupFirefox
+            ;;
+        "plasma")
+            setupPlasma
             ;;
         "thunderbird")
             setupThunderbird
@@ -159,6 +170,10 @@ setupFirefox() {
     applyUserJS
     cleanUp
     startFirefox
+}
+
+setupPlasma() {
+    updatePlasma
 }
 
 setupThunderbird() {

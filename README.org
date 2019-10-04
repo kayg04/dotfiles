@@ -29,6 +29,9 @@
           "firefox")
               updateFirefox
               ;;
+          "plasma")
+              updatePlasma
+              ;;
           "thunderbird")
               updateThunderbird
               ;;
@@ -70,6 +73,11 @@
       updateUserJS
       applyUserJS
       cleanUp
+  }
+
+  updatePlasma() {
+      ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
+      ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
   }
 
   updateThunderbird() {
@@ -116,6 +124,9 @@
               ;;
           "firefox")
               setupFirefox
+              ;;
+          "plasma")
+              setupPlasma
               ;;
           "thunderbird")
               setupThunderbird
@@ -164,6 +175,10 @@
       applyUserJS
       cleanUp
       startFirefox
+  }
+
+  setupPlasma() {
+      updatePlasma
   }
 
   setupThunderbird() {
@@ -923,6 +938,17 @@
 
   -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 #+END_SRC
+* Autostart
+** Scripts
+*** SSH
+#+BEGIN_SRC sh :tangle .config/autostart-scripts/ssh-add.sh :shebang "#!/usr/bin/env bash"
+  # Enable extended globbing
+  shopt -s extglob dotglob nullglob
+
+  # Add all files in $HOME/.ssh/keys that do not end
+  # with .pub
+  ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
+#+END_SRC
 * Compton
 #+BEGIN_SRC conf :tangle .config/compton/compton.conf
   # Shadow
@@ -1428,6 +1454,11 @@ builds upon the GHacksUserJS.
 
       echo "Firefox is setup and started. Have a good day!"
   }
+#+END_SRC
+* Plasma
+** Environment
+#+BEGIN_SRC sh :tangle .config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
+  export SSH_ASKPASS="$(command -v ksshaskpass)"
 #+END_SRC
 * Thunderbird
 ** Profiles
