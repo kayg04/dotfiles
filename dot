@@ -76,6 +76,7 @@ updateFirefox() {
 updatePlasma() {
     ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
     ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
+    ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
 }
 
 updateSystemd() {

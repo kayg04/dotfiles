@@ -81,6 +81,7 @@
   updatePlasma() {
       ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
       ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
+      ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
   }
 
   updateSystemd() {
@@ -1485,6 +1486,10 @@ builds upon the GHacksUserJS.
 #+BEGIN_SRC sh :tangle .config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
   export SSH_ASKPASS="$(command -v ksshaskpass)"
   export GIT_ASKPASS="$(command -v ksshaskpass)"
+#+END_SRC
+** PAM
+#+BEGIN_SRC conf :tangle .pam_environment
+  SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 #+END_SRC
 * Systemd
 ** SSH Agent
