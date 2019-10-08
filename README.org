@@ -1075,39 +1075,53 @@
 #+END_SRC
 * Desktop
 ** Deezer
-#+BEGIN_SRC conf :tangle .local/share/applications/deezer.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/deezer.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
   Name=Deezer
   StartupNotify=true
-  Icon=deezer
+  Icon=${HOME}/Pictures/Icons/deezer.svg
   Comment=Deezer audio streaming service
-  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.deezer.com/
+  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://www.deezer.com/
   Terminal=false
   Type=Application
   MimeType=x-scheme-handler/deezer;
   StartupWMClass=deezer
   Categories=Audio;Music;Player;AudioVideo;
 #+END_SRC
+** Invidious
+#+BEGIN_SRC conf :tangle .local/share/applications/invidious.desktop :shebang "#!/usr/bin/env xdg-open"
+  [Desktop Entry]
+  Name=Invidious
+  StartupNotify=true
+  Icon=${HOME}/Pictures/Icons/youtube.png
+  Comment=Most popular video streaming platform
+  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://tube.kayg.org/
+  Terminal=false
+  Type=Application
+  MimeType=x-scheme-handler/youtube;
+  StartupWMClass=invidious
+  Categories=Audio;Music;Player;AudioVideo;
+#+END_SRC
 ** Riot
-#+BEGIN_SRC conf :tangle .local/share/applications/riot.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/riot.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
   Name=Riot
   Comment=A feature-rich client for Matrix.org
-  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://riot.im/app/
+  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://riot.im/app/
   Terminal=false
   Type=Application
-  Icon=riot
+  Icon=${HOME}/Pictures/Icons/riot.png
   StartupWMClass="Riot"
   Categories=Network;InstantMessaging;Chat;IRCClient
 #+END_SRC
 ** Saavn
-#+BEGIN_SRC conf :tangle .local/share/applications/saavn.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/saavn.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
   Name=Saavn
   StartupNotify=true
-  Icon=saavn
+  Icon=${HOME}/Pictures/Icons/jiosaavn.png
   Comment=Saavn audio streaming service
-  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.jiosaavn.com/
+  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://www.jiosaavn.com/
   Terminal=false
   Type=Application
   MimeType=x-scheme-handler/saavn;
@@ -1115,14 +1129,14 @@
   Categories=Audio;Music;Player;AudioVideo;
 #+END_SRC
 ** Wire
-#+BEGIN_SRC conf :tangle .local/share/applications/wire.desktop
+#+BEGIN_SRC conf :tangle .local/share/applications/wire.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
   Name=Wire
   Comment=The most secure collaboration platform.
   Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://app.wire.com
   Terminal=false
   Type=Application
-  Icon=wire-desktop
+  Icon=${HOME}/Pictures/Icons/wire.png
   StartupWMClass=Wire
   Categories=Network;
   GenericName=Secure messenger

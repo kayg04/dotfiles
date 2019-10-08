@@ -1,9 +1,10 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Saavn
 StartupNotify=true
-Icon=saavn
+Icon=${HOME}/Pictures/Icons/jiosaavn.png
 Comment=Saavn audio streaming service
-Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://www.jiosaavn.com/
+Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://www.jiosaavn.com/
 Terminal=false
 Type=Application
 MimeType=x-scheme-handler/saavn;

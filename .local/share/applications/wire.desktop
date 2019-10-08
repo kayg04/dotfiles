@@ -1,10 +1,11 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Wire
 Comment=The most secure collaboration platform.
 Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://app.wire.com
 Terminal=false
 Type=Application
-Icon=wire-desktop
+Icon=${HOME}/Pictures/Icons/wire.png
 StartupWMClass=Wire
 Categories=Network;
 GenericName=Secure messenger
