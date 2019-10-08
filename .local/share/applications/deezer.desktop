@@ -2,7 +2,7 @@
 [Desktop Entry]
 Name=Deezer
 StartupNotify=true
-Icon=${HOME}/Pictures/Icons/deezer.svg
+Icon=/home/kayg/Pictures/Icons/deezer.svg
 Comment=Deezer audio streaming service
 Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://www.deezer.com/
 Terminal=false

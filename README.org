@@ -1079,7 +1079,7 @@
   [Desktop Entry]
   Name=Deezer
   StartupNotify=true
-  Icon=${HOME}/Pictures/Icons/deezer.svg
+  Icon=/home/kayg/Pictures/Icons/deezer.svg
   Comment=Deezer audio streaming service
   Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://www.deezer.com/
   Terminal=false
@@ -1093,7 +1093,7 @@
   [Desktop Entry]
   Name=Invidious
   StartupNotify=true
-  Icon=${HOME}/Pictures/Icons/youtube.png
+  Icon=/home/kayg/Pictures/Icons/youtube.png
   Comment=Most popular video streaming platform
   Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://tube.kayg.org/
   Terminal=false
@@ -1110,7 +1110,7 @@
   Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://riot.im/app/
   Terminal=false
   Type=Application
-  Icon=${HOME}/Pictures/Icons/riot.png
+  Icon=/home/kayg/Pictures/Icons/riot.png
   StartupWMClass="Riot"
   Categories=Network;InstantMessaging;Chat;IRCClient
 #+END_SRC
@@ -1119,7 +1119,7 @@
   [Desktop Entry]
   Name=Saavn
   StartupNotify=true
-  Icon=${HOME}/Pictures/Icons/jiosaavn.png
+  Icon=/home/kayg/Pictures/Icons/jiosaavn.png
   Comment=Saavn audio streaming service
   Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://www.jiosaavn.com/
   Terminal=false
@@ -1136,7 +1136,7 @@
   Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://app.wire.com
   Terminal=false
   Type=Application
-  Icon=${HOME}/Pictures/Icons/wire.png
+  Icon=/home/kayg/Pictures/Icons/wire.png
   StartupWMClass=Wire
   Categories=Network;
   GenericName=Secure messenger

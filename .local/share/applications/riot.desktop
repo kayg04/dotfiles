@@ -5,6 +5,6 @@ Comment=A feature-rich client for Matrix.org
 Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://riot.im/app/
 Terminal=false
 Type=Application
-Icon=${HOME}/Pictures/Icons/riot.png
+Icon=/home/kayg/Pictures/Icons/riot.png
 StartupWMClass="Riot"
 Categories=Network;InstantMessaging;Chat;IRCClient
