@@ -48,6 +48,6 @@ export ZSH_AUTOSUGGEST_STRATEGY=(
 # Avoid autosuggestions for buffers that are too large
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
-if command -v kitty; then
+if command -v kitty 2>/dev/null 1>&2; then
     alias icat="kitty +kitten icat"
 fi

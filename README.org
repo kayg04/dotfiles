@@ -2293,7 +2293,7 @@ unless specified otherwise.
 #+END_SRC
 ** Aliases
 #+BEGIN_SRC sh :tangle .zshrc
-  if command -v kitty; then
+  if command -v kitty 2>/dev/null 1>&2; then
       alias icat="kitty +kitten icat"
   fi
 #+END_SRC
