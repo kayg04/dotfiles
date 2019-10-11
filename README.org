@@ -2291,3 +2291,9 @@ unless specified otherwise.
   # Avoid autosuggestions for buffers that are too large
   export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 #+END_SRC
+** Aliases
+#+BEGIN_SRC sh :tangle .zshrc
+  if command -v kitty; then
+      alias icat="kitty +kitten icat"
+  fi
+#+END_SRC
