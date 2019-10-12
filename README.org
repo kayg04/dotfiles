@@ -1130,6 +1130,7 @@
 #+END_SRC
 ** Slack
 #+BEGIN_SRC conf :tangle .local/share/applications/slack.desktop :shebang "#!/usr/bin/env xdg-open"
+  [Desktop Entry]
   Name=Slack
   StartupWMClass=Slack
   Comment=Where work happens
