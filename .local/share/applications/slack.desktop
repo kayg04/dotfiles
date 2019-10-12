@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+Name=Slack
+StartupWMClass=Slack
+Comment=Where work happens
+GenericName=Slack Desktop
+Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://iiit-bhcoding.slack.com/
+Icon=slack
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/slack;
+StartupNotify=true
+Categories=GNOME;GTK;Network;InstantMessaging;
