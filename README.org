@@ -1400,8 +1400,11 @@ configuration of Emacs to find my peace in doom.
          (default +bindings +smartparens))
 #+END_SRC
 ** Config
+- Set theme
+- Do not preserve indentation while tangling code blocks.
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/config.el
-(setq doom-theme 'doom-Iosevkem)
+  (setq doom-theme 'doom-Iosevkem)
+  (setq org-src-preserve-indentation nil)
 #+END_SRC
 * Firefox
 ** Profiles
