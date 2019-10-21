@@ -1,58 +1,59 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#org827f147)
-2.  [Awesome](#org7fdefee)
-    1.  [rc.lua](#org4b3062a)
-    2.  [Themes](#orgc104b66)
-        1.  [Default](#org722502b)
-3.  [Autostart](#orgd122017)
-    1.  [Scripts](#orgb4d11d2)
-        1.  [SSH](#orgb95a91c)
-4.  [Compton](#orgbe881e2)
-5.  [Desktop](#org5242f74)
-    1.  [Deezer](#orgfc8b50d)
-    2.  [Invidious](#org3657225)
-    3.  [Riot](#org0e2e63e)
-    4.  [Saavn](#orgf36c08d)
-    5.  [Slack](#org1a6e56f)
-    6.  [Wire](#orgca1fa01)
-6.  [Emacs](#org7cb69a8)
-7.  [Firefox](#orgb8bdd8e)
-    1.  [Profiles](#org8bc2b75)
-    2.  [Policies](#org80db839)
-    3.  [UserJS](#org315f92d)
-        1.  [General](#org288e7d4)
-        2.  [Themes](#orgb96da37)
-    4.  [Setup](#org4acbb00)
-8.  [Plasma](#org6c170f9)
-    1.  [Environment](#org7ddf5b7)
-    2.  [PAM](#orgf56eedd)
-9.  [Systemd](#orgc7981b8)
-    1.  [SSH Agent](#org963f5c2)
-10. [Thunderbird](#org3521295)
-    1.  [Profiles](#org2a4538b)
-11. [Ungoogled Chromium](#orgc7ef1a3)
-    1.  [Environment Variables](#org1404988)
-    2.  [Flags](#org7754139)
-12. [Utility](#org76715e5)
-    1.  [Ungoogled Chromium Extension Updater](#orgbf4694a)
-    2.  [Virtual Desktop Bar (KDE)](#orgb715a54)
-    3.  [KWin Tiling Script (Faho)](#org832a7bd)
-    4.  [Wallpaper Index](#org0e3fd0b)
-13. [VSCodium](#org59adada)
-    1.  [Settings](#org136c36d)
-    2.  [Keybindings](#org10d6a45)
-14. [ZSH](#org4b16510)
-    1.  [Oh-my-zsh stuff](#org5c254f7)
-    2.  [Functions](#org06c1cc5)
-        1.  [Weather](#org2890d05)
-    3.  [Variables](#org1a641c8)
-    4.  [Aliases](#org0eed8df)
+1.  [Bootstrap](#org5f89c00)
+2.  [Awesome](#org4749117)
+    1.  [rc.lua](#org373cbc2)
+    2.  [Themes](#org2d55c0b)
+        1.  [Default](#org77f2939)
+3.  [Autostart](#org05d216b)
+    1.  [Scripts](#orgd319095)
+        1.  [SSH](#org1286842)
+4.  [Compton](#orgfbbf03b)
+5.  [Desktop](#org2a2608d)
+    1.  [Deezer](#org9d3350e)
+    2.  [Invidious](#orgd4d9609)
+    3.  [Riot](#org88e84fe)
+    4.  [Saavn](#orgdbc7759)
+    5.  [Slack](#org9898cf0)
+    6.  [Wire](#org1d0a551)
+6.  [Emacs](#org8fb1cc9)
+    1.  [Init](#orgc9473d4)
+7.  [Firefox](#org4f0250d)
+    1.  [Profiles](#org54cb20f)
+    2.  [Policies](#org816f563)
+    3.  [UserJS](#orgece6bac)
+        1.  [General](#orgc24242d)
+        2.  [Themes](#org4ef63f2)
+    4.  [Setup](#org38f2692)
+8.  [Plasma](#org89872a9)
+    1.  [Environment](#orgb7c4820)
+    2.  [PAM](#org9be2bbf)
+9.  [Systemd](#org1634854)
+    1.  [SSH Agent](#org15c49d5)
+10. [Thunderbird](#org2ff9e1d)
+    1.  [Profiles](#org90c95e7)
+11. [Ungoogled Chromium](#org12ce08e)
+    1.  [Environment Variables](#org075f37b)
+    2.  [Flags](#orgd1683f1)
+12. [Utility](#org337b678)
+    1.  [Ungoogled Chromium Extension Updater](#orgdcbca05)
+    2.  [Virtual Desktop Bar (KDE)](#org41350cf)
+    3.  [KWin Tiling Script (Faho)](#orge1ec939)
+    4.  [Wallpaper Index](#org430f886)
+13. [VSCodium](#orga7a79a6)
+    1.  [Settings](#org39aeac6)
+    2.  [Keybindings](#org0cb1df4)
+14. [ZSH](#org1dcd62b)
+    1.  [Oh-my-zsh stuff](#orgd5a3ba4)
+    2.  [Functions](#orgac58f59)
+        1.  [Weather](#orgff2745c)
+    3.  [Variables](#orgccf3fcb)
+    4.  [Aliases](#orgf132679)
 
 
 
-<a id="org827f147"></a>
+<a id="org5f89c00"></a>
 
 # Bootstrap
 
@@ -327,12 +328,12 @@
     main "${@}"
 
 
-<a id="org7fdefee"></a>
+<a id="org4749117"></a>
 
 # Awesome
 
 
-<a id="org4b3062a"></a>
+<a id="org373cbc2"></a>
 
 ## rc.lua
 
@@ -905,12 +906,12 @@
     -- }}}
 
 
-<a id="orgc104b66"></a>
+<a id="org2d55c0b"></a>
 
 ## Themes
 
 
-<a id="org722502b"></a>
+<a id="org77f2939"></a>
 
 ### Default
 
@@ -1047,17 +1048,17 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgd122017"></a>
+<a id="org05d216b"></a>
 
 # Autostart
 
 
-<a id="orgb4d11d2"></a>
+<a id="orgd319095"></a>
 
 ## Scripts
 
 
-<a id="orgb95a91c"></a>
+<a id="org1286842"></a>
 
 ### SSH
 
@@ -1069,7 +1070,7 @@
     ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
 
 
-<a id="orgbe881e2"></a>
+<a id="orgfbbf03b"></a>
 
 # Compton
 
@@ -1170,12 +1171,12 @@
     transition-length = 150;
 
 
-<a id="org5242f74"></a>
+<a id="org2a2608d"></a>
 
 # Desktop
 
 
-<a id="orgfc8b50d"></a>
+<a id="org9d3350e"></a>
 
 ## Deezer
 
@@ -1192,7 +1193,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org3657225"></a>
+<a id="orgd4d9609"></a>
 
 ## Invidious
 
@@ -1209,7 +1210,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org0e2e63e"></a>
+<a id="org88e84fe"></a>
 
 ## Riot
 
@@ -1224,7 +1225,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orgf36c08d"></a>
+<a id="orgdbc7759"></a>
 
 ## Saavn
 
@@ -1241,7 +1242,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org1a6e56f"></a>
+<a id="org9898cf0"></a>
 
 ## Slack
 
@@ -1259,7 +1260,7 @@
     Categories=GNOME;GTK;Network;InstantMessaging;
 
 
-<a id="orgca1fa01"></a>
+<a id="org1d0a551"></a>
 
 ## Wire
 
@@ -1278,7 +1279,7 @@
     Version=1.1
 
 
-<a id="org7cb69a8"></a>
+<a id="org8fb1cc9"></a>
 
 # Emacs
 
@@ -1289,13 +1290,13 @@ was, at heart, a doomacs; in performance and functionality,
 it lagged behind by a significant margin.
 
 I have found myself frustrated by the fact that I have to
-bake in functionality of every kind when I'm in *need* of
+bake in functionality of every kind when I&rsquo;m in *need* of
 that particular functionality, and hence, a lot of time was
 spent in adding functionality rather than being creative or
 productive. My first train of thought was to try something
 which abstracted all of this functionality into a single
 click &#x2013; something like VSCodium &#x2013; but the problem with
-that particular editor is it isn't particularly hackable.
+that particular editor is it isn&rsquo;t particularly hackable.
 Apart from a hundred or so rants about how lacking VSCodium
 is to my pal [Anwes](https://pandacowbat.com), one particular thing that irked me a lot
 was the incessant need to reach for the mouse for something
@@ -1303,7 +1304,7 @@ or the other. I would have to change the whole keyboard
 shortcuts layout to customize it to my needs and what was
 worse is that I would have to remember two of those layouts
 &#x2013; one which worked with the vim emulation and one which
-worked with native VSCodium &#x2013; and the latter doesn't even
+worked with native VSCodium &#x2013; and the latter doesn&rsquo;t even
 support three key chord bindings at the time of writing
 this.
 
@@ -1323,22 +1324,209 @@ throwing away (or refactoring?) my 1 year-in-the-making
 configuration of Emacs to find my peace in doom.
 
 
-<a id="orgb8bdd8e"></a>
+<a id="orgc9473d4"></a>
+
+## Init
+
+    ;;; init.el -*- lexical-binding: t; -*-
+    
+    ;; Copy this file to ~/.doom.d/init.el or ~/.config/doom/init.el ('doom install'
+    ;; will do this for you). The `doom!' block below controls what modules are
+    ;; enabled and in what order they will be loaded. Remember to run 'doom refresh'
+    ;; after modifying it.
+    ;;
+    ;; More information about these modules (and what flags they support) can be
+    ;; found in modules/README.org.
+    
+    (doom! :input
+           ;;chinese
+           ;;japanese
+    
+           :completion
+           company           ; the ultimate code completion backend
+           ;;helm              ; the *other* search engine for love and life
+           ;;ido               ; the other *other* search engine...
+           ivy               ; a search engine for love and life
+    
+           :ui
+           ;;deft              ; notational velocity for Emacs
+           doom              ; what makes DOOM look the way it does
+           doom-dashboard    ; a nifty splash screen for Emacs
+           doom-quit         ; DOOM quit-message prompts when you quit Emacs
+           ;;fill-column       ; a `fill-column' indicator
+           hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+           ;;hydra
+           indent-guides     ; highlighted indent columns
+           modeline          ; snazzy, Atom-inspired modeline, plus API
+           nav-flash         ; blink the current line after jumping
+           ;;neotree           ; a project drawer, like NERDTree for vim
+           ophints           ; highlight the region an operation acts on
+           (popup            ; tame sudden yet inevitable temporary windows
+            +all             ; catch all popups that start with an asterix
+            +defaults)       ; default popup rules
+           ;;pretty-code       ; replace bits of code with pretty symbols
+           tabs              ; an tab bar for Emacs
+           treemacs          ; a project drawer, like neotree but cooler
+           ;;unicode           ; extended unicode support for various languages
+           vc-gutter         ; vcs diff in the fringe
+           vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+           window-select     ; visually switch windows
+           workspaces        ; tab emulation, persistence & separate workspaces
+    
+           :editor
+           (evil +everywhere); come to the dark side, we have cookies
+           file-templates    ; auto-snippets for empty files
+           ;;god               ; run Emacs commands without modifier keys
+           fold              ; (nigh) universal code folding
+           ;;(format +onsave)  ; automated prettiness
+           ;;lispy             ; vim for lisp, for people who dont like vim
+           multiple-cursors  ; editing in many places at once
+           ;;objed             ; text object editing for the innocent
+           ;;parinfer          ; turn lisp into python, sort of
+           rotate-text       ; cycle region at point between text candidates
+           snippets          ; my elves. They type so I don't have to
+           ;;word-wrap         ; soft wrapping with language-aware indent
+    
+           :emacs
+           dired             ; making dired pretty [functional]
+           electric          ; smarter, keyword-based electric-indent
+           ibuffer           ; interactive buffer management
+           vc                ; version-control and Emacs, sitting in a tree
+    
+           :term
+           eshell            ; a consistent, cross-platform shell (WIP)
+           ;;shell             ; a terminal REPL for Emacs
+           ;;term              ; terminals in Emacs
+           vterm             ; another terminals in Emacs
+    
+           :tools
+           ;;ansible
+           ;;debugger          ; FIXME stepping through code, to help you add bugs
+           ;;direnv
+           ;;docker
+           ;;editorconfig      ; let someone else argue about tabs vs spaces
+           ;;ein               ; tame Jupyter notebooks with emacs
+           eval              ; run code, run (also, repls)
+           flycheck          ; tasing you for every semicolon you forget
+           ;;flyspell          ; tasing you for misspelling mispelling
+           ;;gist              ; interacting with github gists
+           (lookup           ; helps you navigate your code and documentation
+            +docsets)        ; ...or in Dash docsets locally
+           lsp
+           ;;macos             ; MacOS-specific commands
+           magit             ; a git porcelain for Emacs
+           ;;make              ; run make tasks from Emacs
+           ;;pass              ; password manager for nerds
+           ;;pdf               ; pdf enhancements
+           ;;prodigy           ; FIXME managing external services & code builders
+           ;;rgb               ; creating color strings
+           ;;terraform         ; infrastructure as code
+           ;;tmux              ; an API for interacting with tmux
+           ;;upload            ; map local to remote projects via ssh/ftp
+           ;;wakatime
+    
+           :lang
+           ;;agda              ; types of types of types of types...
+           ;;assembly          ; assembly for fun or debugging
+           cc                ; C/C++/Obj-C madness
+           ;;clojure           ; java with a lisp
+           ;;common-lisp       ; if you've seen one lisp, you've seen them all
+           ;;coq               ; proofs-as-programs
+           ;;crystal           ; ruby at the speed of c
+           ;;csharp            ; unity, .NET, and mono shenanigans
+           data              ; config/data formats
+           ;;erlang            ; an elegant language for a more civilized age
+           ;;elixir            ; erlang done right
+           ;;elm               ; care for a cup of TEA?
+           emacs-lisp        ; drown in parentheses
+           ;;ess               ; emacs speaks statistics
+           ;;faust             ; dsp, but you get to keep your soul
+           ;;fsharp           ; ML stands for Microsoft's Language
+           go                ; the hipster dialect
+           (haskell +intero) ; a language that's lazier than I am
+           ;;hy                ; readability of scheme w/ speed of python
+           ;;idris             ;
+           (java +meghanada) ; the poster child for carpal tunnel syndrome
+           ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+           ;;julia             ; a better, faster MATLAB
+           ;;kotlin            ; a better, slicker Java(Script)
+           ;;latex             ; writing papers in Emacs has never been so fun
+           ;;lean
+           ;;ledger            ; an accounting system in Emacs
+           ;;lua               ; one-based indices? one-based indices
+           markdown          ; writing docs for people to ignore
+           ;;nim               ; python + lisp at the speed of c
+           nix               ; I hereby declare "nix geht mehr!"
+           ;;ocaml             ; an objective camel
+           (org              ; organize your plain life in plain text
+            +dragndrop       ; drag & drop files/images into org buffers
+            ;+hugo            ; use Emacs for hugo blogging
+            +ipython         ; ipython/jupyter support for babel
+            +pandoc          ; export-with-pandoc support
+            ;+pomodoro        ; be fruitful with the tomato technique
+            +present)        ; using org-mode for presentations
+           ;;perl              ; write code no one else can comprehend
+           ;;php               ; perl's insecure younger brother
+           ;;plantuml          ; diagrams for confusing people more
+           ;;purescript        ; javascript, but functional
+           python            ; beautiful is better than ugly
+           ;;qt                ; the 'cutest' gui framework ever
+           ;;racket            ; a DSL for DSLs
+           ;;rest              ; Emacs as a REST client
+           ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+           ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+           ;;scala             ; java, but good
+           ;;scheme            ; a fully conniving family of lisps
+           sh                ; she sells {ba,z,fi}sh shells on the C xor
+           ;;solidity          ; do you need a blockchain? No.
+           ;;swift             ; who asked for emoji variables?
+           ;;terra             ; Earth and Moon in alignment for performance.
+           ;;web               ; the tubes
+    
+           :email
+           ;;(mu4e +gmail)       ; WIP
+           ;;notmuch             ; WIP
+           ;;(wanderlust +gmail) ; WIP
+    
+           ;; Applications are complex and opinionated modules that transform Emacs
+           ;; toward a specific purpose. They may have additional dependencies and
+           ;; should be loaded late.
+           :app
+           ;;calendar
+           ;;irc               ; how neckbeards socialize
+           ;;(rss +org)        ; emacs as an RSS reader
+           ;;twitter           ; twitter client https://twitter.com/vnought
+           ;;(write            ; emacs for writers (fiction, notes, papers, etc.)
+           ;; +wordnut         ; wordnet (wn) search
+           ;; +langtool)       ; a proofreader (grammar/style check) for Emacs
+    
+           :config
+           ;; For literate config users. This will tangle+compile a config.org
+           ;; literate config in your `doom-private-dir' whenever it changes.
+           ;;literate
+    
+           ;; The default module sets reasonable defaults for Emacs. It also
+           ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
+           ;; config. Use it as a reference for your own modules.
+           (default +bindings +smartparens))
+
+
+<a id="org4f0250d"></a>
 
 # Firefox
 
 
-<a id="org8bc2b75"></a>
+<a id="org54cb20f"></a>
 
 ## Profiles
 
--   `StartWithLastProfile` ensures a profile choice isn't
+-   `StartWithLastProfile` ensures a profile choice isn&rsquo;t
     asked at startup.
 
 Sometimes Firefox amazes me by how customizable it is. I
 have <del>two</del> three profiles with Firefox; one for browsing,
 one for *research* and one for web applications. Since a lot
-of my research gets lost and I'm unable to refer to previous
+of my research gets lost and I&rsquo;m unable to refer to previous
 findings, it helps to have a separate profile. All profiles
 are stored in a standardized XDG configuration directory
 (`~/.config/firefox`) rather than the default
@@ -1353,14 +1541,14 @@ profiles than let firefox name them randomly.
 
 <del>I tried using ungoogled chromium for dirty web apps but</del>
 <del>recently, on Arch Linux, `libjsoncpp` got an update and</del>
-<del>broke chromium which isn't as regularly built as the</del>
+<del>broke chromium which isn&rsquo;t as regularly built as the</del>
 <del>upstream binaries. So though, clipboard interaction was a</del>
 <del>sweet feature to have, I can let it go for relatively good</del>
 <del>stability.</del>
 
 Ungoogled Chromium works again!
 
-Although things work fine with UC, I'm unsure if Chromium
+Although things work fine with UC, I&rsquo;m unsure if Chromium
 profiles actually provide a *temporary-container* sort of
 isolation. I say this because tabs on different profiles
 show up as normal tabs in the task manager which would mean
@@ -1385,11 +1573,11 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org80db839"></a>
+<a id="org816f563"></a>
 
 ## Policies
 
-Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/policy-templates/blob/master/README.md).
+Mozilla&rsquo;s Policies&rsquo; explanation can be found [here](https://github.com/mozilla/policy-templates/blob/master/README.md).
 
     {
       "policies": {
@@ -1461,16 +1649,16 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org315f92d"></a>
+<a id="orgece6bac"></a>
 
 ## UserJS
 
 
-<a id="org288e7d4"></a>
+<a id="orgc24242d"></a>
 
 ### General
 
-I use GHacks' UserJS which I think is an excellent beginner
+I use GHacks&rsquo; UserJS which I think is an excellent beginner
 point towards making your own customizations as it allows
 you to focus on tweaking for usablity from an already
 privacy-centered configuration.
@@ -1520,7 +1708,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgb96da37"></a>
+<a id="org4ef63f2"></a>
 
 ### Themes
 
@@ -1556,7 +1744,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org4acbb00"></a>
+<a id="org38f2692"></a>
 
 ## Setup
 
@@ -1689,12 +1877,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="org6c170f9"></a>
+<a id="org89872a9"></a>
 
 # Plasma
 
 
-<a id="org7ddf5b7"></a>
+<a id="orgb7c4820"></a>
 
 ## Environment
 
@@ -1702,19 +1890,19 @@ builds upon the GHacksUserJS.
     export GIT_ASKPASS="$(command -v ksshaskpass)"
 
 
-<a id="orgf56eedd"></a>
+<a id="org9be2bbf"></a>
 
 ## PAM
 
     SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 
-<a id="orgc7981b8"></a>
+<a id="org1634854"></a>
 
 # Systemd
 
 
-<a id="org963f5c2"></a>
+<a id="org15c49d5"></a>
 
 ## SSH Agent
 
@@ -1730,12 +1918,12 @@ builds upon the GHacksUserJS.
     WantedBy=default.target
 
 
-<a id="org3521295"></a>
+<a id="org2ff9e1d"></a>
 
 # Thunderbird
 
 
-<a id="org2a4538b"></a>
+<a id="org90c95e7"></a>
 
 ## Profiles
 
@@ -1751,12 +1939,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="orgc7ef1a3"></a>
+<a id="org12ce08e"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org1404988"></a>
+<a id="org075f37b"></a>
 
 ## Environment Variables
 
@@ -1764,7 +1952,7 @@ From Debian bug tracker:
 
 > As can be seen in the upstream discussion, this happens whenever mesa
 > drivers are used since threads are used in their GLSL shader
-> implementation.  This does have a consequence, chromium's GPU driver
+> implementation.  This does have a consequence, chromium&rsquo;s GPU driver
 > will not be sandboxed.  You can see this in about:gpu.
 > 
 > Also seen upstream, it should be possible to work around the problem
@@ -1776,7 +1964,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org7754139"></a>
+<a id="orgd1683f1"></a>
 
 ## Flags
 
@@ -1818,7 +2006,7 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org76715e5"></a>
+<a id="org337b678"></a>
 
 # Utility
 
@@ -1833,7 +2021,7 @@ A few guidelines followed throughout these scripts:
 -   Documentation for what the function does and why is provided.
 
 
-<a id="orgbf4694a"></a>
+<a id="orgdcbca05"></a>
 
 ## Ungoogled Chromium Extension Updater
 
@@ -1902,7 +2090,7 @@ this moment.
     main "${@}"
 
 
-<a id="orgb715a54"></a>
+<a id="org41350cf"></a>
 
 ## Virtual Desktop Bar (KDE)
 
@@ -1993,7 +2181,7 @@ this moment.
     main
 
 
-<a id="org832a7bd"></a>
+<a id="orge1ec939"></a>
 
 ## KWin Tiling Script (Faho)
 
@@ -2068,7 +2256,7 @@ script has been previously installed.
     main
 
 
-<a id="org0e3fd0b"></a>
+<a id="org430f886"></a>
 
 ## Wallpaper Index
 
@@ -2087,8 +2275,8 @@ Functions:
 -   `changeWallStoragePath` prompts for a new location for
     `WALL_STORAGE_PATH` and proceeds normally if
     
-    -   the response is any of "y", "Y", "yes", "YES", etc and the entered path exists
-    -   the response is any of "n", "N", "no", "NO", etc
+    -   the response is any of &ldquo;y&rdquo;, &ldquo;Y&rdquo;, &ldquo;yes&rdquo;, &ldquo;YES&rdquo;, etc and the entered path exists
+    -   the response is any of &ldquo;n&rdquo;, &ldquo;N&rdquo;, &ldquo;no&rdquo;, &ldquo;NO&rdquo;, etc
     
     In case of an invalid response, the prompt is shown again.
 -   `changeWallTempPath` is exactly the same as
@@ -2100,7 +2288,7 @@ Functions:
         from name in order to preserve it in the renamed file
     -   renames files with a message saying so
     -   updates the index after each rename
--   `main`, unless either of "-s" or "&#x2013;silent" is passed,
+-   `main`, unless either of &ldquo;-s&rdquo; or &ldquo;&#x2013;silent&rdquo; is passed,
     proceeds to invoke all functions.
 
     # import sanity
@@ -2204,19 +2392,19 @@ Functions:
     main
 
 
-<a id="org59adada"></a>
+<a id="orga7a79a6"></a>
 
 # VSCodium
 
 I tried VSCodium for a brief period of time but the fact
 that a completely keyboard driven workflow cannot be
-achieved with ease bothers me a lot. Don't get me wrong, the
+achieved with ease bothers me a lot. Don&rsquo;t get me wrong, the
 autocompletion and the learning curve are simply amazing but
-there's no other reason to choose VSCodium over something as
+there&rsquo;s no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org136c36d"></a>
+<a id="org39aeac6"></a>
 
 ## Settings
 
@@ -2420,7 +2608,7 @@ mature as Emacs.
     }
 
 
-<a id="org10d6a45"></a>
+<a id="org0cb1df4"></a>
 
 ## Keybindings
 
@@ -2496,12 +2684,12 @@ mature as Emacs.
     ]
 
 
-<a id="org4b16510"></a>
+<a id="org1dcd62b"></a>
 
 # ZSH
 
 
-<a id="org5c254f7"></a>
+<a id="orgd5a3ba4"></a>
 
 ## Oh-my-zsh stuff
 
@@ -2536,12 +2724,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org06c1cc5"></a>
+<a id="orgac58f59"></a>
 
 ## Functions
 
 
-<a id="org2890d05"></a>
+<a id="orgff2745c"></a>
 
 ### Weather
 
@@ -2553,7 +2741,7 @@ unless specified otherwise.
     }
 
 
-<a id="org1a641c8"></a>
+<a id="orgccf3fcb"></a>
 
 ## Variables
 
@@ -2576,7 +2764,7 @@ unless specified otherwise.
     export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 
-<a id="org0eed8df"></a>
+<a id="orgf132679"></a>
 
 ## Aliases
 
