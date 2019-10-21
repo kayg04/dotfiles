@@ -1399,6 +1399,10 @@ configuration of Emacs to find my peace in doom.
          ;; config. Use it as a reference for your own modules.
          (default +bindings +smartparens))
 #+END_SRC
+** Config
+#+BEGIN_SRC emacs-lisp :tangle .config/doom/config.el
+(setq doom-theme 'doom-Iosevkem)
+#+END_SRC
 * Firefox
 ** Profiles
 - =StartWithLastProfile= ensures a profile choice isn't
