@@ -2544,4 +2544,6 @@ unless specified otherwise.
   if command -v kitty 2>/dev/null 1>&2; then
       alias icat="kitty +kitten icat"
   fi
+
+  alias vim='emacsclient -nw'
 #+END_SRC

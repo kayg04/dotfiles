@@ -51,3 +51,5 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 if command -v kitty 2>/dev/null 1>&2; then
     alias icat="kitty +kitten icat"
 fi
+
+alias vim='emacsclient -nw'
