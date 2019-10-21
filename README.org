@@ -1301,7 +1301,7 @@ configuration of Emacs to find my peace in doom.
          ;;gist              ; interacting with github gists
          (lookup           ; helps you navigate your code and documentation
           +docsets)        ; ...or in Dash docsets locally
-         lsp
+         ;;lsp
          ;;macos             ; MacOS-specific commands
          magit             ; a git porcelain for Emacs
          ;;make              ; run make tasks from Emacs
@@ -1404,13 +1404,13 @@ configuration of Emacs to find my peace in doom.
 - Do not preserve indentation while tangling code blocks.
 - Set font
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/config.el
-  (setq doom-theme 'doom-Iosvkem)
+  (setq doom-theme 'doom-dracula)
   (setq org-src-preserve-indentation nil)
 
   (setq doom-font (font-spec :family "IBM Plex Mono" :size 26 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 26)
-        doom-big-font (font-spec :family "IBM Plex Mono" :size 40))
+        doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold))
 #+END_SRC
 * Firefox
 ** Profiles
