@@ -23,7 +23,7 @@
           "desktop")
               updateDesktop
               ;;
-          "emacs")
+          "doom"|"emacs")
               updateEmacs
               ;;
           "firefox")
@@ -64,8 +64,8 @@
   }
 
   updateEmacs() {
-      ln -sf "${SCRIPT_PATH}"/.emacs "${HOME}"/
-      ln -sf "${SCRIPT_PATH}"/.config/emacs/* "${HOME}"/.config/emacs/
+      ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
+      "${HOME}"/.emacs.d/bin/doom refresh
   }
 
   updateFirefox() {
@@ -131,7 +131,7 @@
           "desktop")
               setupDesktop
               ;;
-          "emacs")
+          "doom"|"emacs")
               setupEmacs
               ;;
           "firefox")
@@ -175,7 +175,23 @@
   }
 
   setupEmacs() {
-      mkdir -p "${HOME}"/.config/emacs
+      echo -e "Creating doom emacs directory..."
+      if mkdir -p "${HOME}"/.config/doom; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+      fi
+
+      echo -ne "Cloning doom emacs source..."
+      if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+      fi
+
+      echo -e "Unleashing doom..."
+      "${HOME}"/.emacs.d/bin/doom install
+
       updateEmacs
   }
 
@@ -1160,19 +1176,45 @@
   Version=1.1
 #+END_SRC
 * Emacs
-Since Emacs' settings are already managed through an org
-file, there is no need to go meta. This is the init.el file
-which emacs first reads and uses it tangle its full
-configuration elsewhere.
-#+BEGIN_SRC emacs-lisp :tangle .emacs
-  (require 'org)
-  (setq-default user-emacs-directory "~/.config/emacs/")
-  (setq-default package-user-dir "~/.config/emacs/pkgs")
-  (setq-default backup-directory-alist "~/.config/emacs/backups")
-  (org-babel-load-file
-   (expand-file-name "settings.org"
-                     user-emacs-directory))
-#+END_SRC
+After an year of configuring Emacs, I have somehow reached
+exactly at a point which mimics the style and philosophy of
+Doom Emacs without realizing it. Although my configuration
+was, at heart, a doomacs; in performance and functionality,
+it lagged behind by a significant margin.
+
+I have found myself frustrated by the fact that I have to
+bake in functionality of every kind when I'm in /need/ of
+that particular functionality, and hence, a lot of time was
+spent in adding functionality rather than being creative or
+productive. My first train of thought was to try something
+which abstracted all of this functionality into a single
+click -- something like VSCodium -- but the problem with
+that particular editor is it isn't particularly hackable.
+Apart from a hundred or so rants about how lacking VSCodium
+is to my pal [[https://pandacowbat.com][Anwes]], one particular thing that irked me a lot
+was the incessant need to reach for the mouse for something
+or the other. I would have to change the whole keyboard
+shortcuts layout to customize it to my needs and what was
+worse is that I would have to remember two of those layouts
+-- one which worked with the vim emulation and one which
+worked with native VSCodium -- and the latter doesn't even
+support three key chord bindings at the time of writing
+this.
+
+What VSCodium excels at, though, is the autocompletion,
+intellisense, /almost/ baked-in like support for linting,
+checking, debugging. LSP is a first class citizen in
+VSCodium and VSCodium is the first (and perhaps the only?)
+editor that LSP is tested on. All of this makes LSP on
+something like Emacs a slow, tedious hog; adding further
+disappointment given the time taken to configure it.
+
+The solution -- or perhaps -- the best balance that I could
+find was in **doom** (pun intended). Doom Emacs (for now, at
+least) seems to do everything I need, OOTB; has a
+trouble-free way of adding language support. So I am
+throwing away (or refactoring?) my 1 year-in-the-making
+configuration of Emacs to find my peace in doom.
 * Firefox
 ** Profiles
 - =StartWithLastProfile= ensures a profile choice isn't
@@ -2289,7 +2331,7 @@ unless specified otherwise.
 ** Variables
 #+BEGIN_SRC sh :tangle .zshrc
   # PATH
-  export PATH="${PATH}:${HOME}/.local/bin"
+  export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
 
   # GO
   export GOPATH="${HOME}/.go"

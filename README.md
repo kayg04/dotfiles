@@ -1,58 +1,58 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgd17bcad)
-2.  [Awesome](#orga98fb0d)
-    1.  [rc.lua](#orgb4dac7d)
-    2.  [Themes](#org633b2b1)
-        1.  [Default](#org930ca02)
-3.  [Autostart](#org291c9c5)
-    1.  [Scripts](#org35e8858)
-        1.  [SSH](#orga4ea798)
-4.  [Compton](#orgeffe373)
-5.  [Desktop](#org4de63af)
-    1.  [Deezer](#org8223e31)
-    2.  [Invidious](#orgdc64f7a)
-    3.  [Riot](#org6a9ec28)
-    4.  [Saavn](#org42a2317)
-    5.  [Slack](#orgcf9f3f3)
-    6.  [Wire](#orga81a7e5)
-6.  [Emacs](#orgb2706b3)
-7.  [Firefox](#org3e4bf38)
-    1.  [Profiles](#org45ed4dd)
-    2.  [Policies](#org92b6bcb)
-    3.  [UserJS](#org0b947cf)
-        1.  [General](#org7bd792a)
-        2.  [Themes](#orgbbdf46c)
-    4.  [Setup](#org6b3ba2b)
-8.  [Plasma](#orgc7f4e66)
-    1.  [Environment](#orga3375b2)
-    2.  [PAM](#org063a411)
-9.  [Systemd](#org881d241)
-    1.  [SSH Agent](#org69f63e6)
-10. [Thunderbird](#org1b004da)
-    1.  [Profiles](#org81821e9)
-11. [Ungoogled Chromium](#org0c7b068)
-    1.  [Environment Variables](#orge6572c4)
-    2.  [Flags](#org88ed5cc)
-12. [Utility](#orga64e3ee)
-    1.  [Ungoogled Chromium Extension Updater](#org962641c)
-    2.  [Virtual Desktop Bar (KDE)](#org2bd4e3b)
-    3.  [KWin Tiling Script (Faho)](#orgac45980)
-    4.  [Wallpaper Index](#org5fdab7e)
-13. [VSCodium](#org7d945c6)
-    1.  [Settings](#org1097acc)
-    2.  [Keybindings](#org8566875)
-14. [ZSH](#orgbee2d1d)
-    1.  [Oh-my-zsh stuff](#org0a3d0c7)
-    2.  [Functions](#org68c90f6)
-        1.  [Weather](#org54d3b9b)
-    3.  [Variables](#org938d776)
-    4.  [Aliases](#orgfc7f5fd)
+1.  [Bootstrap](#org827f147)
+2.  [Awesome](#org7fdefee)
+    1.  [rc.lua](#org4b3062a)
+    2.  [Themes](#orgc104b66)
+        1.  [Default](#org722502b)
+3.  [Autostart](#orgd122017)
+    1.  [Scripts](#orgb4d11d2)
+        1.  [SSH](#orgb95a91c)
+4.  [Compton](#orgbe881e2)
+5.  [Desktop](#org5242f74)
+    1.  [Deezer](#orgfc8b50d)
+    2.  [Invidious](#org3657225)
+    3.  [Riot](#org0e2e63e)
+    4.  [Saavn](#orgf36c08d)
+    5.  [Slack](#org1a6e56f)
+    6.  [Wire](#orgca1fa01)
+6.  [Emacs](#org7cb69a8)
+7.  [Firefox](#orgb8bdd8e)
+    1.  [Profiles](#org8bc2b75)
+    2.  [Policies](#org80db839)
+    3.  [UserJS](#org315f92d)
+        1.  [General](#org288e7d4)
+        2.  [Themes](#orgb96da37)
+    4.  [Setup](#org4acbb00)
+8.  [Plasma](#org6c170f9)
+    1.  [Environment](#org7ddf5b7)
+    2.  [PAM](#orgf56eedd)
+9.  [Systemd](#orgc7981b8)
+    1.  [SSH Agent](#org963f5c2)
+10. [Thunderbird](#org3521295)
+    1.  [Profiles](#org2a4538b)
+11. [Ungoogled Chromium](#orgc7ef1a3)
+    1.  [Environment Variables](#org1404988)
+    2.  [Flags](#org7754139)
+12. [Utility](#org76715e5)
+    1.  [Ungoogled Chromium Extension Updater](#orgbf4694a)
+    2.  [Virtual Desktop Bar (KDE)](#orgb715a54)
+    3.  [KWin Tiling Script (Faho)](#org832a7bd)
+    4.  [Wallpaper Index](#org0e3fd0b)
+13. [VSCodium](#org59adada)
+    1.  [Settings](#org136c36d)
+    2.  [Keybindings](#org10d6a45)
+14. [ZSH](#org4b16510)
+    1.  [Oh-my-zsh stuff](#org5c254f7)
+    2.  [Functions](#org06c1cc5)
+        1.  [Weather](#org2890d05)
+    3.  [Variables](#org1a641c8)
+    4.  [Aliases](#org0eed8df)
 
 
 
-<a id="orgd17bcad"></a>
+<a id="org827f147"></a>
 
 # Bootstrap
 
@@ -75,7 +75,7 @@
             "desktop")
                 updateDesktop
                 ;;
-            "emacs")
+            "doom"|"emacs")
                 updateEmacs
                 ;;
             "firefox")
@@ -116,8 +116,8 @@
     }
     
     updateEmacs() {
-        ln -sf "${SCRIPT_PATH}"/.emacs "${HOME}"/
-        ln -sf "${SCRIPT_PATH}"/.config/emacs/* "${HOME}"/.config/emacs/
+        ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
+        "${HOME}"/.emacs.d/bin/doom refresh
     }
     
     updateFirefox() {
@@ -183,7 +183,7 @@
             "desktop")
                 setupDesktop
                 ;;
-            "emacs")
+            "doom"|"emacs")
                 setupEmacs
                 ;;
             "firefox")
@@ -227,7 +227,23 @@
     }
     
     setupEmacs() {
-        mkdir -p "${HOME}"/.config/emacs
+        echo -e "Creating doom emacs directory..."
+        if mkdir -p "${HOME}"/.config/doom; then
+            printf '\u2714\n'
+        else
+            printf '\u274c\n'
+        fi
+    
+        echo -ne "Cloning doom emacs source..."
+        if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
+            printf '\u2714\n'
+        else
+            printf '\u274c\n'
+        fi
+    
+        echo -e "Unleashing doom..."
+        "${HOME}"/.emacs.d/bin/doom install
+    
         updateEmacs
     }
     
@@ -311,12 +327,12 @@
     main "${@}"
 
 
-<a id="orga98fb0d"></a>
+<a id="org7fdefee"></a>
 
 # Awesome
 
 
-<a id="orgb4dac7d"></a>
+<a id="org4b3062a"></a>
 
 ## rc.lua
 
@@ -889,12 +905,12 @@
     -- }}}
 
 
-<a id="org633b2b1"></a>
+<a id="orgc104b66"></a>
 
 ## Themes
 
 
-<a id="org930ca02"></a>
+<a id="org722502b"></a>
 
 ### Default
 
@@ -1031,17 +1047,17 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="org291c9c5"></a>
+<a id="orgd122017"></a>
 
 # Autostart
 
 
-<a id="org35e8858"></a>
+<a id="orgb4d11d2"></a>
 
 ## Scripts
 
 
-<a id="orga4ea798"></a>
+<a id="orgb95a91c"></a>
 
 ### SSH
 
@@ -1053,7 +1069,7 @@
     ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
 
 
-<a id="orgeffe373"></a>
+<a id="orgbe881e2"></a>
 
 # Compton
 
@@ -1154,12 +1170,12 @@
     transition-length = 150;
 
 
-<a id="org4de63af"></a>
+<a id="org5242f74"></a>
 
 # Desktop
 
 
-<a id="org8223e31"></a>
+<a id="orgfc8b50d"></a>
 
 ## Deezer
 
@@ -1176,7 +1192,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgdc64f7a"></a>
+<a id="org3657225"></a>
 
 ## Invidious
 
@@ -1193,7 +1209,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org6a9ec28"></a>
+<a id="org0e2e63e"></a>
 
 ## Riot
 
@@ -1208,7 +1224,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="org42a2317"></a>
+<a id="orgf36c08d"></a>
 
 ## Saavn
 
@@ -1225,7 +1241,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgcf9f3f3"></a>
+<a id="org1a6e56f"></a>
 
 ## Slack
 
@@ -1243,7 +1259,7 @@
     Categories=GNOME;GTK;Network;InstantMessaging;
 
 
-<a id="orga81a7e5"></a>
+<a id="orgca1fa01"></a>
 
 ## Wire
 
@@ -1262,30 +1278,57 @@
     Version=1.1
 
 
-<a id="orgb2706b3"></a>
+<a id="org7cb69a8"></a>
 
 # Emacs
 
-Since Emacs' settings are already managed through an org
-file, there is no need to go meta. This is the init.el file
-which emacs first reads and uses it tangle its full
-configuration elsewhere.
+After an year of configuring Emacs, I have somehow reached
+exactly at a point which mimics the style and philosophy of
+Doom Emacs without realizing it. Although my configuration
+was, at heart, a doomacs; in performance and functionality,
+it lagged behind by a significant margin.
 
-    (require 'org)
-    (setq-default user-emacs-directory "~/.config/emacs/")
-    (setq-default package-user-dir "~/.config/emacs/pkgs")
-    (setq-default backup-directory-alist "~/.config/emacs/backups")
-    (org-babel-load-file
-     (expand-file-name "settings.org"
-                       user-emacs-directory))
+I have found myself frustrated by the fact that I have to
+bake in functionality of every kind when I'm in *need* of
+that particular functionality, and hence, a lot of time was
+spent in adding functionality rather than being creative or
+productive. My first train of thought was to try something
+which abstracted all of this functionality into a single
+click &#x2013; something like VSCodium &#x2013; but the problem with
+that particular editor is it isn't particularly hackable.
+Apart from a hundred or so rants about how lacking VSCodium
+is to my pal [Anwes](https://pandacowbat.com), one particular thing that irked me a lot
+was the incessant need to reach for the mouse for something
+or the other. I would have to change the whole keyboard
+shortcuts layout to customize it to my needs and what was
+worse is that I would have to remember two of those layouts
+&#x2013; one which worked with the vim emulation and one which
+worked with native VSCodium &#x2013; and the latter doesn't even
+support three key chord bindings at the time of writing
+this.
+
+What VSCodium excels at, though, is the autocompletion,
+intellisense, *almost* baked-in like support for linting,
+checking, debugging. LSP is a first class citizen in
+VSCodium and VSCodium is the first (and perhaps the only?)
+editor that LSP is tested on. All of this makes LSP on
+something like Emacs a slow, tedious hog; adding further
+disappointment given the time taken to configure it.
+
+The solution &#x2013; or perhaps &#x2013; the best balance that I could
+find was in ****doom**** (pun intended). Doom Emacs (for now, at
+least) seems to do everything I need, OOTB; has a
+trouble-free way of adding language support. So I am
+throwing away (or refactoring?) my 1 year-in-the-making
+configuration of Emacs to find my peace in doom.
 
 
-<a id="org3e4bf38"></a>
+<a id="orgb8bdd8e"></a>
 
 # Firefox
 
 
-<a id="org45ed4dd"></a>
+<a id="org8bc2b75"></a>
 
 ## Profiles
 
@@ -1342,7 +1385,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org92b6bcb"></a>
+<a id="org80db839"></a>
 
 ## Policies
 
@@ -1418,12 +1461,12 @@ Mozilla's Policies' explanation can be found [here](https://github.com/mozilla/p
     }
 
 
-<a id="org0b947cf"></a>
+<a id="org315f92d"></a>
 
 ## UserJS
 
 
-<a id="org7bd792a"></a>
+<a id="org288e7d4"></a>
 
 ### General
 
@@ -1477,7 +1520,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgbbdf46c"></a>
+<a id="orgb96da37"></a>
 
 ### Themes
 
@@ -1513,7 +1556,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org6b3ba2b"></a>
+<a id="org4acbb00"></a>
 
 ## Setup
 
@@ -1646,12 +1689,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgc7f4e66"></a>
+<a id="org6c170f9"></a>
 
 # Plasma
 
 
-<a id="orga3375b2"></a>
+<a id="org7ddf5b7"></a>
 
 ## Environment
 
@@ -1659,19 +1702,19 @@ builds upon the GHacksUserJS.
     export GIT_ASKPASS="$(command -v ksshaskpass)"
 
 
-<a id="org063a411"></a>
+<a id="orgf56eedd"></a>
 
 ## PAM
 
     SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 
-<a id="org881d241"></a>
+<a id="orgc7981b8"></a>
 
 # Systemd
 
 
-<a id="org69f63e6"></a>
+<a id="org963f5c2"></a>
 
 ## SSH Agent
 
@@ -1687,12 +1730,12 @@ builds upon the GHacksUserJS.
     WantedBy=default.target
 
 
-<a id="org1b004da"></a>
+<a id="org3521295"></a>
 
 # Thunderbird
 
 
-<a id="org81821e9"></a>
+<a id="org2a4538b"></a>
 
 ## Profiles
 
@@ -1708,12 +1751,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="org0c7b068"></a>
+<a id="orgc7ef1a3"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orge6572c4"></a>
+<a id="org1404988"></a>
 
 ## Environment Variables
 
@@ -1733,7 +1776,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org88ed5cc"></a>
+<a id="org7754139"></a>
 
 ## Flags
 
@@ -1775,7 +1818,7 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="orga64e3ee"></a>
+<a id="org76715e5"></a>
 
 # Utility
 
@@ -1790,7 +1833,7 @@ A few guidelines followed throughout these scripts:
 -   Documentation for what the function does and why is provided.
 
 
-<a id="org962641c"></a>
+<a id="orgbf4694a"></a>
 
 ## Ungoogled Chromium Extension Updater
 
@@ -1859,7 +1902,7 @@ this moment.
     main "${@}"
 
 
-<a id="org2bd4e3b"></a>
+<a id="orgb715a54"></a>
 
 ## Virtual Desktop Bar (KDE)
 
@@ -1950,7 +1993,7 @@ this moment.
     main
 
 
-<a id="orgac45980"></a>
+<a id="org832a7bd"></a>
 
 ## KWin Tiling Script (Faho)
 
@@ -2025,7 +2068,7 @@ script has been previously installed.
     main
 
 
-<a id="org5fdab7e"></a>
+<a id="org0e3fd0b"></a>
 
 ## Wallpaper Index
 
@@ -2161,7 +2204,7 @@ Functions:
     main
 
 
-<a id="org7d945c6"></a>
+<a id="org59adada"></a>
 
 # VSCodium
 
@@ -2173,7 +2216,7 @@ there's no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org1097acc"></a>
+<a id="org136c36d"></a>
 
 ## Settings
 
@@ -2377,7 +2420,7 @@ mature as Emacs.
     }
 
 
-<a id="org8566875"></a>
+<a id="org10d6a45"></a>
 
 ## Keybindings
 
@@ -2453,12 +2496,12 @@ mature as Emacs.
     ]
 
 
-<a id="orgbee2d1d"></a>
+<a id="org4b16510"></a>
 
 # ZSH
 
 
-<a id="org0a3d0c7"></a>
+<a id="org5c254f7"></a>
 
 ## Oh-my-zsh stuff
 
@@ -2493,12 +2536,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org68c90f6"></a>
+<a id="org06c1cc5"></a>
 
 ## Functions
 
 
-<a id="org54d3b9b"></a>
+<a id="org2890d05"></a>
 
 ### Weather
 
@@ -2510,12 +2553,12 @@ unless specified otherwise.
     }
 
 
-<a id="org938d776"></a>
+<a id="org1a641c8"></a>
 
 ## Variables
 
     # PATH
-    export PATH="${PATH}:${HOME}/.local/bin"
+    export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
     
     # GO
     export GOPATH="${HOME}/.go"
@@ -2533,7 +2576,7 @@ unless specified otherwise.
     export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 
-<a id="orgfc7f5fd"></a>
+<a id="org0eed8df"></a>
 
 ## Aliases
 

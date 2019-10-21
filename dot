@@ -18,7 +18,7 @@ update() {
         "desktop")
             updateDesktop
             ;;
-        "emacs")
+        "doom"|"emacs")
             updateEmacs
             ;;
         "firefox")
@@ -59,8 +59,8 @@ updateDesktop() {
 }
 
 updateEmacs() {
-    ln -sf "${SCRIPT_PATH}"/.emacs "${HOME}"/
-    ln -sf "${SCRIPT_PATH}"/.config/emacs/* "${HOME}"/.config/emacs/
+    ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
+    "${HOME}"/.emacs.d/bin/doom refresh
 }
 
 updateFirefox() {
@@ -126,7 +126,7 @@ setup() {
         "desktop")
             setupDesktop
             ;;
-        "emacs")
+        "doom"|"emacs")
             setupEmacs
             ;;
         "firefox")
@@ -170,7 +170,23 @@ setupDesktop() {
 }
 
 setupEmacs() {
-    mkdir -p "${HOME}"/.config/emacs
+    echo -e "Creating doom emacs directory..."
+    if mkdir -p "${HOME}"/.config/doom; then
+        printf '\u2714\n'
+    else
+        printf '\u274c\n'
+    fi
+
+    echo -ne "Cloning doom emacs source..."
+    if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
+        printf '\u2714\n'
+    else
+        printf '\u274c\n'
+    fi
+
+    echo -e "Unleashing doom..."
+    "${HOME}"/.emacs.d/bin/doom install
+
     updateEmacs
 }
 

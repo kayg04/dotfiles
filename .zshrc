@@ -31,7 +31,7 @@ wttr() {
 }
 
 # PATH
-export PATH="${PATH}:${HOME}/.local/bin"
+export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
 
 # GO
 export GOPATH="${HOME}/.go"
