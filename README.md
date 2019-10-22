@@ -1,60 +1,60 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#org809bbc8)
-2.  [Awesome](#org8106b0c)
-    1.  [rc.lua](#org5f6ed2e)
-    2.  [Themes](#orgac29a6d)
-        1.  [Default](#org015d018)
-3.  [Autostart](#orgb427678)
-    1.  [Scripts](#org5898b7d)
-        1.  [SSH](#org108445c)
-4.  [Compton](#org3e3fa69)
-5.  [Desktop](#org055ca83)
-    1.  [Deezer](#org54eb5fc)
-    2.  [Invidious](#orge06b54c)
-    3.  [Riot](#org28213c6)
-    4.  [Saavn](#orga827441)
-    5.  [Slack](#orgb90e2b5)
-    6.  [Wire](#org03d6378)
-6.  [Emacs](#orgd27bf45)
-    1.  [Init](#org4a47207)
-    2.  [Config](#org7518d93)
-7.  [Firefox](#org28d6009)
-    1.  [Profiles](#org1972fb5)
-    2.  [Policies](#org7b16165)
-    3.  [UserJS](#org95dbce4)
-        1.  [General](#org2029278)
-        2.  [Themes](#org1e42d3a)
-    4.  [Setup](#orgf0e7f6e)
-8.  [Plasma](#orgb025eeb)
-    1.  [Environment](#org42e8fcf)
-    2.  [PAM](#org76ada8f)
-9.  [Systemd](#orgc82b3f2)
-    1.  [SSH Agent](#org9fb6814)
-10. [Thunderbird](#orge0f8e0c)
-    1.  [Profiles](#org5b3b414)
-11. [Ungoogled Chromium](#org8e5a289)
-    1.  [Environment Variables](#orgc326d4e)
-    2.  [Flags](#orgd7361ad)
-12. [Utility](#org0ab8fb2)
-    1.  [Ungoogled Chromium Extension Updater](#orgc607648)
-    2.  [Virtual Desktop Bar (KDE)](#orgc677f85)
-    3.  [KWin Tiling Script (Faho)](#org37d5920)
-    4.  [Wallpaper Index](#org94bd654)
-13. [VSCodium](#org7dce395)
-    1.  [Settings](#org3659062)
-    2.  [Keybindings](#orgbed8f88)
-14. [ZSH](#org4466a2c)
-    1.  [Oh-my-zsh stuff](#org63da799)
-    2.  [Functions](#org5d1c958)
-        1.  [Weather](#org056c52f)
-    3.  [Variables](#orgb9d4de0)
-    4.  [Aliases](#orgf42f0b0)
+1.  [Bootstrap](#org230c83e)
+2.  [Awesome](#org4955d53)
+    1.  [rc.lua](#orgc6159a4)
+    2.  [Themes](#orgc1d7339)
+        1.  [Default](#orgd25d7aa)
+3.  [Autostart](#org3de407b)
+    1.  [Scripts](#org6244043)
+        1.  [SSH](#orga879060)
+4.  [Compton](#org8eeb640)
+5.  [Desktop](#org4514084)
+    1.  [Deezer](#org823bfd2)
+    2.  [Invidious](#org9030e0b)
+    3.  [Riot](#orgf92c74f)
+    4.  [Saavn](#orgdaf63bd)
+    5.  [Slack](#org4587fa5)
+    6.  [Wire](#org06c18f2)
+6.  [Emacs](#org5587cf6)
+    1.  [Init](#org5d8910f)
+    2.  [Config](#org3bc98ef)
+7.  [Firefox](#orgb251d19)
+    1.  [Profiles](#orgc8a65bf)
+    2.  [Policies](#orga3398c6)
+    3.  [UserJS](#orgdfeeadc)
+        1.  [General](#orge143782)
+        2.  [Themes](#orgfce754e)
+    4.  [Setup](#orgda6a6c3)
+8.  [Plasma](#orga800939)
+    1.  [Environment](#orgb0daadd)
+    2.  [PAM](#org0331343)
+9.  [Systemd](#org7e20b1d)
+    1.  [SSH Agent](#org60d8c03)
+10. [Thunderbird](#org1cb32ae)
+    1.  [Profiles](#org7487043)
+11. [Ungoogled Chromium](#orgc07adf4)
+    1.  [Environment Variables](#orgdf3ec93)
+    2.  [Flags](#orgc5451b3)
+12. [Utility](#org79f6bbb)
+    1.  [Ungoogled Chromium Extension Updater](#orgd6ae720)
+    2.  [Virtual Desktop Bar (KDE)](#orge7d01b1)
+    3.  [KWin Tiling Script (Faho)](#orgeaf3473)
+    4.  [Wallpaper Index](#org57cd2ff)
+13. [VSCodium](#orgf4b5e39)
+    1.  [Settings](#orgae6f18e)
+    2.  [Keybindings](#orgc8d010d)
+14. [ZSH](#org8371f17)
+    1.  [Oh-my-zsh stuff](#org60d46ea)
+    2.  [Functions](#org5953abd)
+        1.  [Weather](#org1210e8d)
+    3.  [Variables](#org3f8a7bc)
+    4.  [Aliases](#orgbce8777)
 
 
 
-<a id="org809bbc8"></a>
+<a id="org230c83e"></a>
 
 # Bootstrap
 
@@ -329,12 +329,12 @@
     main "${@}"
 
 
-<a id="org8106b0c"></a>
+<a id="org4955d53"></a>
 
 # Awesome
 
 
-<a id="org5f6ed2e"></a>
+<a id="orgc6159a4"></a>
 
 ## rc.lua
 
@@ -907,12 +907,12 @@
     -- }}}
 
 
-<a id="orgac29a6d"></a>
+<a id="orgc1d7339"></a>
 
 ## Themes
 
 
-<a id="org015d018"></a>
+<a id="orgd25d7aa"></a>
 
 ### Default
 
@@ -1049,17 +1049,17 @@
     -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 
 
-<a id="orgb427678"></a>
+<a id="org3de407b"></a>
 
 # Autostart
 
 
-<a id="org5898b7d"></a>
+<a id="org6244043"></a>
 
 ## Scripts
 
 
-<a id="org108445c"></a>
+<a id="orga879060"></a>
 
 ### SSH
 
@@ -1071,7 +1071,7 @@
     ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
 
 
-<a id="org3e3fa69"></a>
+<a id="org8eeb640"></a>
 
 # Compton
 
@@ -1172,12 +1172,12 @@
     transition-length = 150;
 
 
-<a id="org055ca83"></a>
+<a id="org4514084"></a>
 
 # Desktop
 
 
-<a id="org54eb5fc"></a>
+<a id="org823bfd2"></a>
 
 ## Deezer
 
@@ -1194,7 +1194,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orge06b54c"></a>
+<a id="org9030e0b"></a>
 
 ## Invidious
 
@@ -1211,7 +1211,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org28213c6"></a>
+<a id="orgf92c74f"></a>
 
 ## Riot
 
@@ -1226,7 +1226,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orga827441"></a>
+<a id="orgdaf63bd"></a>
 
 ## Saavn
 
@@ -1243,7 +1243,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgb90e2b5"></a>
+<a id="org4587fa5"></a>
 
 ## Slack
 
@@ -1261,7 +1261,7 @@
     Categories=GNOME;GTK;Network;InstantMessaging;
 
 
-<a id="org03d6378"></a>
+<a id="org06c18f2"></a>
 
 ## Wire
 
@@ -1280,7 +1280,7 @@
     Version=1.1
 
 
-<a id="orgd27bf45"></a>
+<a id="org5587cf6"></a>
 
 # Emacs
 
@@ -1325,7 +1325,7 @@ throwing away (or refactoring?) my 1 year-in-the-making
 configuration of Emacs to find my peace in doom.
 
 
-<a id="org4a47207"></a>
+<a id="org5d8910f"></a>
 
 ## Init
 
@@ -1512,7 +1512,7 @@ configuration of Emacs to find my peace in doom.
            (default +bindings +smartparens))
 
 
-<a id="org7518d93"></a>
+<a id="org3bc98ef"></a>
 
 ## Config
 
@@ -1520,8 +1520,9 @@ configuration of Emacs to find my peace in doom.
 -   Do not preserve indentation while tangling code blocks.
 -   Set font
 
-    (setq doom-theme 'doom-dracula)
-    (setq org-src-preserve-indentation nil)
+    (setq doom-theme 'doom-molokai)
+    (after! org-mode
+      (setq org-src-preserve-indentation nil))
     
     (setq doom-font (font-spec :family "IBM Plex Mono" :size 26 :weight 'semi-bold)
           doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
@@ -1529,12 +1530,12 @@ configuration of Emacs to find my peace in doom.
           doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold))
 
 
-<a id="org28d6009"></a>
+<a id="orgb251d19"></a>
 
 # Firefox
 
 
-<a id="org1972fb5"></a>
+<a id="orgc8a65bf"></a>
 
 ## Profiles
 
@@ -1591,7 +1592,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org7b16165"></a>
+<a id="orga3398c6"></a>
 
 ## Policies
 
@@ -1667,12 +1668,12 @@ Mozilla&rsquo;s Policies&rsquo; explanation can be found [here](https://github.c
     }
 
 
-<a id="org95dbce4"></a>
+<a id="orgdfeeadc"></a>
 
 ## UserJS
 
 
-<a id="org2029278"></a>
+<a id="orge143782"></a>
 
 ### General
 
@@ -1726,7 +1727,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org1e42d3a"></a>
+<a id="orgfce754e"></a>
 
 ### Themes
 
@@ -1762,7 +1763,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgf0e7f6e"></a>
+<a id="orgda6a6c3"></a>
 
 ## Setup
 
@@ -1895,12 +1896,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgb025eeb"></a>
+<a id="orga800939"></a>
 
 # Plasma
 
 
-<a id="org42e8fcf"></a>
+<a id="orgb0daadd"></a>
 
 ## Environment
 
@@ -1908,19 +1909,19 @@ builds upon the GHacksUserJS.
     export GIT_ASKPASS="$(command -v ksshaskpass)"
 
 
-<a id="org76ada8f"></a>
+<a id="org0331343"></a>
 
 ## PAM
 
     SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 
-<a id="orgc82b3f2"></a>
+<a id="org7e20b1d"></a>
 
 # Systemd
 
 
-<a id="org9fb6814"></a>
+<a id="org60d8c03"></a>
 
 ## SSH Agent
 
@@ -1936,12 +1937,12 @@ builds upon the GHacksUserJS.
     WantedBy=default.target
 
 
-<a id="orge0f8e0c"></a>
+<a id="org1cb32ae"></a>
 
 # Thunderbird
 
 
-<a id="org5b3b414"></a>
+<a id="org7487043"></a>
 
 ## Profiles
 
@@ -1957,12 +1958,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="org8e5a289"></a>
+<a id="orgc07adf4"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgc326d4e"></a>
+<a id="orgdf3ec93"></a>
 
 ## Environment Variables
 
@@ -1982,7 +1983,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgd7361ad"></a>
+<a id="orgc5451b3"></a>
 
 ## Flags
 
@@ -2024,7 +2025,7 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org0ab8fb2"></a>
+<a id="org79f6bbb"></a>
 
 # Utility
 
@@ -2039,7 +2040,7 @@ A few guidelines followed throughout these scripts:
 -   Documentation for what the function does and why is provided.
 
 
-<a id="orgc607648"></a>
+<a id="orgd6ae720"></a>
 
 ## Ungoogled Chromium Extension Updater
 
@@ -2108,7 +2109,7 @@ this moment.
     main "${@}"
 
 
-<a id="orgc677f85"></a>
+<a id="orge7d01b1"></a>
 
 ## Virtual Desktop Bar (KDE)
 
@@ -2199,7 +2200,7 @@ this moment.
     main
 
 
-<a id="org37d5920"></a>
+<a id="orgeaf3473"></a>
 
 ## KWin Tiling Script (Faho)
 
@@ -2274,7 +2275,7 @@ script has been previously installed.
     main
 
 
-<a id="org94bd654"></a>
+<a id="org57cd2ff"></a>
 
 ## Wallpaper Index
 
@@ -2410,7 +2411,7 @@ Functions:
     main
 
 
-<a id="org7dce395"></a>
+<a id="orgf4b5e39"></a>
 
 # VSCodium
 
@@ -2422,7 +2423,7 @@ there&rsquo;s no other reason to choose VSCodium over something as
 mature as Emacs.
 
 
-<a id="org3659062"></a>
+<a id="orgae6f18e"></a>
 
 ## Settings
 
@@ -2626,7 +2627,7 @@ mature as Emacs.
     }
 
 
-<a id="orgbed8f88"></a>
+<a id="orgc8d010d"></a>
 
 ## Keybindings
 
@@ -2702,12 +2703,12 @@ mature as Emacs.
     ]
 
 
-<a id="org4466a2c"></a>
+<a id="org8371f17"></a>
 
 # ZSH
 
 
-<a id="org63da799"></a>
+<a id="org60d46ea"></a>
 
 ## Oh-my-zsh stuff
 
@@ -2742,12 +2743,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org5d1c958"></a>
+<a id="org5953abd"></a>
 
 ## Functions
 
 
-<a id="org056c52f"></a>
+<a id="org1210e8d"></a>
 
 ### Weather
 
@@ -2759,7 +2760,7 @@ unless specified otherwise.
     }
 
 
-<a id="orgb9d4de0"></a>
+<a id="org3f8a7bc"></a>
 
 ## Variables
 
@@ -2782,7 +2783,7 @@ unless specified otherwise.
     export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 
-<a id="orgf42f0b0"></a>
+<a id="orgbce8777"></a>
 
 ## Aliases
 
