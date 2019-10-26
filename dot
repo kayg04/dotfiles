@@ -9,12 +9,6 @@ ZSH_CUSTOM="${HOME}/.config/omz/custom"
 
 update() {
     case "${1}" in
-        "awesome")
-            updateAwesomeWM
-            ;;
-        "compton")
-            updateCompton
-            ;;
         "desktop")
             updateDesktop
             ;;
@@ -43,15 +37,6 @@ update() {
             updateZSH
             ;;
     esac
-}
-
-updateAwesomeWM() {
-    ln -sf "${SCRIPT_PATH}"/.config/awesome/*.lua "${HOME}"/.config/awesome/
-    ln -sf "${SCRIPT_PATH}"/.config/awesome/themes/default/*.lua "${HOME}"/.config/awesome/themes/default/
-}
-
-updateCompton() {
-    ln -sf "${SCRIPT_PATH}"/.config/compton/*.conf "${HOME}"/.config/compton/
 }
 
 updateDesktop() {
@@ -117,12 +102,6 @@ updateZSH() {
 
 setup() {
     case "${1}" in
-        "awesome")
-            setupAwesomeWM
-            ;;
-        "compton")
-            setupCompton
-            ;;
         "desktop")
             setupDesktop
             ;;
@@ -151,17 +130,6 @@ setup() {
             setupZSH
             ;;
     esac
-}
-
-setupAwesomeWM() {
-    mkdir -p "${HOME}"/.config/awesome
-    mkdir -p "${HOME}"/.config/awesome/themes/default
-    updateAwesomeWM
-}
-
-setupCompton() {
-    mkdir -p "${HOME}"/.config/compton
-    updateCompton
 }
 
 setupDesktop() {
