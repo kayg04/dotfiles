@@ -581,7 +581,9 @@ configuration of Emacs to find my peace in doom.
 ** Packages
 Add extra packages
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/packages.el
-(package! command-log-mode)
+  (package! caddyfile-mode)
+  (package! command-log-mode)
+  (package! docker-compose-mode)
 #+END_SRC
 * Firefox
 ** Profiles
