@@ -91,6 +91,8 @@ applyPolicies() {
         ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-nightly/distribution
     elif [[ -d /opt/firefox-developer-edition ]]; then
         ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-developer-edition/distribution
+    elif [[ -d /opt/firefox-beta ]]; then
+        ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-beta/distribution
     elif [[ -d /usr/lib/firefox-developer-edition ]]; then
         sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox-developer-edition/distribution
     fi
@@ -103,7 +105,8 @@ cleanUp() {
 
 startFirefox() {
     $(command -v firefox) --ProfileManager 2> /dev/null || \
-    $(command -v firefox-developer-edition) --ProfileManager 2> /dev/null
+    $(command -v firefox-developer-edition) --ProfileManager 2> /dev/null || \
+    $(command -v firefox-beta) --ProfileManager 2> /dev/null
 
     echo "Firefox is setup and started. Have a good day!"
 }
