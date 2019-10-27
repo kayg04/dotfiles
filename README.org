@@ -1662,7 +1662,7 @@ mature as Emacs.
 Settings specific to OMZ.
 #+BEGIN_SRC sh :tangle .zshrc
   # Path to oh-my-zsh installation.
-  export ZSH="/home/kayg/.config/omz"
+  export ZSH="${HOME}/.config/omz"
 
   # Set OMZ theme
   ZSH_THEME="agnoster"

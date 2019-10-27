@@ -1,5 +1,5 @@
 # Path to oh-my-zsh installation.
-export ZSH="/home/kayg/.config/omz"
+export ZSH="${HOME}/.config/omz"
 
 # Set OMZ theme
 ZSH_THEME="agnoster"
