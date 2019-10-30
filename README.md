@@ -1,54 +1,54 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgf8ec6d5)
-2.  [Autostart](#orgd07c8b6)
-    1.  [Scripts](#org4765807)
-        1.  [SSH](#org3909124)
-3.  [Desktop](#org202e4f5)
-    1.  [Invidious](#org8451081)
-    2.  [Riot](#org2801c32)
-    3.  [Slack](#orgdfb3998)
-    4.  [Wire](#org8a9baee)
-4.  [Emacs](#org7bfb49a)
-    1.  [Init](#orgae5b4f6)
-    2.  [Config](#org9220313)
-    3.  [Packages](#org9301a10)
-5.  [Firefox](#orgaa30ec8)
-    1.  [Profiles](#org3a838db)
-    2.  [Policies](#org7ad5380)
-    3.  [UserJS](#orgeb4b078)
-        1.  [General](#orgbb337de)
-        2.  [Themes](#orgb20d593)
-    4.  [Setup](#orgdc645f1)
-6.  [Plasma](#orgf50313a)
-    1.  [Environment](#org169418e)
-    2.  [PAM](#orgddb6b98)
-7.  [Systemd](#org020135d)
-    1.  [SSH Agent](#org99c1f01)
-8.  [Thunderbird](#orga0f3965)
-    1.  [Profiles](#orgea34a9d)
-9.  [Ungoogled Chromium](#orgf088a45)
-    1.  [Environment Variables](#orgbc324b5)
-    2.  [Flags](#orgb769dd2)
-10. [Utility](#org3b929e7)
-    1.  [Ungoogled Chromium Extension Updater](#org6600e3c)
-    2.  [Virtual Desktop Bar (KDE)](#org30ad10f)
-    3.  [KWin Tiling Script (Faho)](#orgd9e5cc6)
-    4.  [Wallpaper Index](#org056951d)
-11. [VSCodium](#orgac092d7)
-    1.  [Settings](#orge554527)
-    2.  [Keybindings](#orgdbdeaa4)
-12. [ZSH](#orgd723eb0)
-    1.  [Oh-my-zsh stuff](#org54da9e9)
-    2.  [Functions](#org25d4381)
-        1.  [Weather](#org05f6dc3)
-    3.  [Variables](#orgc2a8642)
-    4.  [Aliases](#org20ee2ed)
+1.  [Bootstrap](#orgf61817f)
+2.  [Autostart](#org4bb618f)
+    1.  [Scripts](#org91a1c8e)
+        1.  [SSH](#org15ee53e)
+3.  [Desktop](#org320b024)
+    1.  [Invidious](#orgd83541c)
+    2.  [Riot](#org3215c97)
+    3.  [Slack](#orga4de1ca)
+    4.  [Wire](#org1800f32)
+4.  [Emacs](#org8c9766b)
+    1.  [Init](#orgb6ef8fe)
+    2.  [Config](#org54cdb3a)
+    3.  [Packages](#orgb093e60)
+5.  [Firefox](#orga6bc487)
+    1.  [Profiles](#org508a50a)
+    2.  [Policies](#org699e05a)
+    3.  [UserJS](#org4e82dab)
+        1.  [General](#org3d78de3)
+        2.  [Themes](#org3b9c352)
+    4.  [Setup](#org64f782d)
+6.  [Plasma](#org9744b17)
+    1.  [Environment](#orgeee4842)
+    2.  [PAM](#org3efe5fe)
+7.  [Spotify](#org9a2ffb4)
+    1.  [WM Name](#org038f21b)
+    2.  [Lyrics](#org53f9b25)
+8.  [Systemd](#org140dfbf)
+    1.  [SSH Agent](#org96542d9)
+9.  [Thunderbird](#orge6ea578)
+    1.  [Profiles](#org5748001)
+10. [Ungoogled Chromium](#org47f7380)
+    1.  [Environment Variables](#org9b1c7c4)
+    2.  [Flags](#org70c4109)
+11. [Utility](#orged94c15)
+    1.  [Ungoogled Chromium Extension Updater](#orgc943da6)
+    2.  [Virtual Desktop Bar (KDE)](#orgac33d5c)
+    3.  [KWin Tiling Script (Faho)](#org7593472)
+    4.  [Wallpaper Index](#orge202e4f)
+12. [ZSH](#org6f06272)
+    1.  [Oh-my-zsh stuff](#org9af4fb1)
+    2.  [Functions](#org035919c)
+        1.  [Weather](#orgef80457)
+    3.  [Variables](#org41d0c76)
+    4.  [Aliases](#org925dc6c)
 
 
 
-<a id="orgf8ec6d5"></a>
+<a id="orgf61817f"></a>
 
 # Bootstrap
 
@@ -73,6 +73,9 @@
                 ;;
             "plasma")
                 updatePlasma
+                ;;
+            "spotify")
+                updateSpotify
                 ;;
             "systemd")
                 updateSystemd
@@ -115,6 +118,10 @@
         ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
         ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
         ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
+    }
+    
+    updateSpotify() {
+    
     }
     
     updateSystemd() {
@@ -166,6 +173,9 @@
                 ;;
             "plasma")
                 setupPlasma
+                ;;
+            "spotify")
+                setupSpotify
                 ;;
             "systemd")
                 setupSystemd
@@ -226,6 +236,16 @@
     
     setupPlasma() {
         updatePlasma
+    }
+    
+    setupSpotify() {
+        source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
+    
+        # fix wm name setting
+        fetchSource
+        buildLibrary
+        moveLibrary
+        fixSpotify
     }
     
     setupSystemd() {
@@ -291,17 +311,17 @@
     main "${@}"
 
 
-<a id="orgd07c8b6"></a>
+<a id="org4bb618f"></a>
 
 # Autostart
 
 
-<a id="org4765807"></a>
+<a id="org91a1c8e"></a>
 
 ## Scripts
 
 
-<a id="org3909124"></a>
+<a id="org15ee53e"></a>
 
 ### SSH
 
@@ -313,12 +333,12 @@
     ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
 
 
-<a id="org202e4f5"></a>
+<a id="org320b024"></a>
 
 # Desktop
 
 
-<a id="org8451081"></a>
+<a id="orgd83541c"></a>
 
 ## Invidious
 
@@ -335,7 +355,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org2801c32"></a>
+<a id="org3215c97"></a>
 
 ## Riot
 
@@ -350,7 +370,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orgdfb3998"></a>
+<a id="orga4de1ca"></a>
 
 ## Slack
 
@@ -368,7 +388,7 @@
     Categories=GNOME;GTK;Network;InstantMessaging;
 
 
-<a id="org8a9baee"></a>
+<a id="org1800f32"></a>
 
 ## Wire
 
@@ -387,7 +407,7 @@
     Version=1.1
 
 
-<a id="org7bfb49a"></a>
+<a id="org8c9766b"></a>
 
 # Emacs
 
@@ -432,7 +452,7 @@ throwing away (or refactoring?) my 1 year-in-the-making
 configuration of Emacs to find my peace in doom.
 
 
-<a id="orgae5b4f6"></a>
+<a id="orgb6ef8fe"></a>
 
 ## Init
 
@@ -619,7 +639,7 @@ configuration of Emacs to find my peace in doom.
            (default +bindings +smartparens))
 
 
-<a id="org9220313"></a>
+<a id="org54cdb3a"></a>
 
 ## Config
 
@@ -638,7 +658,7 @@ configuration of Emacs to find my peace in doom.
           doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold))
 
 
-<a id="org9301a10"></a>
+<a id="orgb093e60"></a>
 
 ## Packages
 
@@ -649,12 +669,12 @@ Add extra packages
     (package! docker-compose-mode)
 
 
-<a id="orgaa30ec8"></a>
+<a id="orga6bc487"></a>
 
 # Firefox
 
 
-<a id="org3a838db"></a>
+<a id="org508a50a"></a>
 
 ## Profiles
 
@@ -711,7 +731,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org7ad5380"></a>
+<a id="org699e05a"></a>
 
 ## Policies
 
@@ -787,12 +807,12 @@ Mozilla&rsquo;s Policies&rsquo; explanation can be found [here](https://github.c
     }
 
 
-<a id="orgeb4b078"></a>
+<a id="org4e82dab"></a>
 
 ## UserJS
 
 
-<a id="orgbb337de"></a>
+<a id="org3d78de3"></a>
 
 ### General
 
@@ -846,7 +866,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgb20d593"></a>
+<a id="org3b9c352"></a>
 
 ### Themes
 
@@ -882,7 +902,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="orgdc645f1"></a>
+<a id="org64f782d"></a>
 
 ## Setup
 
@@ -1018,12 +1038,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgf50313a"></a>
+<a id="org9744b17"></a>
 
 # Plasma
 
 
-<a id="org169418e"></a>
+<a id="orgeee4842"></a>
 
 ## Environment
 
@@ -1031,19 +1051,95 @@ builds upon the GHacksUserJS.
     export GIT_ASKPASS="$(command -v ksshaskpass)"
 
 
-<a id="orgddb6b98"></a>
+<a id="org3efe5fe"></a>
 
 ## PAM
 
     SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 
-<a id="org020135d"></a>
+<a id="org9a2ffb4"></a>
+
+# Spotify
+
+
+<a id="org038f21b"></a>
+
+## WM Name
+
+Spotify treats Linux as a second-class citizen. Everybody knows that. We&rsquo;re glad
+to at least have a client, right? But that does not mean the community can&rsquo;t fix
+problems that can be fixed. When Spotify starts, it does not set $WM<sub>CLASS</sub> which
+becomes a problem for window managers if a custom layout or custom changes are
+to be defined for that particular window. A simple fix was provided [here](https://github.com/dasJ/spotifywm) (hasn&rsquo;t
+been updated in years but still works).
+
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(dirname $(realpath "$0"))
+    URL="https://github.com/dasJ/spotifywm.git"
+    
+    fetchSource() {
+        echo -e "Fetching source..."
+        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
+            echo -e "\t-> Source fetched successfully."
+        else
+            echo -e "\t-> Source couldn't be fetched."
+        fi
+    }
+    
+    buildLibrary() {
+        cd "${SCRIPT_PATH}/spotifywm"
+    
+        echo -e "Building library..."
+        if make -j$(nproc); then
+            echo -e "\t-> Library built successfully."
+        else
+            echo -e "\t-> Library building failed."
+        fi
+    
+    }
+    
+    moveLibrary() {
+       echo -e "Moving built library to /usr/lib (need root permissions)..."
+       sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+    }
+    
+    fixSpotify() {
+        cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+        sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+    }
+
+
+<a id="org53f9b25"></a>
+
+## Lyrics
+
+One of the things I miss from Deezer is the seamless integration of lyrics (for
+a select few songs, at least) into the app / webapp itself. I hear the same
+worked for Spotify a few years ago but they lost license for lyrics with their
+lyrics provider / partner. So I found [this](https://github.com/SwagLyrics/SwagLyrics-For-Spotify) which queries the song title from the
+running Spotify app, fetches lyrics and opens an issue on Github automatically
+if it can&rsquo;t find those lyrics. Pretty cool, right?
+
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(dirname $(realpath "$0"))
+    URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
+    
+    fetch
+
+
+<a id="org140dfbf"></a>
 
 # Systemd
 
 
-<a id="org99c1f01"></a>
+<a id="org96542d9"></a>
 
 ## SSH Agent
 
@@ -1059,12 +1155,12 @@ builds upon the GHacksUserJS.
     WantedBy=default.target
 
 
-<a id="orga0f3965"></a>
+<a id="orge6ea578"></a>
 
 # Thunderbird
 
 
-<a id="orgea34a9d"></a>
+<a id="org5748001"></a>
 
 ## Profiles
 
@@ -1080,12 +1176,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="orgf088a45"></a>
+<a id="org47f7380"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgbc324b5"></a>
+<a id="org9b1c7c4"></a>
 
 ## Environment Variables
 
@@ -1105,7 +1201,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgb769dd2"></a>
+<a id="org70c4109"></a>
 
 ## Flags
 
@@ -1147,7 +1243,7 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="org3b929e7"></a>
+<a id="orged94c15"></a>
 
 # Utility
 
@@ -1162,7 +1258,7 @@ A few guidelines followed throughout these scripts:
 -   Documentation for what the function does and why is provided.
 
 
-<a id="org6600e3c"></a>
+<a id="orgc943da6"></a>
 
 ## Ungoogled Chromium Extension Updater
 
@@ -1231,7 +1327,7 @@ this moment.
     main "${@}"
 
 
-<a id="org30ad10f"></a>
+<a id="orgac33d5c"></a>
 
 ## Virtual Desktop Bar (KDE)
 
@@ -1322,7 +1418,7 @@ this moment.
     main
 
 
-<a id="orgd9e5cc6"></a>
+<a id="org7593472"></a>
 
 ## KWin Tiling Script (Faho)
 
@@ -1397,7 +1493,7 @@ script has been previously installed.
     main
 
 
-<a id="org056951d"></a>
+<a id="orge202e4f"></a>
 
 ## Wallpaper Index
 
@@ -1533,304 +1629,12 @@ Functions:
     main
 
 
-<a id="orgac092d7"></a>
-
-# VSCodium
-
-I tried VSCodium for a brief period of time but the fact
-that a completely keyboard driven workflow cannot be
-achieved with ease bothers me a lot. Don&rsquo;t get me wrong, the
-autocompletion and the learning curve are simply amazing but
-there&rsquo;s no other reason to choose VSCodium over something as
-mature as Emacs.
-
-
-<a id="orge554527"></a>
-
-## Settings
-
-    {
-        "breadcrumbs.enabled": true,
-        "editor.fontLigatures": true,
-        "editor.fontSize": 20,
-        "editor.lineNumbers": "relative",
-        "editor.minimap.enabled": false,
-        "editor.renderControlCharacters": false,
-        "editor.renderWhitespace": "boundary",
-        "editor.trimAutoWhitespace": true,
-        // Vim features
-        "vim.autoindent": true,
-        "vim.hlsearch": false,
-        "vim.highlightedyank.enable": true,
-        // Vim plugins
-        "vim.surround": true,
-        "vim.camelCaseMotion.enable": false,
-        // Vim keybindings
-        "vim.leader": "space",
-        "vim.insertModeKeyBindings": [
-            {
-                "before": ["j", "k"],
-                "after": ["escape"],
-            },
-            {
-                "before": ["k", "j"],
-                "after": ["escape"],
-            },
-        ],
-        "vim.normalModeKeyBindingsNonRecursive": [
-            // navigation
-           {
-               "before": ["g", "h"],
-               "commands": [
-                   "cursorHome",
-               ]
-           },
-           {
-               "before": ["g", "j"],
-               "commands": [
-                   "cursorBottom",
-               ],
-           },
-           {
-               "before": ["g", "k"],
-               "commands": [
-                   "cursorTop",
-               ],
-           },
-           {
-               "before": ["g", "l"],
-               "commands": [
-                   "cursorEnd",
-               ],
-           },
-            // helm
-           {
-               "before": ["<leader>", "<leader>"],
-               "commands":  [
-                   "workbench.action.showCommands",
-               ],
-           },
-           {
-               "before": ["<leader>", "h", "f"],
-               "commands":  [
-                   "workbench.action.quickOpen",
-               ],
-           },
-           // buffers
-           {
-               "before": ["<leader>", "b", "w"],
-               "commands": [
-                   "workbench.action.files.save",
-               ],
-           },
-           {
-               "before": ["<leader>", "b", "q"],
-               "commands": [
-                   "workbench.action.closeActiveEditor",
-               ],
-           },
-           // windows
-           {
-               "before": ["<leader>", "w", "/"],
-               "commands": [
-                   "workbench.action.splitEditorRight"
-               ],
-           },
-           {
-               "before": ["<leader>", "w", "-"],
-               "commands": [
-                   "workbench.action.splitEditorDown"
-               ],
-           },
-           {
-               "before": ["<leader>", "w", "h"],
-               "commands": [
-                   "workbench.action.focusLeftGroup"
-               ],
-           },
-           {
-               "before": ["<leader>", "w", "j"],
-               "commands": [
-                   "workbench.action.focusBelowGroup"
-               ],
-           },
-           {
-               "before": ["<leader>", "w", "k"],
-               "commands": [
-                   "workbench.action.focusAboveGroup"
-               ],
-           },
-           {
-               "before": ["<leader>", "w", "l"],
-               "commands": [
-                   "workbench.action.focusRightGroup"
-               ],
-           },
-           // terminal
-           {
-               "before": ["<leader>", "t", "t"],
-               "commands": [
-                   "workbench.action.terminal.toggleTerminal"
-               ],
-           },
-           // panels and sidebars
-           {
-               "before": ["<leader>", "p", "t"],
-               "commands": [
-                   "workbench.action.togglePanel"
-               ],
-           },
-           {
-               "before": ["<leader>", "s", "t"],
-               "commands": [
-                   "workbench.action.toggleSidebarVisibility"
-               ],
-           },
-           // Run tasks
-           {
-               "before": ["<leader>", "r", "r"],
-               "commands": [
-                   "workbench.action.tasks.reRunTask"
-               ],
-           },
-           {
-               "before": ["<leader>", "r", "b"],
-               "commands": [
-                   "workbench.action.tasks.build"
-               ],
-           },
-           {
-               "before": ["<leader>", "r", "c"],
-               "commands": [
-                   "workbench.action.tasks.configureTaskRunner"
-               ],
-           },
-        ],
-        "vim.visualModeKeyBindingsNonRecursive": [
-            {
-                "before": [
-                    "p",
-                ],
-                "after": [
-                    "p",
-                    "g",
-                    "v",
-                    "y",
-                ],
-            },
-            {
-                "before": [
-                    ">"
-                ],
-                "commands": [
-                    "editor.action.indentLines"
-                ]
-            },
-            {
-                "before": [
-                    "<"
-                ],
-                "commands": [
-                    "editor.action.outdentLines"
-                ]
-            },
-        ],
-        "vim.useSystemClipboard": true,
-        "window.menuBarVisibility": "default",
-        "window.zoomLevel": 0,
-        "workbench.editor.showTabs": true,
-        "workbench.activityBar.visible": false,
-        "workbench.statusBar.visible": true,
-        "C_Cpp.clang_format_fallbackStyle": "LLVM",
-        "editor.hideCursorInOverviewRuler": true,
-        "editor.overviewRulerBorder": false,
-        "editor.scrollbar.horizontal": "hidden",
-        "editor.scrollbar.vertical": "hidden"
-    }
-
-
-<a id="orgdbdeaa4"></a>
-
-## Keybindings
-
-    [
-        {
-            "key": "ctrl+space space",
-            "command": "workbench.action.showCommands"
-        },
-        {
-            "key": "ctrl+space s",
-            "command": "workbench.action.toggleSidebarVisibility"
-        },
-        {
-            "key": "ctrl+` t",
-            "command": "workbench.action.terminal.toggleTerminal"
-        },
-        {
-            "key": "ctrl+p t",
-            "command": "workbench.action.togglePanel"
-        },
-        {
-            "key": "ctrl+space f",
-            "command": "workbench.action.quickOpen"
-        },
-        {
-            "key": "ctrl+space /",
-            "command": "workbench.action.findInFiles"
-        },
-        {
-            "key": "ctrl+shift+f",
-            "command": "-workbench.action.findInFiles"
-        },
-        {
-            "key": "ctrl+space m",
-            "command": "workbench.actions.view.problems"
-        },
-        {
-            "key": "ctrl+shift+m",
-            "command": "-workbench.actions.view.problems"
-        },
-        {
-            "key": "ctrl+`",
-            "command": "-workbench.action.terminal.toggleTerminal"
-        },
-        {
-            "key": "ctrl+shift+space t",
-            "command": "workbench.action.terminal.new"
-        },
-        {
-            "key": "ctrl+shift+`",
-            "command": "-workbench.action.terminal.new"
-        },
-        {
-            "key": "tab",
-            "command": "selectNextSuggestion",
-            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-        },
-        {
-            "key": "ctrl+down",
-            "command": "-selectNextSuggestion",
-            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-        },
-        {
-            "key": "shift+tab",
-            "command": "selectPrevSuggestion",
-            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-        },
-        {
-            "key": "ctrl+up",
-            "command": "-selectPrevSuggestion",
-            "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-        }
-    ]
-
-
-<a id="orgd723eb0"></a>
+<a id="org6f06272"></a>
 
 # ZSH
 
 
-<a id="org54da9e9"></a>
+<a id="org9af4fb1"></a>
 
 ## Oh-my-zsh stuff
 
@@ -1865,12 +1669,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org25d4381"></a>
+<a id="org035919c"></a>
 
 ## Functions
 
 
-<a id="org05f6dc3"></a>
+<a id="orgef80457"></a>
 
 ### Weather
 
@@ -1882,7 +1686,7 @@ unless specified otherwise.
     }
 
 
-<a id="orgc2a8642"></a>
+<a id="org41d0c76"></a>
 
 ## Variables
 
@@ -1905,7 +1709,7 @@ unless specified otherwise.
     export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 
-<a id="org20ee2ed"></a>
+<a id="org925dc6c"></a>
 
 ## Aliases
 

@@ -26,6 +26,9 @@
           "plasma")
               updatePlasma
               ;;
+          "spotify")
+              updateSpotify
+              ;;
           "systemd")
               updateSystemd
               ;;
@@ -67,6 +70,10 @@
       ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
       ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
       ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
+  }
+
+  updateSpotify() {
+
   }
 
   updateSystemd() {
@@ -118,6 +125,9 @@
               ;;
           "plasma")
               setupPlasma
+              ;;
+          "spotify")
+              setupSpotify
               ;;
           "systemd")
               setupSystemd
@@ -178,6 +188,16 @@
 
   setupPlasma() {
       updatePlasma
+  }
+
+  setupSpotify() {
+      source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
+
+      # fix wm name setting
+      fetchSource
+      buildLibrary
+      moveLibrary
+      fixSpotify
   }
 
   setupSystemd() {
@@ -907,6 +927,72 @@ builds upon the GHacksUserJS.
 #+BEGIN_SRC conf :tangle .pam_environment
   SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 #+END_SRC
+* Spotify
+** WM Name
+Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
+to at least have a client, right? But that does not mean the community can't fix
+problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
+becomes a problem for window managers if a custom layout or custom changes are
+to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
+been updated in years but still works).
+
+#+BEGIN_SRC sh :tangle .config/spotify/wmname.sh :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/dasJ/spotifywm.git"
+
+  fetchSource() {
+      echo -e "Fetching source..."
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
+          echo -e "\t-> Source fetched successfully."
+      else
+          echo -e "\t-> Source couldn't be fetched."
+      fi
+  }
+
+  buildLibrary() {
+      cd "${SCRIPT_PATH}/spotifywm"
+
+      echo -e "Building library..."
+      if make -j$(nproc); then
+          echo -e "\t-> Library built successfully."
+      else
+          echo -e "\t-> Library building failed."
+      fi
+
+  }
+
+  moveLibrary() {
+     echo -e "Moving built library to /usr/lib (need root permissions)..."
+     sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+  }
+
+  fixSpotify() {
+      cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+      sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+  }
+#+END_SRC
+** Lyrics
+One of the things I miss from Deezer is the seamless integration of lyrics (for
+a select few songs, at least) into the app / webapp itself. I hear the same
+worked for Spotify a few years ago but they lost license for lyrics with their
+lyrics provider / partner. So I found [[https://github.com/SwagLyrics/SwagLyrics-For-Spotify][this]] which queries the song title from the
+running Spotify app, fetches lyrics and opens an issue on Github automatically
+if it can't find those lyrics. Pretty cool, right?
+
+#+BEGIN_SRC sh :tangle .config/spotify/lyrics.sh :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
+
+  fetch
+#+END_SRC
 * Systemd
 ** SSH Agent
 #+BEGIN_SRC conf :tangle .config/systemd/user/ssh-agent.service
@@ -1350,287 +1436,6 @@ Functions:
   }
 
   main
-#+END_SRC
-* VSCodium
-I tried VSCodium for a brief period of time but the fact
-that a completely keyboard driven workflow cannot be
-achieved with ease bothers me a lot. Don't get me wrong, the
-autocompletion and the learning curve are simply amazing but
-there's no other reason to choose VSCodium over something as
-mature as Emacs.
-** Settings
-#+BEGIN_SRC json :tangle .config/VSCodium/User/settings.json
-  {
-      "breadcrumbs.enabled": true,
-      "editor.fontLigatures": true,
-      "editor.fontSize": 20,
-      "editor.lineNumbers": "relative",
-      "editor.minimap.enabled": false,
-      "editor.renderControlCharacters": false,
-      "editor.renderWhitespace": "boundary",
-      "editor.trimAutoWhitespace": true,
-      // Vim features
-      "vim.autoindent": true,
-      "vim.hlsearch": false,
-      "vim.highlightedyank.enable": true,
-      // Vim plugins
-      "vim.surround": true,
-      "vim.camelCaseMotion.enable": false,
-      // Vim keybindings
-      "vim.leader": "space",
-      "vim.insertModeKeyBindings": [
-          {
-              "before": ["j", "k"],
-              "after": ["escape"],
-          },
-          {
-              "before": ["k", "j"],
-              "after": ["escape"],
-          },
-      ],
-      "vim.normalModeKeyBindingsNonRecursive": [
-          // navigation
-         {
-             "before": ["g", "h"],
-             "commands": [
-                 "cursorHome",
-             ]
-         },
-         {
-             "before": ["g", "j"],
-             "commands": [
-                 "cursorBottom",
-             ],
-         },
-         {
-             "before": ["g", "k"],
-             "commands": [
-                 "cursorTop",
-             ],
-         },
-         {
-             "before": ["g", "l"],
-             "commands": [
-                 "cursorEnd",
-             ],
-         },
-          // helm
-         {
-             "before": ["<leader>", "<leader>"],
-             "commands":  [
-                 "workbench.action.showCommands",
-             ],
-         },
-         {
-             "before": ["<leader>", "h", "f"],
-             "commands":  [
-                 "workbench.action.quickOpen",
-             ],
-         },
-         // buffers
-         {
-             "before": ["<leader>", "b", "w"],
-             "commands": [
-                 "workbench.action.files.save",
-             ],
-         },
-         {
-             "before": ["<leader>", "b", "q"],
-             "commands": [
-                 "workbench.action.closeActiveEditor",
-             ],
-         },
-         // windows
-         {
-             "before": ["<leader>", "w", "/"],
-             "commands": [
-                 "workbench.action.splitEditorRight"
-             ],
-         },
-         {
-             "before": ["<leader>", "w", "-"],
-             "commands": [
-                 "workbench.action.splitEditorDown"
-             ],
-         },
-         {
-             "before": ["<leader>", "w", "h"],
-             "commands": [
-                 "workbench.action.focusLeftGroup"
-             ],
-         },
-         {
-             "before": ["<leader>", "w", "j"],
-             "commands": [
-                 "workbench.action.focusBelowGroup"
-             ],
-         },
-         {
-             "before": ["<leader>", "w", "k"],
-             "commands": [
-                 "workbench.action.focusAboveGroup"
-             ],
-         },
-         {
-             "before": ["<leader>", "w", "l"],
-             "commands": [
-                 "workbench.action.focusRightGroup"
-             ],
-         },
-         // terminal
-         {
-             "before": ["<leader>", "t", "t"],
-             "commands": [
-                 "workbench.action.terminal.toggleTerminal"
-             ],
-         },
-         // panels and sidebars
-         {
-             "before": ["<leader>", "p", "t"],
-             "commands": [
-                 "workbench.action.togglePanel"
-             ],
-         },
-         {
-             "before": ["<leader>", "s", "t"],
-             "commands": [
-                 "workbench.action.toggleSidebarVisibility"
-             ],
-         },
-         // Run tasks
-         {
-             "before": ["<leader>", "r", "r"],
-             "commands": [
-                 "workbench.action.tasks.reRunTask"
-             ],
-         },
-         {
-             "before": ["<leader>", "r", "b"],
-             "commands": [
-                 "workbench.action.tasks.build"
-             ],
-         },
-         {
-             "before": ["<leader>", "r", "c"],
-             "commands": [
-                 "workbench.action.tasks.configureTaskRunner"
-             ],
-         },
-      ],
-      "vim.visualModeKeyBindingsNonRecursive": [
-          {
-              "before": [
-                  "p",
-              ],
-              "after": [
-                  "p",
-                  "g",
-                  "v",
-                  "y",
-              ],
-          },
-          {
-              "before": [
-                  ">"
-              ],
-              "commands": [
-                  "editor.action.indentLines"
-              ]
-          },
-          {
-              "before": [
-                  "<"
-              ],
-              "commands": [
-                  "editor.action.outdentLines"
-              ]
-          },
-      ],
-      "vim.useSystemClipboard": true,
-      "window.menuBarVisibility": "default",
-      "window.zoomLevel": 0,
-      "workbench.editor.showTabs": true,
-      "workbench.activityBar.visible": false,
-      "workbench.statusBar.visible": true,
-      "C_Cpp.clang_format_fallbackStyle": "LLVM",
-      "editor.hideCursorInOverviewRuler": true,
-      "editor.overviewRulerBorder": false,
-      "editor.scrollbar.horizontal": "hidden",
-      "editor.scrollbar.vertical": "hidden"
-  }
-#+END_SRC
-** Keybindings
-#+BEGIN_SRC json :tangle .config/VSCodium/User/keybindings.json
-  [
-      {
-          "key": "ctrl+space space",
-          "command": "workbench.action.showCommands"
-      },
-      {
-          "key": "ctrl+space s",
-          "command": "workbench.action.toggleSidebarVisibility"
-      },
-      {
-          "key": "ctrl+` t",
-          "command": "workbench.action.terminal.toggleTerminal"
-      },
-      {
-          "key": "ctrl+p t",
-          "command": "workbench.action.togglePanel"
-      },
-      {
-          "key": "ctrl+space f",
-          "command": "workbench.action.quickOpen"
-      },
-      {
-          "key": "ctrl+space /",
-          "command": "workbench.action.findInFiles"
-      },
-      {
-          "key": "ctrl+shift+f",
-          "command": "-workbench.action.findInFiles"
-      },
-      {
-          "key": "ctrl+space m",
-          "command": "workbench.actions.view.problems"
-      },
-      {
-          "key": "ctrl+shift+m",
-          "command": "-workbench.actions.view.problems"
-      },
-      {
-          "key": "ctrl+`",
-          "command": "-workbench.action.terminal.toggleTerminal"
-      },
-      {
-          "key": "ctrl+shift+space t",
-          "command": "workbench.action.terminal.new"
-      },
-      {
-          "key": "ctrl+shift+`",
-          "command": "-workbench.action.terminal.new"
-      },
-      {
-          "key": "tab",
-          "command": "selectNextSuggestion",
-          "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-      },
-      {
-          "key": "ctrl+down",
-          "command": "-selectNextSuggestion",
-          "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-      },
-      {
-          "key": "shift+tab",
-          "command": "selectPrevSuggestion",
-          "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-      },
-      {
-          "key": "ctrl+up",
-          "command": "-selectPrevSuggestion",
-          "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-      }
-  ]
 #+END_SRC
 * ZSH
 ** Oh-my-zsh stuff

@@ -21,6 +21,9 @@ update() {
         "plasma")
             updatePlasma
             ;;
+        "spotify")
+            updateSpotify
+            ;;
         "systemd")
             updateSystemd
             ;;
@@ -62,6 +65,10 @@ updatePlasma() {
     ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
     ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
     ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
+}
+
+updateSpotify() {
+
 }
 
 updateSystemd() {
@@ -113,6 +120,9 @@ setup() {
             ;;
         "plasma")
             setupPlasma
+            ;;
+        "spotify")
+            setupSpotify
             ;;
         "systemd")
             setupSystemd
@@ -173,6 +183,16 @@ setupFirefox() {
 
 setupPlasma() {
     updatePlasma
+}
+
+setupSpotify() {
+    source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
+
+    # fix wm name setting
+    fetchSource
+    buildLibrary
+    moveLibrary
+    fixSpotify
 }
 
 setupSystemd() {
