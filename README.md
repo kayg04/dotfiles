@@ -1,54 +1,60 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgf61817f)
-2.  [Autostart](#org4bb618f)
-    1.  [Scripts](#org91a1c8e)
-        1.  [SSH](#org15ee53e)
-3.  [Desktop](#org320b024)
-    1.  [Invidious](#orgd83541c)
-    2.  [Riot](#org3215c97)
-    3.  [Slack](#orga4de1ca)
-    4.  [Wire](#org1800f32)
-4.  [Emacs](#org8c9766b)
-    1.  [Init](#orgb6ef8fe)
-    2.  [Config](#org54cdb3a)
-    3.  [Packages](#orgb093e60)
-5.  [Firefox](#orga6bc487)
-    1.  [Profiles](#org508a50a)
-    2.  [Policies](#org699e05a)
-    3.  [UserJS](#org4e82dab)
-        1.  [General](#org3d78de3)
-        2.  [Themes](#org3b9c352)
-    4.  [Setup](#org64f782d)
-6.  [Plasma](#org9744b17)
-    1.  [Environment](#orgeee4842)
-    2.  [PAM](#org3efe5fe)
-7.  [Spotify](#org9a2ffb4)
-    1.  [WM Name](#org038f21b)
-    2.  [Lyrics](#org53f9b25)
-8.  [Systemd](#org140dfbf)
-    1.  [SSH Agent](#org96542d9)
-9.  [Thunderbird](#orge6ea578)
-    1.  [Profiles](#org5748001)
-10. [Ungoogled Chromium](#org47f7380)
-    1.  [Environment Variables](#org9b1c7c4)
-    2.  [Flags](#org70c4109)
-11. [Utility](#orged94c15)
-    1.  [Ungoogled Chromium Extension Updater](#orgc943da6)
-    2.  [Virtual Desktop Bar (KDE)](#orgac33d5c)
-    3.  [KWin Tiling Script (Faho)](#org7593472)
-    4.  [Wallpaper Index](#orge202e4f)
-12. [ZSH](#org6f06272)
-    1.  [Oh-my-zsh stuff](#org9af4fb1)
-    2.  [Functions](#org035919c)
-        1.  [Weather](#orgef80457)
-    3.  [Variables](#org41d0c76)
-    4.  [Aliases](#org925dc6c)
+1.  [Bootstrap](#orgbdc26dc)
+2.  [Autostart](#org5a0532f)
+    1.  [Scripts](#org798a2a0)
+        1.  [SSH](#orgee8ee4c)
+3.  [Desktop](#orga70b9ca)
+    1.  [Invidious](#org64b6511)
+    2.  [Riot](#orgb433594)
+    3.  [Slack](#orgffe4944)
+    4.  [Wire](#org8767a35)
+4.  [Emacs](#org986cf25)
+    1.  [Init](#org935ef51)
+    2.  [Config](#org4e787e5)
+    3.  [Packages](#orgda42419)
+5.  [Firefox](#org9d1588a)
+    1.  [Profiles](#org84db4f5)
+    2.  [Policies](#orge7e77e3)
+    3.  [UserJS](#orgacab24f)
+        1.  [General](#org406541d)
+        2.  [Themes](#orgc3a8a76)
+    4.  [Setup](#org50e0b81)
+6.  [Plasma](#orgcff8722)
+    1.  [Environment](#orgbea35b5)
+    2.  [PAM](#org69270e5)
+7.  [Systemd](#org3a79e15)
+    1.  [SSH Agent](#org48cf9e0)
+8.  [Thunderbird](#orgbed9f14)
+    1.  [Profiles](#org2fcb4da)
+9.  [Ungoogled Chromium](#orgf7fdc71)
+    1.  [Environment Variables](#orgffe52ba)
+    2.  [Flags](#orgf097689)
+10. [Scripts](#orgc1964e4)
+    1.  [General](#org3dd267e)
+        1.  [Ungoogled Chromium Extension Updater](#orga4c1604)
+        2.  [Wallpaper Index](#orgd29a28b)
+    2.  [Helpers](#orge7a2139)
+        1.  [Bash Sanity](#org589a5b2)
+        2.  [Fetch Source](#orga0459e2)
+        3.  [Cleanup](#org90837e3)
+    3.  [Plasma](#org8c1e2e5)
+        1.  [Virtual Desktop Bar (KDE)](#orgd2e473b)
+        2.  [KWin Tiling Script (Faho)](#orgbc10d49)
+    4.  [Spotify](#org7575d29)
+        1.  [WM Name](#org923ccab)
+        2.  [Lyrics](#org9f776d0)
+11. [ZSH](#orgcbe4cbc)
+    1.  [Oh-my-zsh stuff](#org9728ea8)
+    2.  [Functions](#orge220bbb)
+        1.  [Weather](#orgae191d4)
+    3.  [Variables](#org710318d)
+    4.  [Aliases](#orgd9d641f)
 
 
 
-<a id="orgf61817f"></a>
+<a id="orgbdc26dc"></a>
 
 # Bootstrap
 
@@ -311,17 +317,17 @@
     main "${@}"
 
 
-<a id="org4bb618f"></a>
+<a id="org5a0532f"></a>
 
 # Autostart
 
 
-<a id="org91a1c8e"></a>
+<a id="org798a2a0"></a>
 
 ## Scripts
 
 
-<a id="org15ee53e"></a>
+<a id="orgee8ee4c"></a>
 
 ### SSH
 
@@ -333,12 +339,12 @@
     ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
 
 
-<a id="org320b024"></a>
+<a id="orga70b9ca"></a>
 
 # Desktop
 
 
-<a id="orgd83541c"></a>
+<a id="org64b6511"></a>
 
 ## Invidious
 
@@ -355,7 +361,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="org3215c97"></a>
+<a id="orgb433594"></a>
 
 ## Riot
 
@@ -370,7 +376,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orga4de1ca"></a>
+<a id="orgffe4944"></a>
 
 ## Slack
 
@@ -388,7 +394,7 @@
     Categories=GNOME;GTK;Network;InstantMessaging;
 
 
-<a id="org1800f32"></a>
+<a id="org8767a35"></a>
 
 ## Wire
 
@@ -407,7 +413,7 @@
     Version=1.1
 
 
-<a id="org8c9766b"></a>
+<a id="org986cf25"></a>
 
 # Emacs
 
@@ -452,7 +458,7 @@ throwing away (or refactoring?) my 1 year-in-the-making
 configuration of Emacs to find my peace in doom.
 
 
-<a id="orgb6ef8fe"></a>
+<a id="org935ef51"></a>
 
 ## Init
 
@@ -639,7 +645,7 @@ configuration of Emacs to find my peace in doom.
            (default +bindings +smartparens))
 
 
-<a id="org54cdb3a"></a>
+<a id="org4e787e5"></a>
 
 ## Config
 
@@ -658,7 +664,7 @@ configuration of Emacs to find my peace in doom.
           doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold))
 
 
-<a id="orgb093e60"></a>
+<a id="orgda42419"></a>
 
 ## Packages
 
@@ -669,12 +675,12 @@ Add extra packages
     (package! docker-compose-mode)
 
 
-<a id="orga6bc487"></a>
+<a id="org9d1588a"></a>
 
 # Firefox
 
 
-<a id="org508a50a"></a>
+<a id="org84db4f5"></a>
 
 ## Profiles
 
@@ -731,7 +737,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="org699e05a"></a>
+<a id="orge7e77e3"></a>
 
 ## Policies
 
@@ -807,12 +813,12 @@ Mozilla&rsquo;s Policies&rsquo; explanation can be found [here](https://github.c
     }
 
 
-<a id="org4e82dab"></a>
+<a id="orgacab24f"></a>
 
 ## UserJS
 
 
-<a id="org3d78de3"></a>
+<a id="org406541d"></a>
 
 ### General
 
@@ -866,7 +872,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="org3b9c352"></a>
+<a id="orgc3a8a76"></a>
 
 ### Themes
 
@@ -902,7 +908,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org64f782d"></a>
+<a id="org50e0b81"></a>
 
 ## Setup
 
@@ -1038,12 +1044,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="org9744b17"></a>
+<a id="orgcff8722"></a>
 
 # Plasma
 
 
-<a id="orgeee4842"></a>
+<a id="orgbea35b5"></a>
 
 ## Environment
 
@@ -1051,95 +1057,19 @@ builds upon the GHacksUserJS.
     export GIT_ASKPASS="$(command -v ksshaskpass)"
 
 
-<a id="org3efe5fe"></a>
+<a id="org69270e5"></a>
 
 ## PAM
 
     SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 
-<a id="org9a2ffb4"></a>
-
-# Spotify
-
-
-<a id="org038f21b"></a>
-
-## WM Name
-
-Spotify treats Linux as a second-class citizen. Everybody knows that. We&rsquo;re glad
-to at least have a client, right? But that does not mean the community can&rsquo;t fix
-problems that can be fixed. When Spotify starts, it does not set $WM<sub>CLASS</sub> which
-becomes a problem for window managers if a custom layout or custom changes are
-to be defined for that particular window. A simple fix was provided [here](https://github.com/dasJ/spotifywm) (hasn&rsquo;t
-been updated in years but still works).
-
-    # import sanity
-    set -euo pipefail
-    
-    # global declarations
-    SCRIPT_PATH=$(dirname $(realpath "$0"))
-    URL="https://github.com/dasJ/spotifywm.git"
-    
-    fetchSource() {
-        echo -e "Fetching source..."
-        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
-            echo -e "\t-> Source fetched successfully."
-        else
-            echo -e "\t-> Source couldn't be fetched."
-        fi
-    }
-    
-    buildLibrary() {
-        cd "${SCRIPT_PATH}/spotifywm"
-    
-        echo -e "Building library..."
-        if make -j$(nproc); then
-            echo -e "\t-> Library built successfully."
-        else
-            echo -e "\t-> Library building failed."
-        fi
-    
-    }
-    
-    moveLibrary() {
-       echo -e "Moving built library to /usr/lib (need root permissions)..."
-       sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
-    }
-    
-    fixSpotify() {
-        cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
-        sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
-    }
-
-
-<a id="org53f9b25"></a>
-
-## Lyrics
-
-One of the things I miss from Deezer is the seamless integration of lyrics (for
-a select few songs, at least) into the app / webapp itself. I hear the same
-worked for Spotify a few years ago but they lost license for lyrics with their
-lyrics provider / partner. So I found [this](https://github.com/SwagLyrics/SwagLyrics-For-Spotify) which queries the song title from the
-running Spotify app, fetches lyrics and opens an issue on Github automatically
-if it can&rsquo;t find those lyrics. Pretty cool, right?
-
-    # import sanity
-    set -euo pipefail
-    
-    # global declarations
-    SCRIPT_PATH=$(dirname $(realpath "$0"))
-    URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
-    
-    fetch
-
-
-<a id="org140dfbf"></a>
+<a id="org3a79e15"></a>
 
 # Systemd
 
 
-<a id="org96542d9"></a>
+<a id="org48cf9e0"></a>
 
 ## SSH Agent
 
@@ -1155,12 +1085,12 @@ if it can&rsquo;t find those lyrics. Pretty cool, right?
     WantedBy=default.target
 
 
-<a id="orge6ea578"></a>
+<a id="orgbed9f14"></a>
 
 # Thunderbird
 
 
-<a id="org5748001"></a>
+<a id="org2fcb4da"></a>
 
 ## Profiles
 
@@ -1176,12 +1106,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="org47f7380"></a>
+<a id="orgf7fdc71"></a>
 
 # Ungoogled Chromium
 
 
-<a id="org9b1c7c4"></a>
+<a id="orgffe52ba"></a>
 
 ## Environment Variables
 
@@ -1201,7 +1131,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="org70c4109"></a>
+<a id="orgf097689"></a>
 
 ## Flags
 
@@ -1243,9 +1173,9 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="orged94c15"></a>
+<a id="orgc1964e4"></a>
 
-# Utility
+# Scripts
 
 A crontab entry (as root, wherever needed) can be added to automate periodic builds / runs.
 
@@ -1258,9 +1188,14 @@ A few guidelines followed throughout these scripts:
 -   Documentation for what the function does and why is provided.
 
 
-<a id="orgc943da6"></a>
+<a id="org3dd267e"></a>
 
-## Ungoogled Chromium Extension Updater
+## General
+
+
+<a id="orga4c1604"></a>
+
+### Ungoogled Chromium Extension Updater
 
 -   `USER_DATA_DIR` is your data directory for Chromium.
     Normally, it is $HOME/.config/chromium. However since I
@@ -1327,175 +1262,9 @@ this moment.
     main "${@}"
 
 
-<a id="orgac33d5c"></a>
+<a id="orgd29a28b"></a>
 
-## Virtual Desktop Bar (KDE)
-
--   `fetchSource` gets the latest master from github and
-    places it in a subdirectory.
--   `installDeps` installs the missing dependencies required
-    for building virtual desktop bar.
--   `buildTarget` executes a list of commands as mentioned on
-    the github page for building the widget.
--   `installTarget` runs `make install` to copy the built
-    target into the appropriate plasma directory.
--   Lastly, `cleanUp` removes the downloaded source.
-
-    # import sanity
-    set -euo pipefail
-    
-    # global declarations
-    SCRIPT_PATH=$(dirname $(realpath "$0"))
-    URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
-    
-    fetchSource() {
-        echo -e "Fetching source..."
-        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
-            echo -e "\t-> Source fetched successfully."
-        else
-            echo -e "\t-> Source couldn't be fetched."
-        fi
-    }
-    
-    installDeps() {
-        echo -e "Installing dependencies (if any)..."
-    
-        if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
-            echo -e "\t-> Installed all required dependencies."
-        else
-            echo -e "\t-> All dependencies could not be installed!"
-        fi
-    }
-    
-    buildTarget() {
-        cd "${SCRIPT_PATH}"/virtual-desktop-bar
-        mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
-        cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-    
-        echo -e "Generating configuration..."
-        if cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null 2>&1; then
-            echo -e "\t-> Configuration generated."
-        else
-            echo -e "\t-> Configuration generation failed!"
-        fi
-    
-        echo -e "Building Virtual Desktop Bar..."
-        if make -j$(nproc) 1> /dev/null; then
-            echo -e "\t-> Building successful."
-        else
-            echo -e "\t-> Building failed!"
-        fi
-    }
-    
-    installTarget() {
-        cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-    
-        echo -e "Installing target (need root permissions)..."
-        if sudo make install 1> /dev/null 2>&1; then
-            echo -e "\t-> Installing successful."
-        else
-            echo -e "\t-> Installing failed!"
-        fi
-    }
-    
-    cleanUp() {
-        echo -e "Cleaning up all the cruft..."
-        rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
-    }
-    
-    main() {
-        if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
-            cleanUp
-        fi
-    
-        fetchSource
-        installDeps
-        buildTarget
-        installTarget
-        cleanUp
-    }
-    
-    main
-
-
-<a id="org7593472"></a>
-
-## KWin Tiling Script (Faho)
-
-Mostly the same as *Virtual Desktop Bar* sans the building.
-The quirk here is to symlink a `.desktop` file for the gooey
-configuration section to appear.
-
-There is also an update step which is necessary if the
-script has been previously installed.
-
-    # import sanity
-    set -euo pipefail
-    
-    # global declarations
-    SCRIPT_PATH=$(dirname $(realpath "$0"))
-    URL="https://github.com/kwin-scripts/kwin-tiling.git"
-    
-    fetchSource() {
-        echo -e "Fetching source..."
-        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
-            echo -e "\t-> Source fetched successfully."
-        else
-            echo -e "\t-> Source couldn't be fetched."
-        fi
-    }
-    
-    installScript() {
-        echo -e "Installing KWin Tiling Script..."
-        if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
-            echo -e "\t-> Installation successful."
-        else
-            echo -e "\t-> Installation failed!"
-        fi
-    }
-    
-    updateScript() {
-        echo -e "Updating KWin Tiling Script..."
-        if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
-            echo -e "\t-> Update successful."
-        else
-            echo -e "\t-> Update failed!"
-        fi
-    }
-    
-    fixConf() {
-        # necessary for configuration option in KWin Scripts menu
-        mkdir -p "${HOME}"/.local/share/kservices5
-        ln -sf "${HOME}"/.local/share/kwin/scripts/kwin-script-tiling/metadata.desktop "${HOME}"/.local/share/kservices5/kwin-script-tiling.desktop
-    }
-    
-    cleanUp() {
-        echo -e "Cleaning up all the cruft..."
-        rm -rf "${SCRIPT_PATH}"/kwin-tiling
-    }
-    
-    main() {
-        if [[ -d "${SCRIPT_PATH}"/kwin-tiling ]]; then
-            cleanUp
-        fi
-    
-        fetchSource
-        if [[ -d /home/kayg/.local/share/kwin/scripts/kwin-script-tiling ]]; then
-            updateScript
-        else
-            installScript
-        fi
-    
-        fixConf
-        cleanUp
-    }
-    
-    main
-
-
-<a id="orge202e4f"></a>
-
-## Wallpaper Index
+### Wallpaper Index
 
 Variables:
 
@@ -1629,12 +1398,344 @@ Functions:
     main
 
 
-<a id="org6f06272"></a>
+<a id="orge7a2139"></a>
+
+## Helpers
+
+
+<a id="org589a5b2"></a>
+
+### Bash Sanity
+
+Bash has some very /meme/worthy behaviour by default. The
+other day somebody on Reddit was crying because he
+accidentally deleted all files in his root directory because:
+
+1.  His script did not terminate when a command failed.
+2.  The failing command&rsquo;s purpose was to assign a base path
+    to a variable.
+
+And this happens every other day to some shell beginner out
+there. Hence, this script tries to restore sanity to shell
+scripts.
+
+-   `errexit` terminates the script immediately if a command
+    returns a non-zero exit code. It can be temporary bypassed
+    by appending a `|| true` which makes the complete command
+    exit with zero.
+-   `pipefail` terminates the script immediately if *part* of
+    the pipe chain exits with a non-zero code.
+-   `nounset` ensures all variables have been assigned a value
+    before they are referred. Upon encountering an empty
+    variable, terminates the script. `VAR=` is a valid
+    assignment.
+
+    # Bash Sanity
+    # https://kvz.io/blog/2013/11/21/bash-best-practices/
+    # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+    # Exit script if a command fails
+    # Use: cmd || true to bypass
+    set -o errexit # aka: set -e
+    # Exit script if the left side of a pipe fails
+    set -o pipefail
+    # Exit if a variable is used but not assigned
+    set -o nounset # aka: set -u
+    # DEBUG MODE
+    # Show output of statements as they are being executed
+    # set -o xtrace # aka: set -x
+
+
+<a id="orga0459e2"></a>
+
+### Fetch Source
+
+This function fetches the source from the given URL and displays a tick or cross
+mark depending on exit code.
+
+    # global declarations
+    export SCRIPT_PATH=$(dirname $(realpath "$0"))
+    export URL="${1}"
+    export REPO_NAME=$(echo "${URL}" | sed -E 's/.*\/(.*)\.git/\1/g')
+    
+    fetchSource() {
+        echo -ne "\nFetching source..."
+    
+        if git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"; then
+            printf '\u2714\n'
+        else
+            printf '\u274c\n'
+        fi
+    }
+
+
+<a id="org90837e3"></a>
+
+### Cleanup
+
+    cleanUp() {
+        echo -ne "Cleaning up all the cruft..."
+    
+        if rm -rf "${SCRIPT_PATH}/${REPO_NAME}"; then
+            printf '\u2714\n'
+        else
+            printf '\u274c\n'
+        fi
+    }
+
+
+<a id="org8c1e2e5"></a>
+
+## Plasma
+
+
+<a id="orgd2e473b"></a>
+
+### Virtual Desktop Bar (KDE)
+
+-   `fetchSource` gets the latest master from github and
+    places it in a subdirectory.
+-   `installDeps` installs the missing dependencies required
+    for building virtual desktop bar.
+-   `buildTarget` executes a list of commands as mentioned on
+    the github page for building the widget.
+-   `installTarget` runs `make install` to copy the built
+    target into the appropriate plasma directory.
+-   Lastly, `cleanUp` removes the downloaded source.
+
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(dirname $(realpath "$0"))
+    URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
+    
+    fetchSource() {
+        echo -e "Fetching source..."
+        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
+            echo -e "\t-> Source fetched successfully."
+        else
+            echo -e "\t-> Source couldn't be fetched."
+        fi
+    }
+    
+    installDeps() {
+        echo -e "Installing dependencies (if any)..."
+    
+        if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
+            echo -e "\t-> Installed all required dependencies."
+        else
+            echo -e "\t-> All dependencies could not be installed!"
+        fi
+    }
+    
+    buildTarget() {
+        cd "${SCRIPT_PATH}"/virtual-desktop-bar
+        mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
+        cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
+    
+        echo -e "Generating configuration..."
+        if cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null 2>&1; then
+            echo -e "\t-> Configuration generated."
+        else
+            echo -e "\t-> Configuration generation failed!"
+        fi
+    
+        echo -e "Building Virtual Desktop Bar..."
+        if make -j$(nproc) 1> /dev/null; then
+            echo -e "\t-> Building successful."
+        else
+            echo -e "\t-> Building failed!"
+        fi
+    }
+    
+    installTarget() {
+        cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
+    
+        echo -e "Installing target (need root permissions)..."
+        if sudo make install 1> /dev/null 2>&1; then
+            echo -e "\t-> Installing successful."
+        else
+            echo -e "\t-> Installing failed!"
+        fi
+    }
+    
+    cleanUp() {
+        echo -e "Cleaning up all the cruft..."
+        rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
+    }
+    
+    main() {
+        if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
+            cleanUp
+        fi
+    
+        fetchSource
+        installDeps
+        buildTarget
+        installTarget
+        cleanUp
+    }
+    
+    main
+
+
+<a id="orgbc10d49"></a>
+
+### KWin Tiling Script (Faho)
+
+Mostly the same as *Virtual Desktop Bar* sans the building.
+The quirk here is to symlink a `.desktop` file for the gooey
+configuration section to appear.
+
+There is also an update step which is necessary if the
+script has been previously installed.
+
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(dirname $(realpath "$0"))
+    URL="https://github.com/kwin-scripts/kwin-tiling.git"
+    
+    fetchSource() {
+        echo -e "Fetching source..."
+        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
+            echo -e "\t-> Source fetched successfully."
+        else
+            echo -e "\t-> Source couldn't be fetched."
+        fi
+    }
+    
+    installScript() {
+        echo -e "Installing KWin Tiling Script..."
+        if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
+            echo -e "\t-> Installation successful."
+        else
+            echo -e "\t-> Installation failed!"
+        fi
+    }
+    
+    updateScript() {
+        echo -e "Updating KWin Tiling Script..."
+        if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
+            echo -e "\t-> Update successful."
+        else
+            echo -e "\t-> Update failed!"
+        fi
+    }
+    
+    fixConf() {
+        # necessary for configuration option in KWin Scripts menu
+        mkdir -p "${HOME}"/.local/share/kservices5
+        ln -sf "${HOME}"/.local/share/kwin/scripts/kwin-script-tiling/metadata.desktop "${HOME}"/.local/share/kservices5/kwin-script-tiling.desktop
+    }
+    
+    cleanUp() {
+        echo -e "Cleaning up all the cruft..."
+        rm -rf "${SCRIPT_PATH}"/kwin-tiling
+    }
+    
+    main() {
+        if [[ -d "${SCRIPT_PATH}"/kwin-tiling ]]; then
+            cleanUp
+        fi
+    
+        fetchSource
+        if [[ -d /home/kayg/.local/share/kwin/scripts/kwin-script-tiling ]]; then
+            updateScript
+        else
+            installScript
+        fi
+    
+        fixConf
+        cleanUp
+    }
+    
+    main
+
+
+<a id="org7575d29"></a>
+
+## Spotify
+
+
+<a id="org923ccab"></a>
+
+### WM Name
+
+Spotify treats Linux as a second-class citizen. Everybody knows that. We&rsquo;re glad
+to at least have a client, right? But that does not mean the community can&rsquo;t fix
+problems that can be fixed. When Spotify starts, it does not set $WM<sub>CLASS</sub> which
+becomes a problem for window managers if a custom layout or custom changes are
+to be defined for that particular window. A simple fix was provided [here](https://github.com/dasJ/spotifywm) (hasn&rsquo;t
+been updated in years but still works).
+
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(dirname $(realpath "$0"))
+    URL="https://github.com/dasJ/spotifywm.git"
+    
+    fetchSource() {
+        echo -e "Fetching source..."
+        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
+            echo -e "\t-> Source fetched successfully."
+        else
+            echo -e "\t-> Source couldn't be fetched."
+        fi
+    }
+    
+    buildLibrary() {
+        cd "${SCRIPT_PATH}/spotifywm"
+    
+        echo -e "Building library..."
+        if make -j$(nproc); then
+            echo -e "\t-> Library built successfully."
+        else
+            echo -e "\t-> Library building failed."
+        fi
+    
+    }
+    
+    moveLibrary() {
+       echo -e "Moving built library to /usr/lib (need root permissions)..."
+       sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+    }
+    
+    fixSpotify() {
+        cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+        sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+    }
+
+
+<a id="org9f776d0"></a>
+
+### Lyrics
+
+One of the things I miss from Deezer is the seamless integration of lyrics (for
+a select few songs, at least) into the app / webapp itself. I hear the same
+worked for Spotify a few years ago but they lost the license for lyrics with
+their lyrics provider / partner. So I found [this](https://github.com/SwagLyrics/SwagLyrics-For-Spotify) which queries the song title
+from the running Spotify app, fetches lyrics and opens an issue on Github
+automatically if it can&rsquo;t find those lyrics. Pretty cool, right?
+
+    # import sanity
+    set -euo pipefail
+    
+    # global declarations
+    SCRIPT_PATH=$(dirname $(realpath "$0"))
+    URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
+    
+    fetch
+
+
+<a id="orgcbe4cbc"></a>
 
 # ZSH
 
 
-<a id="org9af4fb1"></a>
+<a id="org9728ea8"></a>
 
 ## Oh-my-zsh stuff
 
@@ -1669,12 +1770,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="org035919c"></a>
+<a id="orge220bbb"></a>
 
 ## Functions
 
 
-<a id="orgef80457"></a>
+<a id="orgae191d4"></a>
 
 ### Weather
 
@@ -1686,7 +1787,7 @@ unless specified otherwise.
     }
 
 
-<a id="org41d0c76"></a>
+<a id="org710318d"></a>
 
 ## Variables
 
@@ -1709,7 +1810,7 @@ unless specified otherwise.
     export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 
-<a id="org925dc6c"></a>
+<a id="orgd9d641f"></a>
 
 ## Aliases
 

@@ -927,72 +927,6 @@ builds upon the GHacksUserJS.
 #+BEGIN_SRC conf :tangle .pam_environment
   SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 #+END_SRC
-* Spotify
-** WM Name
-Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
-to at least have a client, right? But that does not mean the community can't fix
-problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
-becomes a problem for window managers if a custom layout or custom changes are
-to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
-been updated in years but still works).
-
-#+BEGIN_SRC sh :tangle .config/spotify/wmname.sh :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/dasJ/spotifywm.git"
-
-  fetchSource() {
-      echo -e "Fetching source..."
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
-          echo -e "\t-> Source fetched successfully."
-      else
-          echo -e "\t-> Source couldn't be fetched."
-      fi
-  }
-
-  buildLibrary() {
-      cd "${SCRIPT_PATH}/spotifywm"
-
-      echo -e "Building library..."
-      if make -j$(nproc); then
-          echo -e "\t-> Library built successfully."
-      else
-          echo -e "\t-> Library building failed."
-      fi
-
-  }
-
-  moveLibrary() {
-     echo -e "Moving built library to /usr/lib (need root permissions)..."
-     sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
-  }
-
-  fixSpotify() {
-      cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
-      sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
-  }
-#+END_SRC
-** Lyrics
-One of the things I miss from Deezer is the seamless integration of lyrics (for
-a select few songs, at least) into the app / webapp itself. I hear the same
-worked for Spotify a few years ago but they lost license for lyrics with their
-lyrics provider / partner. So I found [[https://github.com/SwagLyrics/SwagLyrics-For-Spotify][this]] which queries the song title from the
-running Spotify app, fetches lyrics and opens an issue on Github automatically
-if it can't find those lyrics. Pretty cool, right?
-
-#+BEGIN_SRC sh :tangle .config/spotify/lyrics.sh :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
-
-  fetch
-#+END_SRC
 * Systemd
 ** SSH Agent
 #+BEGIN_SRC conf :tangle .config/systemd/user/ssh-agent.service
@@ -1077,7 +1011,7 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   --force-dark-mode
   --enable-features=WebUIDarkMode
 #+END_SRC
-* Utility
+* Scripts
 A crontab entry (as root, wherever needed) can be added to automate periodic builds / runs.
 
 A few guidelines followed throughout these scripts:
@@ -1086,7 +1020,8 @@ A few guidelines followed throughout these scripts:
 - Each task is divided into functions, no matter how small.
   The main function looks like nothing more than a series of steps (function calls).
 - Documentation for what the function does and why is provided.
-** Ungoogled Chromium Extension Updater
+** General
+*** Ungoogled Chromium Extension Updater
 - =USER_DATA_DIR= is your data directory for Chromium.
   Normally, it is $HOME/.config/chromium. However since I
   sync my chromium profiles using Nextcloud and only use it
@@ -1151,165 +1086,7 @@ this moment.
 
   main "${@}"
 #+END_SRC
-** Virtual Desktop Bar (KDE)
-- =fetchSource= gets the latest master from github and
-  places it in a subdirectory.
-- =installDeps= installs the missing dependencies required
-  for building virtual desktop bar.
-- =buildTarget= executes a list of commands as mentioned on
-  the github page for building the widget.
-- =installTarget= runs =make install= to copy the built
-  target into the appropriate plasma directory.
-- Lastly, =cleanUp= removes the downloaded source.
-#+BEGIN_SRC sh :tangle .local/bin/vdb :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
-
-  fetchSource() {
-      echo -e "Fetching source..."
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
-          echo -e "\t-> Source fetched successfully."
-      else
-          echo -e "\t-> Source couldn't be fetched."
-      fi
-  }
-
-  installDeps() {
-      echo -e "Installing dependencies (if any)..."
-
-      if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
-          echo -e "\t-> Installed all required dependencies."
-      else
-          echo -e "\t-> All dependencies could not be installed!"
-      fi
-  }
-
-  buildTarget() {
-      cd "${SCRIPT_PATH}"/virtual-desktop-bar
-      mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
-      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-
-      echo -e "Generating configuration..."
-      if cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null 2>&1; then
-          echo -e "\t-> Configuration generated."
-      else
-          echo -e "\t-> Configuration generation failed!"
-      fi
-
-      echo -e "Building Virtual Desktop Bar..."
-      if make -j$(nproc) 1> /dev/null; then
-          echo -e "\t-> Building successful."
-      else
-          echo -e "\t-> Building failed!"
-      fi
-  }
-
-  installTarget() {
-      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-
-      echo -e "Installing target (need root permissions)..."
-      if sudo make install 1> /dev/null 2>&1; then
-          echo -e "\t-> Installing successful."
-      else
-          echo -e "\t-> Installing failed!"
-      fi
-  }
-
-  cleanUp() {
-      echo -e "Cleaning up all the cruft..."
-      rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
-  }
-
-  main() {
-      if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
-          cleanUp
-      fi
-
-      fetchSource
-      installDeps
-      buildTarget
-      installTarget
-      cleanUp
-  }
-
-  main
-#+END_SRC
-** KWin Tiling Script (Faho)
-Mostly the same as /Virtual Desktop Bar/ sans the building.
-The quirk here is to symlink a =.desktop= file for the gooey
-configuration section to appear.
-
-There is also an update step which is necessary if the
-script has been previously installed.
-#+BEGIN_SRC sh :tangle .local/bin/kwts :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/kwin-scripts/kwin-tiling.git"
-
-  fetchSource() {
-      echo -e "Fetching source..."
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
-          echo -e "\t-> Source fetched successfully."
-      else
-          echo -e "\t-> Source couldn't be fetched."
-      fi
-  }
-
-  installScript() {
-      echo -e "Installing KWin Tiling Script..."
-      if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
-          echo -e "\t-> Installation successful."
-      else
-          echo -e "\t-> Installation failed!"
-      fi
-  }
-
-  updateScript() {
-      echo -e "Updating KWin Tiling Script..."
-      if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
-          echo -e "\t-> Update successful."
-      else
-          echo -e "\t-> Update failed!"
-      fi
-  }
-
-  fixConf() {
-      # necessary for configuration option in KWin Scripts menu
-      mkdir -p "${HOME}"/.local/share/kservices5
-      ln -sf "${HOME}"/.local/share/kwin/scripts/kwin-script-tiling/metadata.desktop "${HOME}"/.local/share/kservices5/kwin-script-tiling.desktop
-  }
-
-  cleanUp() {
-      echo -e "Cleaning up all the cruft..."
-      rm -rf "${SCRIPT_PATH}"/kwin-tiling
-  }
-
-  main() {
-      if [[ -d "${SCRIPT_PATH}"/kwin-tiling ]]; then
-          cleanUp
-      fi
-
-      fetchSource
-      if [[ -d /home/kayg/.local/share/kwin/scripts/kwin-script-tiling ]]; then
-          updateScript
-      else
-          installScript
-      fi
-
-      fixConf
-      cleanUp
-  }
-
-  main
-#+END_SRC
-** Wallpaper Index
+*** Wallpaper Index
 Variables:
 - =WALL_STORAGE_PATH= holds the location where the indexed
   wallpapers are kept. Default value is
@@ -1436,6 +1213,300 @@ Functions:
   }
 
   main
+#+END_SRC
+** Helpers
+*** Bash Sanity
+Bash has some very /meme/worthy behaviour by default. The
+other day somebody on Reddit was crying because he
+accidentally deleted all files in his root directory because:
+1. His script did not terminate when a command failed.
+2. The failing command's purpose was to assign a base path
+   to a variable.
+
+And this happens every other day to some shell beginner out
+there. Hence, this script tries to restore sanity to shell
+scripts.
+
+- =errexit= terminates the script immediately if a command
+  returns a non-zero exit code. It can be temporary bypassed
+  by appending a =|| true= which makes the complete command
+  exit with zero.
+- =pipefail= terminates the script immediately if /part/ of
+  the pipe chain exits with a non-zero code.
+- =nounset= ensures all variables have been assigned a value
+  before they are referred. Upon encountering an empty
+  variable, terminates the script. =VAR== is a valid
+  assignment.
+#+BEGIN_SRC sh :tangle .local/bin/helper
+  # Bash Sanity
+  # https://kvz.io/blog/2013/11/21/bash-best-practices/
+  # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+  # Exit script if a command fails
+  # Use: cmd || true to bypass
+  set -o errexit # aka: set -e
+  # Exit script if the left side of a pipe fails
+  set -o pipefail
+  # Exit if a variable is used but not assigned
+  set -o nounset # aka: set -u
+  # DEBUG MODE
+  # Show output of statements as they are being executed
+  # set -o xtrace # aka: set -x
+#+END_SRC
+*** Fetch Source
+This function fetches the source from the given URL and displays a tick or cross
+mark depending on exit code.
+#+BEGIN_SRC sh :tangle .local/bin/helper
+  # global declarations
+  export SCRIPT_PATH=$(dirname $(realpath "$0"))
+  export URL="${1}"
+  export REPO_NAME=$(echo "${URL}" | sed -E 's/.*\/(.*)\.git/\1/g')
+
+  fetchSource() {
+      echo -ne "\nFetching source..."
+
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+      fi
+  }
+#+END_SRC
+*** Cleanup
+#+BEGIN_SRC sh :tangle .local/bin/helper
+  cleanUp() {
+      echo -ne "Cleaning up all the cruft..."
+
+      if rm -rf "${SCRIPT_PATH}/${REPO_NAME}"; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+      fi
+  }
+#+END_SRC
+** Plasma
+*** Virtual Desktop Bar (KDE)
+- =fetchSource= gets the latest master from github and
+  places it in a subdirectory.
+- =installDeps= installs the missing dependencies required
+  for building virtual desktop bar.
+- =buildTarget= executes a list of commands as mentioned on
+  the github page for building the widget.
+- =installTarget= runs =make install= to copy the built
+  target into the appropriate plasma directory.
+- Lastly, =cleanUp= removes the downloaded source.
+#+BEGIN_SRC sh :tangle .local/bin/vdb :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
+
+  fetchSource() {
+      echo -e "Fetching source..."
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
+          echo -e "\t-> Source fetched successfully."
+      else
+          echo -e "\t-> Source couldn't be fetched."
+      fi
+  }
+
+  installDeps() {
+      echo -e "Installing dependencies (if any)..."
+
+      if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
+          echo -e "\t-> Installed all required dependencies."
+      else
+          echo -e "\t-> All dependencies could not be installed!"
+      fi
+  }
+
+  buildTarget() {
+      cd "${SCRIPT_PATH}"/virtual-desktop-bar
+      mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
+      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
+
+      echo -e "Generating configuration..."
+      if cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null 2>&1; then
+          echo -e "\t-> Configuration generated."
+      else
+          echo -e "\t-> Configuration generation failed!"
+      fi
+
+      echo -e "Building Virtual Desktop Bar..."
+      if make -j$(nproc) 1> /dev/null; then
+          echo -e "\t-> Building successful."
+      else
+          echo -e "\t-> Building failed!"
+      fi
+  }
+
+  installTarget() {
+      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
+
+      echo -e "Installing target (need root permissions)..."
+      if sudo make install 1> /dev/null 2>&1; then
+          echo -e "\t-> Installing successful."
+      else
+          echo -e "\t-> Installing failed!"
+      fi
+  }
+
+  cleanUp() {
+      echo -e "Cleaning up all the cruft..."
+      rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
+  }
+
+  main() {
+      if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
+          cleanUp
+      fi
+
+      fetchSource
+      installDeps
+      buildTarget
+      installTarget
+      cleanUp
+  }
+
+  main
+#+END_SRC
+*** KWin Tiling Script (Faho)
+Mostly the same as /Virtual Desktop Bar/ sans the building.
+The quirk here is to symlink a =.desktop= file for the gooey
+configuration section to appear.
+
+There is also an update step which is necessary if the
+script has been previously installed.
+#+BEGIN_SRC sh :tangle .local/bin/kwts :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/kwin-scripts/kwin-tiling.git"
+
+  fetchSource() {
+      echo -e "Fetching source..."
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
+          echo -e "\t-> Source fetched successfully."
+      else
+          echo -e "\t-> Source couldn't be fetched."
+      fi
+  }
+
+  installScript() {
+      echo -e "Installing KWin Tiling Script..."
+      if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
+          echo -e "\t-> Installation successful."
+      else
+          echo -e "\t-> Installation failed!"
+      fi
+  }
+
+  updateScript() {
+      echo -e "Updating KWin Tiling Script..."
+      if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
+          echo -e "\t-> Update successful."
+      else
+          echo -e "\t-> Update failed!"
+      fi
+  }
+
+  fixConf() {
+      # necessary for configuration option in KWin Scripts menu
+      mkdir -p "${HOME}"/.local/share/kservices5
+      ln -sf "${HOME}"/.local/share/kwin/scripts/kwin-script-tiling/metadata.desktop "${HOME}"/.local/share/kservices5/kwin-script-tiling.desktop
+  }
+
+  cleanUp() {
+      echo -e "Cleaning up all the cruft..."
+      rm -rf "${SCRIPT_PATH}"/kwin-tiling
+  }
+
+  main() {
+      if [[ -d "${SCRIPT_PATH}"/kwin-tiling ]]; then
+          cleanUp
+      fi
+
+      fetchSource
+      if [[ -d /home/kayg/.local/share/kwin/scripts/kwin-script-tiling ]]; then
+          updateScript
+      else
+          installScript
+      fi
+
+      fixConf
+      cleanUp
+  }
+
+  main
+#+END_SRC
+** Spotify
+*** WM Name
+Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
+to at least have a client, right? But that does not mean the community can't fix
+problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
+becomes a problem for window managers if a custom layout or custom changes are
+to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
+been updated in years but still works).
+
+#+BEGIN_SRC sh :tangle .local/bin/wmn :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/dasJ/spotifywm.git"
+
+  fetchSource() {
+      echo -e "Fetching source..."
+      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
+          echo -e "\t-> Source fetched successfully."
+      else
+          echo -e "\t-> Source couldn't be fetched."
+      fi
+  }
+
+  buildLibrary() {
+      cd "${SCRIPT_PATH}/spotifywm"
+
+      echo -e "Building library..."
+      if make -j$(nproc); then
+          echo -e "\t-> Library built successfully."
+      else
+          echo -e "\t-> Library building failed."
+      fi
+
+  }
+
+  moveLibrary() {
+     echo -e "Moving built library to /usr/lib (need root permissions)..."
+     sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+  }
+
+  fixSpotify() {
+      cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+      sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+  }
+#+END_SRC
+*** Lyrics
+One of the things I miss from Deezer is the seamless integration of lyrics (for
+a select few songs, at least) into the app / webapp itself. I hear the same
+worked for Spotify a few years ago but they lost the license for lyrics with
+their lyrics provider / partner. So I found [[https://github.com/SwagLyrics/SwagLyrics-For-Spotify][this]] which queries the song title
+from the running Spotify app, fetches lyrics and opens an issue on Github
+automatically if it can't find those lyrics. Pretty cool, right?
+
+#+BEGIN_SRC sh :tangle .local/bin/lyr :shebang "#!/usr/bin/env bash"
+  # import sanity
+  set -euo pipefail
+
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+  URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
+
+  fetch
 #+END_SRC
 * ZSH
 ** Oh-my-zsh stuff

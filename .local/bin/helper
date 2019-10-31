@@ -1,0 +1,38 @@
+# Bash Sanity
+# https://kvz.io/blog/2013/11/21/bash-best-practices/
+# https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+# Exit script if a command fails
+# Use: cmd || true to bypass
+set -o errexit # aka: set -e
+# Exit script if the left side of a pipe fails
+set -o pipefail
+# Exit if a variable is used but not assigned
+set -o nounset # aka: set -u
+# DEBUG MODE
+# Show output of statements as they are being executed
+# set -o xtrace # aka: set -x
+
+# global declarations
+export SCRIPT_PATH=$(dirname $(realpath "$0"))
+export URL="${1}"
+export REPO_NAME=$(echo "${URL}" | sed -E 's/.*\/(.*)\.git/\1/g')
+
+fetchSource() {
+    echo -ne "\nFetching source..."
+
+    if git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"; then
+        printf '\u2714\n'
+    else
+        printf '\u274c\n'
+    fi
+}
+
+cleanUp() {
+    echo -ne "Cleaning up all the cruft..."
+
+    if rm -rf "${SCRIPT_PATH}/${REPO_NAME}"; then
+        printf '\u2714\n'
+    else
+        printf '\u274c\n'
+    fi
+}
