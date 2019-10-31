@@ -72,10 +72,6 @@
       ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
   }
 
-  updateSpotify() {
-
-  }
-
   updateSystemd() {
       ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
 
@@ -1214,7 +1210,7 @@ Functions:
 
   main
 #+END_SRC
-** Helpers
+** TODO Helpers                                                 :documentation:
 *** Bash Sanity
 Bash has some very /meme/worthy behaviour by default. The
 other day somebody on Reddit was crying because he
@@ -1252,23 +1248,34 @@ scripts.
   # Show output of statements as they are being executed
   # set -o xtrace # aka: set -x
 #+END_SRC
+*** Run Script
+#+BEGIN_SRC sh :tangle .local/bin/helper
+  run() {
+      if eval "${@}" 2>/dev/null 1>&2; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+          exit 1
+      fi
+  }
+#+END_SRC
 *** Fetch Source
 This function fetches the source from the given URL and displays a tick or cross
 mark depending on exit code.
 #+BEGIN_SRC sh :tangle .local/bin/helper
   # global declarations
   export SCRIPT_PATH=$(dirname $(realpath "$0"))
-  export URL="${1}"
-  export REPO_NAME=$(echo "${URL}" | sed -E 's/.*\/(.*)\.git/\1/g')
 
   fetchSource() {
-      echo -ne "\nFetching source..."
+      export URL="${1}"
+      export REPO_NAME=$(echo "${URL}" | cut -d '/' -f5 | sed 's/\.git//g')
 
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"; then
-          printf '\u2714\n'
-      else
-          printf '\u274c\n'
+      if [[ -d "${SCRIPT_PATH}/${REPO_NAME}" ]]; then
+          cleanUp
       fi
+
+      echo -ne "Fetching source..."
+      run git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"
   }
 #+END_SRC
 *** Cleanup
@@ -1276,11 +1283,7 @@ mark depending on exit code.
   cleanUp() {
       echo -ne "Cleaning up all the cruft..."
 
-      if rm -rf "${SCRIPT_PATH}/${REPO_NAME}"; then
-          printf '\u2714\n'
-      else
-          printf '\u274c\n'
-      fi
+      run rm -rf "${SCRIPT_PATH}/${REPO_NAME}"
   }
 #+END_SRC
 ** Plasma
@@ -1442,7 +1445,7 @@ script has been previously installed.
 
   main
 #+END_SRC
-** Spotify
+** TODO Spotify                                                 :documentation:
 *** WM Name
 Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
 to at least have a client, right? But that does not mean the community can't fix
@@ -1452,43 +1455,39 @@ to be defined for that particular window. A simple fix was provided [[https://gi
 been updated in years but still works).
 
 #+BEGIN_SRC sh :tangle .local/bin/wmn :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/dasJ/spotifywm.git"
-
-  fetchSource() {
-      echo -e "Fetching source..."
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
-          echo -e "\t-> Source fetched successfully."
-      else
-          echo -e "\t-> Source couldn't be fetched."
-      fi
-  }
+  export SCRIPT_PATH=$(dirname $(realpath "$0"))
 
   buildLibrary() {
       cd "${SCRIPT_PATH}/spotifywm"
 
-      echo -e "Building library..."
-      if make -j$(nproc); then
-          echo -e "\t-> Library built successfully."
-      else
-          echo -e "\t-> Library building failed."
-      fi
-
+      echo -ne "Building library..."
+      run make -j$(nproc)
   }
 
   moveLibrary() {
-     echo -e "Moving built library to /usr/lib (need root permissions)..."
-     sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+     echo -ne "Moving built library to /usr/lib (need root permissions)...\nEnter password, please: "
+     run sudo --prompt="" mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
   }
 
   fixSpotify() {
-      cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
-      sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+      echo -ne "Moving desktop file to local directory to make above changes..."
+      run cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+
+      echo -ne "Making changes in the desktop file..."
+      run "sed -Eni 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
   }
+
+  main() {
+      source "${SCRIPT_PATH}/helper"
+
+      fetchSource "https://github.com/dasJ/spotifywm"
+      buildLibrary
+      moveLibrary
+      fixSpotify
+      cleanUp
+  }
+
+  main
 #+END_SRC
 *** Lyrics
 One of the things I miss from Deezer is the seamless integration of lyrics (for

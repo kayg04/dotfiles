@@ -1,38 +1,34 @@
 #!/usr/bin/env bash
-# import sanity
-set -euo pipefail
-
-# global declarations
-SCRIPT_PATH=$(dirname $(realpath "$0"))
-URL="https://github.com/dasJ/spotifywm.git"
-
-fetchSource() {
-    echo -e "Fetching source..."
-    if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
-        echo -e "\t-> Source fetched successfully."
-    else
-        echo -e "\t-> Source couldn't be fetched."
-    fi
-}
+export SCRIPT_PATH=$(dirname $(realpath "$0"))
 
 buildLibrary() {
     cd "${SCRIPT_PATH}/spotifywm"
 
-    echo -e "Building library..."
-    if make -j$(nproc); then
-        echo -e "\t-> Library built successfully."
-    else
-        echo -e "\t-> Library building failed."
-    fi
-
+    echo -ne "Building library..."
+    run make -j$(nproc)
 }
 
 moveLibrary() {
-   echo -e "Moving built library to /usr/lib (need root permissions)..."
-   sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+   echo -ne "Moving built library to /usr/lib (need root permissions)...\nEnter password, please: "
+   run sudo --prompt="" mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
 }
 
 fixSpotify() {
-    cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
-    sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+    echo -ne "Moving desktop file to local directory to make above changes..."
+    run cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+
+    echo -ne "Making changes in the desktop file..."
+    run "sed -Eni 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
 }
+
+main() {
+    source "${SCRIPT_PATH}/helper"
+
+    fetchSource "https://github.com/dasJ/spotifywm"
+    buildLibrary
+    moveLibrary
+    fixSpotify
+    cleanUp
+}
+
+main

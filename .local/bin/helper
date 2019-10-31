@@ -12,27 +12,32 @@ set -o nounset # aka: set -u
 # Show output of statements as they are being executed
 # set -o xtrace # aka: set -x
 
-# global declarations
-export SCRIPT_PATH=$(dirname $(realpath "$0"))
-export URL="${1}"
-export REPO_NAME=$(echo "${URL}" | sed -E 's/.*\/(.*)\.git/\1/g')
-
-fetchSource() {
-    echo -ne "\nFetching source..."
-
-    if git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"; then
+run() {
+    if eval "${@}" 2>/dev/null 1>&2; then
         printf '\u2714\n'
     else
         printf '\u274c\n'
+        exit 1
     fi
+}
+
+# global declarations
+export SCRIPT_PATH=$(dirname $(realpath "$0"))
+
+fetchSource() {
+    export URL="${1}"
+    export REPO_NAME=$(echo "${URL}" | cut -d '/' -f5 | sed 's/\.git//g')
+
+    if [[ -d "${SCRIPT_PATH}/${REPO_NAME}" ]]; then
+        cleanUp
+    fi
+
+    echo -ne "Fetching source..."
+    run git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"
 }
 
 cleanUp() {
     echo -ne "Cleaning up all the cruft..."
 
-    if rm -rf "${SCRIPT_PATH}/${REPO_NAME}"; then
-        printf '\u2714\n'
-    else
-        printf '\u274c\n'
-    fi
+    run rm -rf "${SCRIPT_PATH}/${REPO_NAME}"
 }

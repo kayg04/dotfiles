@@ -67,10 +67,6 @@ updatePlasma() {
     ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
 }
 
-updateSpotify() {
-
-}
-
 updateSystemd() {
     ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
 

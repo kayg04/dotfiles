@@ -1,60 +1,61 @@
 
 # Table of Contents
 
-1.  [Bootstrap](#orgbdc26dc)
-2.  [Autostart](#org5a0532f)
-    1.  [Scripts](#org798a2a0)
-        1.  [SSH](#orgee8ee4c)
-3.  [Desktop](#orga70b9ca)
-    1.  [Invidious](#org64b6511)
-    2.  [Riot](#orgb433594)
-    3.  [Slack](#orgffe4944)
-    4.  [Wire](#org8767a35)
-4.  [Emacs](#org986cf25)
-    1.  [Init](#org935ef51)
-    2.  [Config](#org4e787e5)
-    3.  [Packages](#orgda42419)
-5.  [Firefox](#org9d1588a)
-    1.  [Profiles](#org84db4f5)
-    2.  [Policies](#orge7e77e3)
-    3.  [UserJS](#orgacab24f)
-        1.  [General](#org406541d)
-        2.  [Themes](#orgc3a8a76)
-    4.  [Setup](#org50e0b81)
-6.  [Plasma](#orgcff8722)
-    1.  [Environment](#orgbea35b5)
-    2.  [PAM](#org69270e5)
-7.  [Systemd](#org3a79e15)
-    1.  [SSH Agent](#org48cf9e0)
-8.  [Thunderbird](#orgbed9f14)
-    1.  [Profiles](#org2fcb4da)
-9.  [Ungoogled Chromium](#orgf7fdc71)
-    1.  [Environment Variables](#orgffe52ba)
-    2.  [Flags](#orgf097689)
-10. [Scripts](#orgc1964e4)
-    1.  [General](#org3dd267e)
-        1.  [Ungoogled Chromium Extension Updater](#orga4c1604)
-        2.  [Wallpaper Index](#orgd29a28b)
-    2.  [Helpers](#orge7a2139)
-        1.  [Bash Sanity](#org589a5b2)
-        2.  [Fetch Source](#orga0459e2)
-        3.  [Cleanup](#org90837e3)
-    3.  [Plasma](#org8c1e2e5)
-        1.  [Virtual Desktop Bar (KDE)](#orgd2e473b)
-        2.  [KWin Tiling Script (Faho)](#orgbc10d49)
-    4.  [Spotify](#org7575d29)
-        1.  [WM Name](#org923ccab)
-        2.  [Lyrics](#org9f776d0)
-11. [ZSH](#orgcbe4cbc)
-    1.  [Oh-my-zsh stuff](#org9728ea8)
-    2.  [Functions](#orge220bbb)
-        1.  [Weather](#orgae191d4)
-    3.  [Variables](#org710318d)
-    4.  [Aliases](#orgd9d641f)
+1.  [Bootstrap](#org316f38a)
+2.  [Autostart](#orgf02e26a)
+    1.  [Scripts](#org30ed194)
+        1.  [SSH](#orge695b4c)
+3.  [Desktop](#orgaec363a)
+    1.  [Invidious](#org2f98fa9)
+    2.  [Riot](#orga63facb)
+    3.  [Slack](#org3730655)
+    4.  [Wire](#orgbb36dd4)
+4.  [Emacs](#org44bce5b)
+    1.  [Init](#org85a14b1)
+    2.  [Config](#org0d0a752)
+    3.  [Packages](#orgb3ae86d)
+5.  [Firefox](#org48cc4ec)
+    1.  [Profiles](#orgb7ff972)
+    2.  [Policies](#org7230ff0)
+    3.  [UserJS](#orgd1c158f)
+        1.  [General](#orgd16d98c)
+        2.  [Themes](#org57bf6a9)
+    4.  [Setup](#org251893f)
+6.  [Plasma](#org2320dbc)
+    1.  [Environment](#org2dfe2ff)
+    2.  [PAM](#org18798b2)
+7.  [Systemd](#orgff20e22)
+    1.  [SSH Agent](#orge355693)
+8.  [Thunderbird](#org64af21a)
+    1.  [Profiles](#org4fda1f6)
+9.  [Ungoogled Chromium](#org0c3d7a1)
+    1.  [Environment Variables](#org379e944)
+    2.  [Flags](#orgbcca9ad)
+10. [Scripts](#org6c0b8c1)
+    1.  [General](#org83347da)
+        1.  [Ungoogled Chromium Extension Updater](#orgc898f41)
+        2.  [Wallpaper Index](#orgaa9b5c4)
+    2.  [Helpers](#org201a462):documentation:
+        1.  [Bash Sanity](#org122329c)
+        2.  [Run Script](#orgf417cef)
+        3.  [Fetch Source](#org69cc9a1)
+        4.  [Cleanup](#org2581135)
+    3.  [Plasma](#org226f47c)
+        1.  [Virtual Desktop Bar (KDE)](#orgf583551)
+        2.  [KWin Tiling Script (Faho)](#org10836f4)
+    4.  [Spotify](#org63b0a9a):documentation:
+        1.  [WM Name](#orge3c603d)
+        2.  [Lyrics](#orgf343a75)
+11. [ZSH](#orgdef2175)
+    1.  [Oh-my-zsh stuff](#org95609e8)
+    2.  [Functions](#orgb191ebe)
+        1.  [Weather](#org4fb3cf5)
+    3.  [Variables](#org91513ae)
+    4.  [Aliases](#org340127e)
 
 
 
-<a id="orgbdc26dc"></a>
+<a id="org316f38a"></a>
 
 # Bootstrap
 
@@ -124,10 +125,6 @@
         ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
         ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
         ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
-    }
-    
-    updateSpotify() {
-    
     }
     
     updateSystemd() {
@@ -317,17 +314,17 @@
     main "${@}"
 
 
-<a id="org5a0532f"></a>
+<a id="orgf02e26a"></a>
 
 # Autostart
 
 
-<a id="org798a2a0"></a>
+<a id="org30ed194"></a>
 
 ## Scripts
 
 
-<a id="orgee8ee4c"></a>
+<a id="orge695b4c"></a>
 
 ### SSH
 
@@ -339,12 +336,12 @@
     ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
 
 
-<a id="orga70b9ca"></a>
+<a id="orgaec363a"></a>
 
 # Desktop
 
 
-<a id="org64b6511"></a>
+<a id="org2f98fa9"></a>
 
 ## Invidious
 
@@ -361,7 +358,7 @@
     Categories=Audio;Music;Player;AudioVideo;
 
 
-<a id="orgb433594"></a>
+<a id="orga63facb"></a>
 
 ## Riot
 
@@ -376,7 +373,7 @@
     Categories=Network;InstantMessaging;Chat;IRCClient
 
 
-<a id="orgffe4944"></a>
+<a id="org3730655"></a>
 
 ## Slack
 
@@ -394,7 +391,7 @@
     Categories=GNOME;GTK;Network;InstantMessaging;
 
 
-<a id="org8767a35"></a>
+<a id="orgbb36dd4"></a>
 
 ## Wire
 
@@ -413,7 +410,7 @@
     Version=1.1
 
 
-<a id="org986cf25"></a>
+<a id="org44bce5b"></a>
 
 # Emacs
 
@@ -458,7 +455,7 @@ throwing away (or refactoring?) my 1 year-in-the-making
 configuration of Emacs to find my peace in doom.
 
 
-<a id="org935ef51"></a>
+<a id="org85a14b1"></a>
 
 ## Init
 
@@ -645,7 +642,7 @@ configuration of Emacs to find my peace in doom.
            (default +bindings +smartparens))
 
 
-<a id="org4e787e5"></a>
+<a id="org0d0a752"></a>
 
 ## Config
 
@@ -664,7 +661,7 @@ configuration of Emacs to find my peace in doom.
           doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold))
 
 
-<a id="orgda42419"></a>
+<a id="orgb3ae86d"></a>
 
 ## Packages
 
@@ -675,12 +672,12 @@ Add extra packages
     (package! docker-compose-mode)
 
 
-<a id="org9d1588a"></a>
+<a id="org48cc4ec"></a>
 
 # Firefox
 
 
-<a id="org84db4f5"></a>
+<a id="orgb7ff972"></a>
 
 ## Profiles
 
@@ -737,7 +734,7 @@ Firefox offers as I reinstall often.
     Default=0
 
 
-<a id="orge7e77e3"></a>
+<a id="org7230ff0"></a>
 
 ## Policies
 
@@ -813,12 +810,12 @@ Mozilla&rsquo;s Policies&rsquo; explanation can be found [here](https://github.c
     }
 
 
-<a id="orgacab24f"></a>
+<a id="orgd1c158f"></a>
 
 ## UserJS
 
 
-<a id="org406541d"></a>
+<a id="orgd16d98c"></a>
 
 ### General
 
@@ -872,7 +869,7 @@ privacy-centered configuration.
     /// Misc ///
 
 
-<a id="orgc3a8a76"></a>
+<a id="org57bf6a9"></a>
 
 ### Themes
 
@@ -908,7 +905,7 @@ privacy-centered configuration.
         /// GNOME ///
 
 
-<a id="org50e0b81"></a>
+<a id="org251893f"></a>
 
 ## Setup
 
@@ -1044,12 +1041,12 @@ builds upon the GHacksUserJS.
     }
 
 
-<a id="orgcff8722"></a>
+<a id="org2320dbc"></a>
 
 # Plasma
 
 
-<a id="orgbea35b5"></a>
+<a id="org2dfe2ff"></a>
 
 ## Environment
 
@@ -1057,19 +1054,19 @@ builds upon the GHacksUserJS.
     export GIT_ASKPASS="$(command -v ksshaskpass)"
 
 
-<a id="org69270e5"></a>
+<a id="org18798b2"></a>
 
 ## PAM
 
     SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 
-<a id="org3a79e15"></a>
+<a id="orgff20e22"></a>
 
 # Systemd
 
 
-<a id="org48cf9e0"></a>
+<a id="orge355693"></a>
 
 ## SSH Agent
 
@@ -1085,12 +1082,12 @@ builds upon the GHacksUserJS.
     WantedBy=default.target
 
 
-<a id="orgbed9f14"></a>
+<a id="org64af21a"></a>
 
 # Thunderbird
 
 
-<a id="org2fcb4da"></a>
+<a id="org4fda1f6"></a>
 
 ## Profiles
 
@@ -1106,12 +1103,12 @@ This reads the same as the profiles section of Firefox.
     Default=1
 
 
-<a id="orgf7fdc71"></a>
+<a id="org0c3d7a1"></a>
 
 # Ungoogled Chromium
 
 
-<a id="orgffe52ba"></a>
+<a id="org379e944"></a>
 
 ## Environment Variables
 
@@ -1131,7 +1128,7 @@ From Debian bug tracker:
     MESA_GLSL_CACHE_DISABLE=true
 
 
-<a id="orgf097689"></a>
+<a id="orgbcca9ad"></a>
 
 ## Flags
 
@@ -1173,7 +1170,7 @@ A better explanation can be found [here](https://peter.sh/experiments/chromium-c
     --enable-features=WebUIDarkMode
 
 
-<a id="orgc1964e4"></a>
+<a id="org6c0b8c1"></a>
 
 # Scripts
 
@@ -1188,12 +1185,12 @@ A few guidelines followed throughout these scripts:
 -   Documentation for what the function does and why is provided.
 
 
-<a id="org3dd267e"></a>
+<a id="org83347da"></a>
 
 ## General
 
 
-<a id="orga4c1604"></a>
+<a id="orgc898f41"></a>
 
 ### Ungoogled Chromium Extension Updater
 
@@ -1262,7 +1259,7 @@ this moment.
     main "${@}"
 
 
-<a id="orgd29a28b"></a>
+<a id="orgaa9b5c4"></a>
 
 ### Wallpaper Index
 
@@ -1398,12 +1395,12 @@ Functions:
     main
 
 
-<a id="orge7a2139"></a>
+<a id="org201a462"></a>
 
-## Helpers
+## TODO Helpers     :documentation:
 
 
-<a id="org589a5b2"></a>
+<a id="org122329c"></a>
 
 ### Bash Sanity
 
@@ -1445,7 +1442,21 @@ scripts.
     # set -o xtrace # aka: set -x
 
 
-<a id="orga0459e2"></a>
+<a id="orgf417cef"></a>
+
+### Run Script
+
+    run() {
+        if eval "${@}" 2>/dev/null 1>&2; then
+            printf '\u2714\n'
+        else
+            printf '\u274c\n'
+            exit 1
+        fi
+    }
+
+
+<a id="org69cc9a1"></a>
 
 ### Fetch Source
 
@@ -1454,41 +1465,37 @@ mark depending on exit code.
 
     # global declarations
     export SCRIPT_PATH=$(dirname $(realpath "$0"))
-    export URL="${1}"
-    export REPO_NAME=$(echo "${URL}" | sed -E 's/.*\/(.*)\.git/\1/g')
     
     fetchSource() {
-        echo -ne "\nFetching source..."
+        export URL="${1}"
+        export REPO_NAME=$(echo "${URL}" | cut -d '/' -f5 | sed 's/\.git//g')
     
-        if git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"; then
-            printf '\u2714\n'
-        else
-            printf '\u274c\n'
+        if [[ -d "${SCRIPT_PATH}/${REPO_NAME}" ]]; then
+            cleanUp
         fi
+    
+        echo -ne "Fetching source..."
+        run git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"
     }
 
 
-<a id="org90837e3"></a>
+<a id="org2581135"></a>
 
 ### Cleanup
 
     cleanUp() {
         echo -ne "Cleaning up all the cruft..."
     
-        if rm -rf "${SCRIPT_PATH}/${REPO_NAME}"; then
-            printf '\u2714\n'
-        else
-            printf '\u274c\n'
-        fi
+        run rm -rf "${SCRIPT_PATH}/${REPO_NAME}"
     }
 
 
-<a id="org8c1e2e5"></a>
+<a id="org226f47c"></a>
 
 ## Plasma
 
 
-<a id="orgd2e473b"></a>
+<a id="orgf583551"></a>
 
 ### Virtual Desktop Bar (KDE)
 
@@ -1579,7 +1586,7 @@ mark depending on exit code.
     main
 
 
-<a id="orgbc10d49"></a>
+<a id="org10836f4"></a>
 
 ### KWin Tiling Script (Faho)
 
@@ -1654,12 +1661,12 @@ script has been previously installed.
     main
 
 
-<a id="org7575d29"></a>
+<a id="org63b0a9a"></a>
 
-## Spotify
+## TODO Spotify     :documentation:
 
 
-<a id="org923ccab"></a>
+<a id="orge3c603d"></a>
 
 ### WM Name
 
@@ -1670,46 +1677,42 @@ becomes a problem for window managers if a custom layout or custom changes are
 to be defined for that particular window. A simple fix was provided [here](https://github.com/dasJ/spotifywm) (hasn&rsquo;t
 been updated in years but still works).
 
-    # import sanity
-    set -euo pipefail
-    
-    # global declarations
-    SCRIPT_PATH=$(dirname $(realpath "$0"))
-    URL="https://github.com/dasJ/spotifywm.git"
-    
-    fetchSource() {
-        echo -e "Fetching source..."
-        if git clone --quiet "${URL}" "${SCRIPT_PATH}"/spotifywm; then
-            echo -e "\t-> Source fetched successfully."
-        else
-            echo -e "\t-> Source couldn't be fetched."
-        fi
-    }
+    export SCRIPT_PATH=$(dirname $(realpath "$0"))
     
     buildLibrary() {
         cd "${SCRIPT_PATH}/spotifywm"
     
-        echo -e "Building library..."
-        if make -j$(nproc); then
-            echo -e "\t-> Library built successfully."
-        else
-            echo -e "\t-> Library building failed."
-        fi
-    
+        echo -ne "Building library..."
+        run make -j$(nproc)
     }
     
     moveLibrary() {
-       echo -e "Moving built library to /usr/lib (need root permissions)..."
-       sudo mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
+       echo -ne "Moving built library to /usr/lib (need root permissions)...\nEnter password, please: "
+       run sudo --prompt="" mv "${SCRIPT_PATH}/spotifywm/spotifywm.so" /usr/lib
     }
     
     fixSpotify() {
-        cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
-        sed -Ein 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop
+        echo -ne "Moving desktop file to local directory to make above changes..."
+        run cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
+    
+        echo -ne "Making changes in the desktop file..."
+        run "sed -Eni 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
     }
+    
+    main() {
+        source "${SCRIPT_PATH}/helper"
+    
+        fetchSource "https://github.com/dasJ/spotifywm"
+        buildLibrary
+        moveLibrary
+        fixSpotify
+        cleanUp
+    }
+    
+    main
 
 
-<a id="org9f776d0"></a>
+<a id="orgf343a75"></a>
 
 ### Lyrics
 
@@ -1730,12 +1733,12 @@ automatically if it can&rsquo;t find those lyrics. Pretty cool, right?
     fetch
 
 
-<a id="orgcbe4cbc"></a>
+<a id="orgdef2175"></a>
 
 # ZSH
 
 
-<a id="org9728ea8"></a>
+<a id="org95609e8"></a>
 
 ## Oh-my-zsh stuff
 
@@ -1770,12 +1773,12 @@ Settings specific to OMZ.
     source "${ZSH}"/oh-my-zsh.sh
 
 
-<a id="orge220bbb"></a>
+<a id="orgb191ebe"></a>
 
 ## Functions
 
 
-<a id="orgae191d4"></a>
+<a id="org4fb3cf5"></a>
 
 ### Weather
 
@@ -1787,7 +1790,7 @@ unless specified otherwise.
     }
 
 
-<a id="org710318d"></a>
+<a id="org91513ae"></a>
 
 ## Variables
 
@@ -1810,7 +1813,7 @@ unless specified otherwise.
     export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 
-<a id="orgd9d641f"></a>
+<a id="org340127e"></a>
 
 ## Aliases
 
