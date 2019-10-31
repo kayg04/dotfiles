@@ -1474,7 +1474,7 @@ been updated in years but still works).
       run cp /usr/share/applications/spotify.desktop "${HOME}"/.local/share/applications
 
       echo -ne "Making changes in the desktop file..."
-      run "sed -Eni 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
+      run "sed -Ei 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
   }
 
   main() {
