@@ -1,9 +1,29 @@
 #!/usr/bin/env bash
-# import sanity
-set -euo pipefail
-
 # global declarations
-SCRIPT_PATH=$(dirname $(realpath "$0"))
-URL="https://github.com/SwagLyrics/SwagLyrics-For-Spotify.git"
+export SCRIPT_PATH=$(dirname $(realpath "$0"))
 
-fetch
+checkDeps() {
+    echo -ne "Checking for existence of python and pip..."
+    run command -v python pip
+}
+
+checkSL() {
+    echo -ne "Checking if SwagLyrics already exists..."
+    run command -v swaglyrics
+}
+
+installSL() {
+    echo -ne "Installing SwagLyrics..."
+    run $(command -v pip) install --user swaglyrics
+}
+
+main() {
+    source "${SCRIPT_PATH}/helper"
+
+    checkDeps
+    if ! checkSL; then
+        installSL
+    fi
+}
+
+main
