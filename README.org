@@ -1268,7 +1268,7 @@ mark depending on exit code.
 
   fetchSource() {
       export URL="${1}"
-      export REPO_NAME=$(echo "${URL}" | cut -d '/' -f5 | sed 's/\.git//g')
+      export REPO_NAME=$(echo "${URL}" | cut -d '/' -f5 | cut -d '.' -f1)
 
       if [[ -d "${SCRIPT_PATH}/${REPO_NAME}" ]]; then
           cleanUp
