@@ -10,13 +10,8 @@ checkDeps() {
     run command -v pip
 }
 
-checkSL() {
-    echo -ne "Checking if SwagLyrics already exists..."
-    command -v swaglyrics
-}
-
 installSL() {
-    echo -ne "\nInstalling SwagLyrics..."
+    echo -ne "Installing SwagLyrics if it does not already exist..."
     run $(command -v pip) install --user swaglyrics
 }
 
@@ -24,9 +19,7 @@ main() {
     source "${SCRIPT_PATH}/helper"
 
     checkDeps
-    if ! checkSL; then
-        installSL
-    fi
+    installSL
 }
 
 main
