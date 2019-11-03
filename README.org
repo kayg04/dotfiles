@@ -1507,8 +1507,11 @@ automatically if it can't find those lyrics. Pretty cool, right?
   export SCRIPT_PATH=$(dirname $(realpath "$0"))
 
   checkDeps() {
-      echo -ne "Checking for existence of python and pip..."
-      run command -v python pip
+      echo -ne "Checking for existence of python..."
+      run command -v python
+
+      echo -ne "Checking for existence of pip..."
+      run command -v pip
   }
 
   checkSL() {
