@@ -16,7 +16,7 @@ checkSL() {
 }
 
 installSL() {
-    echo -ne "Installing SwagLyrics..."
+    echo -ne "\nInstalling SwagLyrics..."
     run $(command -v pip) install --user swaglyrics
 }
 

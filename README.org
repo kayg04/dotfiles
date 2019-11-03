@@ -1520,7 +1520,7 @@ automatically if it can't find those lyrics. Pretty cool, right?
   }
 
   installSL() {
-      echo -ne "Installing SwagLyrics..."
+      echo -ne "\nInstalling SwagLyrics..."
       run $(command -v pip) install --user swaglyrics
   }
 
@@ -1535,6 +1535,7 @@ automatically if it can't find those lyrics. Pretty cool, right?
 
   main
 #+END_SRC
+
 *** Theme
 #+BEGIN_SRC
 
