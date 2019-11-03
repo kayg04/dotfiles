@@ -1016,6 +1016,7 @@ A few guidelines followed throughout these scripts:
 - Each task is divided into functions, no matter how small.
   The main function looks like nothing more than a series of steps (function calls).
 - Documentation for what the function does and why is provided.
+- A =$SCRIPT_PATH= is defined to determine the path of the each script.
 ** General
 *** Ungoogled Chromium Extension Updater
 - =USER_DATA_DIR= is your data directory for Chromium.
@@ -1249,6 +1250,10 @@ scripts.
   # set -o xtrace # aka: set -x
 #+END_SRC
 *** Run Script
+=run()= is a wrapper around eval which itself takes args, concatenates them and
+runs the concatenated string as a command. Any form of output is silenced. If
+=eval= succeeds, a tick mark is displayed and if it doesn't, a cross mark is
+displayed. An =exit= has to explicitly stated and =set -o errexit=
 #+BEGIN_SRC sh :tangle .local/bin/helper
   run() {
       if eval "${@}" 2>/dev/null 1>&2; then
@@ -1508,7 +1513,7 @@ automatically if it can't find those lyrics. Pretty cool, right?
 
   checkSL() {
       echo -ne "Checking if SwagLyrics already exists..."
-      run command -v swaglyrics
+      command -v swaglyrics
   }
 
   installSL() {
@@ -1526,6 +1531,10 @@ automatically if it can't find those lyrics. Pretty cool, right?
   }
 
   main
+#+END_SRC
+*** Theme
+#+BEGIN_SRC
+
 #+END_SRC
 * ZSH
 ** Oh-my-zsh stuff

@@ -9,7 +9,7 @@ checkDeps() {
 
 checkSL() {
     echo -ne "Checking if SwagLyrics already exists..."
-    run command -v swaglyrics
+    command -v swaglyrics
 }
 
 installSL() {
