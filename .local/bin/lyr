@@ -23,3 +23,6 @@ main() {
 }
 
 main
+
+# global declarations
+export SCRIPT_PATH=$(dirname $(realpath "$0"))

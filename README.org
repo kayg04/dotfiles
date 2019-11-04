@@ -571,6 +571,7 @@ Add extra packages
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/packages.el
   (package! caddyfile-mode)
   (package! command-log-mode)
+  (package! dockerfile-mode)
   (package! docker-compose-mode)
 #+END_SRC
 * Firefox
@@ -1530,8 +1531,9 @@ automatically if it can't find those lyrics. Pretty cool, right?
 #+END_SRC
 
 *** Theme
-#+BEGIN_SRC
-
+#+BEGIN_SRC sh :tangle .local/bin/lyr :shebang "#!/usr/bin/env bash"
+  # global declarations
+  export SCRIPT_PATH=$(dirname $(realpath "$0"))
 #+END_SRC
 * ZSH
 ** Oh-my-zsh stuff
