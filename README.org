@@ -311,22 +311,6 @@
   StartupNotify=true
   Categories=GNOME;GTK;Network;InstantMessaging;
 #+END_SRC
-** Wire
-#+BEGIN_SRC conf :tangle .local/share/applications/wire.desktop :shebang "#!/usr/bin/env xdg-open"
-  [Desktop Entry]
-  Name=Wire
-  Comment=The most secure collaboration platform.
-  Exec=chromium --user-data-dir=$HOME/.config/chromium/Apps --app=https://app.wire.com
-  Terminal=false
-  Type=Application
-  Icon=/home/kayg/Pictures/Icons/wire.png
-  StartupWMClass=Wire
-  Categories=Network;
-  GenericName=Secure messenger
-  Keywords=chat;encrypt;e2e;messenger;videocall
-  MimeType=x-scheme-handler/wire
-  Version=1.1
-#+END_SRC
 * Emacs
 After an year of configuring Emacs, I have somehow reached
 exactly at a point which mimics the style and philosophy of
@@ -637,7 +621,7 @@ Mozilla's Policies' explanation can be found [[https://github.com/mozilla/policy
       "Cookies": {
         "Default": true,
         "AcceptThirdParty": "never",
-        "ExpireAtSessionEnd": true
+        "ExpireAtSessionEnd": false
       },
       "DisableAppUpdate": true,
       "DisableDeveloperTools": false,
@@ -886,8 +870,6 @@ builds upon the GHacksUserJS.
       echo "Copying policies.json (may need root permissions)..."
 
       if [[ -d /usr/lib/firefox ]]; then
-          sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox/distribution
-      elif [[ -d /usr/lib/firefox-appmenu ]]; then
           sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox/distribution
       elif [[ -d /opt/firefox-nightly ]]; then
           sudo chown -R ${USER}:${USER} /opt/firefox-nightly

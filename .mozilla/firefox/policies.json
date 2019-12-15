@@ -4,7 +4,7 @@
     "Cookies": {
       "Default": true,
       "AcceptThirdParty": "never",
-      "ExpireAtSessionEnd": true
+      "ExpireAtSessionEnd": false
     },
     "DisableAppUpdate": true,
     "DisableDeveloperTools": false,

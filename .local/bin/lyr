@@ -26,3 +26,8 @@ main
 
 # global declarations
 export SCRIPT_PATH=$(dirname $(realpath "$0"))
+
+checkSpicetify() {
+    echo -ne "Checking if Spicetify exists... "
+    run command -v spicetify
+}

@@ -53,3 +53,7 @@ if command -v kitty 2>/dev/null 1>&2; then
 fi
 
 alias vim='emacsclient -nw'
+
+if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
+    source /usr/share/nvm/init-nvm.sh
+fi
