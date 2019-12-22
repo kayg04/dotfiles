@@ -432,12 +432,13 @@ configuration of Emacs to find my peace in doom.
          ;;editorconfig      ; let someone else argue about tabs vs spaces
          ;;ein               ; tame Jupyter notebooks with emacs
          eval              ; run code, run (also, repls)
-         flycheck          ; tasing you for every semicolon you forget
+         (flycheck          ; tasing you for every semicolon you forget
+          +childframe)
          ;;flyspell          ; tasing you for misspelling mispelling
          ;;gist              ; interacting with github gists
          (lookup           ; helps you navigate your code and documentation
           +docsets)        ; ...or in Dash docsets locally
-         ;;lsp
+         lsp
          ;;macos             ; MacOS-specific commands
          magit             ; a git porcelain for Emacs
          ;;make              ; run make tasks from Emacs
@@ -453,7 +454,8 @@ configuration of Emacs to find my peace in doom.
          :lang
          ;;agda              ; types of types of types of types...
          ;;assembly          ; assembly for fun or debugging
-         cc                ; C/C++/Obj-C madness
+         (cc                ; C/C++/Obj-C madness
+          +lsp)
          ;;clojure           ; java with a lisp
          ;;common-lisp       ; if you've seen one lisp, you've seen them all
          ;;coq               ; proofs-as-programs
@@ -467,11 +469,12 @@ configuration of Emacs to find my peace in doom.
          ;;ess               ; emacs speaks statistics
          ;;faust             ; dsp, but you get to keep your soul
          ;;fsharp           ; ML stands for Microsoft's Language
-         go                ; the hipster dialect
+         (go                ; the hipster dialect
+          +lsp)
          (haskell +intero) ; a language that's lazier than I am
          ;;hy                ; readability of scheme w/ speed of python
          ;;idris             ;
-         (java +meghanada) ; the poster child for carpal tunnel syndrome
+         ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
          ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
          ;;julia             ; a better, faster MATLAB
          ;;kotlin            ; a better, slicker Java(Script)
@@ -494,15 +497,18 @@ configuration of Emacs to find my peace in doom.
          ;;php               ; perl's insecure younger brother
          ;;plantuml          ; diagrams for confusing people more
          ;;purescript        ; javascript, but functional
-         python            ; beautiful is better than ugly
+         (python            ; beautiful is better than ugly
+          +lsp)
          ;;qt                ; the 'cutest' gui framework ever
          ;;racket            ; a DSL for DSLs
          ;;rest              ; Emacs as a REST client
          ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-         rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+         (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+          +lsp)
          ;;scala             ; java, but good
          ;;scheme            ; a fully conniving family of lisps
-         sh                ; she sells {ba,z,fi}sh shells on the C xor
+         (sh                ; she sells {ba,z,fi}sh shells on the C xor
+          +lsp)
          ;;solidity          ; do you need a blockchain? No.
          ;;swift             ; who asked for emoji variables?
          ;;terra             ; Earth and Moon in alignment for performance.
@@ -538,11 +544,17 @@ configuration of Emacs to find my peace in doom.
 ** Config
 - Set theme
 - Do not preserve indentation while tangling code blocks.
+- Use child frames instead of sideline
 - Set font
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/config.el
-  (setq doom-theme 'doom-molokai)
+  (setq doom-theme 'doom-outrun-electric)
+
   (after! org
     (setq org-src-preserve-indentation nil))
+
+  (after! lsp-ui
+    (setq lsp-ui-sideline-enable nil))
+
   (setq treemacs-width 25)
 
   (setq doom-font (font-spec :family "IBM Plex Mono" :size 26 :weight 'semi-bold)
