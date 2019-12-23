@@ -1,5 +1,3 @@
-(setq doom-theme 'doom-outrun-electric)
-
 (after! org
   (setq org-src-preserve-indentation nil))
 
@@ -8,7 +6,16 @@
 
 (setq treemacs-width 25)
 
-(setq doom-font (font-spec :family "IBM Plex Mono" :size 26 :weight 'semi-bold)
-      doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "Input Mono Narrow" :size 26)
-      doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold))
+(when (string= (system-name) "ruri")
+  (setq doom-theme 'doom-outrun-electric)
+  (setq doom-font (font-spec :family "IBM Plex Mono" :size 28 :weight 'semi-bold)
+        doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
+        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 28)
+        doom-big-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold)))
+
+(when (string= (system-name) "nana")
+  (setq doom-theme 'doom-vibrant)
+  (setq doom-font (font-spec :family "IBM Plex Mono" :size 14 :weight 'semi-bold)
+        doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
+        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 14)
+        doom-big-font (font-spec :family "IBM Plex Mono" :size 26 :weight 'semi-bold)))
