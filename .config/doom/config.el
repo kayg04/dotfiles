@@ -1,5 +1,6 @@
 (after! org
-  (setq org-src-preserve-indentation nil))
+  (setq org-src-preserve-indentation nil)
+  (setq org-hide-emphasis-markers t))
 
 (after! lsp-ui
   (setq lsp-ui-sideline-enable nil)

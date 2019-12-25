@@ -555,7 +555,8 @@ configuration of Emacs to find my peace in doom.
 - 'jk' should cause NORMAL state regardless of the order the keys are typed in
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/config.el
   (after! org
-    (setq org-src-preserve-indentation nil))
+    (setq org-src-preserve-indentation nil)
+    (setq org-hide-emphasis-markers t))
 
   (after! lsp-ui
     (setq lsp-ui-sideline-enable nil)
