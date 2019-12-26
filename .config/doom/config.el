@@ -11,17 +11,26 @@
   (setq lsp-ui-doc-max-width 54))
 
 ;; Font changes
-(add-hook 'lsp-ui-doc-frame-hook
-          (lambda (frame _w)
-            (set-face-attribute 'default frame :font "Fira Mono" :height 132)))
-
 (defface my-prog-mode-default-face
   '((t (:inherit default :family "Iosevka")))
   "Programming Mode Default Face")
-(add-hook! 'prog-mode-hook (face-remap-add-relative 'default 'my-prog-mode-default-face))
+
+(add-hook 'lsp-ui-doc-frame-hook
+          (lambda (frame _w)
+            (set-face-attribute 'default frame :font "IBM Plex Sans" :height 120)))
+
+(add-hook! 'prog-mode-hook
+  (face-remap-add-relative 'default 'my-prog-mode-default-face))
+
+(custom-theme-set-faces
+  'user
+  '(org-block ((t (:inherit default :family "Iosevka"))))
+  '(org-code ((t (:inherit default :family "Iosevka")))))
 
 (setq treemacs-width 25)
 (setq evil-escape-unordered-key-sequence t)
+(setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
+(setq +doom-dashboard-banner-padding '(100 . 2))
 
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
