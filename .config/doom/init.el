@@ -34,7 +34,8 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       ;;pretty-code       ; replace bits of code with pretty symbols
+       (pretty-code       ; replace bits of code with pretty symbols
+        +iosevka)
        tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
@@ -42,6 +43,8 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
+       zen               ; distraction-free coding or writing
+
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
