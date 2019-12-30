@@ -944,16 +944,13 @@ builds upon the GHacksUserJS.
       echo "Copying policies.json (may need root permissions)..."
 
       if [[ -d /usr/lib/firefox ]]; then
-          sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox/distribution
-      elif [[ -d /opt/firefox-nightly ]]; then
-          sudo chown -R ${USER}:${USER} /opt/firefox-nightly
-          ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-nightly/distribution
-      elif [[ -d /opt/firefox-developer-edition ]]; then
-          ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-developer-edition/distribution
-      elif [[ -d /opt/firefox-beta ]]; then
-          ln -sf "${SCRIPT_PATH}"/policies.json /opt/firefox-beta/distribution
-      elif [[ -d /usr/lib/firefox-developer-edition ]]; then
-          sudo ln -sf "${SCRIPT_PATH}"/policies.json /usr/lib/firefox-developer-edition/distribution
+          FIREFOX_LIBPATH="/usr/lib/firefox/distribution"
+          mkdir -p "${FIREFOX_LIBPATH}"
+          sudo ln -sf "${SCRIPT_PATH}"/policies.json "${FIREFOX_LIBPATH}"
+      elif [[ -d /usr/lib64/firefox ]]; then
+          FIREFOX_LIBPATH="/usr/lib64/firefox/distribution"
+          mkdir -p "${FIREFOX_LIBPATH}"
+          sudo ln -sf "${SCRIPT_PATH}"/policies.json "${FIREFOX_LIBPATH}"
       fi
   }
 
@@ -963,9 +960,7 @@ builds upon the GHacksUserJS.
   }
 
   startFirefox() {
-      $(command -v firefox) --ProfileManager 2> /dev/null || \
-      $(command -v firefox-developer-edition) --ProfileManager 2> /dev/null || \
-      $(command -v firefox-beta) --ProfileManager 2> /dev/null
+      $(command -v firefox) --ProfileManager 2> /dev/null
 
       echo "Firefox is setup and started. Have a good day!"
   }
