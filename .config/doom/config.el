@@ -36,10 +36,15 @@
   '(org-block ((t (:inherit default :family "Iosevka"))))
   '(org-code ((t (:inherit default :family "Iosevka")))))
 
-(setq treemacs-width 25)
-(setq evil-escape-unordered-key-sequence t)
+(setq centaur-tabs-height 60)
+(setq centaur-tabs-set-bar 'over)
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-style "box")
+(setq centaur-tabs-gray-out-icons t)
 (setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
 (setq +doom-dashboard-banner-padding '(1 . 2))
+(setq treemacs-width 25)
+(setq evil-escape-unordered-key-sequence t)
 
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
