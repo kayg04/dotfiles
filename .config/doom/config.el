@@ -10,6 +10,15 @@
   (setq lsp-ui-doc-max-height 6)
   (setq lsp-ui-doc-max-width 54))
 
+(after! ivy
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))
+        ivy-posframe-height-alist '((t . 10)))
+  (if (member "Iosevka" (font-family-list))
+      (setq ivy-posframe-parameters '((internal-border-width . 10) (font . "Iosevka")))
+    ivy-posframe-parameters '((internal-border-width . 10)))
+  (setq ivy-posframe-width 100)
+  (ivy-posframe-mode +1))
+
 ;; Font changes
 (defface my-prog-mode-default-face
   '((t (:inherit default :family "Iosevka")))
@@ -30,7 +39,7 @@
 (setq treemacs-width 25)
 (setq evil-escape-unordered-key-sequence t)
 (setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
-(setq +doom-dashboard-banner-padding '(100 . 2))
+(setq +doom-dashboard-banner-padding '(1 . 2))
 
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)

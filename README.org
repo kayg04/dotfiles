@@ -558,6 +558,7 @@ configuration of Emacs to find my peace in doom.
 - 'jk' should cause NORMAL state regardless of the order the keys are typed in
 - Use 'IBM Plex Mono' for the UI and 'Iosevka' for code
 - Change background of comments to make them more readable
+- Move Ivy to a frame to emulate VSCodium like UI.
 #+BEGIN_SRC emacs-lisp :tangle .config/doom/config.el
   (after! org
     (setq org-src-preserve-indentation nil)
@@ -570,6 +571,15 @@ configuration of Emacs to find my peace in doom.
     (setq lsp-ui-doc-header t)
     (setq lsp-ui-doc-max-height 6)
     (setq lsp-ui-doc-max-width 54))
+
+  (after! ivy
+    (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))
+          ivy-posframe-height-alist '((t . 10)))
+    (if (member "Iosevka" (font-family-list))
+        (setq ivy-posframe-parameters '((internal-border-width . 10) (font . "Iosevka")))
+      ivy-posframe-parameters '((internal-border-width . 10)))
+    (setq ivy-posframe-width 100)
+    (ivy-posframe-mode +1))
 
   ;; Font changes
   (defface my-prog-mode-default-face
@@ -591,7 +601,7 @@ configuration of Emacs to find my peace in doom.
   (setq treemacs-width 25)
   (setq evil-escape-unordered-key-sequence t)
   (setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
-  (setq +doom-dashboard-banner-padding '(100 . 2))
+  (setq +doom-dashboard-banner-padding '(1 . 2))
 
   (when (string= (system-name) "ruri")
     (setq doom-theme 'doom-outrun-electric)
@@ -615,6 +625,7 @@ Add extra packages
   (package! command-log-mode)
   (package! dockerfile-mode)
   (package! docker-compose-mode)
+  (package! ivy-posframe)
 #+END_SRC
 * Firefox
 ** Profiles
