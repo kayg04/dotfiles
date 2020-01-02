@@ -433,6 +433,30 @@ Add extra packages
   (package! docker-compose-mode)
   (package! ivy-posframe)
 #+END_SRC
+* Etcetera
+** Filesystem Mounts
+I have a half-dozen external HDDs that I would like to mount with custom options
+but it is a PITA to add entries manually everytime.
+#+BEGIN_SRC conf :tangle etcetera/etc/fstab
+  # Arch Drive
+  LABEL=Arch\040Drive    /    btrfs    defaults,noatime,nodiratime,ssd,space_cache,compress=zstd,subvol=@root    0 0
+
+  # Boot Drive
+  LABEL=Boot\040Drive    /boot    vfat    defaults,nofail,noauto,noatime,nodiratime    0 2
+
+  # Swap
+  /swap/file    none    swap    defaults    0 0
+
+  # RAM
+  tmpfs    /tmp    tmpfs    defaults,noatime,nodiratime,nodev,nosuid,size=6G    0 0
+
+  # Portable Drive
+  LABEL=Portable\040Drive    /mnt/backup    btrfs    defaults,nofail,noauto,noatime,nodiratime,ssd,space_cache,compress=zstd,subvol=@backup    0 0
+  LABEL=Portable\040Drive    /mnt/vm        btrfs    defaults,nofail,noauto,noatime,nodiratime,ssd,space_cache,nodatacow,subvol=@vm    0 0
+
+  # External Drive I
+  LABEL=External\040Drive\040I    /mnt/ext1    btrfs    defaults,nofail,noauto,noatime,nodiratime,compress=zstd    0 0
+#+END_SRC
 * Firefox
 ** Profiles
 - =StartWithLastProfile= ensures a profile choice isn't
