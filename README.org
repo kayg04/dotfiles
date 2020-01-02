@@ -451,11 +451,11 @@ but it is a PITA to add entries manually everytime.
   tmpfs    /tmp    tmpfs    defaults,noatime,nodiratime,nodev,nosuid,size=6G    0 0
 
   # Portable Drive
-  LABEL=Portable\040Drive    /mnt/backup    btrfs    defaults,nofail,noauto,noatime,nodiratime,ssd,space_cache,compress=zstd,subvol=@backup    0 0
-  LABEL=Portable\040Drive    /mnt/vm        btrfs    defaults,nofail,noauto,noatime,nodiratime,ssd,space_cache,nodatacow,subvol=@vm    0 0
+  LABEL=Portable\040Drive    /mnt/backup    btrfs    defaults,nofail,noauto,noatime,nodiratime,x-mount.mkdir,ssd,space_cache,compress=zstd,subvol=@backup    0 0
+  LABEL=Portable\040Drive    /mnt/vm        btrfs    defaults,nofail,noauto,noatime,nodiratime,x-mount.mkdir,ssd,space_cache,nodatacow,subvol=@vm    0 0
 
   # External Drive I
-  LABEL=External\040Drive\040I    /mnt/ext1    btrfs    defaults,nofail,noauto,noatime,nodiratime,compress=zstd    0 0
+  LABEL=External\040Drive\040I    /mnt/ext1    btrfs    defaults,nofail,noauto,noatime,nodiratime,x-mount.mkdir,compress=zstd    0 0
 #+END_SRC
 * Firefox
 ** Profiles
