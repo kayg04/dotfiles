@@ -261,13 +261,13 @@
 * Autostart
 ** Scripts
 *** SSH
+Cache all ssh keys with an ssh-agent for instant ssh logins
 #+BEGIN_SRC sh :tangle .config/autostart-scripts/ssh-add.sh :shebang "#!/usr/bin/env bash"
   # Enable extended globbing
   shopt -s extglob dotglob nullglob
 
-  # Add all files in $HOME/.ssh/keys that do not end
-  # with .pub
-  ssh-add "${HOME}"/.ssh/keys/!(*.pub) </dev/null
+  # Add all files in the keys directory that do not end with .pub
+  ssh-add "${HOME}"/.vault/ssh/login/!(*.pub) </dev/null
 #+END_SRC
 * Desktop
 ** Invidious
@@ -1592,7 +1592,7 @@ automatically if it can't find those lyrics. Pretty cool, right?
   }
 #+END_SRC
 * ZSH
-** Oh-my-zsh stuff
+** Oh-my-zsh
 Settings specific to OMZ.
 #+BEGIN_SRC sh :tangle .zshrc
   # Path to oh-my-zsh installation.
@@ -1658,7 +1658,16 @@ unless specified otherwise.
       alias icat="kitty +kitten icat"
   fi
 
-  alias vim='emacsclient -nw'
+  if [[ -d "${HOME}/.config/emacs" ]]; then
+      if command -v vim; then
+          alias vimreally=$(command -v vim)
+      elif command -v nvim; then
+          alias vimreally=$(command -v nvim)
+      fi
+
+      alias vim='emacsclient -tty'
+      alias nvim='vim'
+  fi
 #+END_SRC
 ** Source
 #+BEGIN_SRC sh :tangle .zshrc

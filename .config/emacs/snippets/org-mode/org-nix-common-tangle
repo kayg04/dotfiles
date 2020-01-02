@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: org-nix-common-tangle
-# key: nic
-# --
-nix :tangle machines/common.nix

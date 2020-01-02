@@ -52,7 +52,16 @@ if command -v kitty 2>/dev/null 1>&2; then
     alias icat="kitty +kitten icat"
 fi
 
-alias vim='emacsclient -nw'
+if [[ -d "${HOME}/.config/emacs" ]]; then
+    if command -v vim; then
+        alias vimreally=$(command -v vim)
+    elif command -v nvim; then
+        alias vimreally=$(command -v nvim)
+    fi
+
+    alias vim='emacsclient -tty'
+    alias nvim='vim'
+fi
 
 if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
     source /usr/share/nvm/init-nvm.sh
