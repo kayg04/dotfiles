@@ -53,9 +53,9 @@ if command -v kitty 2>/dev/null 1>&2; then
 fi
 
 if [[ -d "${HOME}/.config/emacs" ]]; then
-    if command -v vim; then
+    if command -v vim 2>/dev/null 1>&2; then
         alias vimreally=$(command -v vim)
-    elif command -v nvim; then
+    elif command -v nvim 2>/dev/null 1>&2; then
         alias vimreally=$(command -v nvim)
     fi
 
