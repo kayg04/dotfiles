@@ -1201,8 +1201,11 @@ Functions:
   }
 
   updateEmacs() {
-      ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
-      "${HOME}"/.emacs.d/bin/doom refresh
+      echo -ne "Linking personal configuration..."
+      run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
+
+      echo -e "Refreshing Doom Emacs..."
+      "${HOME}/.emacs.d/bin/doom" refresh
   }
 
   updateFirefox() {
@@ -1302,21 +1305,13 @@ Functions:
   }
 
   setupEmacs() {
-      echo -e "Creating doom emacs directory..."
-      if mkdir -p "${HOME}"/.config/doom; then
-          printf '\u2714\n'
-      else
-          printf '\u274c\n'
-      fi
+      echo -e "Creating Doom Emacs directory..."
+      run mkdir -p "${EMACS_REMOTE_PATH}"
 
-      echo -ne "Cloning doom emacs source..."
-      if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
-          printf '\u2714\n'
-      else
-          printf '\u274c\n'
-      fi
+      echo -ne "Cloning Doom Emacs..."
+      fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
 
-      echo -e "Unleashing doom..."
+      echo -e "Unleashing Doom..."
       "${HOME}"/.emacs.d/bin/doom install
 
       updateEmacs
