@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+# global declarations
+SCRIPT_PATH=$(dirname $(realpath "$0"))
+
+# Firefox
+FIREFOX_PATH="${SCRIPT_PATH}/firefox"
+
+# ZSH
+ZSH="${HOME}/.config/omz"
+ZSH_CUSTOM="${HOME}/.config/omz/custom"
+ZSH_PATH="${SCRIPT_PATH}/zsh"
+
+# import helpers
+source "${SCRIPT_PATH}"/scripts/.local/bin/functions/helper
+
+updateDesktop() {
+    ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
+}
+
+updateEmacs() {
+    ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
+    "${HOME}"/.emacs.d/bin/doom refresh
+}
+
+updateFirefox() {
+    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
+
+    fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
+    mkTweaks
+    applyUserJS
+    clean "${SCRIPT_PATH}/workdir"
+}
+
+updatePlasma() {
+    ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
+    ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
+    ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
+}
+
+updateSystemd() {
+    ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
+
+    for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
+        systemctl --user enable --now "${service}"
+    done
+}
+
+updateThunderbird() {
+    ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
+}
+
+updateVSCodium() {
+    ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+}
+
+updateChromium() {
+    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+}
+
+updateUtilsh() {
+    ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
+}
+
+updateZSH() {
+    if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+    fi
+
+    if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions ]]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+    fi
+
+    ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
+}
+
+update() {
+    case "${1}" in
+        "desktop")
+            updateDesktop
+            ;;
+        "doom"|"emacs")
+            updateEmacs
+            ;;
+        "firefox")
+            updateFirefox
+            ;;
+        "plasma")
+            updatePlasma
+            ;;
+        "spotify")
+            updateSpotify
+            ;;
+        "systemd")
+            updateSystemd
+            ;;
+        "thunderbird")
+            updateThunderbird
+            ;;
+        "chromium")
+            updateChromium
+            ;;
+        "utilsh")
+            updateUtilsh
+            ;;
+        "zsh")
+            updateZSH
+            ;;
+    esac
+}
+
+setup() {
+    case "${1}" in
+        "desktop")
+            setupDesktop
+            ;;
+        "doom"|"emacs")
+            setupEmacs
+            ;;
+        "firefox")
+            setupFirefox
+            ;;
+        "plasma")
+            setupPlasma
+            ;;
+        "spotify")
+            setupSpotify
+            ;;
+        "systemd")
+            setupSystemd
+            ;;
+        "thunderbird")
+            setupThunderbird
+            ;;
+        "chromium")
+            setupChromium
+            ;;
+        "utilsh")
+            setupUtilsh
+            ;;
+        "zsh")
+            setupZSH
+            ;;
+    esac
+}
+
+addToPath() {
+    echo -ne "Adding this program to \$PATH so that it is globally available..."
+    mkdir -p "${HOME}"/.local/bin
+    run ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
+}
+
+refresh() {
+    echo -ne "Fetching latest code..."
+    run git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
+}
+
+main() {
+    case "${1}" in
+        "setup")
+            if [[ -z ${2} || ${2} == "dot" ]]; then
+               addToPath
+            else
+                setup "${2}"
+            fi
+            ;;
+        "update")
+            update "${2}"
+            ;;
+        "refresh")
+            refresh
+            ;;
+        *)
+            echo -e "Invalid option."
+            ;;
+    esac
+}
+
+main "${@}"

@@ -655,416 +655,29 @@ A few guidelines followed throughout these scripts:
   The main function looks like nothing more than a series of steps (function calls).
 - Documentation for what the function does and why is provided.
 - A =$SCRIPT_PATH= is defined to determine the path of the each script.
-** Bootstrap
-*** Update
-**** Decalaration
-#+BEGIN_SRC sh
-  update() {
-      case "${1}" in
-          "desktop")
-              updateDesktop
-              ;;
-          "doom"|"emacs")
-              updateEmacs
-              ;;
-          "firefox")
-              updateFirefox
-              ;;
-          "plasma")
-              updatePlasma
-              ;;
-          "spotify")
-              updateSpotify
-              ;;
-          "systemd")
-              updateSystemd
-              ;;
-          "thunderbird")
-              updateThunderbird
-              ;;
-          "chromium")
-              updateChromium
-              ;;
-          "utilsh")
-              updateUtilsh
-              ;;
-          "zsh")
-              updateZSH
-              ;;
-      esac
-  }
-#+END_SRC
-**** Definition
-#+BEGIN_SRC sh
-  updateDesktop() {
-      ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
-  }
 
-  updateEmacs() {
-      ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
-      "${HOME}"/.emacs.d/bin/doom refresh
-  }
-
-  updateFirefox() {
-      source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
-
-      applyPolicies
-      applyProfilesINI
-      updateUserJS
-      applyUserJS
-      cleanUp
-  }
-
-  updatePlasma() {
-      ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
-      ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
-      ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
-  }
-
-  updateSystemd() {
-      ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
-
-      for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
-          systemctl --user enable --now "${service}"
-      done
-  }
-
-  updateThunderbird() {
-      ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
-  }
-
-  updateVSCodium() {
-      ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
-  }
-
-  updateChromium() {
-      ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
-  }
-
-  updateUtilsh() {
-      ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
-  }
-
-  updateZSH() {
-      if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
-          git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-      fi
-
-      if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions ]]; then
-          git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-      fi
-
-      ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
-  }
-#+END_SRC
-*** Setup
-#+BEGIN_SRC sh
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  ZSH="${HOME}/.config/omz"
-  ZSH_CUSTOM="${HOME}/.config/omz/custom"
-
-  setup() {
-      case "${1}" in
-          "desktop")
-              setupDesktop
-              ;;
-          "doom"|"emacs")
-              setupEmacs
-              ;;
-          "firefox")
-              setupFirefox
-              ;;
-          "plasma")
-              setupPlasma
-              ;;
-          "spotify")
-              setupSpotify
-              ;;
-          "systemd")
-              setupSystemd
-              ;;
-          "thunderbird")
-              setupThunderbird
-              ;;
-          "chromium")
-              setupChromium
-              ;;
-          "utilsh")
-              setupUtilsh
-              ;;
-          "zsh")
-              setupZSH
-              ;;
-      esac
-  }
-
-  setupDesktop() {
-      mkdir -p "${HOME}"/.local/share/applications
-      updateDesktop
-  }
-
-  setupEmacs() {
-      echo -e "Creating doom emacs directory..."
-      if mkdir -p "${HOME}"/.config/doom; then
-          printf '\u2714\n'
-      else
-          printf '\u274c\n'
-      fi
-
-      echo -ne "Cloning doom emacs source..."
-      if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
-          printf '\u2714\n'
-      else
-          printf '\u274c\n'
-      fi
-
-      echo -e "Unleashing doom..."
-      "${HOME}"/.emacs.d/bin/doom install
-
-      updateEmacs
-  }
-
-  setupFirefox() {
-      source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
-
-      applyPolicies
-      createProfilesINIDir
-      applyProfilesINI
-      createProfiles
-      updateUserJS
-      applyUserJS
-      cleanUp
-      startFirefox
-  }
-
-  setupPlasma() {
-      updatePlasma
-  }
-
-  setupSpotify() {
-      source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
-
-      # fix wm name setting
-      fetchSource
-      buildLibrary
-      moveLibrary
-      fixSpotify
-  }
-
-  setupSystemd() {
-      mkdir -p "${HOME}/.config/systemd/user"
-  }
-
-  setupThunderbird() {
-      mkdir -p "${HOME}"/.config/thunderbird/primary
-      updateThunderbird
-  }
-
-  setupVSCodium() {
-      updateVSCodium
-  }
-
-  setupChromium() {
-      updateChromium
-  }
-
-  setupUtilsh() {
-      updateUtilsh
-  }
-
-  setupZSH() {
-      if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
-          export ZSH="${HOME}/.config/omz"
-          sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-      else
-          exit 1
-      fi
-  }
-
-  addToPath() {
-      echo -e "Adding this program to \$PATH so that it is globally available."
-      mkdir -p "${HOME}"/.local/bin
-      ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
-  }
-
-  refresh() {
-      git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
-  }
-
-  main() {
-      case "${1}" in
-          "setup")
-              setup "${2}"
-              ;;
-          "update")
-              update "${2}"
-              ;;
-          "set")
-              addToPath
-              ;;
-          "refresh")
-              refresh
-              ;;
-          ,*)
-              echo -e "Invalid option."
-              ;;
-      esac
-  }
-
-  main "${@}"
-#+END_SRC
-** Firefox
-Functions:
-- =createWorkDir=: checks if the work directory already
-  exists, removes it if it does exist (which it will, in
-  case non-zero termination of the script), to start afresh.
-- =fetchGHacksJS=: fetches the source from upstream and
-  navigates into the folder
-- =mkTweaks=: makes the custom user.js tweaks according to the
-  option passed. Currently, supported themes are /MaterialFox/
-  and /GNOME/.
-- =applyToProfiles=: reads =profiles.ini= and creates the
-  specified profiles, thereafter copying the modified
-  user.js files into those profiles.
-- =cleanUp=: removes the created work directory.
-
-This script sets up my firefox profiles and custom userJS that
-builds upon the GHacksUserJS.
-#+BEGIN_SRC sh :tangle scripts/.local/bin/firefox-setup :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "${BASH_SOURCE}"))
-
-  mkWorkDir() {
-      if [[ -d "${SCRIPT_PATH}"/workdir ]]; then
-          rm -rf "${SCRIPT_PATH}"/workdir
-      fi
-
-      echo "Creating Work Directory..."
-      mkdir -p "${SCRIPT_PATH}"/workdir
-  }
-
-  fetchGHacksJS() {
-      echo "Fetching ghacks user.js..."
-      git clone https://github.com/ghacksuserjs/ghacks-user.js.git "${SCRIPT_PATH}"/workdir/ghjs 2>/dev/null 1>&2
-  }
-
-  mkTweaks() {
-      cp "${SCRIPT_PATH}"/*.js "${SCRIPT_PATH}"/workdir/ghjs
-
-      echo "Applying userchrome tweaks..."
-      case "${1}" in
-          -m | --materialFox)
-              cat "${SCRIPT_PATH}"/workdir/ghjs/materialfox.js >> "${SCRIPT_PATH}"/workdir/ghjs/user-overrides.js
-              ;;
-          -g | --gnome)
-              cat "${SCRIPT_PATH}"/workdir/ghjs/gnome.js >> "${SCRIPT_PATH}"/workdir/ghjs/user-overrides.js
-              ;;
-          -n | --none)
-              ;;
-          -h | --help)
-              echo -ne "\\nFirefox UserJS helper:
-                                   -g, --gnome: apply GNOME userchrome theme
-                                   -h, --help: display this message
-                                   -m, --materialFox: apply MaterialFox userchrome theme
-                                   -n, --none: no theme\\n"
-              ;;
-          ,*)
-              echo -ne "\\nInvalid flag. Pass -h or --help for usage.\\n"
-              exit 1
-      esac
-
-      echo "Merging tweaks with ghacks user.js..."
-      "${SCRIPT_PATH}"/workdir/ghjs/updater.sh -s 2>/dev/null 1>&2
-  }
-
-  updateUserJS() {
-      mkWorkDir
-      fetchGHacksJS
-      mkTweaks -n
-  }
-
-  applyUserJS() {
-      profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
-
-      for profile in ${profileList}; do
-          echo "-> Copying user.js to profile: ${profile}..."
-          cp "${SCRIPT_PATH}"/workdir/ghjs/user.js "${HOME}/.config/firefox/${profile}"
-      done
-  }
-
-  createProfilesINIDir() {
-      mkdir -p "${HOME}/.mozilla/firefox"
-  }
-
-  applyProfilesINI() {
-      ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
-  }
-
-  createProfiles() {
-      profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
-
-      echo "Making profile directories..."
-      for profile in ${profileList}; do
-          mkdir -p "${HOME}/.config/firefox/${profile}"
-      done
-  }
-
-  applyPolicies() {
-      echo "Copying policies.json (may need root permissions)..."
-
-      if [[ -d /usr/lib/firefox ]]; then
-          FIREFOX_LIBPATH="/usr/lib/firefox/distribution"
-          mkdir -p "${FIREFOX_LIBPATH}"
-          sudo ln -sf "${SCRIPT_PATH}"/policies.json "${FIREFOX_LIBPATH}"
-      elif [[ -d /usr/lib64/firefox ]]; then
-          FIREFOX_LIBPATH="/usr/lib64/firefox/distribution"
-          mkdir -p "${FIREFOX_LIBPATH}"
-          sudo ln -sf "${SCRIPT_PATH}"/policies.json "${FIREFOX_LIBPATH}"
-      fi
-  }
-
-  cleanUp() {
-      echo "Cleaning up after myself..."
-      rm -rf "${SCRIPT_PATH}"/workdir
-  }
-
-  startFirefox() {
-      $(command -v firefox) --ProfileManager 2> /dev/null
-
-      echo "Firefox is setup and started. Have a good day!"
-  }
-#+END_SRC
-** Helpers
-*** Bash Sanity
-Bash has some very /meme/worthy behaviour by default. The
-other day somebody on Reddit was crying because he
-accidentally deleted all files in his root directory because:
+** Functions
+*** Helper
+**** Bash Sanity
+Bash has some very /meme/worthy behaviour by default. The other day somebody on
+Reddit was crying because he accidentally deleted all files in his root
+directory because:
 1. His script did not terminate when a command failed.
-2. The failing command's purpose was to assign a base path
-   to a variable.
+2. The failing command's purpose was to assign a base path to a variable.
 
-And this happens every other day to some shell beginner out
-there. Hence, this script tries to restore sanity to shell
-scripts.
+And this happens every other day to some shell beginner out there. Hence, this
+script tries to restore sanity to shell scripts.
 
-- =errexit= terminates the script immediately if a command
-  returns a non-zero exit code. It can be temporary bypassed
-  by appending a =|| true= which makes the complete command
-  exit with zero.
-- =pipefail= terminates the script immediately if /part/ of
-  the pipe chain exits with a non-zero code.
-- =nounset= ensures all variables have been assigned a value
-  before they are referred. Upon encountering an empty
-  variable, terminates the script. =VAR== is a valid
-  assignment.
-#+BEGIN_SRC sh :tangle scripts/.local/bin/helper
+- =errexit= terminates the script immediately if a command returns a non-zero exit
+  code. It can be temporary bypassed by appending a =|| true= which makes the
+  complete command exit with zero.
+- =pipefail= terminates the script immediately if /part/ of the pipe chain exits
+  with a non-zero code.
+- =nounset= ensures all variables have been assigned a value before they are
+  referred. Upon encountering an empty variable, terminates the script. =VAR== is
+  a valid assignment.
+
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/helper
   # Bash Sanity
   # https://kvz.io/blog/2013/11/21/bash-best-practices/
   # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
@@ -1079,50 +692,99 @@ scripts.
   # Show output of statements as they are being executed
   # set -o xtrace # aka: set -x
 #+END_SRC
-*** Run Script
+**** Cleanup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/helper
+  clean() {
+      echo -ne "Cleaning up all the cruft..."
+
+      if [[ -z "${1}" ]]; then
+          run rm -rf "${@}"
+      else
+          run rm -rf "${SCRIPT_PATH}/workdir"
+      fi
+  }
+#+END_SRC
+**** Fetch Source
+This function fetches the source from the given URL and displays a tick or cross
+mark depending on exit code.
+
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/helper
+  fetchSrc() {
+      export URL="${1}"
+      export DEST="${2}"
+
+      if [[ -d "${DEST}" ]]; then
+          clean "${DEST}"
+      fi
+
+      echo -ne "Fetching ${URL}..."
+      run git clone --quiet "${URL}" "${DEST}"
+  }
+#+END_SRC
+**** Run Script
 =run()= is a wrapper around eval which itself takes args, concatenates them and
 runs the concatenated string as a command. Any form of output is silenced. If
 =eval= succeeds, a tick mark is displayed and if it doesn't, a cross mark is
 displayed. An =exit= has to explicitly stated and =set -o errexit=
-#+BEGIN_SRC sh :tangle scripts/.local/bin/helper
+
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/helper
   run() {
       if eval "${@}" 2>/dev/null 1>&2; then
-          printf '\u2714\n'
+          printf ' \u2714\n'
       else
-          printf '\u274c\n'
+          printf ' \u274c\n'
           exit 1
       fi
   }
 #+END_SRC
-*** Fetch Source
-This function fetches the source from the given URL and displays a tick or cross
-mark depending on exit code.
-#+BEGIN_SRC sh :tangle scripts/.local/bin/helper
-  # global declarations
-  export SCRIPT_PATH=$(dirname $(realpath "$0"))
+*** Firefox
+**** Userjs
+This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
+=profiles.ini= and copies the modified user.js into those profiles.
 
-  fetchSource() {
-      export URL="${1}"
-      export REPO_NAME=$(echo "${URL}" | cut -d '/' -f5 | cut -d '.' -f1)
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/userjs :shebang "#!/usr/bin/env bash"
+  mkTweaks() {
+      echo -ne "Copying personal tweaks to fetched source..."
+      run cp "${FIREFOX_PATH}/.mozilla/firefox/user-overrides.js" "${DEST}"
 
-      if [[ -d "${SCRIPT_PATH}/${REPO_NAME}" ]]; then
-          cleanUp
-      fi
+      echo -ne "Merging tweaks with ghacks user.js..."
+      run "${DEST}/updater.sh" -s
+  }
 
-      echo -ne "Fetching source..."
-      run git clone --quiet "${URL}" "${SCRIPT_PATH}/${REPO_NAME}"
+  applyUserJS() {
+      profileList=$(cat "${FIREFOX_PATH}"/.mozilla/firefox/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+
+      echo -e "Copying user.js to profile directories..."
+      for profile in ${profileList}; do
+          echo -ne "  => Copying user.js to profile: ${profile}..."
+          run cp "${DEST}/user.js" "${HOME}/.config/firefox/${profile}"
+      done
   }
 #+END_SRC
-*** Cleanup
-#+BEGIN_SRC sh :tangle scripts/.local/bin/helper
-  cleanUp() {
-      echo -ne "Cleaning up all the cruft..."
+**** Profiles
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/profiles :shebang "#!/usr/bin/env bash"
+  mkProfilesDir() {
+      echo -ne "Creating firefox directory to store profiles..."
+      run mkdir -p "${HOME}/.mozilla/firefox"
+  }
 
-      run rm -rf "${SCRIPT_PATH}/${REPO_NAME}"
+  linkProfiles() {
+      echo -ne "Linking profiles ini..."
+      ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
+  }
+
+  mkProfiles() {
+      profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+
+      echo -e "Creating profile directories..."
+      for profile in ${profileList}; do
+          echo -ne "  => Creating profile ${profile}..."
+          run mkdir -p "${HOME}/.config/firefox/${profile}"
+      done
   }
 #+END_SRC
-** Plasma
-*** Virtual Desktop Bar (KDE)
+*** Plasma
+**** Virtual Desktop Bar (KDE)
 - =fetchSource= gets the latest master from github and
   places it in a subdirectory.
 - =installDeps= installs the missing dependencies required
@@ -1209,7 +871,7 @@ mark depending on exit code.
 
   main
 #+END_SRC
-*** KWin Tiling Script (Faho)
+**** KWin Tiling Script (Faho)
 Mostly the same as /Virtual Desktop Bar/ sans the building.
 The quirk here is to symlink a =.desktop= file for the gooey
 configuration section to appear.
@@ -1280,8 +942,8 @@ script has been previously installed.
 
   main
 #+END_SRC
-** Spotify
-*** WM Name
+*** Spotify
+**** WM Name
 Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
 to at least have a client, right? But that does not mean the community can't fix
 problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
@@ -1289,7 +951,7 @@ becomes a problem for window managers if a custom layout or custom changes are
 to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
 been updated in years but still works).
 
-#+BEGIN_SRC sh :tangle scripts/.local/bin/wmn :shebang "#!/usr/bin/env bash"
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/spotify :shebang "#!/usr/bin/env bash"
   export SCRIPT_PATH=$(dirname $(realpath "$0"))
 
   buildLibrary() {
@@ -1311,21 +973,9 @@ been updated in years but still works).
       echo -ne "Making changes in the desktop file..."
       run "sed -Ei 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
   }
-
-  main() {
-      source "${SCRIPT_PATH}/helper"
-
-      fetchSource "https://github.com/dasJ/spotifywm"
-      buildLibrary
-      moveLibrary
-      fixSpotify
-      cleanUp
-  }
-
-  main
 #+END_SRC
-** Utility
-*** Ungoogled Chromium Extension Updater
+*** Utility
+**** Ungoogled Chromium Extension Updater
 - =USER_DATA_DIR= is your data directory for Chromium.
   Normally, it is $HOME/.config/chromium. However since I
   sync my chromium profiles using Nextcloud and only use it
@@ -1390,7 +1040,7 @@ this moment.
 
   main "${@}"
 #+END_SRC
-*** Wallpaper Index
+**** Wallpaper Index
 Variables:
 - =WALL_STORAGE_PATH= holds the location where the indexed
   wallpapers are kept. Default value is
@@ -1517,6 +1167,312 @@ Functions:
   }
 
   main
+#+END_SRC
+** Dot
+*** Global
+#+BEGIN_SRC sh :tangle dot :shebang "#!/usr/bin/env bash"
+  # global declarations
+  SCRIPT_PATH=$(dirname $(realpath "$0"))
+
+  # Firefox
+  FIREFOX_PATH="${SCRIPT_PATH}/firefox"
+
+  # ZSH
+  ZSH="${HOME}/.config/omz"
+  ZSH_CUSTOM="${HOME}/.config/omz/custom"
+  ZSH_PATH="${SCRIPT_PATH}/zsh"
+
+  # import helpers
+  source "${SCRIPT_PATH}"/scripts/.local/bin/functions/helper
+#+END_SRC
+*** Update
+**** Definition
+#+BEGIN_SRC sh :tangle dot
+  updateDesktop() {
+      ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
+  }
+
+  updateEmacs() {
+      ln -sf "${SCRIPT_PATH}"/.config/doom/* "${HOME}"/.config/doom/
+      "${HOME}"/.emacs.d/bin/doom refresh
+  }
+
+  updateFirefox() {
+      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
+
+      fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
+      mkTweaks
+      applyUserJS
+      clean "${SCRIPT_PATH}/workdir"
+  }
+
+  updatePlasma() {
+      ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
+      ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
+      ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
+  }
+
+  updateSystemd() {
+      ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
+
+      for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
+          systemctl --user enable --now "${service}"
+      done
+  }
+
+  updateThunderbird() {
+      ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
+  }
+
+  updateVSCodium() {
+      ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
+  }
+
+  updateChromium() {
+      ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+  }
+
+  updateUtilsh() {
+      ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
+  }
+
+  updateZSH() {
+      if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
+          git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+      fi
+
+      if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions ]]; then
+          git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+      fi
+
+      ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
+  }
+#+END_SRC
+**** Invocation
+#+BEGIN_SRC sh :tangle dot
+  update() {
+      case "${1}" in
+          "desktop")
+              updateDesktop
+              ;;
+          "doom"|"emacs")
+              updateEmacs
+              ;;
+          "firefox")
+              updateFirefox
+              ;;
+          "plasma")
+              updatePlasma
+              ;;
+          "spotify")
+              updateSpotify
+              ;;
+          "systemd")
+              updateSystemd
+              ;;
+          "thunderbird")
+              updateThunderbird
+              ;;
+          "chromium")
+              updateChromium
+              ;;
+          "utilsh")
+              updateUtilsh
+              ;;
+          "zsh")
+              updateZSH
+              ;;
+      esac
+  }
+#+END_SRC
+*** Setup
+**** Definition
+#+BEGIN_SRC sh
+  setupDesktop() {
+      mkdir -p "${HOME}"/.local/share/applications
+      updateDesktop
+  }
+
+  setupEmacs() {
+      echo -e "Creating doom emacs directory..."
+      if mkdir -p "${HOME}"/.config/doom; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+      fi
+
+      echo -ne "Cloning doom emacs source..."
+      if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
+          printf '\u2714\n'
+      else
+          printf '\u274c\n'
+      fi
+
+      echo -e "Unleashing doom..."
+      "${HOME}"/.emacs.d/bin/doom install
+
+      updateEmacs
+  }
+
+  setupFirefox() {
+      source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+
+      applyPolicies
+      createProfilesINIDir
+      applyProfilesINI
+      createProfiles
+      updateUserJS
+      applyUserJS
+      cleanUp
+      startFirefox
+  }
+
+  setupPlasma() {
+      updatePlasma
+  }
+
+  setupSpotify() {
+      source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
+
+      # fix wm name setting
+      fetchSource
+      buildLibrary
+      moveLibrary
+      fixSpotify
+  }
+
+  setupSystemd() {
+      mkdir -p "${HOME}/.config/systemd/user"
+  }
+
+  setupThunderbird() {
+      mkdir -p "${HOME}"/.config/thunderbird/primary
+      updateThunderbird
+  }
+
+  setupVSCodium() {
+      updateVSCodium
+  }
+
+  setupChromium() {
+      updateChromium
+  }
+
+  setupUtilsh() {
+      updateUtilsh
+  }
+
+  setupZSH() {
+      if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
+          export ZSH="${HOME}/.config/omz"
+          sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      else
+          exit 1
+      fi
+  }
+
+  addToPath() {
+      echo -e "Adding this program to \$PATH so that it is globally available."
+      mkdir -p "${HOME}"/.local/bin
+      ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
+  }
+
+  refresh() {
+      git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
+  }
+
+  main() {
+      case "${1}" in
+          "setup")
+              setup "${2}"
+              ;;
+          "update")
+              update "${2}"
+              ;;
+          "set")
+              addToPath
+              ;;
+          "refresh")
+              refresh
+              ;;
+          ,*)
+              echo -e "Invalid option."
+              ;;
+      esac
+  }
+#+END_SRC
+**** Invocation
+#+BEGIN_SRC sh :tangle dot
+  setup() {
+      case "${1}" in
+          "desktop")
+              setupDesktop
+              ;;
+          "doom"|"emacs")
+              setupEmacs
+              ;;
+          "firefox")
+              setupFirefox
+              ;;
+          "plasma")
+              setupPlasma
+              ;;
+          "spotify")
+              setupSpotify
+              ;;
+          "systemd")
+              setupSystemd
+              ;;
+          "thunderbird")
+              setupThunderbird
+              ;;
+          "chromium")
+              setupChromium
+              ;;
+          "utilsh")
+              setupUtilsh
+              ;;
+          "zsh")
+              setupZSH
+              ;;
+      esac
+  }
+#+END_SRC
+*** Main
+#+BEGIN_SRC sh :tangle dot
+  addToPath() {
+      echo -ne "Adding this program to \$PATH so that it is globally available..."
+      mkdir -p "${HOME}"/.local/bin
+      run ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
+  }
+
+  refresh() {
+      echo -ne "Fetching latest code..."
+      run git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
+  }
+
+  main() {
+      case "${1}" in
+          "setup")
+              if [[ -z ${2} || ${2} == "dot" ]]; then
+                 addToPath
+              else
+                  setup "${2}"
+              fi
+              ;;
+          "update")
+              update "${2}"
+              ;;
+          "refresh")
+              refresh
+              ;;
+          ,*)
+              echo -e "Invalid option."
+              ;;
+      esac
+  }
+
+  main "${@}"
 #+END_SRC
 * ZSH
 ** Oh-my-zsh

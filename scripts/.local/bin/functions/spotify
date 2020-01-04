@@ -20,15 +20,3 @@ fixSpotify() {
     echo -ne "Making changes in the desktop file..."
     run "sed -Ei 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
 }
-
-main() {
-    source "${SCRIPT_PATH}/helper"
-
-    fetchSource "https://github.com/dasJ/spotifywm"
-    buildLibrary
-    moveLibrary
-    fixSpotify
-    cleanUp
-}
-
-main
