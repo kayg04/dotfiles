@@ -697,7 +697,7 @@ script tries to restore sanity to shell scripts.
   clean() {
       echo -ne "Cleaning up all the cruft..."
 
-      if [[ -z "${1}" ]]; then
+      if [[ -n "${@}" ]]; then
           run rm -rf "${@}"
       else
           run rm -rf "${SCRIPT_PATH}/workdir"
