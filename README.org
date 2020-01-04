@@ -1460,7 +1460,7 @@ Functions:
   main() {
       case "${1}" in
           "setup")
-              if [[ -z ${2} || ${2} == "dot" ]]; then
+              if [[ ${2} == "dot" ]]; then
                  addToPath
               else
                   setup "${2}"
