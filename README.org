@@ -1447,7 +1447,7 @@ Functions:
 *** Main
 #+BEGIN_SRC sh :tangle dot
   addToPath() {
-      echo -ne "Adding this program to \$PATH so that it is globally available..."
+      echo -ne "Linking this script to ${HOME}/.local/bin. Please ensure it is in your \$PATH."
       mkdir -p "${HOME}"/.local/bin
       run ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
   }
