@@ -4,17 +4,17 @@ mkProfilesDir() {
     run mkdir -p "${HOME}/.mozilla/firefox"
 }
 
-linkProfiles() {
-    echo -ne "Linking profiles ini..."
-    ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
+linkProfilesINI() {
+    echo -ne "Linking profiles.ini..."
+    run ln -sf "${FIREFOX_PATH}/.mozilla/firefox/profiles.ini" "${HOME}/.mozilla/firefox/"
 }
 
 mkProfiles() {
-    profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    profileList=$(cat "${HOME}/.mozilla/firefox/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
     echo -e "Creating profile directories..."
     for profile in ${profileList}; do
-        echo -ne "  => Creating profile ${profile}..."
+        echo -ne "  => Creating profile: ${profile}..."
         run mkdir -p "${HOME}/.config/firefox/${profile}"
     done
 }

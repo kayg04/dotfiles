@@ -108,6 +108,122 @@ update() {
     esac
 }
 
+setupDesktop() {
+    mkdir -p "${HOME}"/.local/share/applications
+    updateDesktop
+}
+
+setupEmacs() {
+    echo -e "Creating doom emacs directory..."
+    if mkdir -p "${HOME}"/.config/doom; then
+        printf '\u2714\n'
+    else
+        printf '\u274c\n'
+    fi
+
+    echo -ne "Cloning doom emacs source..."
+    if git clone https://github.com/hlissner/doom-emacs ~/.emacs.d; then
+        printf '\u2714\n'
+    else
+        printf '\u274c\n'
+    fi
+
+    echo -e "Unleashing doom..."
+    "${HOME}"/.emacs.d/bin/doom install
+
+    updateEmacs
+}
+
+setupFirefox() {
+    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/profiles
+    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
+
+    mkProfilesDir
+    linkProfilesINI
+    mkProfiles
+    fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
+    mkTweaks
+    applyUserJS
+    clean "${SCRIPT_PATH}/workdir"
+
+    echo -e "Firefox has been succesfully setup. Please select your default profile. Have a good day!"
+    setsid --fork firefox --profileManager
+}
+
+setupPlasma() {
+    updatePlasma
+}
+
+setupSpotify() {
+    source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
+
+    # fix wm name setting
+    fetchSource
+    buildLibrary
+    moveLibrary
+    fixSpotify
+}
+
+setupSystemd() {
+    mkdir -p "${HOME}/.config/systemd/user"
+}
+
+setupThunderbird() {
+    mkdir -p "${HOME}"/.config/thunderbird/primary
+    updateThunderbird
+}
+
+setupVSCodium() {
+    updateVSCodium
+}
+
+setupChromium() {
+    updateChromium
+}
+
+setupUtilsh() {
+    updateUtilsh
+}
+
+setupZSH() {
+    if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
+        export ZSH="${HOME}/.config/omz"
+        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    else
+        exit 1
+    fi
+}
+
+addToPath() {
+    echo -e "Adding this program to \$PATH so that it is globally available."
+    mkdir -p "${HOME}"/.local/bin
+    ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
+}
+
+refresh() {
+    git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
+}
+
+main() {
+    case "${1}" in
+        "setup")
+            setup "${2}"
+            ;;
+        "update")
+            update "${2}"
+            ;;
+        "set")
+            addToPath
+            ;;
+        "refresh")
+            refresh
+            ;;
+        *)
+            echo -e "Invalid option."
+            ;;
+    esac
+}
+
 setup() {
     case "${1}" in
         "desktop")

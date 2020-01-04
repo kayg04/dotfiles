@@ -768,17 +768,17 @@ This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
       run mkdir -p "${HOME}/.mozilla/firefox"
   }
 
-  linkProfiles() {
-      echo -ne "Linking profiles ini..."
-      ln -sf "${SCRIPT_PATH}"/profiles.ini "${HOME}/.mozilla/firefox/"
+  linkProfilesINI() {
+      echo -ne "Linking profiles.ini..."
+      run ln -sf "${FIREFOX_PATH}/.mozilla/firefox/profiles.ini" "${HOME}/.mozilla/firefox/"
   }
 
   mkProfiles() {
-      profileList=$(cat "${SCRIPT_PATH}"/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+      profileList=$(cat "${HOME}/.mozilla/firefox/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
       echo -e "Creating profile directories..."
       for profile in ${profileList}; do
-          echo -ne "  => Creating profile ${profile}..."
+          echo -ne "  => Creating profile: ${profile}..."
           run mkdir -p "${HOME}/.config/firefox/${profile}"
       done
   }
@@ -1287,7 +1287,7 @@ Functions:
 #+END_SRC
 *** Setup
 **** Definition
-#+BEGIN_SRC sh
+#+BEGIN_SRC sh :tangle dot
   setupDesktop() {
       mkdir -p "${HOME}"/.local/share/applications
       updateDesktop
@@ -1315,16 +1315,19 @@ Functions:
   }
 
   setupFirefox() {
-      source "${SCRIPT_PATH}"/.mozilla/firefox/bootstrap.sh
+      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/profiles
+      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
 
-      applyPolicies
-      createProfilesINIDir
-      applyProfilesINI
-      createProfiles
-      updateUserJS
+      mkProfilesDir
+      linkProfilesINI
+      mkProfiles
+      fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
+      mkTweaks
       applyUserJS
-      cleanUp
-      startFirefox
+      clean "${SCRIPT_PATH}/workdir"
+
+      echo -e "Firefox has been succesfully setup. Please select your default profile. Have a good day!"
+      setsid --fork firefox --profileManager
   }
 
   setupPlasma() {
