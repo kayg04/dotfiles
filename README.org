@@ -1308,7 +1308,6 @@ Functions:
       echo -ne "Creating Doom Emacs directory..."
       run mkdir -p "${EMACS_REMOTE_PATH}"
 
-      echo -ne "Cloning Doom Emacs..."
       fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
 
       echo -e "Unleashing Doom..."
