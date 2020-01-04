@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 mkTweaks() {
     echo -ne "Copying personal tweaks to fetched source..."
-    run cp "${FIREFOX_PATH}/.mozilla/firefox/user-overrides.js" "${DEST}"
+    run cp "${FIREFOX_LOCAL_PATH}/user-overrides.js" "${DEST}"
 
     echo -ne "Merging tweaks with ghacks user.js..."
     run "${DEST}/updater.sh" -s
 }
 
 applyUserJS() {
-    profileList=$(cat "${FIREFOX_PATH}"/.mozilla/firefox/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
     echo -e "Copying user.js to profile directories..."
     for profile in ${profileList}; do
         echo -ne "  => Copying user.js to profile: ${profile}..."
-        run cp "${DEST}/user.js" "${HOME}/.config/firefox/${profile}"
+        run cp "${DEST}/user.js" "${FIREFOX_PROFILES_PATH}/${profile}"
     done
 }

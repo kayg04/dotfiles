@@ -745,19 +745,19 @@ This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/userjs :shebang "#!/usr/bin/env bash"
   mkTweaks() {
       echo -ne "Copying personal tweaks to fetched source..."
-      run cp "${FIREFOX_PATH}/.mozilla/firefox/user-overrides.js" "${DEST}"
+      run cp "${FIREFOX_LOCAL_PATH}/user-overrides.js" "${DEST}"
 
       echo -ne "Merging tweaks with ghacks user.js..."
       run "${DEST}/updater.sh" -s
   }
 
   applyUserJS() {
-      profileList=$(cat "${FIREFOX_PATH}"/.mozilla/firefox/profiles.ini | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+      profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
       echo -e "Copying user.js to profile directories..."
       for profile in ${profileList}; do
           echo -ne "  => Copying user.js to profile: ${profile}..."
-          run cp "${DEST}/user.js" "${HOME}/.config/firefox/${profile}"
+          run cp "${DEST}/user.js" "${FIREFOX_PROFILES_PATH}/${profile}"
       done
   }
 #+END_SRC
@@ -765,21 +765,21 @@ This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/profiles :shebang "#!/usr/bin/env bash"
   mkProfilesDir() {
       echo -ne "Creating firefox directory to store profiles..."
-      run mkdir -p "${HOME}/.mozilla/firefox"
+      run mkdir -p "${FIREFOX_REMOTE_PATH}" "${FIREFOX_PROFILES_PATH}"
   }
 
   linkProfilesINI() {
       echo -ne "Linking profiles.ini..."
-      run ln -sf "${FIREFOX_PATH}/.mozilla/firefox/profiles.ini" "${HOME}/.mozilla/firefox/"
+      run ln -sf "${FIREFOX_LOCAL_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}"
   }
 
   mkProfiles() {
-      profileList=$(cat "${HOME}/.mozilla/firefox/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+      profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
       echo -e "Creating profile directories..."
       for profile in ${profileList}; do
           echo -ne "  => Creating profile: ${profile}..."
-          run mkdir -p "${HOME}/.config/firefox/${profile}"
+          run mkdir -p "${FIREFOX_PROFILES_PATH}/${profile}"
       done
   }
 #+END_SRC
@@ -1174,8 +1174,16 @@ Functions:
   # global declarations
   SCRIPT_PATH=$(dirname $(realpath "$0"))
 
+  # Emacs
+  EMACS_PATH="${SCRIPT_PATH}/emacs"
+  EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
+  EMACS_REMOTE_PATH="${HOME}/.config/doom"
+
   # Firefox
   FIREFOX_PATH="${SCRIPT_PATH}/firefox"
+  FIREFOX_LOCAL_PATH="${FIREFOX_PATH}/.mozilla/firefox"
+  FIREFOX_REMOTE_PATH="${HOME}/.mozilla/firefox"
+  FIREFOX_PROFILES_PATH="${HOME}/.config/firefox"
 
   # ZSH
   ZSH="${HOME}/.config/omz"
@@ -1327,7 +1335,7 @@ Functions:
       clean "${SCRIPT_PATH}/workdir"
 
       echo -e "Firefox has been succesfully setup. Please select your default profile. Have a good day!"
-      setsid --fork firefox --profileManager
+      setsid --fork firefox --profileManager 2>/dev/null 1>&2
   }
 
   setupPlasma() {

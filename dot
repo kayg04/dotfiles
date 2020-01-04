@@ -2,8 +2,16 @@
 # global declarations
 SCRIPT_PATH=$(dirname $(realpath "$0"))
 
+# Emacs
+EMACS_PATH="${SCRIPT_PATH}/emacs"
+EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
+EMACS_REMOTE_PATH="${HOME}/.config/doom"
+
 # Firefox
 FIREFOX_PATH="${SCRIPT_PATH}/firefox"
+FIREFOX_LOCAL_PATH="${FIREFOX_PATH}/.mozilla/firefox"
+FIREFOX_REMOTE_PATH="${HOME}/.mozilla/firefox"
+FIREFOX_PROFILES_PATH="${HOME}/.config/firefox"
 
 # ZSH
 ZSH="${HOME}/.config/omz"
@@ -147,7 +155,7 @@ setupFirefox() {
     clean "${SCRIPT_PATH}/workdir"
 
     echo -e "Firefox has been succesfully setup. Please select your default profile. Have a good day!"
-    setsid --fork firefox --profileManager
+    setsid --fork firefox --profileManager 2>/dev/null 1>&2
 }
 
 setupPlasma() {

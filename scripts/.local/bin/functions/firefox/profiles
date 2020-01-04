@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 mkProfilesDir() {
     echo -ne "Creating firefox directory to store profiles..."
-    run mkdir -p "${HOME}/.mozilla/firefox"
+    run mkdir -p "${FIREFOX_REMOTE_PATH}" "${FIREFOX_PROFILES_PATH}"
 }
 
 linkProfilesINI() {
     echo -ne "Linking profiles.ini..."
-    run ln -sf "${FIREFOX_PATH}/.mozilla/firefox/profiles.ini" "${HOME}/.mozilla/firefox/"
+    run ln -sf "${FIREFOX_LOCAL_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}"
 }
 
 mkProfiles() {
-    profileList=$(cat "${HOME}/.mozilla/firefox/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
 
     echo -e "Creating profile directories..."
     for profile in ${profileList}; do
         echo -ne "  => Creating profile: ${profile}..."
-        run mkdir -p "${HOME}/.config/firefox/${profile}"
+        run mkdir -p "${FIREFOX_PROFILES_PATH}/${profile}"
     done
 }
