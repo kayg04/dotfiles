@@ -1305,7 +1305,7 @@ Functions:
   }
 
   setupEmacs() {
-      echo -e "Creating Doom Emacs directory..."
+      echo -ne "Creating Doom Emacs directory..."
       run mkdir -p "${EMACS_REMOTE_PATH}"
 
       echo -ne "Cloning Doom Emacs..."
