@@ -24,7 +24,7 @@ ZSH_CUSTOM="${HOME}/.config/omz/custom"
 ZSH_PATH="${SCRIPT_PATH}/zsh"
 
 # import helpers
-source "${SCRIPT_PATH}"/scripts/.local/bin/functions/helper
+source "${SCRIPT_PATH}"/scripts/.local/bin/helpers/helper
 
 updateChromium() {
     ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
