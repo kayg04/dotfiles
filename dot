@@ -2,16 +2,21 @@
 # global declarations
 SCRIPT_PATH=$(dirname $(realpath "$0"))
 
-# Emacs
+# EMACS
 EMACS_PATH="${SCRIPT_PATH}/emacs"
 EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
 EMACS_REMOTE_PATH="${HOME}/.config/doom"
 
-# Firefox
+# FIREFOX
 FIREFOX_PATH="${SCRIPT_PATH}/firefox"
 FIREFOX_LOCAL_PATH="${FIREFOX_PATH}/.mozilla/firefox"
 FIREFOX_REMOTE_PATH="${HOME}/.mozilla/firefox"
 FIREFOX_PROFILES_PATH="${HOME}/.config/firefox"
+
+# TMUX
+TMUX_PATH="${SCRIPT_PATH}/tmux"
+TMUX_LOCAL_PATH="${TMUX_PATH}"
+TMUX_REMOTE_PATH="${HOME}/.tmux"
 
 # ZSH
 ZSH="${HOME}/.config/omz"
@@ -20,6 +25,10 @@ ZSH_PATH="${SCRIPT_PATH}/zsh"
 
 # import helpers
 source "${SCRIPT_PATH}"/scripts/.local/bin/functions/helper
+
+updateChromium() {
+    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
+}
 
 updateDesktop() {
     ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
@@ -60,16 +69,16 @@ updateThunderbird() {
     ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
 }
 
-updateVSCodium() {
-    ln -sf "${SCRIPT_PATH}"/.config/VSCodium/User/*.json "${HOME}"/.config/VSCodium/User/
-}
-
-updateChromium() {
-    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
-}
-
-updateUtilsh() {
+updateScripts() {
     ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
+}
+
+updateTmux() {
+    echo -ne "Updating source code..."
+    run git --git-dir="${TMUX_REMOTE_PATH}/.git" --work-tree="${TMUX_REMOTE_PATH}" pull
+
+    echo -ne "Relinking configurations..."
+    run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
 }
 
 updateZSH() {
@@ -86,6 +95,9 @@ updateZSH() {
 
 update() {
     case "${1}" in
+        "chromium")
+            updateChromium
+            ;;
         "desktop")
             updateDesktop
             ;;
@@ -98,6 +110,9 @@ update() {
         "plasma")
             updatePlasma
             ;;
+        "scripts")
+            updateScripts
+            ;;
         "spotify")
             updateSpotify
             ;;
@@ -107,16 +122,17 @@ update() {
         "thunderbird")
             updateThunderbird
             ;;
-        "chromium")
-            updateChromium
-            ;;
-        "utilsh")
-            updateUtilsh
+        "tmux")
+            updateTmux
             ;;
         "zsh")
             updateZSH
             ;;
     esac
+}
+
+setupChromium() {
+    updateChromium
 }
 
 setupDesktop() {
@@ -175,59 +191,30 @@ setupThunderbird() {
     updateThunderbird
 }
 
-setupVSCodium() {
-    updateVSCodium
+setupScripts() {
+    updateScripts
 }
 
-setupChromium() {
-    updateChromium
-}
+setupTmux() {
+    fetchSrc "https://github.com/gpakosz/.tmux.git" "${TMUX_REMOTE_PATH}"
 
-setupUtilsh() {
-    updateUtilsh
+    echo -ne "Linking configurations..."
+    run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
 }
 
 setupZSH() {
     if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
-        export ZSH="${HOME}/.config/omz"
         sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     else
         exit 1
     fi
 }
 
-addToPath() {
-    echo -e "Adding this program to \$PATH so that it is globally available."
-    mkdir -p "${HOME}"/.local/bin
-    ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
-}
-
-refresh() {
-    git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
-}
-
-main() {
-    case "${1}" in
-        "setup")
-            setup "${2}"
-            ;;
-        "update")
-            update "${2}"
-            ;;
-        "set")
-            addToPath
-            ;;
-        "refresh")
-            refresh
-            ;;
-        *)
-            echo -e "Invalid option."
-            ;;
-    esac
-}
-
 setup() {
     case "${1}" in
+        "chromium")
+            setupChromium
+            ;;
         "desktop")
             setupDesktop
             ;;
@@ -249,11 +236,11 @@ setup() {
         "thunderbird")
             setupThunderbird
             ;;
-        "chromium")
-            setupChromium
+        "scripts")
+            setupScripts
             ;;
-        "utilsh")
-            setupUtilsh
+        "tmux")
+            setupTmux
             ;;
         "zsh")
             setupZSH

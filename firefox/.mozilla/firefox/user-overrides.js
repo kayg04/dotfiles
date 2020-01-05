@@ -40,26 +40,26 @@ user_pref("privacy.resistFingerprinting.letterboxing", false);
 user_pref("javascript.options.wasm", true);
 
 // Browser extensions
-user_pref("browser.policies.runOncePerModification.extensionsInstall", [
-    "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi",
-    "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
-]);
+user_pref("browser.policies.runOncePerModification.extensionsInstall", "[
+    \"https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi\",
+    \"https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi\"
+]");
 
-user_pref("browser.policies.runOncePerModification.extensionsUninstall", [
-    "amazondotcom@search.mozilla.org",
-    "bing@search.mozilla.org",
-    "ebay@search.mozilla.org",
-    "google@search.mozilla.org",
-    "twitter@search.mozilla.org"
-]);
+user_pref("browser.policies.runOncePerModification.extensionsUninstall", "[
+    \"amazondotcom@search.mozilla.org\",
+    \"bing@search.mozilla.org\",
+    \"ebay@search.mozilla.org\",
+    \"google@search.mozilla.org\",
+    \"twitter@search.mozilla.org\"
+]");
 
 // Enable captive portal
 user_pref("etwork.captive-portal-service.enabled", true);
