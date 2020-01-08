@@ -11,7 +11,22 @@ EMACS_REMOTE_PATH="${HOME}/.config/doom"
 FIREFOX_PATH="${SCRIPT_PATH}/firefox"
 FIREFOX_LOCAL_PATH="${FIREFOX_PATH}/.mozilla/firefox"
 FIREFOX_REMOTE_PATH="${HOME}/.mozilla/firefox"
-FIREFOX_PROFILES_PATH="${HOME}/.config/firefox"
+FIREFOX_PROFILES=(
+    browse
+    research
+)
+FIREFOX_EXTENSIONS=(
+    "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
+)
 
 # TMUX
 TMUX_PATH="${SCRIPT_PATH}/tmux"
@@ -44,11 +59,28 @@ updateEmacs() {
 
 updateFirefox() {
     source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
+    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/extensions
 
     fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
     mkTweaks
     applyUserJS
     clean "${SCRIPT_PATH}/workdir"
+
+    set +o nounset
+    case "${1}" in
+        "--profile"|"-p")
+            case "${3}" in
+                "--install-extensions"|"-i")
+                    if [[ -d "${FIREFOX_REMOTE_PATH}/${2,}" ]]; then
+                        extInstall "${2,}"
+                    else
+                        echo -e "Profile not found."
+                    fi
+                    ;;
+            esac
+            ;;
+    esac
+    set -o nounset
 }
 
 updatePlasma() {
@@ -105,7 +137,7 @@ update() {
             updateEmacs
             ;;
         "firefox")
-            updateFirefox
+            updateFirefox "${@:2}"
             ;;
         "plasma")
             updatePlasma
@@ -157,14 +189,13 @@ setupFirefox() {
     source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
 
     mkProfilesDir
-    linkProfilesINI
     mkProfiles
     fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
     mkTweaks
     applyUserJS
     clean "${SCRIPT_PATH}/workdir"
 
-    echo -e "Firefox has been succesfully setup. Please select your default profile. Have a good day!"
+    echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
     setsid --fork firefox --profileManager 2>/dev/null 1>&2
 }
 
@@ -269,7 +300,7 @@ main() {
             fi
             ;;
         "update")
-            update "${2}"
+            update "${@:2}"
             ;;
         "refresh")
             refresh

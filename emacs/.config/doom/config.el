@@ -46,6 +46,8 @@
 (setq treemacs-width 25)
 (setq evil-escape-unordered-key-sequence t)
 
+(setq company-idle-delay 0)
+
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
   (setq doom-outrun-electric-comment-bg t)

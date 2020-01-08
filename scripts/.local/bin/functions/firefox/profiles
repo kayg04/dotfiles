@@ -1,20 +1,32 @@
 #!/usr/bin/env bash
 mkProfilesDir() {
     echo -ne "Creating firefox directory to store profiles..."
-    run mkdir -p "${FIREFOX_REMOTE_PATH}" "${FIREFOX_PROFILES_PATH}"
-}
-
-linkProfilesINI() {
-    echo -ne "Linking profiles.ini..."
-    run ln -sf "${FIREFOX_LOCAL_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}"
+    run mkdir -p "${FIREFOX_REMOTE_PATH}"
 }
 
 mkProfiles() {
-    profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+    if [[ -f "${FIREFOX_REMOTE_PATH}/profiles.ini" ]]; then
+        echo -ne "profiles.ini already exists. Making a backup of it."
+        run mv "${FIREFOX_REMOTE_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}/profiles.ini.bak"
+    fi
 
-    echo -e "Creating profile directories..."
-    for profile in ${profileList}; do
-        echo -ne "  => Creating profile: ${profile}..."
-        run mkdir -p "${FIREFOX_PROFILES_PATH}/${profile}"
+    echo -e "Creating profiles..."
+    counter=0
+    for profile in ${FIREFOX_PROFILES[@]}; do
+        profileName="${profile^}"
+
+        echo -ne "  => Adding ${profileName} to profiles.ini..."
+        cat >> "${FIREFOX_REMOTE_PATH}/profiles.ini" <<EOF
+[Profile${counter}]
+Name=${profileName}
+IsRelative=1
+Path=${profile}
+EOF
+        run grep -i ${profile} "${FIREFOX_REMOTE_PATH}/profiles.ini"
+
+        echo -ne "  => Creating profile: ${profileName}..."
+        run mkdir -p "${FIREFOX_REMOTE_PATH}/${profile}"
+
+        counter=$((counter + 1))
     done
 }

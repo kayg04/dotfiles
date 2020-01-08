@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+extInstall() {
+    echo -e "Installing extensions:-"
+    for ext in "${FIREFOX_EXTENSIONS[@]}"; do
+        extName=$(echo "${ext}" | cut -d '/' -f7 | sed 's/\-/\ /g');
+
+        echo -e "  -> ${extName^}"
+    done
+
+    setsid --fork firefox --profile "${FIREFOX_REMOTE_PATH}/${1}" --new-tab "${FIREFOX_EXTENSIONS[@]}" 2>/dev/null 1>&2
+}

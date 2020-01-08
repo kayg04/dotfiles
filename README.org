@@ -409,6 +409,8 @@ configuration of Emacs to find my peace in doom.
   (setq treemacs-width 25)
   (setq evil-escape-unordered-key-sequence t)
 
+  (setq company-idle-delay 0)
+
   (when (string= (system-name) "ruri")
     (setq doom-theme 'doom-outrun-electric)
     (setq doom-outrun-electric-comment-bg t)
@@ -438,53 +440,46 @@ Add extra packages
 - =StartWithLastProfile= ensures a profile choice isn't
   asked at startup.
 
-Sometimes Firefox amazes me by how customizable it is. I
-have +two+ three profiles with Firefox; one for browsing,
-one for /research/ and one for web applications. Since a lot
-of my research gets lost and I'm unable to refer to previous
-findings, it helps to have a separate profile. All profiles
-are stored in a standardized XDG configuration directory
-(=~/.config/firefox=) rather than the default
-(=~/.mozilla/firefox/=). I would also rather name my own
-profiles than let firefox name them randomly.
+Sometimes Firefox amazes me by how customizable it is. I have +two+ three profiles
+with Firefox; one for browsing, one for /research/ and one for web applications.
+Since a lot of my research gets lost and I'm unable to refer to previous
+findings, it helps to have a separate profile. All profiles are stored in a
+standardized XDG configuration directory (=~/.config/firefox=) rather than the
+default (=~/.mozilla/firefox/=). I would also rather name my own profiles than
+let firefox name them randomly.
 
-+I tried running Electron Apps with it but sadly, things+
-+like pasting images from clipboard and downloading files+
-+from Skype (yes, my workplace uses *Skype* in 2019, *groan*)+
-+do not work. Hence I now rely on Ungoogled Chromium to do my+
-+dirty work.+
++I tried running Electron Apps with it but sadly, things+ +like pasting images from
+clipboard and downloading files+ +from Skype (yes, my workplace uses *Skype* in
+2019, *groan*)+ +do not work. Hence I now rely on Ungoogled Chromium to do my+ +dirty
+work.+
 
-+I tried using ungoogled chromium for dirty web apps but+
-+recently, on Arch Linux, =libjsoncpp= got an update and+
-+broke chromium which isn't as regularly built as the+
-+upstream binaries. So though, clipboard interaction was a+
-+sweet feature to have, I can let it go for relatively good+
-+stability.+
++I tried using ungoogled chromium for dirty web apps but+ +recently, on Arch Linux,
+=libjsoncpp= got an update and+ +broke chromium which isn't as regularly built as
+the+ +upstream binaries. So though, clipboard interaction was a+ +sweet feature to
+have, I can let it go for relatively good+ +stability.+
 
 Ungoogled Chromium works again!
 
-Although things work fine with UC, I'm unsure if Chromium
-profiles actually provide a /temporary-container/ sort of
-isolation. I say this because tabs on different profiles
-show up as normal tabs in the task manager which would mean
-that an application running on one profile is externally
-aware. Please correct me on this if you have more
-information. I also miss the declarative configuration that
-Firefox offers as I reinstall often.
-#+BEGIN_SRC ini :tangle firefox/.mozilla/firefox/profiles.ini
+Although things work fine with UC, I'm unsure if Chromium profiles actually
+provide a /temporary-container/ sort of isolation. I say this because tabs on
+different profiles show up as normal tabs in the task manager which would mean
+that an application running on one profile is externally aware. Please correct
+me on this if you have more information. I also miss the declarative
+configuration that Firefox offers as I reinstall often.
+#+BEGIN_SRC conf :tangle firefox/.mozilla/firefox/profiles.ini
   [General]
   StartWithLastProfile=1
 
   [Profile0]
   Name=Browse
   IsRelative=1
-  Path=../../.config/firefox/browse
+  Path=browse
   Default=1
 
   [Profile1]
   Name=Research
   IsRelative=1
-  Path=../../.config/firefox/research
+  Path=research
   Default=0
 #+END_SRC
 ** UserJS
@@ -493,7 +488,7 @@ point towards making your own customizations as it allows
 you to focus on tweaking for usablity from an already
 privacy-centered configuration.
 #+BEGIN_SRC js :tangle firefox/.mozilla/firefox/user-overrides.js
-  /// GPU Acceleration ///
+  // +++ GPU +++ //
 
   // Force enable hardware acceleration
   user_pref("layers.acceleration.force-enabled", true);
@@ -502,31 +497,30 @@ privacy-centered configuration.
   // Enable accelerated azure canvas
   user_pref("gfx.canvas.azure.accelerated", true);
 
-  /// GPU Acceleration ///
+  // --- GPU --- //
 
-  /// Storage ///
+  // +++ Storage +++ //
 
-  // Do caching in RAM instead of disk
-  user_pref("browser.cache.disk.enable", false);
-  user_pref("browser.cache.memory.enable", true);
+  // A lot of I/O is not a problem on NVMe(s)
+  user_pref("browser.cache.disk.enable", true);
 
   // Save session data every 5 minutes instead of every 15 seconds
   user_pref("browser.sessionstore.interval", 300000);
 
-  /// Storage ///
+  // --- Storage --- //
 
-  /// Search ///
+  // +++ Search +++ //
 
   // Search via address bar
   user_pref("keyword.enabled", true);
 
-  // Enable suggestion of searches; safe since I use SearX
+  // Enable suggestion of searches; safe since I use DDG and SearX
   user_pref("browser.search.suggest.enabled", true);
   user_pref("browser.urlbar.suggest.searches", true);
 
-  /// Search ///
+  // --- Search --- //
 
-  /// Misc ///
+  // +++ Misc +++ //
 
   // Disable letterboxing
   user_pref("privacy.resistFingerprinting.letterboxing", false);
@@ -534,56 +528,39 @@ privacy-centered configuration.
   // Enable WebAssembly
   user_pref("javascript.options.wasm", true);
 
-  // Browser extensions
-  user_pref("browser.policies.runOncePerModification.extensionsInstall", "[
-      \"https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi\",
-      \"https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi\"
-  ]");
-
-  user_pref("browser.policies.runOncePerModification.extensionsUninstall", "[
-      \"amazondotcom@search.mozilla.org\",
-      \"bing@search.mozilla.org\",
-      \"ebay@search.mozilla.org\",
-      \"google@search.mozilla.org\",
-      \"twitter@search.mozilla.org\"
-  ]");
-
   // Enable captive portal
-  user_pref("etwork.captive-portal-service.enabled", true);
+  user_pref("network.captive-portal-service.enabled", true);
 
-  // Don't clear cookies on shutdown
-  user_pref("privacy.clearOnShutdown.cache", true);
+  // Don't clear either of downloads, history or cookies on shutdown
   user_pref("privacy.clearOnShutdown.cookies", false);
   user_pref("privacy.clearOnShutdown.downloads", false);
-  user_pref("privacy.clearOnShutdown.formdata", false);
   user_pref("privacy.clearOnShutdown.history", false);
-  user_pref("privacy.clearOnShutdown.offlineApps", true);
-  user_pref("privacy.clearOnShutdown.openWindows", false);
-  user_pref("privacy.clearOnShutdown.sessions", true);
-  user_pref("privacy.clearOnShutdown.siteSettings", false);
-  user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 
   // Disable all the firefox cruft
   user_pref("extensions.pocket.disabled", true);
   user_pref("extensions.screenshots.disabled", true);
-  user_pref("browser.contentblocking.report.lockwise.enabled", false);
   user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
+  user_pref("browser.messaging-system.whatsNewPanel.enabled", false);
+  user_pref("browser.contentblocking.report.lockwise.enabled", false);
+
+  // Disable firefox recommendations
+  user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
+  user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
 
   // Don't restore default bookmarks
   user_pref("browser.bookmarks.restore_default_bookmarks", false);
 
-  // Use DuckDuckGo as pinned search shortcut
-  user_pref("browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned", "duckduckgo");
+  // Do not display pinned search engines at the bottom of the address bar
+  user_pref("browser.urlbar.oneOffSearches", false);
 
-  /// Misc ///
+  // Do not ask to save logins, Bitwarden already does that
+  user_pref("signon.rememberSignons", false);
+
+  // Safe Negotiation is not a priority as it breaks a lot of banking portals in
+  // my country
+  user_pref("security.ssl.require_safe_negotiation", false);
+
+  // --- Misc --- //
 #+END_SRC
 * Plasma
 ** Environment
@@ -648,12 +625,12 @@ This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
   }
 
   applyUserJS() {
-      profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
-
       echo -e "Copying user.js to profile directories..."
-      for profile in ${profileList}; do
-          echo -ne "  => Copying user.js to profile: ${profile}..."
-          run cp "${DEST}/user.js" "${FIREFOX_PROFILES_PATH}/${profile}"
+      for profile in ${FIREFOX_PROFILES}; do
+          profileName="${profile^}"
+
+          echo -ne "  => Copying user.js to profile: ${profileName}..."
+          run cp "${DEST}/user.js" "${FIREFOX_REMOTE_PATH}/${profile}"
       done
   }
 #+END_SRC
@@ -661,22 +638,47 @@ This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/profiles :shebang "#!/usr/bin/env bash"
   mkProfilesDir() {
       echo -ne "Creating firefox directory to store profiles..."
-      run mkdir -p "${FIREFOX_REMOTE_PATH}" "${FIREFOX_PROFILES_PATH}"
-  }
-
-  linkProfilesINI() {
-      echo -ne "Linking profiles.ini..."
-      run ln -sf "${FIREFOX_LOCAL_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}"
+      run mkdir -p "${FIREFOX_REMOTE_PATH}"
   }
 
   mkProfiles() {
-      profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
+      if [[ -f "${FIREFOX_REMOTE_PATH}/profiles.ini" ]]; then
+          echo -ne "profiles.ini already exists. Making a backup of it."
+          run mv "${FIREFOX_REMOTE_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}/profiles.ini.bak"
+      fi
 
-      echo -e "Creating profile directories..."
-      for profile in ${profileList}; do
-          echo -ne "  => Creating profile: ${profile}..."
-          run mkdir -p "${FIREFOX_PROFILES_PATH}/${profile}"
+      echo -e "Creating profiles..."
+      counter=0
+      for profile in ${FIREFOX_PROFILES[@]}; do
+          profileName="${profile^}"
+
+          echo -ne "  => Adding ${profileName} to profiles.ini..."
+          cat >> "${FIREFOX_REMOTE_PATH}/profiles.ini" <<EOF
+  [Profile${counter}]
+  Name=${profileName}
+  IsRelative=1
+  Path=${profile}
+  EOF
+          run grep -i ${profile} "${FIREFOX_REMOTE_PATH}/profiles.ini"
+
+          echo -ne "  => Creating profile: ${profileName}..."
+          run mkdir -p "${FIREFOX_REMOTE_PATH}/${profile}"
+
+          counter=$((counter + 1))
       done
+  }
+#+END_SRC
+**** Extensions
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/extensions :shebang "#!/usr/bin/env bash"
+  extInstall() {
+      echo -e "Installing extensions:-"
+      for ext in "${FIREFOX_EXTENSIONS[@]}"; do
+          extName=$(echo "${ext}" | cut -d '/' -f7 | sed 's/\-/\ /g');
+
+          echo -e "  -> ${extName^}"
+      done
+
+      setsid --fork firefox --profile "${FIREFOX_REMOTE_PATH}/${1}" --new-tab "${FIREFOX_EXTENSIONS[@]}" 2>/dev/null 1>&2
   }
 #+END_SRC
 *** Plasma
@@ -1079,7 +1081,22 @@ Functions:
   FIREFOX_PATH="${SCRIPT_PATH}/firefox"
   FIREFOX_LOCAL_PATH="${FIREFOX_PATH}/.mozilla/firefox"
   FIREFOX_REMOTE_PATH="${HOME}/.mozilla/firefox"
-  FIREFOX_PROFILES_PATH="${HOME}/.config/firefox"
+  FIREFOX_PROFILES=(
+      browse
+      research
+  )
+  FIREFOX_EXTENSIONS=(
+      "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+      "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
+  )
 
   # TMUX
   TMUX_PATH="${SCRIPT_PATH}/tmux"
@@ -1115,11 +1132,28 @@ Functions:
 
   updateFirefox() {
       source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
+      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/extensions
 
       fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
       mkTweaks
       applyUserJS
       clean "${SCRIPT_PATH}/workdir"
+
+      set +o nounset
+      case "${1}" in
+          "--profile"|"-p")
+              case "${3}" in
+                  "--install-extensions"|"-i")
+                      if [[ -d "${FIREFOX_REMOTE_PATH}/${2,}" ]]; then
+                          extInstall "${2,}"
+                      else
+                          echo -e "Profile not found."
+                      fi
+                      ;;
+              esac
+              ;;
+      esac
+      set -o nounset
   }
 
   updatePlasma() {
@@ -1166,43 +1200,43 @@ Functions:
 #+END_SRC
 **** Invocation
 #+BEGIN_SRC sh :tangle dot
-    update() {
-        case "${1}" in
-            "chromium")
-                updateChromium
-                ;;
-            "desktop")
-                updateDesktop
-                ;;
-            "doom"|"emacs")
-                updateEmacs
-                ;;
-            "firefox")
-                updateFirefox
-                ;;
-            "plasma")
-                updatePlasma
-                ;;
-            "scripts")
-                updateScripts
-                ;;
-            "spotify")
-                updateSpotify
-                ;;
-            "systemd")
-                updateSystemd
-                ;;
-            "thunderbird")
-                updateThunderbird
-                ;;
-            "tmux")
-                updateTmux
-                ;;
-            "zsh")
-                updateZSH
-                ;;
-        esac
-    }
+  update() {
+      case "${1}" in
+          "chromium")
+              updateChromium
+              ;;
+          "desktop")
+              updateDesktop
+              ;;
+          "doom"|"emacs")
+              updateEmacs
+              ;;
+          "firefox")
+              updateFirefox "${@:2}"
+              ;;
+          "plasma")
+              updatePlasma
+              ;;
+          "scripts")
+              updateScripts
+              ;;
+          "spotify")
+              updateSpotify
+              ;;
+          "systemd")
+              updateSystemd
+              ;;
+          "thunderbird")
+              updateThunderbird
+              ;;
+          "tmux")
+              updateTmux
+              ;;
+          "zsh")
+              updateZSH
+              ;;
+      esac
+  }
 #+END_SRC
 *** Setup
 **** Definition
@@ -1233,14 +1267,13 @@ Functions:
       source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
 
       mkProfilesDir
-      linkProfilesINI
       mkProfiles
       fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
       mkTweaks
       applyUserJS
       clean "${SCRIPT_PATH}/workdir"
 
-      echo -e "Firefox has been succesfully setup. Please select your default profile. Have a good day!"
+      echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
       setsid --fork firefox --profileManager 2>/dev/null 1>&2
   }
 
@@ -1349,7 +1382,7 @@ Functions:
               fi
               ;;
           "update")
-              update "${2}"
+              update "${@:2}"
               ;;
           "refresh")
               refresh

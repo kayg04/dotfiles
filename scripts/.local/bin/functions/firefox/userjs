@@ -8,11 +8,11 @@ mkTweaks() {
 }
 
 applyUserJS() {
-    profileList=$(cat "${FIREFOX_REMOTE_PATH}/profiles.ini" | grep -i 'Name' | cut -d '=' -f 2 | awk '{print tolower($0)}')
-
     echo -e "Copying user.js to profile directories..."
-    for profile in ${profileList}; do
-        echo -ne "  => Copying user.js to profile: ${profile}..."
-        run cp "${DEST}/user.js" "${FIREFOX_PROFILES_PATH}/${profile}"
+    for profile in ${FIREFOX_PROFILES}; do
+        profileName="${profile^}"
+
+        echo -ne "  => Copying user.js to profile: ${profileName}..."
+        run cp "${DEST}/user.js" "${FIREFOX_REMOTE_PATH}/${profile}"
     done
 }
