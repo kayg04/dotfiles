@@ -405,6 +405,7 @@ configuration of Emacs to find my peace in doom.
 - Use 'IBM Plex Mono' for the UI and 'Iosevka' for code
 - Change background of comments to make them more readable
 - Move Ivy to a frame to emulate VSCodium like UI.
+
 #+BEGIN_SRC emacs-lisp :tangle emacs/.config/doom/config.el
   (after! org
     (setq org-src-preserve-indentation nil)
