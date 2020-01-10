@@ -720,7 +720,7 @@ A few guidelines followed throughout these scripts:
       run ln -sf "${SCRIPTS_LOCAL_PATH}"/* "${SCRIPTS_REMOTE_PATH}"
   }
 #+END_SRC
-** Functions
+** TODO Functions
 *** Plasma
 **** Virtual Desktop Bar (KDE)
 - =fetchSource= gets the latest master from github and
@@ -732,6 +732,7 @@ A few guidelines followed throughout these scripts:
 - =installTarget= runs =make install= to copy the built
   target into the appropriate plasma directory.
 - Lastly, =cleanUp= removes the downloaded source.
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/vdb :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
@@ -816,6 +817,7 @@ configuration section to appear.
 
 There is also an update step which is necessary if the
 script has been previously installed.
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/kwts :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
@@ -888,7 +890,6 @@ problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
 becomes a problem for window managers if a custom layout or custom changes are
 to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
 been updated in years but still works).
-
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/spotify :shebang "#!/usr/bin/env bash"
   export SCRIPT_PATH=$(dirname $(realpath "$0"))
 
@@ -1005,6 +1006,7 @@ Functions:
   - updates the index after each rename
 - =main=, unless either of "-s" or "--silent" is passed,
   proceeds to invoke all functions.
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/wali :shebang "#!/usr/bin/env bash"
   # import sanity
   set -euo pipefail
