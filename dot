@@ -2,6 +2,16 @@
 # global declarations
 SCRIPT_PATH=$(dirname $(realpath "$0"))
 
+# CHROMIUM
+CHROMIUM_PATH="${SCRIPT_PATH}/chromium"
+CHROMIUM_LOCAL_PATH="${CHROMIUM_PATH}/.config"
+CHROMIUM_REMOTE_PATH="${HOME}/.config"
+
+# DESKTOP
+DESKTOP_PATH="${SCRIPT_PATH}/desktop"
+DESKTOP_LOCAL_PATH="${DESKTOP_PATH}/.local/share/applications"
+DESKTOP_REMOTE_PATH="${HOME}/.local/share/applications"
+
 # EMACS
 EMACS_PATH="${SCRIPT_PATH}/emacs"
 EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
@@ -28,6 +38,11 @@ FIREFOX_EXTENSIONS=(
     "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
 )
 
+# SCRIPTS
+SCRIPTS_PATH="${SCRIPT_PATH}/scripts"
+SCRIPTS_LOCAL_PATH="${SCRIPTS_PATH}/.local/bin"
+SCRIPTS_REMOTE_PATH="${HOME}/.local/bin"
+
 # SSH
 SSH_PATH="${SCRIPT_PATH}/ssh"
 declare -A SSH_LOCAL_PATHS=(
@@ -42,6 +57,11 @@ declare -A SSH_REMOTE_PATHS=(
     [PLASMA]="${HOME}/.config/plasma-workspace/env"
     [SYSTEMD]="${HOME}/.config/systemd/user"
 )
+
+# THUNDERBIRD
+THUNDERBIRD_PATH="${SCRIPT_PATH}/thunderbird"
+THUNDERBIRD_LOCAL_PATH="${THUNDERBIRD_PATH}/.thunderbird"
+THUNDERBIRD_REMOTE_PATH="${HOME}/.thunderbird"
 
 # TMUX
 TMUX_PATH="${SCRIPT_PATH}/tmux"
@@ -69,87 +89,10 @@ declare -A ZSH_PLUGINS_DEST=(
 ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
 ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
 
-# import helpers
-source "${SCRIPT_PATH}"/scripts/.local/bin/helpers/helper
-
-updateChromium() {
-    ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
-}
-
-updateDesktop() {
-    ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
-}
-
-updateEmacs() {
-    echo -ne "Linking personal configuration..."
-    run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
-
-    echo -e "Refreshing Doom Emacs..."
-    "${HOME}/.emacs.d/bin/doom" refresh
-}
-
-updateFirefox() {
-    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
-    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/extensions
-
-    fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
-    mkTweaks
-    applyUserJS
-    clean "${SCRIPT_PATH}/workdir"
-
-    set +o nounset
-    case "${1}" in
-        "--profile"|"-p")
-            case "${3}" in
-                "--install-extensions"|"-i")
-                    if [[ -d "${FIREFOX_REMOTE_PATH}/${2,}" ]]; then
-                        extInstall "${2,}"
-                    else
-                        echo -e "Profile not found."
-                    fi
-                    ;;
-            esac
-            ;;
-    esac
-    set -o nounset
-}
-
-updateSSH() {
-    echo -ne "Updating symlinks..."
-    run ln -sf "${SSH_LOCAL_PATHS[AUTOSTART]}/ssh-add.sh" "${SSH_REMOTE_PATHS[AUTOSTART]}" && \
-        ln -sf "${SSH_LOCAL_PATHS[PLASMA]}/askpass.sh" "${SSH_REMOTE_PATHS[PLASMA]}" && \
-        ln -sf "${SSH_LOCAL_PATHS[PAM]}/.pam_environment" "${SSH_REMOTE_PATHS[PAM]}" && \
-        ln -sf "${SSH_LOCAL_PATHS[SYSTEMD]}/ssh-agent.service" "${SSH_REMOTE_PATHS[SYSTEMD]}"
-
-    echo -ne "Activating service..."
-    run systemctl --user enable --now "ssh-agent"
-}
-
-updateThunderbird() {
-    ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
-}
-
-updateScripts() {
-    ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
-}
-
-updateTmux() {
-    echo -ne "Updating source code..."
-    run git --git-dir="${TMUX_REMOTE_PATH}/.git" --work-tree="${TMUX_REMOTE_PATH}" pull
-
-    echo -ne "Relinking configurations..."
-    run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
-}
-
-updateZSH() {
-    echo -e "Installing plugins..."
-    for plugin in "${!ZSH_PLUGINS_DEST[@]}"; do
-        fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
-    done
-
-    echo -ne "Linking personal configuration..."
-    run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
-}
+# import helpers & functions
+source "${SCRIPT_LOCAL_PATH}/helpers/helper"
+source "${SCRIPT_LOCAL_PATH}/functions/setup"
+source "${SCRIPT_LOCAL_PATH}/functions/update"
 
 update() {
     case "${1}" in
@@ -184,93 +127,6 @@ update() {
             updateZSH
             ;;
     esac
-}
-
-setupChromium() {
-    updateChromium
-}
-
-setupDesktop() {
-    mkdir -p "${HOME}"/.local/share/applications
-    updateDesktop
-}
-
-setupEmacs() {
-    echo -ne "Creating Doom Emacs directory..."
-    run mkdir -p "${EMACS_REMOTE_PATH}"
-
-    fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
-
-    echo -e "Unleashing Doom..."
-    "${HOME}"/.emacs.d/bin/doom install
-
-    updateEmacs
-}
-
-setupFirefox() {
-    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/profiles
-    source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
-
-    mkProfilesDir
-    mkProfiles
-    fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
-    mkTweaks
-    applyUserJS
-    clean "${SCRIPT_PATH}/workdir"
-
-    echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
-    setsid --fork firefox --profileManager 2>/dev/null 1>&2
-}
-
-setupSpotify() {
-    source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
-
-    # fix wm name setting
-    fetchSource
-    buildLibrary
-    moveLibrary
-    fixSpotify
-}
-
-setupThunderbird() {
-    mkdir -p "${HOME}"/.config/thunderbird/primary
-    updateThunderbird
-}
-
-setupScripts() {
-    updateScripts
-}
-
-setupSSH() {
-    echo -e "Creating necessary directories..."
-    for dir in "${SSH_REMOTE_PATHS[@]}"; do
-        echo -ne "  => Creating ${dir}..."
-        run mkdir -p "${dir}"
-    done
-
-    updateSSH
-}
-
-setupTmux() {
-    fetchSrc "https://github.com/gpakosz/.tmux.git" "${TMUX_REMOTE_PATH}"
-
-    echo -ne "Linking configurations..."
-    run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
-}
-
-setupZSH() {
-    if [[ ! -d "${ZSH_REMOTE_PATHS[OMZ]}" ]]; then
-        echo -e "Moving zshenv to /etc/zsh (need root permissions)..."
-        sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
-
-        echo -ne "Installing oh-my-zsh..."
-        run sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-        updateZSH
-    else
-        echo -e "${ZSH_REMOTE_PATHS[OMZ]} already exists. Please rename or remove that directory and rerun this script."
-        exit 1
-    fi
 }
 
 setup() {

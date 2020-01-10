@@ -3,6 +3,20 @@
 #+PROPERTY: header-args :mkdirp yes
 
 * Chromium (Ungoogled)
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupChromium() {
+      updateChromium
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateChromium() {
+      echo -ne "Linking chromium configuration..."
+      run ln -sf "${CHROMIUM_LOCAL_PATH}/chromium-flags.conf" "${CHROMIUM_REMOTE_PATH}"
+  }
+#+END_SRC
 ** Environment Variables
 From Debian bug tracker:
 #+begin_quote
@@ -60,6 +74,23 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   --enable-features=WebUIDarkMode
 #+END_SRC
 * Desktop
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupDesktop() {
+      echo -ne "Creating desktop apps directory..."
+      run mkdir -p "${DESKTOP_REMOTE_PATH}"
+
+      updateDesktop
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateDesktop() {
+      echo -ne "Linking desktop apps..."
+      run ln -sf "${DESKTOP_LOCAL_PATH}"/*.desktop "${DESKTOP_REMOTE_PATH}"
+  }
+#+END_SRC
 ** Invidious
 #+BEGIN_SRC conf :tangle desktop/.local/share/applications/invidious.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
@@ -141,6 +172,31 @@ least) seems to do everything I need, OOTB; has a
 trouble-free way of adding language support. So I am
 throwing away (or refactoring?) my 1 year-in-the-making
 configuration of Emacs to find my peace in doom.
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupEmacs() {
+      echo -ne "Creating Doom Emacs directory..."
+      run mkdir -p "${EMACS_REMOTE_PATH}"
+
+      fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
+
+      echo -e "Unleashing Doom..."
+      "${HOME}"/.emacs.d/bin/doom install
+
+      updateEmacs
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateEmacs() {
+      echo -ne "Linking personal configuration..."
+      run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
+
+      echo -e "Refreshing Doom Emacs..."
+      "${HOME}/.emacs.d/bin/doom" refresh
+  }
+#+END_SRC
 ** Init
 #+BEGIN_SRC emacs-lisp :tangle emacs/.config/doom/init.el
   ;;; init.el -*- lexical-binding: t; -*-
@@ -425,6 +481,88 @@ Add extra packages
   (package! ivy-posframe)
 #+END_SRC
 * Firefox
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupFirefox() {
+      echo -ne "Creating firefox directory to store profiles..."
+      run mkdir -p "${FIREFOX_REMOTE_PATH}"
+
+      if [[ -f "${FIREFOX_REMOTE_PATH}/profiles.ini" ]]; then
+          echo -ne "profiles.ini already exists. Making a backup of it."
+          run mv "${FIREFOX_REMOTE_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}/profiles.ini.bak"
+      fi
+
+      echo -e "Creating profiles..."
+      counter=0
+      for profile in ${FIREFOX_PROFILES[@]}; do
+          profileName="${profile^}"
+
+          echo -ne "  => Adding ${profileName} to profiles.ini..."
+          cat >> "${FIREFOX_REMOTE_PATH}/profiles.ini" <<EOF
+  [Profile${counter}]
+  Name=${profileName}
+  IsRelative=1
+  Path=${profile}
+  EOF
+          run grep -i ${profile} "${FIREFOX_REMOTE_PATH}/profiles.ini"
+
+          echo -ne "  => Creating profile: ${profileName}..."
+          run mkdir -p "${FIREFOX_REMOTE_PATH}/${profile}"
+
+          counter=$((counter + 1))
+      done
+
+      updateFirefox
+
+      echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
+      setsid --fork firefox --profileManager 2>/dev/null 1>&2
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateFirefox() {
+      set +o nounset
+      case "${1}" in
+          "--profile"|"-p")
+              case "${3}" in
+                  "--install-extensions"|"-i")
+                      if [[ -d "${FIREFOX_REMOTE_PATH}/${2,}" ]]; then
+                          echo -e "Installing extensions:-"
+                          for ext in "${FIREFOX_EXTENSIONS[@]}"; do
+                              extName=$(echo "${ext}" | cut -d '/' -f7 | sed 's/\-/\ /g');
+
+                              echo -e "  -> ${extName^}"
+                              setsid --fork firefox --profile "${FIREFOX_REMOTE_PATH}/${1}" --new-tab "${ext}" 2>/dev/null 1>&2
+                          done
+                      else
+                          echo -e "Profile not found."
+                      fi
+                      ;;
+                  ,*)
+                      fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
+                      echo -ne "Copying personal tweaks to fetched source..."
+                      run cp "${FIREFOX_LOCAL_PATH}/user-overrides.js" "${DEST}"
+
+                      echo -ne "Merging tweaks with ghacks user.js..."
+                      run "${DEST}/updater.sh" -s
+
+                      echo -e "Copying user.js to profile directories..."
+                      for profile in ${FIREFOX_PROFILES}; do
+                          profileName="${profile^}"
+
+                          echo -ne "  => Copying user.js to profile: ${profileName}..."
+                          run cp "${DEST}/user.js" "${FIREFOX_REMOTE_PATH}/${profile}"
+                      done
+
+                      clean "${SCRIPT_PATH}/workdir"
+                      ;;
+              esac
+              ;;
+      esac
+      set -o nounset
+  }
+#+END_SRC
 ** Profiles
 - =StartWithLastProfile= ensures a profile choice isn't
   asked at startup.
@@ -551,51 +689,6 @@ privacy-centered configuration.
 
   // --- Misc --- //
 #+END_SRC
-* SSH
-** Environment
-#+BEGIN_SRC sh :tangle ssh/.config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
-  export SSH_ASKPASS="$(command -v ksshaskpass)"
-  export GIT_ASKPASS="$(command -v ksshaskpass)"
-#+END_SRC
-** PAM
-#+BEGIN_SRC conf :tangle ssh/.pam_environment
-  SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
-#+END_SRC
-** SSH Agent
-#+BEGIN_SRC conf :tangle ssh/.config/systemd/user/ssh-agent.service
-  [Unit]
-  Description=SSH key agent
-
-  [Service]
-  Type=simple
-  Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
-  ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
-
-  [Install]
-  WantedBy=default.target
-#+END_SRC
-** Autostart
-Cache all ssh keys with an ssh-agent for instant ssh logins
-#+BEGIN_SRC sh :tangle ssh/.config/autostart-scripts/ssh-add.sh :shebang "#!/usr/bin/env bash"
-  # Enable extended globbing
-  shopt -s extglob dotglob nullglob
-
-  # Add all files in the keys directory that do not end with .pub
-  ssh-add "${HOME}"/.vault/ssh/login/!(*.pub) </dev/null
-#+END_SRC
-* Thunderbird
-** Profiles
-This reads the same as the profiles section of Firefox.
-#+BEGIN_SRC ini :tangle thunderbird/.thunderbird/profiles.ini
-  [General]
-  StartWithLastProfile=1
-
-  [Profile0]
-  Name=Primary
-  IsRelative=1
-  Path=../.config/thunderbird/primary
-  Default=1
-#+END_SRC
 * Scripts
 A few guidelines followed throughout these scripts:
 
@@ -606,78 +699,21 @@ A few guidelines followed throughout these scripts:
 - Documentation for what the function does and why is provided.
 - A =$SCRIPT_PATH= is defined to determine the path of the each script.
 
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupScripts() {
+      updateScripts
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateScripts() {
+      echo -ne "Linking scripts..."
+      run ln -sf "${SCRIPTS_LOCAL_PATH}"/* "${SCRIPTS_REMOTE_PATH}"
+  }
+#+END_SRC
 ** Functions
-*** Firefox
-**** Userjs
-This script applies my userjs tweaks on top of GHacks userjs, proceeds to read
-=profiles.ini= and copies the modified user.js into those profiles.
-
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/userjs :shebang "#!/usr/bin/env bash"
-  mkTweaks() {
-      echo -ne "Copying personal tweaks to fetched source..."
-      run cp "${FIREFOX_LOCAL_PATH}/user-overrides.js" "${DEST}"
-
-      echo -ne "Merging tweaks with ghacks user.js..."
-      run "${DEST}/updater.sh" -s
-  }
-
-  applyUserJS() {
-      echo -e "Copying user.js to profile directories..."
-      for profile in ${FIREFOX_PROFILES}; do
-          profileName="${profile^}"
-
-          echo -ne "  => Copying user.js to profile: ${profileName}..."
-          run cp "${DEST}/user.js" "${FIREFOX_REMOTE_PATH}/${profile}"
-      done
-  }
-#+END_SRC
-**** Profiles
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/profiles :shebang "#!/usr/bin/env bash"
-  mkProfilesDir() {
-      echo -ne "Creating firefox directory to store profiles..."
-      run mkdir -p "${FIREFOX_REMOTE_PATH}"
-  }
-
-  mkProfiles() {
-      if [[ -f "${FIREFOX_REMOTE_PATH}/profiles.ini" ]]; then
-          echo -ne "profiles.ini already exists. Making a backup of it."
-          run mv "${FIREFOX_REMOTE_PATH}/profiles.ini" "${FIREFOX_REMOTE_PATH}/profiles.ini.bak"
-      fi
-
-      echo -e "Creating profiles..."
-      counter=0
-      for profile in ${FIREFOX_PROFILES[@]}; do
-          profileName="${profile^}"
-
-          echo -ne "  => Adding ${profileName} to profiles.ini..."
-          cat >> "${FIREFOX_REMOTE_PATH}/profiles.ini" <<EOF
-  [Profile${counter}]
-  Name=${profileName}
-  IsRelative=1
-  Path=${profile}
-  EOF
-          run grep -i ${profile} "${FIREFOX_REMOTE_PATH}/profiles.ini"
-
-          echo -ne "  => Creating profile: ${profileName}..."
-          run mkdir -p "${FIREFOX_REMOTE_PATH}/${profile}"
-
-          counter=$((counter + 1))
-      done
-  }
-#+END_SRC
-**** Extensions
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/firefox/extensions :shebang "#!/usr/bin/env bash"
-  extInstall() {
-      echo -e "Installing extensions:-"
-      for ext in "${FIREFOX_EXTENSIONS[@]}"; do
-          extName=$(echo "${ext}" | cut -d '/' -f7 | sed 's/\-/\ /g');
-
-          echo -e "  -> ${extName^}"
-      done
-
-      setsid --fork firefox --profile "${FIREFOX_REMOTE_PATH}/${1}" --new-tab "${FIREFOX_EXTENSIONS[@]}" 2>/dev/null 1>&2
-  }
-#+END_SRC
 *** Plasma
 **** Virtual Desktop Bar (KDE)
 - =fetchSource= gets the latest master from github and
@@ -1069,6 +1105,16 @@ Functions:
   # global declarations
   SCRIPT_PATH=$(dirname $(realpath "$0"))
 
+  # CHROMIUM
+  CHROMIUM_PATH="${SCRIPT_PATH}/chromium"
+  CHROMIUM_LOCAL_PATH="${CHROMIUM_PATH}/.config"
+  CHROMIUM_REMOTE_PATH="${HOME}/.config"
+
+  # DESKTOP
+  DESKTOP_PATH="${SCRIPT_PATH}/desktop"
+  DESKTOP_LOCAL_PATH="${DESKTOP_PATH}/.local/share/applications"
+  DESKTOP_REMOTE_PATH="${HOME}/.local/share/applications"
+
   # EMACS
   EMACS_PATH="${SCRIPT_PATH}/emacs"
   EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
@@ -1095,6 +1141,11 @@ Functions:
       "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
   )
 
+  # SCRIPTS
+  SCRIPTS_PATH="${SCRIPT_PATH}/scripts"
+  SCRIPTS_LOCAL_PATH="${SCRIPTS_PATH}/.local/bin"
+  SCRIPTS_REMOTE_PATH="${HOME}/.local/bin"
+
   # SSH
   SSH_PATH="${SCRIPT_PATH}/ssh"
   declare -A SSH_LOCAL_PATHS=(
@@ -1109,6 +1160,11 @@ Functions:
       [PLASMA]="${HOME}/.config/plasma-workspace/env"
       [SYSTEMD]="${HOME}/.config/systemd/user"
   )
+
+  # THUNDERBIRD
+  THUNDERBIRD_PATH="${SCRIPT_PATH}/thunderbird"
+  THUNDERBIRD_LOCAL_PATH="${THUNDERBIRD_PATH}/.thunderbird"
+  THUNDERBIRD_REMOTE_PATH="${HOME}/.thunderbird"
 
   # TMUX
   TMUX_PATH="${SCRIPT_PATH}/tmux"
@@ -1136,92 +1192,12 @@ Functions:
   ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
   ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
 
-  # import helpers
-  source "${SCRIPT_PATH}"/scripts/.local/bin/helpers/helper
+  # import helpers & functions
+  source "${SCRIPT_LOCAL_PATH}/helpers/helper"
+  source "${SCRIPT_LOCAL_PATH}/functions/setup"
+  source "${SCRIPT_LOCAL_PATH}/functions/update"
 #+END_SRC
 *** Update
-**** Definition
-#+BEGIN_SRC sh :tangle dot
-  updateChromium() {
-      ln -sf "${SCRIPT_PATH}"/.config/chromium-flags.conf "${HOME}"/.config/
-  }
-
-  updateDesktop() {
-      ln -sf "${SCRIPT_PATH}"/.local/share/applications/*.desktop "${HOME}"/.local/share/applications/
-  }
-
-  updateEmacs() {
-      echo -ne "Linking personal configuration..."
-      run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
-
-      echo -e "Refreshing Doom Emacs..."
-      "${HOME}/.emacs.d/bin/doom" refresh
-  }
-
-  updateFirefox() {
-      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
-      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/extensions
-
-      fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
-      mkTweaks
-      applyUserJS
-      clean "${SCRIPT_PATH}/workdir"
-
-      set +o nounset
-      case "${1}" in
-          "--profile"|"-p")
-              case "${3}" in
-                  "--install-extensions"|"-i")
-                      if [[ -d "${FIREFOX_REMOTE_PATH}/${2,}" ]]; then
-                          extInstall "${2,}"
-                      else
-                          echo -e "Profile not found."
-                      fi
-                      ;;
-              esac
-              ;;
-      esac
-      set -o nounset
-  }
-
-  updateSSH() {
-      echo -ne "Updating symlinks..."
-      run ln -sf "${SSH_LOCAL_PATHS[AUTOSTART]}/ssh-add.sh" "${SSH_REMOTE_PATHS[AUTOSTART]}" && \
-          ln -sf "${SSH_LOCAL_PATHS[PLASMA]}/askpass.sh" "${SSH_REMOTE_PATHS[PLASMA]}" && \
-          ln -sf "${SSH_LOCAL_PATHS[PAM]}/.pam_environment" "${SSH_REMOTE_PATHS[PAM]}" && \
-          ln -sf "${SSH_LOCAL_PATHS[SYSTEMD]}/ssh-agent.service" "${SSH_REMOTE_PATHS[SYSTEMD]}"
-
-      echo -ne "Activating service..."
-      run systemctl --user enable --now "ssh-agent"
-  }
-
-  updateThunderbird() {
-      ln -sf "${SCRIPT_PATH}"/.thunderbird/profiles.ini "${HOME}"/.thunderbird/
-  }
-
-  updateScripts() {
-      ln -sf "${SCRIPT_PATH}"/.local/bin/* "${HOME}"/.local/bin/
-  }
-
-  updateTmux() {
-      echo -ne "Updating source code..."
-      run git --git-dir="${TMUX_REMOTE_PATH}/.git" --work-tree="${TMUX_REMOTE_PATH}" pull
-
-      echo -ne "Relinking configurations..."
-      run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
-  }
-
-  updateZSH() {
-      echo -e "Installing plugins..."
-      for plugin in "${!ZSH_PLUGINS_DEST[@]}"; do
-          fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
-      done
-
-      echo -ne "Linking personal configuration..."
-      run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
-  }
-#+END_SRC
-**** Invocation
 #+BEGIN_SRC sh :tangle dot
   update() {
       case "${1}" in
@@ -1259,96 +1235,6 @@ Functions:
   }
 #+END_SRC
 *** Setup
-**** Definition
-#+BEGIN_SRC sh :tangle dot
-  setupChromium() {
-      updateChromium
-  }
-
-  setupDesktop() {
-      mkdir -p "${HOME}"/.local/share/applications
-      updateDesktop
-  }
-
-  setupEmacs() {
-      echo -ne "Creating Doom Emacs directory..."
-      run mkdir -p "${EMACS_REMOTE_PATH}"
-
-      fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
-
-      echo -e "Unleashing Doom..."
-      "${HOME}"/.emacs.d/bin/doom install
-
-      updateEmacs
-  }
-
-  setupFirefox() {
-      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/profiles
-      source "${SCRIPT_PATH}"/scripts/.local/bin/functions/firefox/userjs
-
-      mkProfilesDir
-      mkProfiles
-      fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
-      mkTweaks
-      applyUserJS
-      clean "${SCRIPT_PATH}/workdir"
-
-      echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
-      setsid --fork firefox --profileManager 2>/dev/null 1>&2
-  }
-
-  setupSpotify() {
-      source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
-
-      # fix wm name setting
-      fetchSource
-      buildLibrary
-      moveLibrary
-      fixSpotify
-  }
-
-  setupThunderbird() {
-      mkdir -p "${HOME}"/.config/thunderbird/primary
-      updateThunderbird
-  }
-
-  setupScripts() {
-      updateScripts
-  }
-
-  setupSSH() {
-      echo -e "Creating necessary directories..."
-      for dir in "${SSH_REMOTE_PATHS[@]}"; do
-          echo -ne "  => Creating ${dir}..."
-          run mkdir -p "${dir}"
-      done
-
-      updateSSH
-  }
-
-  setupTmux() {
-      fetchSrc "https://github.com/gpakosz/.tmux.git" "${TMUX_REMOTE_PATH}"
-
-      echo -ne "Linking configurations..."
-      run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
-  }
-
-  setupZSH() {
-      if [[ ! -d "${ZSH_REMOTE_PATHS[OMZ]}" ]]; then
-          echo -e "Moving zshenv to /etc/zsh (need root permissions)..."
-          sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
-
-          echo -ne "Installing oh-my-zsh..."
-          run sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-          updateZSH
-      else
-          echo -e "${ZSH_REMOTE_PATHS[OMZ]} already exists. Please rename or remove that directory and rerun this script."
-          exit 1
-      fi
-  }
-#+END_SRC
-**** Invocation
 #+BEGIN_SRC sh :tangle dot
   setup() {
       case "${1}" in
@@ -1421,7 +1307,116 @@ Functions:
 
   main "${@}"
 #+END_SRC
+* SSH
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupSSH() {
+      echo -e "Creating necessary directories..."
+      for dir in "${SSH_REMOTE_PATHS[@]}"; do
+          echo -ne "  => Creating ${dir}..."
+          run mkdir -p "${dir}"
+      done
+
+      updateSSH
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateSSH() {
+      echo -ne "Updating symlinks..."
+      run ln -sf "${SSH_LOCAL_PATHS[AUTOSTART]}/ssh-add.sh" "${SSH_REMOTE_PATHS[AUTOSTART]}" && \
+          ln -sf "${SSH_LOCAL_PATHS[PLASMA]}/askpass.sh" "${SSH_REMOTE_PATHS[PLASMA]}" && \
+          ln -sf "${SSH_LOCAL_PATHS[PAM]}/.pam_environment" "${SSH_REMOTE_PATHS[PAM]}" && \
+          ln -sf "${SSH_LOCAL_PATHS[SYSTEMD]}/ssh-agent.service" "${SSH_REMOTE_PATHS[SYSTEMD]}"
+
+      echo -ne "Activating service..."
+      run systemctl --user enable --now "ssh-agent"
+  }
+#+END_SRC
+** Environment
+#+BEGIN_SRC sh :tangle ssh/.config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
+  export SSH_ASKPASS="$(command -v ksshaskpass)"
+  export GIT_ASKPASS="$(command -v ksshaskpass)"
+#+END_SRC
+** PAM
+#+BEGIN_SRC conf :tangle ssh/.pam_environment
+  SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+#+END_SRC
+** SSH Agent
+#+BEGIN_SRC conf :tangle ssh/.config/systemd/user/ssh-agent.service
+  [Unit]
+  Description=SSH key agent
+
+  [Service]
+  Type=simple
+  Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+  ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+  [Install]
+  WantedBy=default.target
+#+END_SRC
+** Autostart
+Cache all ssh keys with an ssh-agent for instant ssh logins
+#+BEGIN_SRC sh :tangle ssh/.config/autostart-scripts/ssh-add.sh :shebang "#!/usr/bin/env bash"
+  # Enable extended globbing
+  shopt -s extglob dotglob nullglob
+
+  # Add all files in the keys directory that do not end with .pub
+  ssh-add "${HOME}"/.vault/ssh/login/!(*.pub) </dev/null
+#+END_SRC
+* Thunderbird
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupThunderbird() {
+      echo -ne "Creating profile directory..."
+      run mkdir -p "${THUNDERBIRD_REMOTE_PATH}/primary"
+
+      updateThunderbird
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateThunderbird() {
+      echo -ne "Linking profiles.ini..."
+      run ln -sf "${THUNDERBIRD_LOCAL_PATH}/profiles.ini" "${THUNDERBIRD_REMOTE_PATH}"
+  }
+#+END_SRC
+** Profiles
+This reads the same as the profiles section of Firefox.
+#+BEGIN_SRC ini :tangle thunderbird/.thunderbird/profiles.ini
+  [General]
+  StartWithLastProfile=1
+
+  [Profile0]
+  Name=Primary
+  IsRelative=1
+  Path=../.config/thunderbird/primary
+  Default=1
+#+END_SRC
 * Tmux
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupTmux() {
+      fetchSrc "https://github.com/gpakosz/.tmux.git" "${TMUX_REMOTE_PATH}"
+
+      echo -ne "Linking configurations..."
+      run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateTmux() {
+      echo -ne "Updating source code..."
+      run git --git-dir="${TMUX_REMOTE_PATH}/.git" --work-tree="${TMUX_REMOTE_PATH}" pull
+
+      echo -ne "Relinking configurations..."
+      run ln -sf "${TMUX_REMOTE_PATH}/.tmux.conf" "${HOME}" && ln -sf "${TMUX_LOCAL_PATH}/.tmux.conf.local" "${HOME}"
+  }
+#+END_SRC
+** Configuration
 #+BEGIN_SRC conf :tangle tmux/.tmux.conf.local
   # https://github.com/gpakosz/.tmux
   # (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
@@ -1721,6 +1716,36 @@ Functions:
   #set -g status-position top
 #+END_SRC
 * ZSH
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupZSH() {
+      if [[ ! -d "${ZSH_REMOTE_PATHS[OMZ]}" ]]; then
+          echo -e "Moving zshenv to /etc/zsh (need root permissions)..."
+          sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
+
+          echo -ne "Installing oh-my-zsh..."
+          run sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+          updateZSH
+      else
+          echo -e "${ZSH_REMOTE_PATHS[OMZ]} already exists. Please rename or remove that directory and rerun this script."
+          exit 1
+      fi
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateZSH() {
+      echo -e "Installing plugins..."
+      for plugin in "${!ZSH_PLUGINS_DEST[@]}"; do
+          fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
+      done
+
+      echo -ne "Linking personal configuration..."
+      run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
+  }
+#+END_SRC
 ** Environment
 - Disable lookup of global startup files (=zshenv= cannot be overriden).
 - Read =/etc/profile= in =sh= mode to set the environment.
