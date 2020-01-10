@@ -28,15 +28,46 @@ FIREFOX_EXTENSIONS=(
     "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
 )
 
+# SSH
+SSH_PATH="${SCRIPT_PATH}/ssh"
+declare -A SSH_LOCAL_PATHS=(
+    [AUTOSTART]="${SSH_PATH}/.config/autostart-scripts"
+    [PAM]="${SSH_PATH}"
+    [PLASMA]="${SSH_PATH}/.config/plasma-workspace/env"
+    [SYSTEMD]="${SSH_PATH}/.config/systemd/user"
+)
+declare -A SSH_REMOTE_PATHS=(
+    [AUTOSTART]="${HOME}/.config/autostart-scripts"
+    [PAM]="${HOME}"
+    [PLASMA]="${HOME}/.config/plasma-workspace/env"
+    [SYSTEMD]="${HOME}/.config/systemd/user"
+)
+
 # TMUX
 TMUX_PATH="${SCRIPT_PATH}/tmux"
 TMUX_LOCAL_PATH="${TMUX_PATH}"
 TMUX_REMOTE_PATH="${HOME}/.tmux"
 
 # ZSH
-ZSH="${HOME}/.config/omz"
-ZSH_CUSTOM="${HOME}/.config/omz/custom"
 ZSH_PATH="${SCRIPT_PATH}/zsh"
+ZSH_LOCAL_PATH="${ZSH_PATH}/.config/zsh"
+declare -A ZSH_REMOTE_PATHS=(
+    [ZSH]="${HOME}/.config/zsh"
+    [OMZ]="${ZSH_REMOTE_PATHS[ZSH]}"
+    [CUSTOM]="${ZSH_REMOTE_PATHS[OMZ]}/custom"
+    [PLUGINS]="${ZSH_REMOTE_PATHS[CUSTOM]}/plugins"
+    [THEMES]="${ZSH_REMOTE_PATHS[CUSTOM]}/themes"
+)
+declare -A ZSH_PLUGINS_SRC=(
+    [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
+)
+declare -A ZSH_PLUGINS_DEST=(
+    [zsh-syntax-highlighting]="${ZSH_REMOTE_PATHS[PLUGINS]}/zsh-syntax-highlighting"
+    [zsh-autosuggestions]="${ZSH_REMOTE_PATHS[PLUGINS]}/zsh-autosuggestions"
+)
+ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
+ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
 
 # import helpers
 source "${SCRIPT_PATH}"/scripts/.local/bin/helpers/helper
@@ -83,18 +114,15 @@ updateFirefox() {
     set -o nounset
 }
 
-updatePlasma() {
-    ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
-    ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
-    ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
-}
+updateSSH() {
+    echo -ne "Updating symlinks..."
+    run ln -sf "${SSH_LOCAL_PATHS[AUTOSTART]}/ssh-add.sh" "${SSH_REMOTE_PATHS[AUTOSTART]}" && \
+        ln -sf "${SSH_LOCAL_PATHS[PLASMA]}/askpass.sh" "${SSH_REMOTE_PATHS[PLASMA]}" && \
+        ln -sf "${SSH_LOCAL_PATHS[PAM]}/.pam_environment" "${SSH_REMOTE_PATHS[PAM]}" && \
+        ln -sf "${SSH_LOCAL_PATHS[SYSTEMD]}/ssh-agent.service" "${SSH_REMOTE_PATHS[SYSTEMD]}"
 
-updateSystemd() {
-    ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
-
-    for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
-        systemctl --user enable --now "${service}"
-    done
+    echo -ne "Activating service..."
+    run systemctl --user enable --now "ssh-agent"
 }
 
 updateThunderbird() {
@@ -114,15 +142,13 @@ updateTmux() {
 }
 
 updateZSH() {
-    if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-    fi
+    echo -e "Installing plugins..."
+    for plugin in "${!ZSH_PLUGINS_DEST[@]}"; do
+        fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
+    done
 
-    if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions ]]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-    fi
-
-    ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
+    echo -ne "Linking personal configuration..."
+    run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
 }
 
 update() {
@@ -139,17 +165,14 @@ update() {
         "firefox")
             updateFirefox "${@:2}"
             ;;
-        "plasma")
-            updatePlasma
-            ;;
         "scripts")
             updateScripts
             ;;
         "spotify")
             updateSpotify
             ;;
-        "systemd")
-            updateSystemd
+        "ssh")
+            updateSSH
             ;;
         "thunderbird")
             updateThunderbird
@@ -199,10 +222,6 @@ setupFirefox() {
     setsid --fork firefox --profileManager 2>/dev/null 1>&2
 }
 
-setupPlasma() {
-    updatePlasma
-}
-
 setupSpotify() {
     source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
 
@@ -211,10 +230,6 @@ setupSpotify() {
     buildLibrary
     moveLibrary
     fixSpotify
-}
-
-setupSystemd() {
-    mkdir -p "${HOME}/.config/systemd/user"
 }
 
 setupThunderbird() {
@@ -226,6 +241,16 @@ setupScripts() {
     updateScripts
 }
 
+setupSSH() {
+    echo -e "Creating necessary directories..."
+    for dir in "${SSH_REMOTE_PATHS[@]}"; do
+        echo -ne "  => Creating ${dir}..."
+        run mkdir -p "${dir}"
+    done
+
+    updateSSH
+}
+
 setupTmux() {
     fetchSrc "https://github.com/gpakosz/.tmux.git" "${TMUX_REMOTE_PATH}"
 
@@ -234,9 +259,16 @@ setupTmux() {
 }
 
 setupZSH() {
-    if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
-        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    if [[ ! -d "${ZSH_REMOTE_PATHS[OMZ]}" ]]; then
+        echo -e "Moving zshenv to /etc/zsh (need root permissions)..."
+        sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
+
+        echo -ne "Installing oh-my-zsh..."
+        run sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+        updateZSH
     else
+        echo -e "${ZSH_REMOTE_PATHS[OMZ]} already exists. Please rename or remove that directory and rerun this script."
         exit 1
     fi
 }
@@ -255,14 +287,11 @@ setup() {
         "firefox")
             setupFirefox
             ;;
-        "plasma")
-            setupPlasma
-            ;;
         "spotify")
             setupSpotify
             ;;
-        "systemd")
-            setupSystemd
+        "ssh")
+            setupSSH
             ;;
         "thunderbird")
             setupThunderbird
@@ -306,7 +335,7 @@ main() {
             refresh
             ;;
         *)
-            echo -e "Invalid option."
+            echo -e "Invalid option: ${1}\n\nValid options are:\n  setup\n  update\n  refresh"
             ;;
     esac
 }

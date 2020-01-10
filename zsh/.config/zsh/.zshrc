@@ -1,8 +1,14 @@
 # Path to oh-my-zsh installation.
-export ZSH="${HOME}/.config/omz"
+export ZSH="${ZDOTDIR}"
 
 # Set OMZ theme
 ZSH_THEME="agnoster"
+
+# Save history at a custom location
+HISTFILE="${ZSH}/.zsh_history"
+
+# Save z's db at a custom location
+_Z_DATA="${ZSH}/.z"
 
 # _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
@@ -24,7 +30,7 @@ plugins=(
     zsh-autosuggestions
 )
 
-source "${ZSH}"/oh-my-zsh.sh
+source "${ZSH}/oh-my-zsh.sh"
 
 wttr() {
     curl https://wttr.in/${1:-Bhubaneswar}

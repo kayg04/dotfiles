@@ -2,17 +2,6 @@
 #+AUTHOR: K Gopal Krishna
 #+PROPERTY: header-args :mkdirp yes
 
-* Autostart
-** Scripts
-*** SSH
-Cache all ssh keys with an ssh-agent for instant ssh logins
-#+BEGIN_SRC sh :tangle autostart/.config/autostart-scripts/ssh-add.sh :shebang "#!/usr/bin/env bash"
-  # Enable extended globbing
-  shopt -s extglob dotglob nullglob
-
-  # Add all files in the keys directory that do not end with .pub
-  ssh-add "${HOME}"/.vault/ssh/login/!(*.pub) </dev/null
-#+END_SRC
 * Chromium (Ungoogled)
 ** Environment Variables
 From Debian bug tracker:
@@ -562,19 +551,18 @@ privacy-centered configuration.
 
   // --- Misc --- //
 #+END_SRC
-* Plasma
+* SSH
 ** Environment
-#+BEGIN_SRC sh :tangle plasma/.config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
+#+BEGIN_SRC sh :tangle ssh/.config/plasma-workspace/env/askpass.sh :shebang "#!/usr/bin/env bash"
   export SSH_ASKPASS="$(command -v ksshaskpass)"
   export GIT_ASKPASS="$(command -v ksshaskpass)"
 #+END_SRC
 ** PAM
-#+BEGIN_SRC conf :tangle plasma/.pam_environment
+#+BEGIN_SRC conf :tangle ssh/.pam_environment
   SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 #+END_SRC
-* Systemd
 ** SSH Agent
-#+BEGIN_SRC conf :tangle systemd/.config/systemd/user/ssh-agent.service
+#+BEGIN_SRC conf :tangle ssh/.config/systemd/user/ssh-agent.service
   [Unit]
   Description=SSH key agent
 
@@ -585,6 +573,15 @@ privacy-centered configuration.
 
   [Install]
   WantedBy=default.target
+#+END_SRC
+** Autostart
+Cache all ssh keys with an ssh-agent for instant ssh logins
+#+BEGIN_SRC sh :tangle ssh/.config/autostart-scripts/ssh-add.sh :shebang "#!/usr/bin/env bash"
+  # Enable extended globbing
+  shopt -s extglob dotglob nullglob
+
+  # Add all files in the keys directory that do not end with .pub
+  ssh-add "${HOME}"/.vault/ssh/login/!(*.pub) </dev/null
 #+END_SRC
 * Thunderbird
 ** Profiles
@@ -1098,15 +1095,46 @@ Functions:
       "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
   )
 
+  # SSH
+  SSH_PATH="${SCRIPT_PATH}/ssh"
+  declare -A SSH_LOCAL_PATHS=(
+      [AUTOSTART]="${SSH_PATH}/.config/autostart-scripts"
+      [PAM]="${SSH_PATH}"
+      [PLASMA]="${SSH_PATH}/.config/plasma-workspace/env"
+      [SYSTEMD]="${SSH_PATH}/.config/systemd/user"
+  )
+  declare -A SSH_REMOTE_PATHS=(
+      [AUTOSTART]="${HOME}/.config/autostart-scripts"
+      [PAM]="${HOME}"
+      [PLASMA]="${HOME}/.config/plasma-workspace/env"
+      [SYSTEMD]="${HOME}/.config/systemd/user"
+  )
+
   # TMUX
   TMUX_PATH="${SCRIPT_PATH}/tmux"
   TMUX_LOCAL_PATH="${TMUX_PATH}"
   TMUX_REMOTE_PATH="${HOME}/.tmux"
 
   # ZSH
-  ZSH="${HOME}/.config/omz"
-  ZSH_CUSTOM="${HOME}/.config/omz/custom"
   ZSH_PATH="${SCRIPT_PATH}/zsh"
+  ZSH_LOCAL_PATH="${ZSH_PATH}/.config/zsh"
+  declare -A ZSH_REMOTE_PATHS=(
+      [ZSH]="${HOME}/.config/zsh"
+      [OMZ]="${ZSH_REMOTE_PATHS[ZSH]}"
+      [CUSTOM]="${ZSH_REMOTE_PATHS[OMZ]}/custom"
+      [PLUGINS]="${ZSH_REMOTE_PATHS[CUSTOM]}/plugins"
+      [THEMES]="${ZSH_REMOTE_PATHS[CUSTOM]}/themes"
+  )
+  declare -A ZSH_PLUGINS_SRC=(
+      [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
+      [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
+  )
+  declare -A ZSH_PLUGINS_DEST=(
+      [zsh-syntax-highlighting]="${ZSH_REMOTE_PATHS[PLUGINS]}/zsh-syntax-highlighting"
+      [zsh-autosuggestions]="${ZSH_REMOTE_PATHS[PLUGINS]}/zsh-autosuggestions"
+  )
+  ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
+  ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
 
   # import helpers
   source "${SCRIPT_PATH}"/scripts/.local/bin/helpers/helper
@@ -1156,18 +1184,15 @@ Functions:
       set -o nounset
   }
 
-  updatePlasma() {
-      ln -sf "${SCRIPT_PATH}"/.config/autostart-scripts/*.sh "${HOME}"/.config/autostart-scripts/
-      ln -sf "${SCRIPT_PATH}"/.config/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/
-      ln -sf "${SCRIPT_PATH}"/.pam_environment "${HOME}"/
-  }
+  updateSSH() {
+      echo -ne "Updating symlinks..."
+      run ln -sf "${SSH_LOCAL_PATHS[AUTOSTART]}/ssh-add.sh" "${SSH_REMOTE_PATHS[AUTOSTART]}" && \
+          ln -sf "${SSH_LOCAL_PATHS[PLASMA]}/askpass.sh" "${SSH_REMOTE_PATHS[PLASMA]}" && \
+          ln -sf "${SSH_LOCAL_PATHS[PAM]}/.pam_environment" "${SSH_REMOTE_PATHS[PAM]}" && \
+          ln -sf "${SSH_LOCAL_PATHS[SYSTEMD]}/ssh-agent.service" "${SSH_REMOTE_PATHS[SYSTEMD]}"
 
-  updateSystemd() {
-      ln -sf "${SCRIPT_PATH}"/.config/systemd/user/*.service "${HOME}"/.config/systemd/user/
-
-      for service in $(ls -1 "${HOME}/.config/systemd/user" | cut -d '.' -f1); do
-          systemctl --user enable --now "${service}"
-      done
+      echo -ne "Activating service..."
+      run systemctl --user enable --now "ssh-agent"
   }
 
   updateThunderbird() {
@@ -1187,15 +1212,13 @@ Functions:
   }
 
   updateZSH() {
-      if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting ]]; then
-          git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-      fi
+      echo -e "Installing plugins..."
+      for plugin in "${!ZSH_PLUGINS_DEST[@]}"; do
+          fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
+      done
 
-      if [[ ! -d "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions ]]; then
-          git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-      fi
-
-      ln -sf "${SCRIPT_PATH}"/.zshrc "${HOME}"/
+      echo -ne "Linking personal configuration..."
+      run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
   }
 #+END_SRC
 **** Invocation
@@ -1214,17 +1237,14 @@ Functions:
           "firefox")
               updateFirefox "${@:2}"
               ;;
-          "plasma")
-              updatePlasma
-              ;;
           "scripts")
               updateScripts
               ;;
           "spotify")
               updateSpotify
               ;;
-          "systemd")
-              updateSystemd
+          "ssh")
+              updateSSH
               ;;
           "thunderbird")
               updateThunderbird
@@ -1277,10 +1297,6 @@ Functions:
       setsid --fork firefox --profileManager 2>/dev/null 1>&2
   }
 
-  setupPlasma() {
-      updatePlasma
-  }
-
   setupSpotify() {
       source "${SCRIPT_PATH}"/.config/spotify/wmname.sh
 
@@ -1289,10 +1305,6 @@ Functions:
       buildLibrary
       moveLibrary
       fixSpotify
-  }
-
-  setupSystemd() {
-      mkdir -p "${HOME}/.config/systemd/user"
   }
 
   setupThunderbird() {
@@ -1304,6 +1316,16 @@ Functions:
       updateScripts
   }
 
+  setupSSH() {
+      echo -e "Creating necessary directories..."
+      for dir in "${SSH_REMOTE_PATHS[@]}"; do
+          echo -ne "  => Creating ${dir}..."
+          run mkdir -p "${dir}"
+      done
+
+      updateSSH
+  }
+
   setupTmux() {
       fetchSrc "https://github.com/gpakosz/.tmux.git" "${TMUX_REMOTE_PATH}"
 
@@ -1312,9 +1334,16 @@ Functions:
   }
 
   setupZSH() {
-      if [[ ! upgrade_oh_my_zsh || ! -d "${HOME}/.oh-my-zsh" ]]; then
-          sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      if [[ ! -d "${ZSH_REMOTE_PATHS[OMZ]}" ]]; then
+          echo -e "Moving zshenv to /etc/zsh (need root permissions)..."
+          sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
+
+          echo -ne "Installing oh-my-zsh..."
+          run sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+          updateZSH
       else
+          echo -e "${ZSH_REMOTE_PATHS[OMZ]} already exists. Please rename or remove that directory and rerun this script."
           exit 1
       fi
   }
@@ -1335,14 +1364,11 @@ Functions:
           "firefox")
               setupFirefox
               ;;
-          "plasma")
-              setupPlasma
-              ;;
           "spotify")
               setupSpotify
               ;;
-          "systemd")
-              setupSystemd
+          "ssh")
+              setupSSH
               ;;
           "thunderbird")
               setupThunderbird
@@ -1388,7 +1414,7 @@ Functions:
               refresh
               ;;
           ,*)
-              echo -e "Invalid option."
+              echo -e "Invalid option: ${1}\n\nValid options are:\n  setup\n  update\n  refresh"
               ;;
       esac
   }
@@ -1695,14 +1721,28 @@ Functions:
   #set -g status-position top
 #+END_SRC
 * ZSH
+** Environment
+- Disable lookup of global startup files (=zshenv= cannot be overriden).
+- Read =/etc/profile= in =sh= mode to set the environment.
+#+BEGIN_SRC sh :tangle zsh/etc/zsh/zshenv
+  set +o GLOBAL_RCS
+
+  emulate sh -c "/etc/profile"
+#+END_SRC
 ** Oh-my-zsh
 Settings specific to OMZ.
-#+BEGIN_SRC sh :tangle zsh/.zshrc
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   # Path to oh-my-zsh installation.
-  export ZSH="${HOME}/.config/omz"
+  export ZSH="${ZDOTDIR}"
 
   # Set OMZ theme
   ZSH_THEME="agnoster"
+
+  # Save history at a custom location
+  HISTFILE="${ZSH}/.zsh_history"
+
+  # Save z's db at a custom location
+  _Z_DATA="${ZSH}/.z"
 
   # _ and - will be interchangeable.
   HYPHEN_INSENSITIVE="true"
@@ -1724,19 +1764,20 @@ Settings specific to OMZ.
       zsh-autosuggestions
   )
 
-  source "${ZSH}"/oh-my-zsh.sh
+  source "${ZSH}/oh-my-zsh.sh"
 #+END_SRC
 ** Functions
 *** Weather
 Fetches the current weather from wttr.in, assumes my city
 unless specified otherwise.
-#+BEGIN_SRC sh :tangle zsh/.zshrc
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
+
   wttr() {
       curl https://wttr.in/${1:-Bhubaneswar}
   }
 #+END_SRC
 ** Variables
-#+BEGIN_SRC sh :tangle zsh/.zshrc
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   # PATH
   export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
 
@@ -1756,7 +1797,7 @@ unless specified otherwise.
   export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 #+END_SRC
 ** Aliases
-#+BEGIN_SRC sh :tangle zsh/.zshrc
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   if command -v kitty 2>/dev/null 1>&2; then
       alias icat="kitty +kitten icat"
   fi
@@ -1773,7 +1814,7 @@ unless specified otherwise.
   fi
 #+END_SRC
 ** Source
-#+BEGIN_SRC sh :tangle zsh/.zshrc
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
       source /usr/share/nvm/init-nvm.sh
   fi
