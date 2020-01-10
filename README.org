@@ -523,7 +523,13 @@ Add extra packages
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
   updateFirefox() {
       set +o nounset
-      case "${1}" in
+
+      arg="${1}"
+      if [[ -z "${1+x}" ]]; then
+          arg=""
+      fi
+
+      case "${arg}" in
           "--profile"|"-p")
               case "${3}" in
                   "--install-extensions"|"-i")
@@ -539,25 +545,25 @@ Add extra packages
                           echo -e "Profile not found."
                       fi
                       ;;
-                  ,*)
-                      fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
-                      echo -ne "Copying personal tweaks to fetched source..."
-                      run cp "${FIREFOX_LOCAL_PATH}/user-overrides.js" "${DEST}"
-
-                      echo -ne "Merging tweaks with ghacks user.js..."
-                      run "${DEST}/updater.sh" -s
-
-                      echo -e "Copying user.js to profile directories..."
-                      for profile in ${FIREFOX_PROFILES}; do
-                          profileName="${profile^}"
-
-                          echo -ne "  => Copying user.js to profile: ${profileName}..."
-                          run cp "${DEST}/user.js" "${FIREFOX_REMOTE_PATH}/${profile}"
-                      done
-
-                      clean "${SCRIPT_PATH}/workdir"
-                      ;;
               esac
+              ;;
+          "")
+              fetchSrc "https://github.com/ghacksuserjs/ghacks-user.js.git" "${SCRIPT_PATH}/workdir"
+              echo -ne "Copying personal tweaks to fetched source..."
+              run cp "${FIREFOX_LOCAL_PATH}/user-overrides.js" "${DEST}"
+
+              echo -ne "Merging tweaks with ghacks user.js..."
+              run "${DEST}/updater.sh" -s
+
+              echo -e "Copying user.js to profile directories..."
+              for profile in ${FIREFOX_PROFILES[@]}; do
+                  profileName="${profile^}"
+
+                  echo -ne "  => Copying user.js to profile: ${profileName}..."
+                  run cp "${DEST}/user.js" "${FIREFOX_REMOTE_PATH}/${profile}"
+              done
+
+              clean "${SCRIPT_PATH}/workdir"
               ;;
       esac
       set -o nounset
