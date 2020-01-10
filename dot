@@ -90,9 +90,9 @@ ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
 ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
 
 # import helpers & functions
-source "${SCRIPT_LOCAL_PATH}/helpers/helper"
-source "${SCRIPT_LOCAL_PATH}/functions/setup"
-source "${SCRIPT_LOCAL_PATH}/functions/update"
+source "${SCRIPTS_LOCAL_PATH}/helpers/helper"
+source "${SCRIPTS_LOCAL_PATH}/functions/setup"
+source "${SCRIPTS_LOCAL_PATH}/functions/update"
 
 update() {
     case "${1}" in
