@@ -9,7 +9,6 @@
   - [[#flags][Flags]]
 - [[#desktop][Desktop]]
   - [[#bootstrap-1][Bootstrap]]
-  - [[#invidious][Invidious]]
   - [[#riot][Riot]]
   - [[#slack][Slack]]
 - [[#emacs][Emacs]]
@@ -49,12 +48,17 @@
 * Chromium (Ungoogled)
 ** Bootstrap
 *** Setup
+Calls the =updateChromium()= function as there is no setup process required for
+chromium. Although in the future, I am thinking of adding some kind of extension
+shenanigans here.
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
   setupChromium() {
       updateChromium
   }
 #+END_SRC
 *** Update
+Creates a symbolic link of =chromium-flags.conf= from the current directory to =${HOME}/.config=.
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
   updateChromium() {
       echo -ne "Linking chromium configuration..."
@@ -62,15 +66,20 @@
   }
 #+END_SRC
 ** Environment Variables
+This is to mitigate console errors that =chromium= throws in runtime. Setting the
+environment variable to true may mean fewer errors and slighty better
+reliability but it's at the cost of a security flaw -- an unsandboxed chromium's
+GPU driver. So I prefer not to set the flag.
+
 From Debian bug tracker:
 #+begin_quote
-As can be seen in the upstream discussion, this happens whenever mesa
-drivers are used since threads are used in their GLSL shader
-implementation.  This does have a consequence, chromium's GPU driver
-will not be sandboxed.  You can see this in about:gpu.
+As can be seen in the upstream discussion, this happens whenever mesa drivers
+are used since threads are used in their GLSL shader implementation. This does
+have a consequence, chromium's GPU driver will not be sandboxed. You can see
+this in about:gpu.
 
-Also seen upstream, it should be possible to work around the problem
-by setting MESA_GLSL_CACHE_DISABLE=true.
+Also seen upstream, it should be possible to work around the problem by setting
+MESA_GLSL_CACHE_DISABLE=true.
 
 Best wishes,
 Mike
@@ -120,6 +129,8 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
 * Desktop
 ** Bootstrap
 *** Setup
+Creates the =${HOME}/.local/share/applications= directory if it doesn't exist and
+calls =updateDesktop()=.
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
   setupDesktop() {
       echo -ne "Creating desktop apps directory..."
@@ -129,32 +140,20 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   }
 #+END_SRC
 *** Update
+Creates symbolic links of all =.desktop= files from the current directory to =${HOME}/.local/share/applications=.
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
   updateDesktop() {
       echo -ne "Linking desktop apps..."
       run ln -sf "${DESKTOP_LOCAL_PATH}"/*.desktop "${DESKTOP_REMOTE_PATH}"
   }
 #+END_SRC
-** Invidious
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/invidious.desktop :shebang "#!/usr/bin/env xdg-open"
-  [Desktop Entry]
-  Name=Invidious
-  StartupNotify=true
-  Icon=/home/kayg/Pictures/Icons/youtube.png
-  Comment=Most popular video streaming platform
-  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://tube.kayg.org/
-  Terminal=false
-  Type=Application
-  MimeType=x-scheme-handler/youtube;
-  StartupWMClass=invidious
-  Categories=Audio;Music;Player;AudioVideo;
-#+END_SRC
 ** Riot
+Describes a desktop entry which opens Riot's webapp in Chromium.
 #+BEGIN_SRC conf :tangle desktop/.local/share/applications/riot.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
   Name=Riot
   Comment=A feature-rich client for Matrix.org
-  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://riot.im/app/
+  Exec=chromium --app=https://riot.im/app/
   Terminal=false
   Type=Application
   Icon=/home/kayg/Pictures/Icons/riot.png
@@ -162,13 +161,14 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   Categories=Network;InstantMessaging;Chat;IRCClient
 #+END_SRC
 ** Slack
+Describes a desktop entry which opens Slack's webapp in Chromium.
 #+BEGIN_SRC conf :tangle desktop/.local/share/applications/slack.desktop :shebang "#!/usr/bin/env xdg-open"
   [Desktop Entry]
   Name=Slack
   StartupWMClass=Slack
   Comment=Where work happens
   GenericName=Slack Desktop
-  Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://iiit-bhcoding.slack.com/
+  Exec=chromium --app=https://iiit-bhcoding.slack.com/
   Icon=slack
   Terminal=false
   Type=Application
@@ -177,47 +177,42 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   Categories=GNOME;GTK;Network;InstantMessaging;
 #+END_SRC
 * Emacs
-After an year of configuring Emacs, I have somehow reached
-exactly at a point which mimics the style and philosophy of
-Doom Emacs without realizing it. Although my configuration
-was, at heart, a doomacs; in performance and functionality,
-it lagged behind by a significant margin.
+After an year of configuring Emacs, I have somehow reached exactly at a point
+which mimics the style and philosophy of Doom Emacs without realizing it.
+Although my configuration was, at heart, a doomacs; in performance and
+functionality, it lagged behind by a significant margin.
 
-I have found myself frustrated by the fact that I have to
-bake in functionality of every kind when I'm in /need/ of
-that particular functionality, and hence, a lot of time was
-spent in adding functionality rather than being creative or
-productive. My first train of thought was to try something
-which abstracted all of this functionality into a single
-click -- something like VSCodium -- but the problem with
-that particular editor is it isn't particularly hackable.
-Apart from a hundred or so rants about how lacking VSCodium
-is to my pal [[https://pandacowbat.com][Anwes]], one particular thing that irked me a lot
-was the incessant need to reach for the mouse for something
-or the other. I would have to change the whole keyboard
-shortcuts layout to customize it to my needs and what was
-worse is that I would have to remember two of those layouts
--- one which worked with the vim emulation and one which
-worked with native VSCodium -- and the latter doesn't even
-support three key chord bindings at the time of writing
-this.
+I have found myself frustrated by the fact that I have to bake in functionality
+of every kind when I'm in /need/ of that particular functionality, and hence, a
+lot of time was spent in adding functionality rather than being creative or
+productive. My first train of thought was to try something which abstracted all
+of this functionality into a single click -- something like VSCodium -- but the
+problem with that particular editor is it isn't particularly hackable. Apart
+from a hundred or so rants about how lacking VSCodium is to my pal [[https://pandacowbat.com][Anwes]], one
+particular thing that irked me a lot was the incessant need to reach for the
+mouse for something or the other. I would have to change the whole keyboard
+shortcuts layout to customize it to my needs and what was worse is that I would
+have to remember two of those layouts -- one which worked with the vim emulation
+and one which worked with native VSCodium -- and the latter doesn't even support
+three key chord bindings at the time of writing this.
 
-What VSCodium excels at, though, is the autocompletion,
-intellisense, /almost/ baked-in like support for linting,
-checking, debugging. LSP is a first class citizen in
-VSCodium and VSCodium is the first (and perhaps the only?)
-editor that LSP is tested on. All of this makes LSP on
-something like Emacs a slow, tedious hog; adding further
-disappointment given the time taken to configure it.
+What VSCodium excels at, though, is the autocompletion, intellisense, /almost/
+baked-in like support for linting, checking, debugging. LSP is a first class
+citizen in VSCodium and VSCodium is the first (and perhaps the only?) editor
+that LSP is tested on. All of this makes LSP on something like Emacs a slow,
+tedious hog; adding further disappointment given the time taken to configure it.
 
-The solution -- or perhaps -- the best balance that I could
-find was in **doom** (pun intended). Doom Emacs (for now, at
-least) seems to do everything I need, OOTB; has a
-trouble-free way of adding language support. So I am
-throwing away (or refactoring?) my 1 year-in-the-making
-configuration of Emacs to find my peace in doom.
+The solution -- or perhaps -- the best balance that I could find was in **doom**
+(pun intended). Doom Emacs (for now, at least) seems to do everything I need,
+OOTB; has a trouble-free way of adding language support. So I am throwing away
+(or refactoring?) my 1 year-in-the-making configuration of Emacs to find my
+peace in doom.
 ** Bootstrap
 *** Setup
+- Creates =${HOME}/.config/doom= if it doesn't exist.
+- Clones Doom Emacs' repo to =${HOME}/.emacs.d= and runs =doom install=.
+- Lastly, calls =updateEmacs()=.
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
   setupEmacs() {
       echo -ne "Creating Doom Emacs directory..."
@@ -232,16 +227,21 @@ configuration of Emacs to find my peace in doom.
   }
 #+END_SRC
 *** Update
+- Creates a symbolic link of my =init.el=, =config.el= and =packages.el= at =${HOME}/.config/doom=.
+- Runs =doom sync= for Doom to fetch additional packages.
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
   updateEmacs() {
       echo -ne "Linking personal configuration..."
       run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
 
       echo -e "Refreshing Doom Emacs..."
-      "${HOME}/.emacs.d/bin/doom" refresh
+      "${HOME}/.emacs.d/bin/doom" sync
   }
 #+END_SRC
 ** Init
+Enable Doom's features.
+
 #+BEGIN_SRC emacs-lisp :tangle emacs/.config/doom/init.el
   ;;; init.el -*- lexical-binding: t; -*-
 
@@ -445,7 +445,7 @@ configuration of Emacs to find my peace in doom.
     include the header.
   - UI Doc child frame should have a different font which is smaller so as to
     fit more text
-- 'jk' should cause NORMAL state regardless of the order the keys are typed in
+- =jk= should cause NORMAL state regardless of the order the keys are typed in
 - Use 'IBM Plex Mono' for the UI and 'Iosevka' for code
 - Change background of comments to make them more readable
 - Move Ivy to a frame to emulate VSCodium like UI.
@@ -489,17 +489,16 @@ configuration of Emacs to find my peace in doom.
     '(org-block ((t (:inherit default :family "Iosevka"))))
     '(org-code ((t (:inherit default :family "Iosevka")))))
 
+  (setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
+  (setq +doom-dashboard-banner-padding '(1 . 2))
+  (setq centaur-tabs-gray-out-icons t)
   (setq centaur-tabs-height 60)
   (setq centaur-tabs-set-bar 'over)
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-style "box")
-  (setq centaur-tabs-gray-out-icons t)
-  (setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
-  (setq +doom-dashboard-banner-padding '(1 . 2))
-  (setq treemacs-width 25)
-  (setq evil-escape-unordered-key-sequence t)
-
   (setq company-idle-delay 0)
+  (setq evil-escape-unordered-key-sequence t)
+  (setq treemacs-width 25)
 
   (when (string= (system-name) "ruri")
     (setq doom-theme 'doom-outrun-electric)

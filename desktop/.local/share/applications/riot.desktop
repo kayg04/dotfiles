@@ -2,7 +2,7 @@
 [Desktop Entry]
 Name=Riot
 Comment=A feature-rich client for Matrix.org
-Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://riot.im/app/
+Exec=chromium --app=https://riot.im/app/
 Terminal=false
 Type=Application
 Icon=/home/kayg/Pictures/Icons/riot.png

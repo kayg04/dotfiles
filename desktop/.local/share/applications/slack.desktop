@@ -4,7 +4,7 @@ Name=Slack
 StartupWMClass=Slack
 Comment=Where work happens
 GenericName=Slack Desktop
-Exec=chromium --user-data-dir=${HOME}/.config/chromium/Apps --app=https://iiit-bhcoding.slack.com/
+Exec=chromium --app=https://iiit-bhcoding.slack.com/
 Icon=slack
 Terminal=false
 Type=Application

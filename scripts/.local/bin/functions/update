@@ -13,7 +13,7 @@ updateEmacs() {
     run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
 
     echo -e "Refreshing Doom Emacs..."
-    "${HOME}/.emacs.d/bin/doom" refresh
+    "${HOME}/.emacs.d/bin/doom" sync
 }
 
 updateFirefox() {
