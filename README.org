@@ -202,7 +202,7 @@ citizen in VSCodium and VSCodium is the first (and perhaps the only?) editor
 that LSP is tested on. All of this makes LSP on something like Emacs a slow,
 tedious hog; adding further disappointment given the time taken to configure it.
 
-The solution -- or perhaps -- the best balance that I could find was in **doom**
+The solution -- or perhaps -- the best balance that I could find was in *doom*
 (pun intended). Doom Emacs (for now, at least) seems to do everything I need,
 OOTB; has a trouble-free way of adding language support. So I am throwing away
 (or refactoring?) my 1 year-in-the-making configuration of Emacs to find my
