@@ -207,6 +207,7 @@ The solution -- or perhaps -- the best balance that I could find was in **doom**
 OOTB; has a trouble-free way of adding language support. So I am throwing away
 (or refactoring?) my 1 year-in-the-making configuration of Emacs to find my
 peace in doom.
+
 ** Bootstrap
 *** Setup
 - Creates =${HOME}/.config/doom= if it doesn't exist.
