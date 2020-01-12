@@ -1805,7 +1805,7 @@ This reads the same as the profiles section of Firefox.
 #+BEGIN_SRC sh :tangle zsh/etc/zsh/zshenv
   set +o GLOBAL_RCS
 
-  emulate sh -c "/etc/profile"
+  emulate sh -c "source /etc/profile"
 #+END_SRC
 ** Oh-my-zsh
 Settings specific to OMZ.
