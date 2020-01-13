@@ -90,7 +90,7 @@ ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
 ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
 
 # import helpers & functions
-source "${SCRIPTS_LOCAL_PATH}/helpers/helper"
+source "${SCRIPTS_LOCAL_PATH}/helpers/generic/helper"
 source "${SCRIPTS_LOCAL_PATH}/functions/setup"
 source "${SCRIPTS_LOCAL_PATH}/functions/update"
 
