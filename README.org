@@ -3,6 +3,9 @@
 #+PROPERTY: header-args :mkdirp yes
 
 * Index :TOC:
+- [[#usage][Usage]]
+  - [[#clone][Clone]]
+  - [[#dot][Dot]]
 - [[#chromium-ungoogled][Chromium (Ungoogled)]]
   - [[#bootstrap][Bootstrap]]
   - [[#environment-variables][Environment Variables]]
@@ -23,7 +26,7 @@
 - [[#scripts][Scripts]]
   - [[#bootstrap-4][Bootstrap]]
   - [[#functions][Functions]]
-  - [[#dot][Dot]]
+  - [[#dot-1][Dot]]
 - [[#ssh][SSH]]
   - [[#bootstrap-5][Bootstrap]]
   - [[#environment][Environment]]
@@ -44,6 +47,27 @@
   - [[#variables][Variables]]
   - [[#aliases][Aliases]]
   - [[#source][Source]]
+
+* Usage
+** Clone
+Clone the repo to any path you like. I keep mine at =${HOME}/.dotfiles=.
+
+#+BEGIN_SRC sh
+  git clone --recursive https://git.kayg.org/kayg/dotfiles.git "${HOME}/.dotfiles"
+#+END_SRC
+
+** Dot
+Make =dot= do all the dirty work.
+
+#+BEGIN_SRC sh
+  "${HOME}/.dotfiles/dot" setup dot
+
+  # Not necessary to refer by the absolute path if "${HOME}/.local/bin" is in your
+  # ${PATH} as in my zshrc
+  "${HOME}/.dotfiles/dot" setup zsh
+  "${HOME}/.dotfiles/dot" setup chromium
+  ...
+#+END_SRC
 
 * Chromium (Ungoogled)
 ** Bootstrap
