@@ -38,9 +38,6 @@ user_pref("privacy.resistFingerprinting.letterboxing", false);
 // Enable WebAssembly
 user_pref("javascript.options.wasm", true);
 
-// Enable captive portal
-user_pref("network.captive-portal-service.enabled", true);
-
 // Don't clear either of downloads, history or cookies on shutdown
 user_pref("privacy.clearOnShutdown.cookies", false);
 user_pref("privacy.clearOnShutdown.downloads", false);
