@@ -1486,7 +1486,7 @@ This reads the same as the profiles section of Firefox.
   [Profile0]
   Name=Primary
   IsRelative=1
-  Path=../.config/thunderbird/primary
+  Path=primary
   Default=1
 #+END_SRC
 * Tmux
