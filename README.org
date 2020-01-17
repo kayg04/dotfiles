@@ -1802,7 +1802,7 @@ This reads the same as the profiles section of Firefox.
           sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
 
           echo -ne "Installing oh-my-zsh..."
-          run sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+          run sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
           updateZSH
       else
