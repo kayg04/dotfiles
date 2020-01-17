@@ -18,6 +18,9 @@ setupEmacs() {
     echo -e "Unleashing Doom..."
     "${HOME}"/.emacs.d/bin/doom install
 
+    echo -e "Enable emacs service..."
+    systemctl --user enable emacs.service
+
     updateEmacs
 }
 

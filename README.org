@@ -248,6 +248,9 @@ peace in doom.
       echo -e "Unleashing Doom..."
       "${HOME}"/.emacs.d/bin/doom install
 
+      echo -e "Enable emacs service..."
+      systemctl --user enable emacs.service
+
       updateEmacs
   }
 #+END_SRC
