@@ -1846,10 +1846,13 @@ This reads the same as the profiles section of Firefox.
 #+END_SRC
 ** Environment
 - Disable lookup of global startup files (=zshenv= cannot be overriden).
+- set custom =${ZDOTDIR}=
 - Read =/etc/profile= in =sh= mode to set the environment.
+
 #+BEGIN_SRC sh :tangle zsh/etc/zsh/zshenv
   set +o GLOBAL_RCS
 
+  export ZDOTDIR="${HOME}/.config/zsh"
   emulate sh -c "source /etc/profile"
 #+END_SRC
 ** Oh-my-zsh
