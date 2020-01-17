@@ -35,7 +35,7 @@ updateFirefox() {
                             extName=$(echo "${ext}" | cut -d '/' -f7 | sed 's/\-/\ /g');
 
                             echo -e "  -> ${extName^}"
-                            setsid --fork firefox --profile "${FIREFOX_REMOTE_PATH}/${1}" --new-tab "${ext}" 2>/dev/null 1>&2
+                            setsid --fork firefox --profile "${FIREFOX_REMOTE_PATH}/${2}" --new-tab "${ext}" 2>/dev/null 1>&2
                         done
                     else
                         echo -e "Profile not found."
