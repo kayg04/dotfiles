@@ -13,13 +13,17 @@ setupEmacs() {
     echo -ne "Creating Doom Emacs directory..."
     run mkdir -p "${EMACS_REMOTE_PATH}"
 
-    fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
+    if [[ -d "${HOME}/.emacs.d" ]]; then
+        echo -e "Since installing Doom Emacs takes a long time, please remove ${HOME}/.emacs.d manually to confirm resetup."
+    else
+        fetchSrc "https://github.com/hlissner/doom-emacs" "${HOME}/.emacs.d"
 
-    echo -e "Unleashing Doom..."
-    "${HOME}"/.emacs.d/bin/doom install
+        echo -e "Unleashing Doom..."
+        "${HOME}/.emacs.d/bin/doom" install
 
-    echo -e "Enable emacs service..."
-    systemctl --user enable emacs.service
+        echo -e "Enable emacs service..."
+        systemctl --user enable emacs.service
+    fi
 
     updateEmacs
 }
@@ -55,12 +59,14 @@ EOF
 
     updateFirefox
 
+    set +o nounset
     if [[ "${DISPLAY}" ]]; then
         echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
         setsid --fork firefox --profileManager 2>/dev/null 1>&2
     else
         echo -e "Firefox has been succesfully setup.\nIt seems you've run this script from a TTY, so firefox will not be started automatically.\nWhen you first start firefox, start it with\n  firefox --profileManager\nAfter selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
     fi
+    set -o nounset
 }
 
 setupScripts() {
