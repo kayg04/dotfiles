@@ -94,6 +94,7 @@ setupTmux() {
 setupZSH() {
     if [[ ! -d "${ZSH_REMOTE_PATHS[OMZ]}" ]]; then
         echo -e "Moving zshenv to /etc/zsh (need root permissions)..."
+        sudo rm -rf "/etc/zsh"/*
         sudo cp "${SCRIPT_PATH}/zsh/etc/zsh/zshenv" "/etc/zsh"
 
         echo -ne "Installing oh-my-zsh..."
