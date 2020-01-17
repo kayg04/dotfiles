@@ -52,8 +52,12 @@ EOF
 
     updateFirefox
 
-    echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
-    setsid --fork firefox --profileManager 2>/dev/null 1>&2
+    if [[ "${DISPLAY}" ]]; then
+        echo -e "Firefox has been succesfully setup. After selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
+        setsid --fork firefox --profileManager 2>/dev/null 1>&2
+    else
+        echo -e "Firefox has been succesfully setup.\nIt seems you've run this script from a TTY, so firefox will not be started automatically.\nWhen you first start firefox, start it with\n  firefox --profileManager\nAfter selecting your default profile, please execute the following command to install extensions to your desired profile:\n\n\tdot update firefox --profile <profilename> --install-extensions\n\nHave a good day!"
+    fi
 }
 
 setupScripts() {
@@ -91,6 +95,9 @@ setupZSH() {
 
         echo -ne "Installing oh-my-zsh..."
         run sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+        echo -ne "Removing zsh files from ${HOME}..."
+        run rm -rf "${HOME}"/.z*
 
         updateZSH
     else
