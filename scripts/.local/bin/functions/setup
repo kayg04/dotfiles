@@ -70,6 +70,9 @@ EOF
 }
 
 setupScripts() {
+    echo -e "Creating ${SCRIPTS_REMOTE_PATH}..."
+    mkdir -p "${SCRIPTS_REMOTE_PATH}"
+
     updateScripts
 }
 

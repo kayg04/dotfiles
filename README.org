@@ -792,6 +792,9 @@ A few guidelines followed throughout these scripts:
 *** Setup
 #+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
   setupScripts() {
+      echo -e "Creating ${SCRIPTS_REMOTE_PATH}..."
+      mkdir -p "${SCRIPTS_REMOTE_PATH}"
+
       updateScripts
   }
 #+END_SRC
