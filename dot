@@ -29,6 +29,7 @@ FIREFOX_EXTENSIONS=(
     "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
     "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi"
     "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
+    "https://addons.mozilla.org/firefox/downloads/latest/cookie-autodelete/latest.xpi"
     "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi"
     "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi"
     "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi"
