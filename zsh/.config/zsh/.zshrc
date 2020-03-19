@@ -72,3 +72,6 @@ fi
 if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
     source /usr/share/nvm/init-nvm.sh
 fi
+
+export GOBIN="${HOME}/.local/bin"
+export GOPATH="${HOME}/.local/lib/go"

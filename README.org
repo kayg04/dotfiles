@@ -651,24 +651,7 @@ A few guidelines followed throughout these scripts:
 - Documentation for what the function does and why is provided.
 - A =$SCRIPT_PATH= is defined to determine the path of the each script.
 
-** Bootstrap
-*** Setup
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
-  setupScripts() {
-      echo -e "Creating ${SCRIPTS_REMOTE_PATH}..."
-      mkdir -p "${SCRIPTS_REMOTE_PATH}"
-
-      updateScripts
-  }
-#+END_SRC
-*** Update
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
-  updateScripts() {
-      echo -ne "Linking scripts..."
-      run ln -sf "${SCRIPTS_LOCAL_PATH}"/* "${SCRIPTS_REMOTE_PATH}"
-  }
-#+END_SRC
-** TODO Functions
+** TODO Homescripts
 *** Plasma
 **** Virtual Desktop Bar (KDE)
 - =fetchSource= gets the latest master from github and
@@ -838,8 +821,9 @@ problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
 becomes a problem for window managers if a custom layout or custom changes are
 to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
 been updated in years but still works).
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/spotify :shebang "#!/usr/bin/env bash"
+#+BEGIN_SRC sh :tangle scripts/.local/bin/spotify-wm-fix :shebang "#!/usr/bin/env bash"
   export SCRIPT_PATH=$(dirname $(realpath "$0"))
+  source "${SCRIPTS_LOCAL_PATH}/helpers/generic/helper"
 
   buildLibrary() {
       cd "${SCRIPT_PATH}/spotifywm"
@@ -861,6 +845,9 @@ been updated in years but still works).
       run "sed -Ei 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
   }
 #+END_SRC
+
+#+RESULTS:
+
 *** Utility
 **** Ungoogled Chromium Extension Updater
 - =USER_DATA_DIR= is your data directory for Chromium.
@@ -1055,6 +1042,23 @@ Functions:
   }
 
   main
+#+END_SRC
+** Bootstrap
+*** Setup
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
+  setupScripts() {
+      echo -e "Creating ${SCRIPTS_REMOTE_PATH}..."
+      mkdir -p "${SCRIPTS_REMOTE_PATH}"
+
+      updateScripts
+  }
+#+END_SRC
+*** Update
+#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
+  updateScripts() {
+      echo -ne "Linking scripts..."
+      run ln -sf "${SCRIPTS_LOCAL_PATH}"/* "${SCRIPTS_REMOTE_PATH}"
+  }
 #+END_SRC
 ** Dot
 *** Global
@@ -1803,9 +1807,14 @@ unless specified otherwise.
       alias nvim='vim'
   fi
 #+END_SRC
-** Source
+** NVM
 #+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
       source /usr/share/nvm/init-nvm.sh
   fi
+#+END_SRC
+** Go
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
+  export GOBIN="${HOME}/.local/bin"
+  export GOPATH="${HOME}/.local/lib/go"
 #+END_SRC
