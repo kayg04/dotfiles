@@ -14,7 +14,7 @@
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))
         ivy-posframe-height-alist '((t . 10)))
   (if (member "Iosevka" (font-family-list))
-      (setq ivy-posframe-parameters '((internal-border-width . 12) (font . "Iosevka")))
+      (setq ivy-posframe-parameters '((internal-border-width . 12) (font . "Iosevka") (alpha . 80)))
     ivy-posframe-parameters '((internal-border-width . 12)))
   (setq ivy-posframe-width 100)
   (ivy-posframe-mode +1))
@@ -36,8 +36,8 @@
   '(org-block ((t (:inherit default :family "Iosevka"))))
   '(org-code ((t (:inherit default :family "Iosevka")))))
 
-(setq +doom-dashboard-banner-file "/home/kayg/Downloads/banner.jpg")
-(setq +doom-dashboard-banner-padding '(1 . 2))
+(setq +doom-dashboard-banner-file "~/.config/doom/banner.jpg")
+(setq +doom-dashboard-banner-padding '(2 . 3))
 (setq centaur-tabs-gray-out-icons t)
 (setq centaur-tabs-height 60)
 (setq centaur-tabs-set-bar 'over)
@@ -47,13 +47,29 @@
 (setq evil-escape-unordered-key-sequence t)
 (setq treemacs-width 25)
 
+;; transparency
+(defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(85 . 70) '(100 . 100)))))
+
+(toggle-transparency)
+(toggle-transparency)
+
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
   (setq doom-outrun-electric-comment-bg t)
-  (setq doom-font (font-spec :family "IBM Plex Mono" :size 28 :weight 'semi-bold)
-        doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 26 :weight 'semi-bold)
-        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 28)
-        doom-big-font (font-spec :family "IBM Plex Mono" :size 44 :weight 'bold)))
+  (setq doom-font (font-spec :family "IBM Plex Mono" :size 34 :weight 'semi-bold)
+        doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 32 :weight 'semi-bold)
+        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
+        doom-big-font (font-spec :family "IBM Plex Mono" :size 48 :weight 'bold)))
 
 (when (string= (system-name) "nana")
   (setq doom-theme 'doom-dracula)
