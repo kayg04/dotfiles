@@ -18,7 +18,8 @@
 
        :completion
        company           ; the ultimate code completion backend
-       ivy               ; a search engine for love and life
+       (ivy               ; a search engine for love and life
+        +childframe)
 
        :ui
        doom              ; what makes DOOM look the way it does
