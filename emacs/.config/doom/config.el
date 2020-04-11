@@ -28,13 +28,12 @@
           (lambda (frame _w)
             (set-face-attribute 'default frame :font "IBM Plex Sans" :height 120)))
 
+(add-hook! 'text-mode-hook
+  (mixed-pitch-mode 1)
+  (display-line-numbers-mode -1))
+
 (add-hook! 'prog-mode-hook
   (face-remap-add-relative 'default 'my-prog-mode-default-face))
-
-(custom-theme-set-faces
-  'user
-  '(org-block ((t (:inherit default :family "Iosevka"))))
-  '(org-code ((t (:inherit default :family "Iosevka")))))
 
 (setq +doom-dashboard-banner-file "~/.config/doom/banner.jpg")
 (setq +doom-dashboard-banner-padding '(2 . 3))
@@ -60,20 +59,22 @@
                100)
           '(85 . 70) '(100 . 100)))))
 
-(toggle-transparency)
-(toggle-transparency)
+; Turn off hard-wrapping of lines
+(turn-off-auto-fill)
+; Use soft-wrapping instead
+(+global-word-wrap-mode 1)
 
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
   (setq doom-outrun-electric-comment-bg t)
   (setq doom-font (font-spec :family "IBM Plex Mono" :size 34 :weight 'semi-bold)
-        doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 32 :weight 'semi-bold)
+        doom-variable-pitch-font (font-spec :family "Google Sans" :size 32 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
         doom-big-font (font-spec :family "IBM Plex Mono" :size 48 :weight 'bold)))
 
 (when (string= (system-name) "nana")
   (setq doom-theme 'doom-dracula)
   (setq doom-font (font-spec :family "SF Mono" :size 20 :weight 'semi-bold)
-        doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 18 :weight 'semi-bold)
+        doom-variable-pitch-font (font-spec :family "SF Display" :size 18 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 20)
         doom-big-font (font-spec :family "SF Mono" :size 36 :weight 'semi-bold)))
