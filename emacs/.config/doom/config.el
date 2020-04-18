@@ -28,9 +28,13 @@
           (lambda (frame _w)
             (set-face-attribute 'default frame :font "IBM Plex Sans" :height 120)))
 
+;; set relative line numbers in all modes
+(setq display-line-numbers-type 'relative)
+
+;; set mixed-pitch in text modes, disable line numbers totally
 (add-hook! 'text-mode-hook
   (mixed-pitch-mode 1)
-  (display-line-numbers-mode -1))
+  (setq display-line-numbers-type nil))
 
 (add-hook! 'prog-mode-hook
   (face-remap-add-relative 'default 'my-prog-mode-default-face))
