@@ -57,6 +57,8 @@
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        ibuffer           ; interactive buffer management
+       (undo              ; persistent, smarter undo for your inevitable mistakes
+        +tree)
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -77,11 +79,11 @@
        rgb               ; creating color strings
 
        :lang
-       (cc                ; C/C++/Obj-C madness
+       (cc               ; C/C++/Obj-C madness
         +lsp)
        data              ; config/data formats
        emacs-lisp        ; drown in parentheses
-       (go                ; the hipster dialect
+       (go               ; the hipster dialect
         +lsp)
        (haskell +intero) ; a language that's lazier than I am
        markdown          ; writing docs for people to ignore
