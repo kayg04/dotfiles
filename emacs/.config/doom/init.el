@@ -76,6 +76,7 @@
         +docsets)        ; ...or in Dash docsets locally
        lsp
        magit             ; a git porcelain for Emacs
+       pdf               ; pdf enhancements
        rgb               ; creating color strings
 
        :lang

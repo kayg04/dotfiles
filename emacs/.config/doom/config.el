@@ -64,6 +64,12 @@
 ; Use soft-wrapping instead
 (+global-word-wrap-mode 1)
 
+;; ePUB documents
+(use-package! nov
+  :mode ("\\.epub\\'" . nov-mode)
+  :config
+  (setq nov-save-place-file (concat doom-cache-dir "nov-places")))
+
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
   (setq doom-outrun-electric-comment-bg t)
