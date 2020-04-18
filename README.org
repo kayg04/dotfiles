@@ -156,36 +156,14 @@ Describes a desktop entry which opens Slack's webapp in Chromium.
   Categories=GNOME;GTK;Network;InstantMessaging;
 #+END_SRC
 * Emacs
-After an year of configuring Emacs, I have somehow reached exactly at a point
-which mimics the style and philosophy of Doom Emacs without realizing it.
-Although my configuration was, at heart, a doomacs; in performance and
+After an year of configuring Emacs, I have somehow reached exactly at a point which mimics the style and philosophy of Doom Emacs without realizing it. Although my configuration was, at heart, a doomacs; in performance and
 functionality, it lagged behind by a significant margin.
 
-I have found myself frustrated by the fact that I have to bake in functionality
-of every kind when I'm in /need/ of that particular functionality, and hence, a
-lot of time was spent in adding functionality rather than being creative or
-productive. My first train of thought was to try something which abstracted all
-of this functionality into a single click -- something like VSCodium -- but the
-problem with that particular editor is it isn't particularly hackable. Apart
-from a hundred or so rants about how lacking VSCodium is to my pal [[https://pandacowbat.com][Anwes]], one
-particular thing that irked me a lot was the incessant need to reach for the
-mouse for something or the other. I would have to change the whole keyboard
-shortcuts layout to customize it to my needs and what was worse is that I would
-have to remember two of those layouts -- one which worked with the vim emulation
-and one which worked with native VSCodium -- and the latter doesn't even support
-three key chord bindings at the time of writing this.
+I have found myself frustrated by the fact that I have to bake in functionality of every kind when I'm in /need/ of that particular functionality, and hence, a lot of time was spent in adding functionality rather than being creative or productive. My first train of thought was to try something which abstracted all of this functionality into a single click -- something like VSCodium -- but the problem with that particular editor is it isn't particularly hackable. Apart from a hundred or so rants about how lacking VSCodium is to my pal [[https://pandacowbat.com][Anwes]], one particular thing that irked me a lot was the incessant need to reach for the mouse for something or the other. I would have to change the whole keyboard shortcuts layout to customize it to my needs and what was worse is that I would have to remember two of those layouts -- one which worked with the vim emulation and one which worked with native VSCodium -- and the latter doesn't even support three key chord bindings at the time of writing this.
 
-What VSCodium excels at, though, is the autocompletion, intellisense, /almost/
-baked-in like support for linting, checking, debugging. LSP is a first class
-citizen in VSCodium and VSCodium is the first (and perhaps the only?) editor
-that LSP is tested on. All of this makes LSP on something like Emacs a slow,
-tedious hog; adding further disappointment given the time taken to configure it.
+What VSCodium excels at, though, is the autocompletion, intellisense, /almost/ baked-in like support for linting, checking, debugging. LSP is a first class citizen in VSCodium and VSCodium is the first (and perhaps the only?) editor that LSP is tested on. All of this makes LSP on something like Emacs a slow, tedious hog; adding further disappointment given the time taken to configure it.
 
-The solution -- or perhaps -- the best balance that I could find was in *doom*
-(pun intended). Doom Emacs (for now, at least) seems to do everything I need,
-OOTB; has a trouble-free way of adding language support. So I am throwing away
-(or refactoring?) my 1 year-in-the-making configuration of Emacs to find my
-peace in doom.
+The solution -- or perhaps -- the best balance that I could find was in *doom* (pun intended). Doom Emacs (for now, at least) seems to do everything I need, OOTB; has a trouble-free way of adding language support. So I am throwing away (or refactoring?) my 1 year-in-the-making configuration of Emacs to find my peace in doom.
 
 ** Bootstrap
 *** Setup
@@ -250,7 +228,8 @@ Enable Doom's features.
 
          :completion
          company           ; the ultimate code completion backend
-         ivy               ; a search engine for love and life
+         (ivy               ; a search engine for love and life
+          +childframe)
 
          :ui
          doom              ; what makes DOOM look the way it does
@@ -282,11 +261,14 @@ Enable Doom's features.
          multiple-cursors  ; editing in many places at once
          rotate-text       ; cycle region at point between text candidates
          snippets          ; my elves. They type so I don't have to
+         word-wrap         ; soft wrapping with language-aware indent
 
          :emacs
          dired             ; making dired pretty [functional]
          electric          ; smarter, keyword-based electric-indent
          ibuffer           ; interactive buffer management
+         (undo              ; persistent, smarter undo for your inevitable mistakes
+          +tree)
          vc                ; version-control and Emacs, sitting in a tree
 
          :term
@@ -304,14 +286,15 @@ Enable Doom's features.
           +docsets)        ; ...or in Dash docsets locally
          lsp
          magit             ; a git porcelain for Emacs
+         pdf               ; pdf enhancements
          rgb               ; creating color strings
 
          :lang
-         (cc                ; C/C++/Obj-C madness
+         (cc               ; C/C++/Obj-C madness
           +lsp)
          data              ; config/data formats
          emacs-lisp        ; drown in parentheses
-         (go                ; the hipster dialect
+         (go               ; the hipster dialect
           +lsp)
          (haskell +intero) ; a language that's lazier than I am
          markdown          ; writing docs for people to ignore
@@ -339,10 +322,8 @@ Enable Doom's features.
 - Modified LSP UI settings for better visibility
   - UI Doc should display longer but fewer lines
   - UI Doc should show up under cursor rather than at bottom or top
-  - Since UI Doc child frame overlaps the line, it is visually helpful to
-    include the header.
-  - UI Doc child frame should have a different font which is smaller so as to
-    fit more text
+  - Since UI Doc child frame overlaps the line, it is visually helpful to include the header
+  - UI Doc child frame should have a different font which is smaller so as to fit more text
 - =jk= should cause NORMAL state regardless of the order the keys are typed in
 - Use 'IBM Plex Mono' for the UI and 'Iosevka' for code
 - Change background of comments to make them more readable
@@ -379,13 +360,16 @@ Enable Doom's features.
             (lambda (frame _w)
               (set-face-attribute 'default frame :font "IBM Plex Sans" :height 120)))
 
+  ;; set relative line numbers in all modes
+  (setq display-line-numbers-type 'relative)
+
+  ;; set mixed-pitch in text modes, disable line numbers totally
+  (add-hook! 'text-mode-hook
+    (mixed-pitch-mode 1)
+    (setq display-line-numbers-type nil))
+
   (add-hook! 'prog-mode-hook
     (face-remap-add-relative 'default 'my-prog-mode-default-face))
-
-  (custom-theme-set-faces
-    'user
-    '(org-block ((t (:inherit default :family "Iosevka"))))
-    '(org-code ((t (:inherit default :family "Iosevka")))))
 
   (setq +doom-dashboard-banner-file "~/.config/doom/banner.jpg")
   (setq +doom-dashboard-banner-padding '(2 . 3))
@@ -411,32 +395,41 @@ Enable Doom's features.
                  100)
             '(85 . 70) '(100 . 100)))))
 
-  (toggle-transparency)
-  (toggle-transparency)
+  ; Turn off hard-wrapping of lines
+  (turn-off-auto-fill)
+  ; Use soft-wrapping instead
+  (+global-word-wrap-mode 1)
+
+  ;; ePUB documents
+  (use-package! nov
+    :mode ("\\.epub\\'" . nov-mode)
+    :config
+    (setq nov-save-place-file (concat doom-cache-dir "nov-places")))
 
   (when (string= (system-name) "ruri")
     (setq doom-theme 'doom-outrun-electric)
     (setq doom-outrun-electric-comment-bg t)
     (setq doom-font (font-spec :family "IBM Plex Mono" :size 34 :weight 'semi-bold)
-          doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 32 :weight 'semi-bold)
+          doom-variable-pitch-font (font-spec :family "Google Sans" :size 32 :weight 'semi-bold)
           doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
           doom-big-font (font-spec :family "IBM Plex Mono" :size 48 :weight 'bold)))
 
   (when (string= (system-name) "nana")
     (setq doom-theme 'doom-dracula)
     (setq doom-font (font-spec :family "SF Mono" :size 20 :weight 'semi-bold)
-          doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 18 :weight 'semi-bold)
+          doom-variable-pitch-font (font-spec :family "SF Display" :size 18 :weight 'semi-bold)
           doom-unicode-font (font-spec :family "Input Mono Narrow" :size 20)
           doom-big-font (font-spec :family "SF Mono" :size 36 :weight 'semi-bold)))
 #+END_SRC
 ** Packages
 Add extra packages
+
 #+BEGIN_SRC emacs-lisp :tangle emacs/.config/doom/packages.el
   (package! caddyfile-mode)
   (package! command-log-mode)
   (package! dockerfile-mode)
   (package! docker-compose-mode)
-  (package! ivy-posframe)
+  (package! nov)
 #+END_SRC
 * Firefox
 ** Bootstrap
@@ -535,35 +528,18 @@ Add extra packages
   }
 #+END_SRC
 ** Profiles
-- =StartWithLastProfile= ensures a profile choice isn't
-  asked at startup.
+- =StartWithLastProfile= ensures a profile choice isn't asked at startup.
 
-Sometimes Firefox amazes me by how customizable it is. I have +two+ three profiles
-with Firefox; one for browsing, one for /research/ and one for web applications.
-Since a lot of my research gets lost and I'm unable to refer to previous
-findings, it helps to have a separate profile. All profiles are stored in a
-standardized XDG configuration directory (=~/.config/firefox=) rather than the
-default (=~/.mozilla/firefox/=). I would also rather name my own profiles than
-let firefox name them randomly.
+Sometimes Firefox amazes me by how customizable it is. I have +two+ three profiles with Firefox; one for browsing, one for /research/ and one for web applications. Since a lot of my research gets lost and I'm unable to refer to previous findings, it helps to have a separate profile. All profiles are stored in a standardized XDG configuration directory (=~/.config/firefox=) rather than the default (=~/.mozilla/firefox/=). I would also rather name my own profiles than let firefox name them randomly.
 
-+I tried running Electron Apps with it but sadly, things+ +like pasting images from
-clipboard and downloading files+ +from Skype (yes, my workplace uses *Skype* in
-2019, *groan*)+ +do not work. Hence I now rely on Ungoogled Chromium to do my+ +dirty
-work.+
++I tried running Electron Apps with it but sadly, things+ +like pasting images from clipboard and downloading files+ +from Skype (yes, my workplace uses *Skype* in 2019, *groan*)+ +do not work. Hence I now rely on Ungoogled Chromium to do my+ +dirty work.+
 
-+I tried using ungoogled chromium for dirty web apps but+ +recently, on Arch Linux,
-=libjsoncpp= got an update and+ +broke chromium which isn't as regularly built as
-the+ +upstream binaries. So though, clipboard interaction was a+ +sweet feature to
-have, I can let it go for relatively good+ +stability.+
++I tried using ungoogled chromium for dirty web apps but+ +recently, on Arch Linux, =libjsoncpp= got an update and+ +broke chromium which isn't as regularly built as the+ +upstream binaries. So though, clipboard interaction was a+ +sweet feature to have, I can let it go for relatively good+ +stability.+
 
 Ungoogled Chromium works again!
 
-Although things work fine with UC, I'm unsure if Chromium profiles actually
-provide a /temporary-container/ sort of isolation. I say this because tabs on
-different profiles show up as normal tabs in the task manager which would mean
-that an application running on one profile is externally aware. Please correct
-me on this if you have more information. I also miss the declarative
-configuration that Firefox offers as I reinstall often.
+Although things work fine with UC, I'm unsure if Chromium profiles actually provide a /temporary-container/ sort of isolation. I say this because tabs on different profiles show up as normal tabs in the task manager which would mean that an application running on one profile is externally aware. Please correct me on this if you have more information. I also miss the declarative configuration that Firefox offers as I reinstall often.
+
 #+BEGIN_SRC conf :tangle firefox/.mozilla/firefox/profiles.ini
   [General]
   StartWithLastProfile=1
@@ -581,10 +557,8 @@ configuration that Firefox offers as I reinstall often.
   Default=0
 #+END_SRC
 ** UserJS
-I use GHacks' UserJS which I think is an excellent beginner
-point towards making your own customizations as it allows
-you to focus on tweaking for usablity from an already
-privacy-centered configuration.
+I use GHacks' UserJS which I think is an excellent beginner point towards making your own customizations as it allows you to focus on tweaking for usablity from an already privacy-centered configuration.
+
 #+BEGIN_SRC js :tangle firefox/.mozilla/firefox/user-overrides.js
   // +++ GPU +++ //
 
@@ -662,181 +636,15 @@ A few guidelines followed throughout these scripts:
 
 - Output is silenced and is replaced by friendly messages.
 - Errors are handled explicitly instead of letting the script fail.
-- Each task is divided into functions, no matter how small.
-  The main function looks like nothing more than a series of steps (function calls).
+- Each task is divided into functions, no matter how small. The main function looks like nothing more than a series of steps (function calls).
 - Documentation for what the function does and why is provided.
 - A =$SCRIPT_PATH= is defined to determine the path of the each script.
 
 ** TODO Homescripts
-*** Plasma
-**** Virtual Desktop Bar (KDE)
-- =fetchSource= gets the latest master from github and
-  places it in a subdirectory.
-- =installDeps= installs the missing dependencies required
-  for building virtual desktop bar.
-- =buildTarget= executes a list of commands as mentioned on
-  the github page for building the widget.
-- =installTarget= runs =make install= to copy the built
-  target into the appropriate plasma directory.
-- Lastly, =cleanUp= removes the downloaded source.
-
-#+BEGIN_SRC sh :tangle scripts/.local/bin/vdb :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/wsdfhjxc/virtual-desktop-bar.git"
-
-  fetchSource() {
-      echo -e "Fetching source..."
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/virtual-desktop-bar; then
-          echo -e "\t-> Source fetched successfully."
-      else
-          echo -e "\t-> Source couldn't be fetched."
-      fi
-  }
-
-  installDeps() {
-      echo -e "Installing dependencies (if any)..."
-
-      if sudo pacman --sync --noconfirm --needed cmake extra-cmake-modules gcc 1> /dev/null 2>&1; then
-          echo -e "\t-> Installed all required dependencies."
-      else
-          echo -e "\t-> All dependencies could not be installed!"
-      fi
-  }
-
-  buildTarget() {
-      cd "${SCRIPT_PATH}"/virtual-desktop-bar
-      mkdir -p "${SCRIPT_PATH}"/virtual-desktop-bar/build
-      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-
-      echo -e "Generating configuration..."
-      if cmake "${SCRIPT_PATH}"/virtual-desktop-bar 1> /dev/null 2>&1; then
-          echo -e "\t-> Configuration generated."
-      else
-          echo -e "\t-> Configuration generation failed!"
-      fi
-
-      echo -e "Building Virtual Desktop Bar..."
-      if make -j$(nproc) 1> /dev/null; then
-          echo -e "\t-> Building successful."
-      else
-          echo -e "\t-> Building failed!"
-      fi
-  }
-
-  installTarget() {
-      cd "${SCRIPT_PATH}"/virtual-desktop-bar/build
-
-      echo -e "Installing target (need root permissions)..."
-      if sudo make install 1> /dev/null 2>&1; then
-          echo -e "\t-> Installing successful."
-      else
-          echo -e "\t-> Installing failed!"
-      fi
-  }
-
-  cleanUp() {
-      echo -e "Cleaning up all the cruft..."
-      rm -rf "${SCRIPT_PATH}"/virtual-desktop-bar
-  }
-
-  main() {
-      if [[ -d "${SCRIPT_PATH}"/virtual-desktop-bar ]]; then
-          cleanUp
-      fi
-
-      fetchSource
-      installDeps
-      buildTarget
-      installTarget
-      cleanUp
-  }
-
-  main
-#+END_SRC
-**** KWin Tiling Script (Faho)
-Mostly the same as /Virtual Desktop Bar/ sans the building.
-The quirk here is to symlink a =.desktop= file for the gooey
-configuration section to appear.
-
-There is also an update step which is necessary if the
-script has been previously installed.
-
-#+BEGIN_SRC sh :tangle scripts/.local/bin/kwts :shebang "#!/usr/bin/env bash"
-  # import sanity
-  set -euo pipefail
-
-  # global declarations
-  SCRIPT_PATH=$(dirname $(realpath "$0"))
-  URL="https://github.com/kwin-scripts/kwin-tiling.git"
-
-  fetchSource() {
-      echo -e "Fetching source..."
-      if git clone --quiet "${URL}" "${SCRIPT_PATH}"/kwin-tiling; then
-          echo -e "\t-> Source fetched successfully."
-      else
-          echo -e "\t-> Source couldn't be fetched."
-      fi
-  }
-
-  installScript() {
-      echo -e "Installing KWin Tiling Script..."
-      if plasmapkg2 --type kwinscript --install "${SCRIPT_PATH}"/kwin-tiling 1>/dev/null 2>&1; then
-          echo -e "\t-> Installation successful."
-      else
-          echo -e "\t-> Installation failed!"
-      fi
-  }
-
-  updateScript() {
-      echo -e "Updating KWin Tiling Script..."
-      if plasmapkg2 --type kwinscript --upgrade "${SCRIPT_PATH}"/kwin-tiling 1> /dev/null 2>&1; then
-          echo -e "\t-> Update successful."
-      else
-          echo -e "\t-> Update failed!"
-      fi
-  }
-
-  fixConf() {
-      # necessary for configuration option in KWin Scripts menu
-      mkdir -p "${HOME}"/.local/share/kservices5
-      ln -sf "${HOME}"/.local/share/kwin/scripts/kwin-script-tiling/metadata.desktop "${HOME}"/.local/share/kservices5/kwin-script-tiling.desktop
-  }
-
-  cleanUp() {
-      echo -e "Cleaning up all the cruft..."
-      rm -rf "${SCRIPT_PATH}"/kwin-tiling
-  }
-
-  main() {
-      if [[ -d "${SCRIPT_PATH}"/kwin-tiling ]]; then
-          cleanUp
-      fi
-
-      fetchSource
-      if [[ -d /home/kayg/.local/share/kwin/scripts/kwin-script-tiling ]]; then
-          updateScript
-      else
-          installScript
-      fi
-
-      fixConf
-      cleanUp
-  }
-
-  main
-#+END_SRC
 *** Spotify
 **** WM Name
-Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
-to at least have a client, right? But that does not mean the community can't fix
-problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which
-becomes a problem for window managers if a custom layout or custom changes are
-to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't
-been updated in years but still works).
+Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad to at least have a client, right? But that does not mean the community can't fix problems that can be fixed. When Spotify starts, it does not set $WM_CLASS which becomes a problem for window managers if a custom layout or custom changes are to be defined for that particular window. A simple fix was provided [[https://github.com/dasJ/spotifywm][here]] (hasn't been updated in years but still works).
+
 #+BEGIN_SRC sh :tangle scripts/.local/bin/spotify-wm-fix :shebang "#!/usr/bin/env bash"
   export SCRIPT_PATH=$(dirname $(realpath "$0"))
   source "${SCRIPTS_LOCAL_PATH}/helpers/generic/helper"
@@ -1724,6 +1532,13 @@ This reads the same as the profiles section of Firefox.
           fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
       done
 
+      echo -ne "Installing powerlevel10k..."
+      if [[ -d "${ZSH_REMOTE_PATHS[CUSTOM]}/themes/powerlevel10k" ]]; then
+          run 'cd "${ZSH_REMOTE_PATHS[CUSTOM]}/themes/powerlevel10k" && git pull'
+      else
+          run git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_REMOTE_PATHS[CUSTOM]}/themes/powerlevel10k"
+      fi
+
       echo -ne "Linking personal configuration..."
       run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
   }
@@ -1741,12 +1556,13 @@ This reads the same as the profiles section of Firefox.
 #+END_SRC
 ** Oh-my-zsh
 Settings specific to OMZ.
+
 #+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   # Path to oh-my-zsh installation.
   export ZSH="${ZDOTDIR}"
 
   # Set OMZ theme
-  ZSH_THEME="agnoster"
+  ZSH_THEME="powerlevel10k/powerlevel10k"
 
   # Save history at a custom location
   HISTFILE="${ZSH}/.zsh_history"
@@ -1778,24 +1594,39 @@ Settings specific to OMZ.
 #+END_SRC
 ** Functions
 *** Weather
-Fetches the current weather from wttr.in, assumes my city
-unless specified otherwise.
-#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
+Fetches the current weather from wttr.in, assumes my city unless specified otherwise.
 
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   wttr() {
       curl https://wttr.in/${1:-Bhubaneswar}
   }
 #+END_SRC
-** Variables
+*** Coronavirus
+Fetches stats for the ongoing pandemic. The default country is set to India.
+
 #+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
-  # PATH
-  export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
+  c19() {
+      curl https://corona-stats.online/${1:-in}
+  }
 
-  # GO
-  export GOPATH="${HOME}/.go"
+  c19-graph() {
+      curl https://corona-stats.online/${1:-in}/graph
+  }
+#+END_SRC
+** Variables
+*** Go
+Set the environment variables required for development with Golang.
+
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   export GOBIN="${HOME}/.local/bin"
-
-  # ZSH
+  export GOPATH="${HOME}/.local/lib/go"
+#+END_SRC
+*** Path
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
+  export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
+#+END_SRC
+*** ZSH
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   # Fetch suggestions asynchronously
   export ZSH_AUTOSUGGEST_USE_ASYNC=1
   # order of strategies to try
@@ -1807,30 +1638,32 @@ unless specified otherwise.
   export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 #+END_SRC
 ** Aliases
+- Whenever I use kitty, I'd like to use its inbuilt image viewer which is rather nice for displaying images in a terminal. I know it's a gimmick but it's a very nice gimmick.
+- I do not like how I occasionally open one of {vi,vim,neovim} to quickly edit some files. This is rather anti-pattern as I have the emacs daemon running all the time. So to prevent that sort of a thing, I alias =vim= and =nvim= to =emacsclient=. And if I really gotta use them, appending =really= to =vim= and =nvim= opens them.
+
 #+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   if command -v kitty 2>/dev/null 1>&2; then
       alias icat="kitty +kitten icat"
   fi
 
-  if [[ -d "${HOME}/.config/emacs" ]]; then
+  if [[ -d "${HOME}/.config/emacs" || -d "${HOME}/.config/doom" ]]; then
       if command -v vim 2>/dev/null 1>&2; then
           alias vimreally=$(command -v vim)
-      elif command -v nvim 2>/dev/null 1>&2; then
-          alias vimreally=$(command -v nvim)
+      fi
+
+      if command -v nvim 2>/dev/null 1>&2; then
+          alias nvimreally=$(command -v nvim)
       fi
 
       alias vim='emacsclient -tty'
       alias nvim='vim'
   fi
 #+END_SRC
-** NVM
+** Node version manager
+NVM needs a few environment variables to be set for its magic to work. The script below sources those changes into the shell.
+
 #+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
   if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
       source /usr/share/nvm/init-nvm.sh
   fi
-#+END_SRC
-** Go
-#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
-  export GOBIN="${HOME}/.local/bin"
-  export GOPATH="${HOME}/.local/lib/go"
 #+END_SRC
