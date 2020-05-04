@@ -1,8 +1,15 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to oh-my-zsh installation.
 export ZSH="${ZDOTDIR}"
 
 # Set OMZ theme
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Save history at a custom location
 HISTFILE="${ZSH}/.zsh_history"
@@ -36,14 +43,19 @@ wttr() {
     curl https://wttr.in/${1:-Bhubaneswar}
 }
 
-# PATH
+c19() {
+    curl https://corona-stats.online/${1:-in}
+}
+
+c19-graph() {
+    curl https://corona-stats.online/${1:-in}/graph
+}
+
+export GOBIN="${HOME}/.local/bin"
+export GOPATH="${HOME}/.local/lib/go"
+
 export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
 
-# GO
-export GOPATH="${HOME}/.go"
-export GOBIN="${HOME}/.local/bin"
-
-# ZSH
 # Fetch suggestions asynchronously
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 # order of strategies to try
@@ -58,11 +70,13 @@ if command -v kitty 2>/dev/null 1>&2; then
     alias icat="kitty +kitten icat"
 fi
 
-if [[ -d "${HOME}/.config/emacs" ]]; then
+if [[ -d "${HOME}/.config/emacs" || -d "${HOME}/.config/doom" ]]; then
     if command -v vim 2>/dev/null 1>&2; then
         alias vimreally=$(command -v vim)
-    elif command -v nvim 2>/dev/null 1>&2; then
-        alias vimreally=$(command -v nvim)
+    fi
+
+    if command -v nvim 2>/dev/null 1>&2; then
+        alias nvimreally=$(command -v nvim)
     fi
 
     alias vim='emacsclient -tty'
@@ -73,5 +87,5 @@ if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
     source /usr/share/nvm/init-nvm.sh
 fi
 
-export GOBIN="${HOME}/.local/bin"
-export GOPATH="${HOME}/.local/lib/go"
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

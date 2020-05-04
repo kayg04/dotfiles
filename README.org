@@ -668,6 +668,16 @@ Spotify treats Linux as a second-class citizen. Everybody knows that. We're glad
       echo -ne "Making changes in the desktop file..."
       run "sed -Ei 's/^Exec=(.*)/Exec=LD_PRELOAD=\/usr\/lib\/spotifywm.so \1/g' "${HOME}"/.local/share/applications/spotify.desktop"
   }
+
+  main() {
+      buildLibrary
+      moveLibrary
+      fixSpotify
+
+      exit 0
+  }
+
+  main
 #+END_SRC
 
 #+RESULTS:
@@ -1554,6 +1564,15 @@ This reads the same as the profiles section of Firefox.
   export ZDOTDIR="${HOME}/.config/zsh"
   emulate sh -c "source /etc/profile"
 #+END_SRC
+** Powerlevel10k (Init)
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
+  # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+  # Initialization code that may require console input (password prompts, [y/n]
+  # confirmations, etc.) must go above this block; everything else may go below.
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+#+END_SRC
 ** Oh-my-zsh
 Settings specific to OMZ.
 
@@ -1666,4 +1685,9 @@ NVM needs a few environment variables to be set for its magic to work. The scrip
   if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
       source /usr/share/nvm/init-nvm.sh
   fi
+#+END_SRC
+** Powerlevel10k (Config)
+#+BEGIN_SRC sh :tangle zsh/.config/zsh/.zshrc
+  # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+  [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 #+END_SRC

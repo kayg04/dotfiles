@@ -100,6 +100,13 @@ updateZSH() {
         fetchSrc "${ZSH_PLUGINS_SRC[${plugin}]}" "${ZSH_PLUGINS_DEST[${plugin}]}"
     done
 
+    echo -ne "Installing powerlevel10k..."
+    if [[ -d "${ZSH_REMOTE_PATHS[CUSTOM]}/themes/powerlevel10k" ]]; then
+        run 'cd "${ZSH_REMOTE_PATHS[CUSTOM]}/themes/powerlevel10k" && git pull'
+    else
+        run git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_REMOTE_PATHS[CUSTOM]}/themes/powerlevel10k"
+    fi
+
     echo -ne "Linking personal configuration..."
     run ln -sf "${ZSH_LOCAL_PATH}/.zshrc" "${ZSH_REMOTE_PATHS[ZSH]}"
 }
