@@ -105,56 +105,6 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   --force-dark-mode
   --enable-features=WebUIDarkMode
 #+END_SRC
-* Desktop
-** Bootstrap
-*** Setup
-Creates the =${HOME}/.local/share/applications= directory if it doesn't exist and
-calls =updateDesktop()=.
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/setup
-  setupDesktop() {
-      echo -ne "Creating desktop apps directory..."
-      run mkdir -p "${DESKTOP_REMOTE_PATH}"
-
-      updateDesktop
-  }
-#+END_SRC
-*** Update
-Creates symbolic links of all =.desktop= files from the current directory to =${HOME}/.local/share/applications=.
-#+BEGIN_SRC sh :tangle scripts/.local/bin/functions/update
-  updateDesktop() {
-      echo -ne "Linking desktop apps..."
-      run ln -sf "${DESKTOP_LOCAL_PATH}"/*.desktop "${DESKTOP_REMOTE_PATH}"
-  }
-#+END_SRC
-** Riot
-Describes a desktop entry which opens Riot's webapp in Chromium.
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/riot.desktop :shebang "#!/usr/bin/env xdg-open"
-  [Desktop Entry]
-  Name=Riot
-  Comment=A feature-rich client for Matrix.org
-  Exec=chromium --app=https://riot.im/app/
-  Terminal=false
-  Type=Application
-  Icon=/home/kayg/Pictures/Icons/riot.png
-  StartupWMClass="Riot"
-  Categories=Network;InstantMessaging;Chat;IRCClient
-#+END_SRC
-** Slack
-Describes a desktop entry which opens Slack's webapp in Chromium.
-#+BEGIN_SRC conf :tangle desktop/.local/share/applications/slack.desktop :shebang "#!/usr/bin/env xdg-open"
-  [Desktop Entry]
-  Name=Slack
-  StartupWMClass=Slack
-  Comment=Where work happens
-  GenericName=Slack Desktop
-  Exec=chromium --app=https://iiit-bhcoding.slack.com/
-  Icon=slack
-  Terminal=false
-  Type=Application
-  MimeType=x-scheme-handler/slack;
-  StartupNotify=true
-  Categories=GNOME;GTK;Network;InstantMessaging;
-#+END_SRC
 * Emacs
 After an year of configuring Emacs, I have somehow reached exactly at a point which mimics the style and philosophy of Doom Emacs without realizing it. Although my configuration was, at heart, a doomacs; in performance and
 functionality, it lagged behind by a significant margin.
@@ -905,11 +855,6 @@ Functions:
   CHROMIUM_LOCAL_PATH="${CHROMIUM_PATH}/.config"
   CHROMIUM_REMOTE_PATH="${HOME}/.config"
 
-  # DESKTOP
-  DESKTOP_PATH="${SCRIPT_PATH}/desktop"
-  DESKTOP_LOCAL_PATH="${DESKTOP_PATH}/.local/share/applications"
-  DESKTOP_REMOTE_PATH="${HOME}/.local/share/applications"
-
   # EMACS
   EMACS_PATH="${SCRIPT_PATH}/emacs"
   EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
@@ -1000,9 +945,6 @@ Functions:
           "chromium")
               updateChromium
               ;;
-          "desktop")
-              updateDesktop
-              ;;
           "doom"|"emacs")
               updateEmacs
               ;;
@@ -1036,9 +978,6 @@ Functions:
       case "${1}" in
           "chromium")
               setupChromium
-              ;;
-          "desktop")
-              setupDesktop
               ;;
           "doom"|"emacs")
               setupEmacs

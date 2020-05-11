@@ -7,11 +7,6 @@ CHROMIUM_PATH="${SCRIPT_PATH}/chromium"
 CHROMIUM_LOCAL_PATH="${CHROMIUM_PATH}/.config"
 CHROMIUM_REMOTE_PATH="${HOME}/.config"
 
-# DESKTOP
-DESKTOP_PATH="${SCRIPT_PATH}/desktop"
-DESKTOP_LOCAL_PATH="${DESKTOP_PATH}/.local/share/applications"
-DESKTOP_REMOTE_PATH="${HOME}/.local/share/applications"
-
 # EMACS
 EMACS_PATH="${SCRIPT_PATH}/emacs"
 EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
@@ -100,9 +95,6 @@ update() {
         "chromium")
             updateChromium
             ;;
-        "desktop")
-            updateDesktop
-            ;;
         "doom"|"emacs")
             updateEmacs
             ;;
@@ -134,9 +126,6 @@ setup() {
     case "${1}" in
         "chromium")
             setupChromium
-            ;;
-        "desktop")
-            setupDesktop
             ;;
         "doom"|"emacs")
             setupEmacs

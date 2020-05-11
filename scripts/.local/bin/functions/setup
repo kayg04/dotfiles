@@ -2,13 +2,6 @@ setupChromium() {
     updateChromium
 }
 
-setupDesktop() {
-    echo -ne "Creating desktop apps directory..."
-    run mkdir -p "${DESKTOP_REMOTE_PATH}"
-
-    updateDesktop
-}
-
 setupEmacs() {
     echo -ne "Creating Doom Emacs directory..."
     run mkdir -p "${EMACS_REMOTE_PATH}"

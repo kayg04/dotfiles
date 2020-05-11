@@ -3,11 +3,6 @@ updateChromium() {
     run ln -sf "${CHROMIUM_LOCAL_PATH}/chromium-flags.conf" "${CHROMIUM_REMOTE_PATH}"
 }
 
-updateDesktop() {
-    echo -ne "Linking desktop apps..."
-    run ln -sf "${DESKTOP_LOCAL_PATH}"/*.desktop "${DESKTOP_REMOTE_PATH}"
-}
-
 updateEmacs() {
     echo -ne "Linking personal configuration..."
     run ln -sf "${EMACS_LOCAL_PATH}"/* "${EMACS_REMOTE_PATH}"
