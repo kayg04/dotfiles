@@ -83,8 +83,8 @@
         doom-big-font (font-spec :family "IBM Plex Mono" :size 48 :weight 'bold)))
 
 (when (string= (system-name) "nana")
-  (setq doom-theme 'doom-dracula)
+  (setq doom-theme 'doom-monokai-pro)
   (setq doom-font (font-spec :family "Code New Roman" :size 20 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Poppins" :size 18 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 20)
-        doom-big-font (font-spec :family "Code New Roman" :size 36 :weight 'semi-bold)))
+        doom-big-font (font-spec :family "Code New Roman" :size 36 :weight 'bold)))
