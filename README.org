@@ -106,14 +106,36 @@ A better explanation can be found [[https://peter.sh/experiments/chromium-comman
   --enable-features=WebUIDarkMode
 #+END_SRC
 * Emacs
-After an year of configuring Emacs, I have somehow reached exactly at a point which mimics the style and philosophy of Doom Emacs without realizing it. Although my configuration was, at heart, a doomacs; in performance and
+After an year of configuring Emacs, I have somehow reached exactly at a point
+which mimics the style and philosophy of Doom Emacs without realizing it.
+Although my configuration was, at heart, a doomacs; in performance and
 functionality, it lagged behind by a significant margin.
 
-I have found myself frustrated by the fact that I have to bake in functionality of every kind when I'm in /need/ of that particular functionality, and hence, a lot of time was spent in adding functionality rather than being creative or productive. My first train of thought was to try something which abstracted all of this functionality into a single click -- something like VSCodium -- but the problem with that particular editor is it isn't particularly hackable. Apart from a hundred or so rants about how lacking VSCodium is to my pal [[https://pandacowbat.com][Anwes]], one particular thing that irked me a lot was the incessant need to reach for the mouse for something or the other. I would have to change the whole keyboard shortcuts layout to customize it to my needs and what was worse is that I would have to remember two of those layouts -- one which worked with the vim emulation and one which worked with native VSCodium -- and the latter doesn't even support three key chord bindings at the time of writing this.
+I have found myself frustrated by the fact that I have to bake in functionality
+of every kind when I'm in /need/ of that particular functionality, and hence, a
+lot of time was spent in adding functionality rather than being creative or
+productive. My first train of thought was to try something which abstracted all
+of this functionality into a single click -- something like VSCodium -- but the
+problem with that particular editor is it isn't particularly hackable. Apart
+from a hundred or so rants about how lacking VSCodium is to my pal [[https://pandacowbat.com][Anwes]], one
+particular thing that irked me a lot was the incessant need to reach for the
+mouse for something or the other. I would have to change the whole keyboard
+shortcuts layout to customize it to my needs and what was worse is that I would
+have to remember two of those layouts -- one which worked with the vim emulation
+and one which worked with native VSCodium -- and the latter doesn't even support
+three key chord bindings at the time of writing this.
 
-What VSCodium excels at, though, is the autocompletion, intellisense, /almost/ baked-in like support for linting, checking, debugging. LSP is a first class citizen in VSCodium and VSCodium is the first (and perhaps the only?) editor that LSP is tested on. All of this makes LSP on something like Emacs a slow, tedious hog; adding further disappointment given the time taken to configure it.
+What VSCodium excels at, though, is the autocompletion, intellisense, /almost/
+baked-in like support for linting, checking, debugging. LSP is a first class
+citizen in VSCodium and VSCodium is the first (and perhaps the only?) editor
+that LSP is tested on. All of this makes LSP on something like Emacs a slow,
+tedious hog; adding further disappointment given the time taken to configure it.
 
-The solution -- or perhaps -- the best balance that I could find was in *doom* (pun intended). Doom Emacs (for now, at least) seems to do everything I need, OOTB; has a trouble-free way of adding language support. So I am throwing away (or refactoring?) my 1 year-in-the-making configuration of Emacs to find my peace in doom.
+The solution -- or perhaps -- the best balance that I could find was in *doom*
+(pun intended). Doom Emacs (for now, at least) seems to do everything I need,
+OOTB; has a trouble-free way of adding language support. So I am throwing away
+(or refactoring?) my 1 year-in-the-making configuration of Emacs to find my
+peace in doom.
 
 ** Bootstrap
 *** Setup
@@ -366,10 +388,10 @@ Enable Doom's features.
 
   (when (string= (system-name) "nana")
     (setq doom-theme 'doom-monokai-pro)
-    (setq doom-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold)
+    (setq doom-font (font-spec :family "iA Writer Duospace" :size 36 :weight 'semi-bold)
           doom-variable-pitch-font (font-spec :family "Google Sans" :size 36 :weight 'semi-bold)
-          doom-unicode-font (font-spec :family "Input Mono Narrow" :size 40)
-          doom-big-font (font-spec :family "IBM Plex Mono" :size 72 :weight 'bold)))
+          doom-unicode-font (font-spec :family "Input Mono Narrow" :size 36)
+          doom-big-font (font-spec :family "iA Writer Duospace" :size 72 :weight 'bold)))
 #+END_SRC
 ** Packages
 Add extra packages
@@ -480,15 +502,32 @@ Add extra packages
 ** Profiles
 - =StartWithLastProfile= ensures a profile choice isn't asked at startup.
 
-Sometimes Firefox amazes me by how customizable it is. I have +two+ three profiles with Firefox; one for browsing, one for /research/ and one for web applications. Since a lot of my research gets lost and I'm unable to refer to previous findings, it helps to have a separate profile. All profiles are stored in a standardized XDG configuration directory (=~/.config/firefox=) rather than the default (=~/.mozilla/firefox/=). I would also rather name my own profiles than let firefox name them randomly.
+Sometimes Firefox amazes me by how customizable it is. I have +two+ three profiles
+with Firefox; one for browsing, one for /research/ and one for web applications.
+Since a lot of my research gets lost and I'm unable to refer to previous
+findings, it helps to have a separate profile. All profiles are stored in a
+standardized XDG configuration directory (=~/.config/firefox=) rather than the
+default (=~/.mozilla/firefox/=). I would also rather name my own profiles than let
+firefox name them randomly.
 
-+I tried running Electron Apps with it but sadly, things+ +like pasting images from clipboard and downloading files+ +from Skype (yes, my workplace uses *Skype* in 2019, *groan*)+ +do not work. Hence I now rely on Ungoogled Chromium to do my+ +dirty work.+
++I tried running Electron Apps with it but sadly, things+ +like pasting images from
+clipboard and downloading files+ +from Skype (yes, my workplace uses *Skype* in
+2019, *groan*)+ +do not work. Hence I now rely on Ungoogled Chromium to do my+ +dirty
+work.+
 
-+I tried using ungoogled chromium for dirty web apps but+ +recently, on Arch Linux, =libjsoncpp= got an update and+ +broke chromium which isn't as regularly built as the+ +upstream binaries. So though, clipboard interaction was a+ +sweet feature to have, I can let it go for relatively good+ +stability.+
++I tried using ungoogled chromium for dirty web apps but+ +recently, on Arch Linux,
+=libjsoncpp= got an update and+ +broke chromium which isn't as regularly built as
+the+ +upstream binaries. So though, clipboard interaction was a+ +sweet feature to
+have, I can let it go for relatively good+ +stability.+
 
 Ungoogled Chromium works again!
 
-Although things work fine with UC, I'm unsure if Chromium profiles actually provide a /temporary-container/ sort of isolation. I say this because tabs on different profiles show up as normal tabs in the task manager which would mean that an application running on one profile is externally aware. Please correct me on this if you have more information. I also miss the declarative configuration that Firefox offers as I reinstall often.
+Although things work fine with UC, I'm unsure if Chromium profiles actually
+provide a /temporary-container/ sort of isolation. I say this because tabs on
+different profiles show up as normal tabs in the task manager which would mean
+that an application running on one profile is externally aware. Please correct
+me on this if you have more information. I also miss the declarative
+configuration that Firefox offers as I reinstall often.
 
 #+BEGIN_SRC conf :tangle firefox/.mozilla/firefox/profiles.ini
   [General]
