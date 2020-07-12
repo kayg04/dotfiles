@@ -387,7 +387,7 @@ Enable Doom's features.
           doom-big-font (font-spec :family "IBM Plex Mono" :size 48 :weight 'bold)))
 
   (when (string= (system-name) "nana")
-    (setq doom-theme 'doom-monokai-pro)
+    (setq doom-theme 'doom-snazzy)
     (setq doom-font (font-spec :family "iA Writer Duospace" :size 36 :weight 'semi-bold)
           doom-variable-pitch-font (font-spec :family "Google Sans" :size 36 :weight 'semi-bold)
           doom-unicode-font (font-spec :family "Input Mono Narrow" :size 36)
