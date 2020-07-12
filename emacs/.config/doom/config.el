@@ -84,7 +84,7 @@
 
 (when (string= (system-name) "nana")
   (setq doom-theme 'doom-monokai-pro)
-  (setq doom-font (font-spec :family "Code New Roman" :size 40 :weight 'semi-bold)
-        doom-variable-pitch-font (font-spec :family "Poppins" :size 36 :weight 'semi-bold)
+  (setq doom-font (font-spec :family "IBM Plex Mono" :size 40 :weight 'semi-bold)
+        doom-variable-pitch-font (font-spec :family "Google Sans" :size 36 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 40)
-        doom-big-font (font-spec :family "Code New Roman" :size 72 :weight 'bold)))
+        doom-big-font (font-spec :family "IBM Plex Mono" :size 72 :weight 'bold)))
