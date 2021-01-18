@@ -59,8 +59,8 @@
   :config
   (setq nov-save-place-file (concat doom-cache-dir "nov-places")))
 
+(setq doom-theme 'doom-outrun-electric)
 (when (string= (system-name) "ruri")
-  (setq doom-theme 'doom-outrun-electric)
   (setq doom-outrun-electric-comment-bg t)
   (setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Google Sans" :size 32 :weight 'semi-bold)
@@ -68,7 +68,6 @@
         doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'bold)))
 
 (when (string= (system-name) "nana")
-  (setq doom-theme 'doom-snazzy)
   (setq doom-font (font-spec :family "Cascadia Code PL" :size 36 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Google Sans" :size 36 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 36)
