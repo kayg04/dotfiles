@@ -1,3 +1,8 @@
+# run TMUX
+if [[ -z "${TMUX}" && -d "${HOME}/.tmux" && $(command -v tmux) ]]; then
+    exec tmux new-session -As workspace
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -35,6 +40,7 @@ plugins=(
     z
     zsh-syntax-highlighting
     zsh-autosuggestions
+    history-substring-search
 )
 
 source "${ZSH}/oh-my-zsh.sh"
@@ -89,3 +95,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# Run graphical applications in WSL2
+export DISPLAY="$(ip route | awk '{print $3; exit}'):0"
+export LIBGL_ALWAYS_INDIRECT=1
