@@ -13,20 +13,8 @@
 (after! ivy
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))
         ivy-posframe-height-alist '((t . 10)))
-  (if (member "Iosevka" (font-family-list))
-      (setq ivy-posframe-parameters '((internal-border-width . 12) (font . "Iosevka") (alpha . 80)))
-    ivy-posframe-parameters '((internal-border-width . 12)))
   (setq ivy-posframe-width 100)
   (ivy-posframe-mode +1))
-
-;; Font changes
-(defface my-prog-mode-default-face
-  '((t (:inherit default :family "Iosevka")))
-  "Programming Mode Default Face")
-
-(add-hook 'lsp-ui-doc-frame-hook
-          (lambda (frame _w)
-            (set-face-attribute 'default frame :font "IBM Plex Sans" :height 120)))
 
 ;; set relative line numbers in all modes
 (setq display-line-numbers-type 'relative)
@@ -35,9 +23,6 @@
 (add-hook! 'org-mode-hook
   (mixed-pitch-mode 1)
   (setq display-line-numbers-type nil))
-
-(add-hook! 'prog-mode-hook
-  (face-remap-add-relative 'default 'my-prog-mode-default-face))
 
 (setq +doom-dashboard-banner-file "~/.config/doom/banner.jpg")
 (setq +doom-dashboard-banner-padding '(2 . 3))
@@ -77,14 +62,14 @@
 (when (string= (system-name) "ruri")
   (setq doom-theme 'doom-outrun-electric)
   (setq doom-outrun-electric-comment-bg t)
-  (setq doom-font (font-spec :family "IBM Plex Mono" :size 34 :weight 'semi-bold)
+  (setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Google Sans" :size 32 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
-        doom-big-font (font-spec :family "IBM Plex Mono" :size 48 :weight 'bold)))
+        doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'bold)))
 
 (when (string= (system-name) "nana")
   (setq doom-theme 'doom-snazzy)
-  (setq doom-font (font-spec :family "iA Writer Duospace" :size 36 :weight 'semi-bold)
+  (setq doom-font (font-spec :family "Cascadia Code PL" :size 36 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Google Sans" :size 36 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 36)
-        doom-big-font (font-spec :family "iA Writer Duospace" :size 72 :weight 'bold)))
+        doom-big-font (font-spec :family "Cascadia Code PL" :size 72 :weight 'semi-bold)))
