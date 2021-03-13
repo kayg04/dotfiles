@@ -1,6 +1,6 @@
 # run TMUX
 if [[ -z "${TMUX}" && -d "${HOME}/.tmux" && $(command -v tmux) ]]; then
-    exec tmux new-session -As workspace
+    exec tmux new-session -As wsl2
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
@@ -10,6 +10,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# --- oh my zsh --- #
 # Path to oh-my-zsh installation.
 export ZSH="${ZDOTDIR}"
 
@@ -44,7 +45,9 @@ plugins=(
 )
 
 source "${ZSH}/oh-my-zsh.sh"
+# xxx oh my zsh xxx #
 
+# --- functions --- #
 wttr() {
     curl https://wttr.in/${1:-Bhubaneswar}
 }
@@ -56,11 +59,11 @@ c19() {
 c19-graph() {
     curl https://corona-stats.online/${1:-in}/graph
 }
+# xxx functions xxx #
 
+# --- variables --- #
 export GOBIN="${HOME}/.local/bin"
 export GOPATH="${HOME}/.local/lib/go"
-
-export PATH="${HOME}/.emacs.d/bin:${HOME}/.local/bin:${PATH}"
 
 # Fetch suggestions asynchronously
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
@@ -71,7 +74,9 @@ export ZSH_AUTOSUGGEST_STRATEGY=(
 )
 # Avoid autosuggestions for buffers that are too large
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+# xxx variables xxx #
 
+# --- aliases --- #
 if command -v kitty 2>/dev/null 1>&2; then
     alias icat="kitty +kitten icat"
 fi
@@ -96,6 +101,9 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-# Run graphical applications in WSL2
-export DISPLAY="$(ip route | awk '{print $3; exit}'):0"
-export LIBGL_ALWAYS_INDIRECT=1
+# rust utils
+alias ls=exa
+alias cat=bat
+alias find=fd
+alias grep=rg
+# xxx aliases xxx #
