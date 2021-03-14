@@ -62,6 +62,7 @@ c19-graph() {
 # xxx functions xxx #
 
 # --- variables --- #
+export PATH="${HOME}/.local/bin:${PATH}"
 export GOBIN="${HOME}/.local/bin"
 export GOPATH="${HOME}/.local/lib/go"
 
