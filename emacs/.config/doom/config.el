@@ -67,8 +67,8 @@
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
         doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'bold)))
 
-(when (string= (system-name) "nana")
-  (setq doom-font (font-spec :family "Cascadia Code" :size 18 :weight 'regular)
-        doom-variable-pitch-font (font-spec :family "Source Sans Pro" :size 20 :weight 'semi-bold)
-        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 18)
-        doom-big-font (font-spec :family "Cascadia Code" :size 36 :weight 'semi-bold)))
+(when (string= (system-name) "btwiusearch")
+  (setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'regular)
+        doom-variable-pitch-font (font-spec :family "Lexend Deca" :size 36 :weight 'semi-bold)
+        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
+        doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'semi-bold)))
