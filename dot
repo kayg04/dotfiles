@@ -1,189 +1,51 @@
-#!/usr/bin/env bash
-# global declarations
-SCRIPT_PATH=$(dirname $(realpath "$0"))
+#!/bin/sh
 
-# CHROMIUM
-CHROMIUM_PATH="${SCRIPT_PATH}/chromium"
-CHROMIUM_LOCAL_PATH="${CHROMIUM_PATH}/.config"
-CHROMIUM_REMOTE_PATH="${HOME}/.config"
+# script local variables
+script_path="$(dirname $(realpath -s ${0}))"
 
-# EMACS
-EMACS_PATH="${SCRIPT_PATH}/emacs"
-EMACS_LOCAL_PATH="${EMACS_PATH}/.config/doom"
-EMACS_REMOTE_PATH="${HOME}/.config/doom"
+# zsh
+zsh_src="${script_path}/zsh/.config/zsh"
+zsh_dest_zsh="${HOME}/.config/zsh"
+zsh_dest_omz="${zsh_dest_zsh}"
+zsh_dest_custom_themes="${HOME}/.config/zsh/custom/themes"
+zsh_dest_custom_plugins="${HOME}/.config/zsh/custom/plugins"
+zsh_plugins="
+    https://github.com/zsh-users/zsh-history-substring-search
+    https://github.com/zsh-users/zsh-syntax-highlighting
+    https://github.com/zsh-users/zsh-completions
+    https://github.com/zsh-users/zsh-history-substring-search
+"
 
-# FIREFOX
-FIREFOX_PATH="${SCRIPT_PATH}/firefox"
-FIREFOX_LOCAL_PATH="${FIREFOX_PATH}/.mozilla/firefox"
-FIREFOX_REMOTE_PATH="${HOME}/.mozilla/firefox"
-FIREFOX_PROFILES=(
-    browse
-    research
-)
-FIREFOX_EXTENSIONS=(
-    "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/cookie-autodelete/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/httpz/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/invidition/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
-    "https://addons.mozilla.org/firefox/downloads/latest/umatrix/latest.xpi"
-)
+setup_zsh() {
+    if [ -d "${zsh_dest_zsh}" ]; then
+       printf '%s' "${zsh_dest_zsh} exists, which indicates a previous installation. Please remove this directory and run the setup again."
+       exit 1
+    fi
 
-# SCRIPTS
-SCRIPTS_PATH="${SCRIPT_PATH}/scripts"
-SCRIPTS_LOCAL_PATH="${SCRIPTS_PATH}/.local/bin"
-SCRIPTS_REMOTE_PATH="${HOME}/.local/bin"
+    # delete any files in /etc/zsh
+    printf '%s' "[Needs Root Permissions] Deleting files in /etc/zsh"
+    run_cmd sudo rm --force --recursive /etc/zsh/*
 
-# SSH
-SSH_PATH="${SCRIPT_PATH}/ssh"
-declare -A SSH_LOCAL_PATHS=(
-    [AUTOSTART]="${SSH_PATH}/.config/autostart-scripts"
-    [PAM]="${SSH_PATH}"
-    [PLASMA]="${SSH_PATH}/.config/plasma-workspace/env"
-    [SYSTEMD]="${SSH_PATH}/.config/systemd/user"
-)
-declare -A SSH_REMOTE_PATHS=(
-    [AUTOSTART]="${HOME}/.config/autostart-scripts"
-    [PAM]="${HOME}"
-    [PLASMA]="${HOME}/.config/plasma-workspace/env"
-    [SYSTEMD]="${HOME}/.config/systemd/user"
-)
+    # copy zshenv to /etc/zsh
+    printf '%s' "[Needs Root Permissions] Copying zshenv to /etc/zsh"
+    run_cmd sudo cp "${script_path}/zsh/etc/zsh/zshenv" "/etc/zsh"
 
-# THUNDERBIRD
-THUNDERBIRD_PATH="${SCRIPT_PATH}/thunderbird"
-THUNDERBIRD_LOCAL_PATH="${THUNDERBIRD_PATH}/.thunderbird"
-THUNDERBIRD_REMOTE_PATH="${HOME}/.thunderbird"
+    # install oh-my-zsh
+    printf '%s' "Installing oh-my-zsh"
+    run_cmd git clone "https://github.com/ohmyzsh/ohmyzsh.git" "${zsh_dest_omz}"
 
-# TMUX
-TMUX_PATH="${SCRIPT_PATH}/tmux"
-TMUX_LOCAL_PATH="${TMUX_PATH}"
-TMUX_REMOTE_PATH="${HOME}/.tmux"
+    # install plugins for zsh
+    printf '%s\n' 'Setting up plugins for ZSH'
+    for plugin in ${zsh_plugins}; do
+        printf '%s' "  Cloning ${plugin}"
+        run_cmd git clone -C "${zsh_dest_custom_plugins}" "${plugin}"
+    done
 
-# ZSH
-ZSH_PATH="${SCRIPT_PATH}/zsh"
-ZSH_LOCAL_PATH="${ZSH_PATH}/.config/zsh"
-declare -A ZSH_REMOTE_PATHS=(
-    [ZSH]="${HOME}/.config/zsh"
-    [OMZ]="${ZSH_REMOTE_PATHS[ZSH]}"
-    [CUSTOM]="${ZSH_REMOTE_PATHS[OMZ]}/custom"
-    [PLUGINS]="${ZSH_REMOTE_PATHS[CUSTOM]}/plugins"
-    [THEMES]="${ZSH_REMOTE_PATHS[CUSTOM]}/themes"
-)
-declare -A ZSH_PLUGINS_SRC=(
-    [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
-    [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
-)
-declare -A ZSH_PLUGINS_DEST=(
-    [zsh-syntax-highlighting]="${ZSH_REMOTE_PATHS[PLUGINS]}/zsh-syntax-highlighting"
-    [zsh-autosuggestions]="${ZSH_REMOTE_PATHS[PLUGINS]}/zsh-autosuggestions"
-)
-ZSH="${ZSH_REMOTE_PATHS[OMZ]}"
-ZSH_CUSTOM="${ZSH_REMOTE_PATHS[CUSTOM]}"
+    # installing powerlevel10k
+    printf '%s' 'Installing powerlevel10k'
+    run_cmd git clone -C "${zsh_dest_custom_themes}" --depth=1 https://github.com/romkatv/powerlevel10k.git
 
-# import helpers & functions
-source "${SCRIPTS_LOCAL_PATH}/helpers/generic/helper"
-source "${SCRIPTS_LOCAL_PATH}/functions/setup"
-source "${SCRIPTS_LOCAL_PATH}/functions/update"
-
-update() {
-    case "${1}" in
-        "chromium")
-            updateChromium
-            ;;
-        "doom"|"emacs")
-            updateEmacs
-            ;;
-        "firefox")
-            updateFirefox "${@:2}"
-            ;;
-        "scripts")
-            updateScripts
-            ;;
-        "spotify")
-            updateSpotify
-            ;;
-        "ssh")
-            updateSSH
-            ;;
-        "thunderbird")
-            updateThunderbird
-            ;;
-        "tmux")
-            updateTmux
-            ;;
-        "zsh")
-            updateZSH
-            ;;
-    esac
+    # linking configuration
+    printf '%s' 'Linking personal configuration'
+    run_cmd ln -sf "${zsh_src}/.zshrc" "${zsh_dest_zsh}"
 }
-
-setup() {
-    case "${1}" in
-        "chromium")
-            setupChromium
-            ;;
-        "doom"|"emacs")
-            setupEmacs
-            ;;
-        "firefox")
-            setupFirefox
-            ;;
-        "spotify")
-            setupSpotify
-            ;;
-        "ssh")
-            setupSSH
-            ;;
-        "thunderbird")
-            setupThunderbird
-            ;;
-        "scripts")
-            setupScripts
-            ;;
-        "tmux")
-            setupTmux
-            ;;
-        "zsh")
-            setupZSH
-            ;;
-    esac
-}
-
-addToPath() {
-    echo -ne "Linking this script to ${HOME}/.local/bin. Please ensure it is in your \$PATH."
-    mkdir -p "${HOME}"/.local/bin
-    run ln -sf "${SCRIPT_PATH}"/dot "${HOME}"/.local/bin/
-}
-
-refresh() {
-    echo -ne "Fetching latest code..."
-    run git --git-dir="${SCRIPT_PATH}/.git" --work-tree="${SCRIPT_PATH}" pull
-}
-
-main() {
-    case "${1}" in
-        "setup")
-            if [[ ${2} == "dot" ]]; then
-               addToPath
-            else
-                setup "${2}"
-            fi
-            ;;
-        "update")
-            update "${@:2}"
-            ;;
-        "refresh")
-            refresh
-            ;;
-        *)
-            echo -e "Invalid option: ${1}\n\nValid options are:\n  setup\n  update\n  refresh"
-            ;;
-    esac
-}
-
-main "${@}"
