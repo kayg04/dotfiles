@@ -94,11 +94,11 @@ setup_zsh() {
 
     # delete any files in /etc/zsh
     printf '%s' "[Needs Root Permissions] Deleting files in /etc/zsh"
-    run_cmd sudo rm --force --recursive /etc/zsh/*
+    sudo rm --force --recursive /etc/zsh/*
 
     # copy zshenv to /etc/zsh
     printf '%s' "[Needs Root Permissions] Copying zshenv to /etc/zsh"
-    run_cmd sudo cp "${script_path}/zsh/etc/zsh/zshenv" "/etc/zsh"
+    sudo cp "${script_path}/zsh/etc/zsh/zshenv" "/etc/zsh"
 
     # install oh-my-zsh
     printf '%s' "Installing oh-my-zsh"
