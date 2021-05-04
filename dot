@@ -1,5 +1,75 @@
 #!/bin/sh
 
+# helper functions from
+# https://gitlab.com/kayg/sh-helpers
+
+# run_cmd(): run commands while suppressing both the output and error streams
+# and displaying a user-friendly tick or cross.
+#
+# use:
+#   run_cmd cmd
+run_cmd() {
+    if [ -z "${1}" ]; then
+        printf '%s' "No arguments provided. Exiting."
+        exit 1
+    fi
+
+    # if ${logfile} is UNSET or EMPTY, set the value to the string "/dev/null"
+    local output_stream="${logfile:-/dev/null}"
+    local error_stream="${logfile:-/dev/null}"
+
+    if ${@} 1>"${output_stream}" 2>"${error_stream}"; then
+        printf " \u2714\n"
+    else
+        printf " \u274c\n"
+        exit 1
+    fi
+}
+
+# run_cmd_with_log(): run commands while redirecting STDOUT and STDERR and
+# displaying a user-friendly tick or cross after the displayed message.
+#
+# use:
+#   run_cmd logfile cmd
+run_cmd_with_log() {
+    if [ -z "${1}" ]; then
+        printf '%s' "No arguments provided. Exiting."
+        exit 1
+    fi
+
+    # get the absolute path of the first argument provided, i.e the file to log
+    # stdout and stderr to
+    logfile="$(realpath ${1})"
+
+    # shift parameters by 1 to the right
+    # $1=a $2=b $3=c
+    #
+    # become:
+    #
+    # $1=b $2=c $3=
+    shift 1
+
+    # reuse code in the run_cmd function
+    run_cmd "${@}"
+}
+
+# status(): display a tick if the last command succeeded or a cross if the last
+# command failed. this is done by cheching the exit code, which if non-zero
+# indicates erroneous exit. basically, a drop-in replacement for `run_cmd()`
+# where it cannot be used, for example: commands that need to be run with `sudo`
+# or `doas`.
+#
+# use:
+#   status
+status() {
+    if [ "${?}" == "0" ]; then
+        printf " \u2714\n"
+    else
+        printf " \u274c\n"
+        exit 1
+    fi
+}
+
 # script local variables
 script_path="$(dirname $(realpath -s ${0}))"
 
@@ -49,3 +119,21 @@ setup_zsh() {
     printf '%s' 'Linking personal configuration'
     run_cmd ln -sf "${zsh_src}/.zshrc" "${zsh_dest_zsh}"
 }
+
+update_zsh() {
+    printf '%s' 'Updating oh-my-zsh'
+    run_cmd git -C "${zsh_dest_custom_plugins}/${plugin}" pull
+
+    printf '%s' 'Updating plugins'
+    for plugin in "${zsh_dest_custom_plugins}"/*; do
+        run_cmd git -C "${zsh_dest_custom_plugins}/${plugin}" pull
+    done
+}
+
+main() {
+    ${1}_${2}
+}
+
+main "${@}"
+
+exit 0
