@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# check if sudo or doas are installed
+if ! command -v doas && ! command -v sudo; then
+    printf '%s' 'Neither sudo nor doas are installed. Please install either application to continue.'
+    exit 1
+elif command -v doas; then
+    alias sudo=doas
+fi
+
 # helper functions from
 # https://gitlab.com/kayg/sh-helpers
 
