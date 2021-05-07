@@ -142,7 +142,7 @@ update_zsh() {
 
 main() {
     # check if sudo or doas are installed
-    if ! command doas 2>/dev/null && ! command sudo 2>/dev/null; then
+    if ! command -v doas 2>/dev/null 1>&2 && ! command -v sudo 2>/dev/null 1>&2; then
         printf '%s' 'Neither sudo nor doas are installed. Please install either application to continue.'
         exit 1
     elif command doas 2>/dev/null; then
