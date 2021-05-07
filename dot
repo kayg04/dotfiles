@@ -108,12 +108,12 @@ setup_zsh() {
     printf '%s\n' 'Setting up plugins for ZSH'
     for plugin in ${zsh_plugins}; do
         printf '%s' "  Cloning ${plugin}"
-        run_cmd git clone -C "${zsh_dest_custom_plugins}" "${plugin}"
+        run_cmd git -C "${zsh_dest_custom_plugins}" clone "${plugin}"
     done
 
     # installing powerlevel10k
     printf '%s' 'Installing powerlevel10k'
-    run_cmd git clone -C "${zsh_dest_custom_themes}" --depth=1 https://github.com/romkatv/powerlevel10k.git
+    run_cmd git -C "${zsh_dest_custom_themes}" clone --depth=1 https://github.com/romkatv/powerlevel10k.git
 
     # linking configuration
     printf '%s' 'Linking personal configuration'
