@@ -3,6 +3,16 @@
 # helper functions from
 # https://gitlab.com/kayg/sh-helpers
 
+# same as -e
+# exit immediately if command exits with a non-zero status
+set -o errexit
+# same as -u
+# treat unset variables as error when substituting
+set -o nounset
+# the return value of a pipeline is the status of the last command to exit with
+# a non-zero status
+set -o pipefail
+
 # run_cmd(): run commands while suppressing both the output and error streams
 # and displaying a user-friendly tick or cross.
 #
@@ -80,10 +90,10 @@ zsh_dest_omz="${zsh_dest_zsh}"
 zsh_dest_custom_themes="${HOME}/.config/zsh/custom/themes"
 zsh_dest_custom_plugins="${HOME}/.config/zsh/custom/plugins"
 zsh_plugins="
-    https://github.com/zsh-users/zsh-history-substring-search
-    https://github.com/zsh-users/zsh-syntax-highlighting
+    https://github.com/zsh-users/zsh-autosuggestions
     https://github.com/zsh-users/zsh-completions
     https://github.com/zsh-users/zsh-history-substring-search
+    https://github.com/zsh-users/zsh-syntax-highlighting
 "
 
 setup_zsh() {
