@@ -92,6 +92,12 @@ status() {
 # script local variables
 script_path="$(dirname $(realpath -s ${0}))"
 
+# dot
+setup_dot() {
+    printf '%s' "Adding dot to ${HOME}/.local/bin"
+    run_cmd mkdir -p "${HOME}/.local/bin" && ln -sf "${script_path}/dot" "${HOME}/.local/bin"
+}
+
 # emacs
 emacs_src="${script_path}/emacs/.config/doom"
 doom_dest="${HOME}/.config/doom"
