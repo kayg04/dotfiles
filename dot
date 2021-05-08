@@ -98,6 +98,11 @@ setup_dot() {
     run_cmd mkdir -p "${HOME}/.local/bin" && ln -sf "${script_path}/dot" "${HOME}/.local/bin"
 }
 
+update_dot() {
+    printf '%s' "Updating dotfiles repository"
+    run_cmd git -C "${script_path}" pull
+}
+
 # emacs
 emacs_src="${script_path}/emacs/.config/doom"
 doom_dest="${HOME}/.config/doom"
