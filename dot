@@ -90,7 +90,8 @@ emacs_dest="${HOME}/.config/emacs"
 
 setup_emacs() {
     if [ -d "${doom_dest}" ] && [ -d "${emacs_dest}" ]; then
-        printf '%s' "An existing Doom Emacs configuration already exists.\nPlease remove ${doom_dest} and ${emacs_dest} to continue."
+        printf '%s\n' "An existing Doom Emacs configuration already exists."
+        printf '%s\n' "Please remove ${doom_dest} and ${emacs_dest} to continue."
         exit 1
     fi
 
