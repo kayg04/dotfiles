@@ -89,14 +89,13 @@ doom_dest="${HOME}/.config/doom"
 emacs_dest="${HOME}/.config/emacs"
 
 setup_emacs() {
-    if [ -d "${doom_dest}" && -d "${emacs_dest}" ]; then
+    if [ -d "${doom_dest}" ] && [ -d "${emacs_dest}" ]; then
         printf '%s' "An existing Doom Emacs configuration already exists.\nPlease remove ${doom_dest} and ${emacs_dest} to continue."
         exit 1
     fi
 
     printf '%s' "Creating necessary directories"
-    run_cmd mkdir -p "${doom_dest}"
-    run_cmd mkdir -p "${emacs_dest}"
+    run_cmd mkdir -p "${doom_dest}" && mkdir -p "${emacs_dest}"
 
     printf '%s' "Cloning Doom Emacs"
     run_cmd git clone "https://github.com/hlissner/doom-emacs" "${emacs_dest}"
