@@ -98,9 +98,9 @@ setup_emacs() {
     run_cmd mkdir -p "${doom_dest}" && mkdir -p "${emacs_dest}"
 
     printf '%s' "Cloning Doom Emacs"
-    run_cmd git clone "https://github.com/hlissner/doom-emacs" "${emacs_dest}"
+    run_cmd git clone --depth=1 "https://github.com/hlissner/doom-emacs" "${emacs_dest}"
 
-    printf '%s' "Installing Doom Emacs"
+    printf '%s\n' "Installing Doom Emacs"
     "${emacs_dest}/bin/doom" install
 
     printf '%s' "Linking the doom executable in ${HOME}/.local/bin"
