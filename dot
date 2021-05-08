@@ -90,7 +90,7 @@ status() {
 }
 
 # script local variables
-script_path="$(dirname $(realpath -s ${0}))"
+script_path="$(dirname $(realpath ${0}))"
 
 # dot
 setup_dot() {
