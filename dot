@@ -83,6 +83,41 @@ status() {
 # script local variables
 script_path="$(dirname $(realpath -s ${0}))"
 
+# emacs
+emacs_src="${script_path}/emacs/.config/doom"
+doom_dest="${HOME}/.config/doom"
+emacs_dest="${HOME}/.config/emacs"
+
+setup_emacs() {
+    if [ -d "${doom_dest}" && -d "${emacs_dest}" ]; then
+        printf '%s' "An existing Doom Emacs configuration already exists.\nPlease remove ${doom_dest} and ${emacs_dest} to continue."
+        exit 1
+    fi
+
+    printf '%s' "Creating necessary directories"
+    run_cmd mkdir -p "${doom_dest}"
+    run_cmd mkdir -p "${emacs_dest}"
+
+    printf '%s' "Cloning Doom Emacs"
+    run_cmd git clone "https://github.com/hlissner/doom-emacs" "${emacs_dest}"
+
+    printf '%s' "Installing Doom Emacs"
+    "${emacs_dest}/bin/doom" install
+
+    printf '%s' "Linking the doom executable in ${HOME}/.local/bin"
+    run_cmd mkdir -p "${HOME}/.local/bin" && ln -sf "${emacs_dest}/bin/doom" "${HOME}/.local/bin"
+
+    printf '%s' "Linking personal configuration"
+    run_cmd ln -sf "${emacs_src}"/* "${doom_dest}"
+
+    printf '%s' "Syncing Doom Emacs to the linked configuration"
+    "${emacs_dest}/bin/doom" sync
+}
+
+update_emacs() {
+    "${emacs_dest}/bin/doom" upgrade
+}
+
 # zsh
 zsh_src="${script_path}/zsh/.config/zsh"
 zsh_dest_zsh="${HOME}/.config/zsh"
@@ -122,7 +157,7 @@ setup_zsh() {
     done
 
     # installing powerlevel10k
-    printf '%s' 'Installing powerlevel10k'
+    printf '%s' 'Inrnetmrsentrsnemrsnermnerstalling powerlevel10k'
     run_cmd git -C "${zsh_dest_custom_themes}" clone --depth=1 https://github.com/romkatv/powerlevel10k.git
 
     # linking configuration
