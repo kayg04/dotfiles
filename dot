@@ -13,6 +13,15 @@ set -o nounset
 # a non-zero status
 set -o pipefail
 
+# check_if_installed(): as the name implies, check if a program is installed. if
+# it is, continue, otherwise exit with non-zero status.
+check_if_installed() {
+    if ! command -v "${1}" 2>/dev/null 1>&2; then
+        printf '%s\n' "${1} is not installed. Please install ${1} to continue."
+        exit 1
+    fi
+}
+
 # run_cmd(): run commands while suppressing both the output and error streams
 # and displaying a user-friendly tick or cross.
 #
@@ -89,9 +98,11 @@ doom_dest="${HOME}/.config/doom"
 emacs_dest="${HOME}/.config/emacs"
 
 setup_emacs() {
+    check_if_installed emacs
+
     if [ -d "${doom_dest}" ] && [ -d "${emacs_dest}" ]; then
-        printf '%s\n' "An existing Doom Emacs configuration already exists."
-        printf '%s\n' "Please remove ${doom_dest} and ${emacs_dest} to continue."
+        printf '%s\n' "an existing doom emacs configuration already exists."
+        printf '%s\n' "please remove ${doom_dest} and ${emacs_dest} to continue."
         exit 1
     fi
 
@@ -132,6 +143,8 @@ zsh_plugins="
 "
 
 setup_zsh() {
+    check_if_installed zsh
+
     if [ -d "${zsh_dest_zsh}" ]; then
        printf '%s' "${zsh_dest_zsh} exists, which indicates a previous installation. Please remove this directory and run the setup again."
        exit 1
