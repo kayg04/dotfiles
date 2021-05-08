@@ -98,8 +98,6 @@ doom_dest="${HOME}/.config/doom"
 emacs_dest="${HOME}/.config/emacs"
 
 setup_emacs() {
-    check_if_installed emacs
-
     if [ -d "${doom_dest}" ] && [ -d "${emacs_dest}" ]; then
         printf '%s\n' "an existing doom emacs configuration already exists."
         printf '%s\n' "please remove ${doom_dest} and ${emacs_dest} to continue."
@@ -129,6 +127,23 @@ update_emacs() {
     "${emacs_dest}/bin/doom" upgrade
 }
 
+# tmux
+tmux_src="${script_path}/tmux"
+tmux_dest="${HOME}/.tmux"
+
+setup_tmux() {
+    printf '%s' "Cloning oh-my-tmux"
+    run_cmd git clone "https://github.com/gpakosz/.tmux.git" "${tmux_dest}"
+
+    printf '%s' "Linking personal configuration"
+    run_cmd ln -sf "${tmux_dest}/.tmux.conf" "${HOME}" && ln -sf "${tmux_src}/.tmux.conf.local" "${HOME}"
+}
+
+update_tmux() {
+    printf '%s' "Updating oh-my-tmux repo"
+    run_cmd git --git-dir="${tmux_dest}/.git" --work-tree="${tmux_dest}" pull
+}
+
 # zsh
 zsh_src="${script_path}/zsh/.config/zsh"
 zsh_dest_zsh="${HOME}/.config/zsh"
@@ -143,8 +158,6 @@ zsh_plugins="
 "
 
 setup_zsh() {
-    check_if_installed zsh
-
     if [ -d "${zsh_dest_zsh}" ]; then
        printf '%s' "${zsh_dest_zsh} exists, which indicates a previous installation. Please remove this directory and run the setup again."
        exit 1
@@ -198,6 +211,7 @@ main() {
     fi
 
 
+    check_if_installed "${2}"
     ${1}_${2}
 }
 
