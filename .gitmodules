@@ -1,3 +1,0 @@
-[submodule "bash-helpers"]
-	path = scripts/.local/bin/helpers
-	url = https://git.kayg.org/kayg/bash-helpers.git
