@@ -222,7 +222,7 @@ main() {
     fi
 
 
-    check_if_installed "${2}"
+    [ "${2}" == "dot" ] || check_if_installed "${2}"
     ${1}_${2}
 }
 
