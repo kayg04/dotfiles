@@ -13,9 +13,21 @@ set -o nounset
 # a non-zero status
 set -o pipefail
 
-# check_if_installed(): as the name implies, check if a program is installed. if
-# it is, continue, otherwise exit with non-zero status.
+# check_if_installed(): a wrapper for `command -v` that silences the output and
+# error streams.
+#
+# use:
+#   check_if_installed cmd
 check_if_installed() {
+    command -v "${1}" 2>/dev/null 1>&2;
+}
+
+# check_if_installed_and_exit(): as the name implies, check if a program is installed. if
+# it is, continue, otherwise exit with non-zero status.
+#
+# use:
+#   check_if_installed_and_exit cmd
+check_if_installed_and_exit() {
     if ! command -v "${1}" 2>/dev/null 1>&2; then
         printf '%s\n' "${1} is not installed. Please install ${1} to continue."
         exit 1
@@ -214,15 +226,17 @@ update_zsh() {
 
 main() {
     # check if sudo or doas are installed
-    if ! command -v doas 2>/dev/null 1>&2 && ! command -v sudo 2>/dev/null 1>&2; then
-        printf '%s' 'Neither sudo nor doas are installed. Please install either application to continue.'
-        exit 1
-    elif command doas 2>/dev/null; then
-        alias sudo=doas
+    if ! check_if_installed sudo; then
+        if ! check_if_installed doas; then
+            printf '%s' 'Neither sudo nor doas are installed. Please install either application to continue.'
+            exit 1
+        else
+            alias sudo=doas
+        fi
     fi
 
 
-    [ "${2}" == "dot" ] || check_if_installed "${2}"
+    [ "${2}" == "dot" ] || check_if_installed_and_exit "${2}"
     ${1}_${2}
 }
 
