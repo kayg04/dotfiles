@@ -9,9 +9,6 @@ set -o errexit
 # same as -u
 # treat unset variables as error when substituting
 set -o nounset
-# the return value of a pipeline is the status of the last command to exit with
-# a non-zero status
-set -o pipefail
 
 # check_if_installed(): a wrapper for `command -v` that silences the output and
 # error streams.
