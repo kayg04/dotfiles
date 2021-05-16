@@ -185,7 +185,7 @@ setup_zsh() {
 
     # copy zshenv to /etc/zsh
     printf '%s' "Linking zshenv to ${HOME}"
-    ln -sf "${script_path}/zsh/.zshenv" "${HOME}"
+    run_cmd ln -sf "${script_path}/zsh/.zshenv" "${HOME}"
 
     # install oh-my-zsh
     printf '%s' "Installing oh-my-zsh"
