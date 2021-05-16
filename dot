@@ -199,7 +199,7 @@ setup_zsh() {
     done
 
     # installing powerlevel10k
-    printf '%s' 'Inrnetmrsentrsnemrsnermnerstalling powerlevel10k'
+    printf '%s' 'Installing powerlevel10k'
     run_cmd git -C "${zsh_dest_custom_themes}" clone --depth=1 https://github.com/romkatv/powerlevel10k.git
 
     # linking configuration
