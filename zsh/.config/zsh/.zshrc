@@ -48,16 +48,18 @@ source "${ZSH}/oh-my-zsh.sh"
 # xxx oh my zsh xxx #
 
 # --- functions --- #
+
+# check_if_installed(): a wrapper for `command -v` that silences the output and
+# error streams.
+#
+# use:
+#   check_if_installed cmd
+check_if_installed() {
+    command -v "${1}" 2>/dev/null 1>&2;
+}
+
 wttr() {
     curl https://wttr.in/${1:-Bhubaneswar}
-}
-
-c19() {
-    curl https://corona-stats.online/${1:-in}
-}
-
-c19-graph() {
-    curl https://corona-stats.online/${1:-in}/graph
 }
 # xxx functions xxx #
 
