@@ -105,8 +105,8 @@ fi
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # rust utils
-alias ls=exa
-alias cat=bat
-alias find=fd
-alias grep=rg
+check_if_installed bat && alias cat=bat
+check_if_installed exa && alias ls=exa
+check_if_installed fd && alias find=fd
+check_if_installed rg && alias grep=rg
 # xxx aliases xxx #
