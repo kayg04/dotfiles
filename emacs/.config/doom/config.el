@@ -59,15 +59,26 @@
   :config
   (setq nov-save-place-file (concat doom-cache-dir "nov-places")))
 
-(setq doom-theme 'doom-outrun-electric)
-(setq doom-outrun-electric-comment-bg t)
+;; if emacs is running in a graphical window, use outrun electric
+;; otherwise use doom-laserwave
+(if (display-graphic-p)
+    (setq doom-theme 'doom-outrun-electric)
+    (setq doom-outrun-electric-comment-bg t)
+  (setq doom-theme 'doom-laserwave))
+
+;; use padding for the modeline in themes that support it
+(setq doom-themes-padded-modeline t)
+
+;; laptop
 (when (string= (system-name) "ruri")
   (setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'semi-bold)
         doom-variable-pitch-font (font-spec :family "Source Sans Pro" :size 36 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
         doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'bold)))
 
-(when (string= (system-name) "btwiusearch")
+;; VM or WSL2
+(when (or (string= (system-name) "btwiusearch")
+          (string= (system-name) "nana"))
   (setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'regular)
         doom-variable-pitch-font (font-spec :family "Lexend Deca" :size 36 :weight 'semi-bold)
         doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
