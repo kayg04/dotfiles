@@ -183,13 +183,9 @@ setup_zsh() {
        exit 1
     fi
 
-    # delete any files in /etc/zsh
-    printf '%s' "[Needs Root Permissions] Deleting files in /etc/zsh"
-    sudo rm --force --recursive /etc/zsh/*
-
     # copy zshenv to /etc/zsh
-    printf '%s' "[Needs Root Permissions] Copying zshenv to /etc/zsh"
-    sudo cp "${script_path}/zsh/etc/zsh/zshenv" "/etc/zsh"
+    printf '%s' "Linking zshenv to ${HOME}"
+    ln -sf "${script_path}/zsh/.zshenv" "${HOME}"
 
     # install oh-my-zsh
     printf '%s' "Installing oh-my-zsh"
@@ -222,14 +218,9 @@ update_zsh() {
 }
 
 main() {
-    # check if sudo or doas are installed
-    if ! check_if_installed sudo; then
-        if ! check_if_installed doas; then
-            printf '%s' 'Neither sudo nor doas are installed. Please install either application to continue.'
-            exit 1
-        else
-            alias sudo=doas
-        fi
+    # check if running in termux
+    if check_if_installed termux-setup-storage; then
+        termux=1
     fi
 
 
