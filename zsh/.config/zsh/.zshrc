@@ -1,6 +1,6 @@
 # run TMUX
 if [[ -z "${TMUX}" && -d "${HOME}/.tmux" && $(command -v tmux) ]]; then
-    exec tmux new-session -As wsl2
+    exec tmux new-session -As work
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
