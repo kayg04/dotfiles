@@ -32,7 +32,7 @@ check_if_installed_and_exit() {
 }
 
 # run_cmd(): run commands while suppressing both the output and error streams
-# and displaying a user-friendly tick or cross.
+# and displaying a user-friendly "done" or "failed".
 #
 # use:
 #   run_cmd cmd
@@ -47,15 +47,15 @@ run_cmd() {
     local error_stream="${logfile:-/dev/null}"
 
     if ${@} 1>"${output_stream}" 2>"${error_stream}"; then
-        printf " \u2714\n"
+        printf " done\n"
     else
-        printf " \u274c\n"
+        printf " failed\n"
         exit 1
     fi
 }
 
 # run_cmd_with_log(): run commands while redirecting STDOUT and STDERR and
-# displaying a user-friendly tick or cross after the displayed message.
+# displaying a user-friendly "done" or "failed" after the displayed message.
 #
 # use:
 #   run_cmd logfile cmd
