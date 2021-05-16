@@ -224,7 +224,7 @@ main() {
     fi
 
 
-    [ "${2}" == "dot" ] || check_if_installed_and_exit "${2}"
+    [ "${2}" = "dot" ] || check_if_installed_and_exit "${2}"
     ${1}_${2}
 }
 
