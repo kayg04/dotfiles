@@ -1,5 +1,7 @@
 (after! org
   (setq org-src-preserve-indentation nil)
+  (setq org-log-done t)
+  (setq org-agenda-files '("~/Notes/Personal/Agenda.org"))
   (setq org-hide-emphasis-markers t))
 
 (after! lsp-ui
