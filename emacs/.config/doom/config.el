@@ -73,10 +73,10 @@
 
 ;; laptop
 (when (string= (system-name) "ruri")
-  (setq doom-font (font-spec :family "Cascadia Code PL" :size 26 :weight 'semi-bold)
-        doom-variable-pitch-font (font-spec :family "Source Sans Pro" :size 28 :weight 'semi-bold)
-        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 26)
-        doom-big-font (font-spec :family "Cascadia Code PL" :size 36 :weight 'bold)))
+  (setq doom-font (font-spec :family "Cascadia Code PL" :size 20 :weight 'regular)
+        doom-variable-pitch-font (font-spec :family "Google Sans" :size 22 :weight 'semi-bold)
+        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 22)
+        doom-big-font (font-spec :family "Cascadia Code PL" :size 32 :weight 'semi-bold)))
 
 ;; VM or WSL2
 (when (or (string= (system-name) "btwiusearch")
