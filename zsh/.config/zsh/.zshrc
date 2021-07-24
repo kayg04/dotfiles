@@ -77,6 +77,10 @@ export ZSH_AUTOSUGGEST_STRATEGY=(
 )
 # Avoid autosuggestions for buffers that are too large
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
+# wsld, X11 over VSOCK
+export DISPLAY=:0
+
 # xxx variables xxx #
 
 # --- aliases --- #
