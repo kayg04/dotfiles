@@ -71,17 +71,8 @@
 ;; use padding for the modeline in themes that support it
 (setq doom-themes-padded-modeline t)
 
-;; laptop
-(when (string= (system-name) "ruri")
-  (setq doom-font (font-spec :family "Cascadia Code PL" :size 20 :weight 'regular)
-        doom-variable-pitch-font (font-spec :family "Google Sans" :size 22 :weight 'semi-bold)
-        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 22)
-        doom-big-font (font-spec :family "Cascadia Code PL" :size 32 :weight 'semi-bold)))
-
-;; VM or WSL2
-(when (or (string= (system-name) "btwiusearch")
-          (string= (system-name) "nana"))
-  (setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'regular)
-        doom-variable-pitch-font (font-spec :family "Lexend Deca" :size 36 :weight 'semi-bold)
-        doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
-        doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'semi-bold)))
+;; sent font, size and weight
+(setq doom-font (font-spec :family "Cascadia Code PL" :size 34 :weight 'regular)
+  doom-variable-pitch-font (font-spec :family "Lexend Deca" :size 36 :weight 'semi-bold)
+  doom-unicode-font (font-spec :family "Input Mono Narrow" :size 34)
+  doom-big-font (font-spec :family "Cascadia Code PL" :size 48 :weight 'semi-bold))
