@@ -7,7 +7,7 @@
 Clone the repo to any path you like. I keep mine at =${HOME}/.dotfiles=.
 
 #+BEGIN_SRC sh
-  git clone https://gitlab.com/kayg/dotfiles.git "${HOME}/.dotfiles"
+  git clone https://github.com/kayg/dotfiles.git "${HOME}/.dotfiles"
 #+END_SRC
 
 ** Dot
