@@ -4,7 +4,7 @@
 
 * Usage
 ** Clone
-Clone the repo to any path you like. I keep mine at =${HOME}/config/.dotfiles=.
+Clone the repo to any path you like. I keep mine at =${HOME}/.config/.dotfiles=.
 
 #+BEGIN_SRC sh
   git clone https://github.com/kayg/dotfiles.git "${HOME}/.config/dotfiles"
@@ -15,7 +15,7 @@ Make =dot= do all the dirty work.
 
 - Symlink =dot= to =${HOME}/.local/bin= assuming the directory is in your =${PATH}=.
 #+BEGIN_SRC sh
-  "${HOME}/config/.dotfiles/dot" setup dot
+  "${HOME}/.config/.dotfiles/dot" setup dot
 #+END_SRC
 
 - Setup programs
