@@ -149,14 +149,20 @@ update_emacs() {
 
 # tmux
 tmux_src="${script_path}/tmux"
-tmux_dest="${HOME}/.tmux"
+tmux_dest="${HOME}/.config/tmux"
 
 setup_tmux() {
     printf '%s' "Cloning oh-my-tmux"
     run_cmd git clone "https://github.com/gpakosz/.tmux.git" "${tmux_dest}"
 
-    printf '%s' "Linking personal configuration"
-    run_cmd ln -sf "${tmux_dest}/.tmux.conf" "${HOME}" && ln -sf "${tmux_src}/.tmux.conf.local" "${HOME}"
+    # My client devices include a Macbook Pro and an Android, if that's the case, set the prefix to CTRL + t, otherwise don't change anything.
+    if [[ "${OSTYPE}" == "darwin"* || "${OSTYPE}" == *"android"* ]]; then
+      printf '%s' "Detected a client, linking client configuration"
+      run_cmd ln -sf "${tmux_dest}/.tmux.conf" "${HOME}" && ln -sf "${tmux_src}/.tmux.conf.local.client" "${HOME}/.tmux.conf.local"
+    else
+      printf '%s' "Detected a server, linking server configuration"
+      run_cmd ln -sf "${tmux_dest}/.tmux.conf" "${HOME}" && ln -sf "${tmux_src}/.tmux.conf.local.server" "${HOME}/.tmux.conf.local"
+    fi
 }
 
 update_tmux() {

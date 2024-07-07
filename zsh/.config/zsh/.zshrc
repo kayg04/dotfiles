@@ -59,12 +59,16 @@ check_if_installed() {
 }
 
 wttr() {
-    curl https://wttr.in/${1:-Bhubaneswar}
+    curl https://wttr.in/${1:-Delhi}
+}
+
+brew() {
+   su dyen -c "brew ${*}"
 }
 # xxx functions xxx #
 
 # --- variables --- #
-export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.local/bin:/opt/homebrew/bin:${PATH}"
 export GOBIN="${HOME}/.local/bin"
 export GOPATH="${HOME}/.local/lib/go"
 
@@ -110,7 +114,10 @@ fi
 
 # rust utils
 check_if_installed bat && alias cat=bat
-check_if_installed exa && alias ls=exa
+check_if_installed eza && alias ls=eza
 check_if_installed fd && alias find=fd
 check_if_installed rg && alias grep=rg
 # xxx aliases xxx #
+
+test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+
