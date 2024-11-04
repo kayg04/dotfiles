@@ -62,9 +62,6 @@ wttr() {
     curl https://wttr.in/${1:-Delhi}
 }
 
-brew() {
-   su dyen -c "brew ${*}"
-}
 # xxx functions xxx #
 
 # --- variables --- #
