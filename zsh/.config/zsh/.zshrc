@@ -115,6 +115,11 @@ check_if_installed eza && alias ls=eza
 check_if_installed fd && alias find=fd
 check_if_installed rg && alias grep=rg
 # xxx aliases xxx #
-
 test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
 
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+
+export PATH=$PATH:/Users/kayg/.spicetify
